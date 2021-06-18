@@ -1,6 +1,7 @@
 package com.hockey43.iInTeam.security;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,7 +13,7 @@ import org.springframework.security.oauth2.jwt.*;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${auth0.audience}")
     private String audience;
@@ -23,14 +24,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .mvcMatchers(HttpMethod.GET, "/test/**").permitAll()
+                //.mvcMatchers(HttpMethod.GET, "/players/**").permitAll()
                 .anyRequest()
                 .authenticated()
-                .and()
-                .oauth2ResourceServer()
-                .jwt();
+                .and().cors()
+                .and().oauth2ResourceServer().jwt()
+                ;
     }
 
+    @Bean
     JwtDecoder jwtDecoder() {
         OAuth2TokenValidator<Jwt> withAudience = new AudienceValidator(audience);
         OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuer);
