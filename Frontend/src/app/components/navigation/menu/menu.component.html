@@ -12,14 +12,14 @@
             <ul class="navbar-nav navbar-collapse justify-content-end">
                 <li *ngIf="auth.user$ | async as user"><a routerLink="/login" class="nav-link">Account</a></li>
                 
-                <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
-                    <li><button (click)="auth.logout({ returnTo: document.location.origin })" class="btn btn-primary">
+                <ng-container *ngIf="auth.isAuthenticated$ | async as user; else loggedOut">
+                    <li><button (click)="auth.logout();" class="btn btn-primary">
                       Log out
                     </button></li>
                   </ng-container>
               
                   <ng-template #loggedOut>
-                    <li><button (click)="auth.loginWithRedirect({redirect_uri: 'http://localhost:4200/dashboard'})" class="btn btn-primary">Log in</button></li>
+                    <li><button (click)="auth.login()" class="btn btn-primary">Log in</button></li>
                   </ng-template>
             </ul>
         </div>

@@ -10,7 +10,6 @@ import { DashboardComponent } from './components/features/dashboard/dashboard.co
 import { PlayerComponent } from './components/features/player/player.component';
 import { TeamsComponent } from './components/features/teams/teams.component';
 import { WelcomeComponent } from './components/navigation/welcome/welcome.component';
-import { Auth0Interceptor } from './interceptors/auth0.interceptor';
 import { API_URL } from './app.constants';
 import { ProfileSmallComponent } from './components/player/profile-small/profile-small.component';
 

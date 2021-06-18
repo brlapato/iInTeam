@@ -21,3 +21,14 @@ export class DataObjectsModule {
     public lastName: string
   ) {}
 }
+  
+ export class UserInfo {
+    constructor (
+      public userName: String,
+      public firstName: String,
+      public lastName: String,
+      public email: String,
+      public playerId: number
+    ) {}
+    }  
+    
