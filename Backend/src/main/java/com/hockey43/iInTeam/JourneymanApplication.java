@@ -36,7 +36,7 @@ public class JourneymanApplication {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 
-			//exerciseDataModel(session);
+			//initializeData(session);
 
 			LOG.info("EXECUTING : Commit");
 			session.getTransaction().commit();
@@ -50,35 +50,7 @@ public class JourneymanApplication {
 		};
 	}
 
-	/*
-	@Override
-	public void run(String... args) {
-		LOG.info("EXECUTING : Hibernate Test");
 
-		LOG.info("EXECUTING : Create Session");
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-
-		//exerciseDataModel(session);
-
-		LOG.info("EXECUTING : Commit");
-		session.getTransaction().commit();
-
-		session.beginTransaction();
-		PlayerAdapter pa = new PlayerAdapter(session);
-		Player cPlayer = pa.getPlayer(1L);
-		System.out.println(String.format("%s, %s",cPlayer.getLastName(), cPlayer.getFirstName()));
-		session.getTransaction().commit();
-		HibernateUtil.shutdown();
-
-		//for (Player p : players){
-		//	System.out.println(String.format("%s, %s",p.getLastName(), p.getFirstName()));
-		//}
-
-
-
-	}
-	*/
 
 	private Player playerTest(Session session) {
 
@@ -125,17 +97,31 @@ public class JourneymanApplication {
 		session.save(mites1);
 	}
 
-	private void exerciseDataModel(Session session){
+	private void initializeData(Session session){
 
 		// Create Players
 		Player bradleyPlayer = new Player();
 		bradleyPlayer.setFirstName("Bradley");
 		bradleyPlayer.setLastName("Lapato");
+		bradleyPlayer.setUserId("auth0|60c66cf78bc73d00700554f3");
+		bradleyPlayer.setHeightFeet(4);
+		bradleyPlayer.setHeightInches(5);
+		bradleyPlayer.setWeight(74);
+		bradleyPlayer.setIncludeHockey(true);
+		bradleyPlayer.getHockeyAttributes().setPosition(Position.Defense);
+		bradleyPlayer.getHockeyAttributes().setShot(Shot.Left);
 		session.save(bradleyPlayer);
 
 		Player wesleyPlayer = new Player();
 		wesleyPlayer.setFirstName("Wesley");
 		wesleyPlayer.setLastName("Lapato");
+		wesleyPlayer.setUserId("auth0|60c651d2d02f6500695be415");
+		wesleyPlayer.setNickName("Panther");
+		wesleyPlayer.setHeightFeet(4);
+		wesleyPlayer.setHeightInches(0);
+		wesleyPlayer.setIncludeHockey(true);
+		wesleyPlayer.getHockeyAttributes().setPosition(Position.Forward);
+		wesleyPlayer.getHockeyAttributes().setShot(Shot.Right);
 		session.save(wesleyPlayer);
 
 		// Create Orgs
@@ -185,7 +171,8 @@ public class JourneymanApplication {
 		howardMites.setAgeClass(AgeClass.U8);
 		howardMites.setLevel(Level.UA);
 		howardMites.setName("Howard Squirt Blue AA");
-		howardMites.setHeadCoach("Shawn Grant");
+		howardMites.setHeadCoach("Brian Walsh");
+		howardMites.setManager("Shayna Walsh");
 		session.save(howardMites);
 
 		// Create Games

@@ -22,6 +22,7 @@
         <mapping class="com.hockey43.iInTeam.dataObjects.Team" />
         <mapping class="com.hockey43.iInTeam.dataObjects.Game" />
         <mapping class="com.hockey43.iInTeam.dataObjects.Media" />
+        <mapping class="com.hockey43.iInTeam.dataObjects.HockeyAttributes" />
     </session-factory>
 
 </hibernate-configuration>

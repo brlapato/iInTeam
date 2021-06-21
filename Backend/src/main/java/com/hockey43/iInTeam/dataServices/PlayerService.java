@@ -4,13 +4,15 @@ import com.hockey43.iInTeam.dataObjects.Player;
 import com.hockey43.iInTeam.dataObjects.PlayerStats;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SharedSessionContract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class PlayerService implements IPlayerService {
 
     //private Session session;
@@ -22,25 +24,14 @@ public class PlayerService implements IPlayerService {
     }
 
 
-    //public PlayerService(Session session) {
-    //    this.session = session;
-    //}
+    @Override
+    public Player getPlayer(String userId) {
+        return getPlayerWithQuery("FROM Player WHERE UserId = :pid", userId);
+    }
 
     @Override
     public Player getPlayer(Long playerId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        List<Player> players = session.createQuery("FROM Player WHERE PlayerId = :pid")
-                .setParameter("pid", playerId)
-                .list();
-
-        session.getTransaction().commit();
-        session.close();
-        if (0 < players.size()) {
-            return players.get(0);
-        } else {
-            return null;
-        }
+        return getPlayerWithQuery("FROM Player WHERE PlayerId = :pid", playerId.toString());
     }
 
     @Override
@@ -66,5 +57,23 @@ public class PlayerService implements IPlayerService {
         LOG.warn("getPlayerStats does not have a real implementation yet.");
         return new PlayerStats();
     }
+
+
+    private Player getPlayerWithQuery(String query, String lookupValue) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List<Player> players = session.createQuery(query)
+                .setParameter("pid", lookupValue)
+                .list();
+
+        session.getTransaction().commit();
+        session.close();
+        if (0 < players.size()) {
+            return players.get(0);
+        } else {
+            return null;
+        }
+    }
+
 
 }

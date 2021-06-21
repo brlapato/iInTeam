@@ -7,7 +7,10 @@ public interface IPlayerService {
 
     public Player getPlayer(Long playerId);
 
+    public Player getPlayer(String userId);
+
     public Player savePlayer(Player player);
+
 
     public Player createPlayer(Long userId, Player player);
 
