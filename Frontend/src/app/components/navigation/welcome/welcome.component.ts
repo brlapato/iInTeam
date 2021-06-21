@@ -11,15 +11,13 @@ import { AuthenticationService } from 'src/app/services/user/authentication.serv
 export class WelcomeComponent implements OnInit {
 
   userInfo:UserInfo = new UserInfo("","","","",0);
-  playerId:string | null = "";
+  playerId:number | null = null;
 
   constructor(private auth: AuthenticationService) { }
 
   ngOnInit(): void {
-    console.log("get player id...")
     this.auth.playerId$.subscribe(
-      (next:string | null) => {
-        console.log('received player id')
+      (next:number | null) => {
         this.playerId = next;
       }
     )

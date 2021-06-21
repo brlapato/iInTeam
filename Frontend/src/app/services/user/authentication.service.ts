@@ -34,21 +34,20 @@ export class AuthenticationService {
     //auth.logout({ returnTo: document.location.origin })
   }
 
-  public playerId$:Observable<string | null> = new Observable(observer => {
+  public playerId$:Observable<number | null> = new Observable(observer => {
     let playerId = sessionStorage.getItem(PLAYER_ID);
-    console.log(playerId);
-    console.log(!playerId);
+
     if (!playerId) {
       this.http.get<UserInfo>(`${API_URL}/users`).subscribe(
         (response:UserInfo) => {
-          console.log(response);
           sessionStorage.setItem(PLAYER_ID, response.playerId.toString());
-          observer.next(response.playerId.toString());
+          observer.next(response.playerId);
         }
       )
-      
-    } 
+    } else {
+      observer.next(parseInt(playerId));
+    }
 
-    observer.next(sessionStorage.getItem(PLAYER_ID));
+    
   });
 }

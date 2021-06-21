@@ -11,7 +11,7 @@ import { PlayerService } from 'src/app/services/data/player.service';
 })
 export class PlayerComponent implements OnInit {
 
-  player: Player = new Player(0,'','');
+  player: Player = Player.getDefault();
 
   constructor(
     private playerService: PlayerService
