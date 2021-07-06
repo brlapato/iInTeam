@@ -49,6 +49,15 @@ export class HockeyAttributes {
       public email: String,
       public playerId: number
     ) {}
-    }  
+  }  
+
+  export class Media {
+    constructor(
+      public mediaId: number,
+      public description: String,
+      public file: String,
+      public mediaType: string
+    ) {}
+  }
     
 
