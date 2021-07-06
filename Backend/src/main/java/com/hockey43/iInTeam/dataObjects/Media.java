@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.sql.Blob;
 
 @Entity
+@Table(name="Media")
 public class Media {
 
     @Id
@@ -15,9 +16,42 @@ public class Media {
     @Column(name="Description")
     private String description;
 
+    @Lob
     @Column(name="File")
-    private byte[] file;
+    private String file;
 
-    @Column(name="OwnerId")
-    private long ownerId;
+    @Column(name="MediaType")
+    private String mediaType;
+
+    public Long getMediaId() {
+        return mediaId;
+    }
+
+    public void setMediaId(Long mediaId) {
+        this.mediaId = mediaId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    public String getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
+    }
 }

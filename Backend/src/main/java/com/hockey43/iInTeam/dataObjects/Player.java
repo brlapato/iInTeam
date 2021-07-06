@@ -1,5 +1,7 @@
 package com.hockey43.iInTeam.dataObjects;
 
+import net.minidev.json.annotate.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -39,8 +41,7 @@ public class Player {
     @JoinColumn(name = "HockeyAttributeId", referencedColumnName = "HockeyAttributeId")
     private HockeyAttributes hockeyAttributes = new HockeyAttributes();
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="PlayerPictureMediaId", nullable = true)
     private Media playerPicture;
 
@@ -117,6 +118,7 @@ public class Player {
         this.hockeyAttributes = hockeyAttributes;
     }
 
+    @JsonIgnore
     public Media getPlayerPicture() {
         return playerPicture;
     }

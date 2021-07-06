@@ -1,5 +1,6 @@
 package com.hockey43.iInTeam.dataServices;
 
+import com.hockey43.iInTeam.dataObjects.Media;
 import com.hockey43.iInTeam.dataObjects.Player;
 import com.hockey43.iInTeam.dataObjects.PlayerStats;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -32,6 +34,12 @@ public class PlayerService implements IPlayerService {
     @Override
     public Player getPlayer(Long playerId) {
         return getPlayerWithQuery("FROM Player WHERE PlayerId = :pid", playerId.toString());
+    }
+
+    @Override
+    public Media getProfileImage(Long playerId) {
+        Player player = getPlayerWithQuery("FROM Player WHERE PlayerId = :pid", playerId.toString());
+        return player.getPlayerPicture();
     }
 
     @Override

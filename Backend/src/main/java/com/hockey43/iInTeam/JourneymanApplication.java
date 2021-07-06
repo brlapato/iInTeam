@@ -3,6 +3,7 @@ package com.hockey43.iInTeam;
 import com.hockey43.iInTeam.dataServices.PlayerService;
 import com.hockey43.iInTeam.dataObjects.*;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +13,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
 
+import javax.persistence.Convert;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.Base64;
 
 @SpringBootApplication
 public class JourneymanApplication {
@@ -36,7 +45,7 @@ public class JourneymanApplication {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 
-			//initializeData(session);
+			initializeData(session);
 
 			LOG.info("EXECUTING : Commit");
 			session.getTransaction().commit();
@@ -97,7 +106,7 @@ public class JourneymanApplication {
 		session.save(mites1);
 	}
 
-	private void initializeData(Session session){
+	private void initializeData(Session session) throws IOException {
 
 		// Create Players
 		Player bradleyPlayer = new Player();
@@ -110,6 +119,12 @@ public class JourneymanApplication {
 		bradleyPlayer.setIncludeHockey(true);
 		bradleyPlayer.getHockeyAttributes().setPosition(Position.Defense);
 		bradleyPlayer.getHockeyAttributes().setShot(Shot.Left);
+		Media bradleyImage = new Media();
+		bradleyImage.setDescription("Bradley profile picture");
+		bradleyImage.setFile(this.readFileBase64("images/bradley.jpeg"));
+		bradleyImage.setMediaType(MediaType.IMAGE_JPEG_VALUE);
+		bradleyPlayer.setPlayerPicture(bradleyImage);
+
 		session.save(bradleyPlayer);
 
 		Player wesleyPlayer = new Player();
@@ -122,6 +137,11 @@ public class JourneymanApplication {
 		wesleyPlayer.setIncludeHockey(true);
 		wesleyPlayer.getHockeyAttributes().setPosition(Position.Forward);
 		wesleyPlayer.getHockeyAttributes().setShot(Shot.Right);
+		Media wesleyImage = new Media();
+		wesleyImage.setDescription("Wesley profile picture");
+		wesleyImage.setFile(this.readFileBase64("images/wesley.jpeg"));
+		wesleyImage.setMediaType(MediaType.IMAGE_JPEG_VALUE);
+		wesleyPlayer.setPlayerPicture(wesleyImage);
 		session.save(wesleyPlayer);
 
 		// Create Orgs
@@ -196,6 +216,18 @@ public class JourneymanApplication {
 		game2.setGameType(GameType.League);
 		game2.setLeague("CBHL");
 		session.save(game2);
+	}
+
+	private byte[] readFile(String filePath) throws IOException {
+		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+		InputStream is = classloader.getResourceAsStream(filePath);
+		return is.readAllBytes();
+	}
+
+	private String readFileBase64(String filePath) throws IOException {
+		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+		InputStream is = classloader.getResourceAsStream(filePath);
+		return Base64.getEncoder().encodeToString(is.readAllBytes());
 	}
 
 

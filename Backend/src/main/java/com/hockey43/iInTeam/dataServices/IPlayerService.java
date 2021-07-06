@@ -1,5 +1,6 @@
 package com.hockey43.iInTeam.dataServices;
 
+import com.hockey43.iInTeam.dataObjects.Media;
 import com.hockey43.iInTeam.dataObjects.Player;
 import com.hockey43.iInTeam.dataObjects.PlayerStats;
 
@@ -8,6 +9,8 @@ public interface IPlayerService {
     public Player getPlayer(Long playerId);
 
     public Player getPlayer(String userId);
+
+    public Media getProfileImage(Long playerId);
 
     public Player savePlayer(Player player);
 
