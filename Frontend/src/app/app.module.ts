@@ -13,6 +13,8 @@ import { WelcomeComponent } from './components/navigation/welcome/welcome.compon
 import { API_URL } from './app.constants';
 import { ProfileSmallComponent } from './components/player/profile-small/profile-small.component';
 import { SecurePipe } from './pipes/secure.pipe';
+import { TeamSummaryComponent } from './components/teams/team-summary/team-summary.component';
+import { TeamSummaryListComponent } from './components/teams/team-summary-list/team-summary-list.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { SecurePipe } from './pipes/secure.pipe';
     TeamsComponent,
     WelcomeComponent,
     ProfileSmallComponent,
-    SecurePipe
+    SecurePipe,
+    TeamSummaryComponent,
+    TeamSummaryListComponent
   ],
   imports: [
     BrowserModule,

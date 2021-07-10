@@ -14,7 +14,7 @@ public class Game {
 
     @ManyToOne()
     @JoinColumn(name="TeamId", nullable = false)
-    private Team ownerTeam;
+    private HockeyTeam ownerHockeyTeam;
 
     @Column(name="startDateTime", columnDefinition = "DATETIME", nullable = false)
     private LocalDateTime startDateTime;
@@ -71,8 +71,8 @@ public class Game {
 
     public Game() {}
 
-    public Game(Team ownerTeam, LocalDateTime startDateTime, String opponentTeamName, Level opponentLevel, Side side) {
-        this.ownerTeam = ownerTeam;
+    public Game(HockeyTeam ownerHockeyTeam, LocalDateTime startDateTime, String opponentTeamName, Level opponentLevel, Side side) {
+        this.ownerHockeyTeam = ownerHockeyTeam;
         this.startDateTime = startDateTime;
         this.opponentTeamName = opponentTeamName;
         this.opponentLevel = opponentLevel;
@@ -87,12 +87,12 @@ public class Game {
         this.gameId = gameId;
     }
 
-    public Team getOwnerTeam() {
-        return ownerTeam;
+    public HockeyTeam getOwnerTeam() {
+        return ownerHockeyTeam;
     }
 
-    public void setOwnerTeam(Team ownerTeam) {
-        this.ownerTeam = ownerTeam;
+    public void setOwnerTeam(HockeyTeam ownerHockeyTeam) {
+        this.ownerHockeyTeam = ownerHockeyTeam;
     }
 
     public LocalDateTime getStartDateTime() {
