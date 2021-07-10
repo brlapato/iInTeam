@@ -3,8 +3,8 @@ package com.hockey43.iInTeam.dataObjects;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Team")
-public class Team {
+@Table(name="HockeyTeam")
+public class HockeyTeam {
 
 
     @Id
@@ -43,6 +43,15 @@ public class Team {
 
     @Column(name="Manager")
     private String manager;
+
+    @Column(name="RegularPosition")
+    private Position regularPosition;
+
+    @Column(name="PlayerNumber")
+    private Integer playerNumber;
+
+    @Column(name="IsActive")
+    private Boolean isActive;
 
     public Org getOrg() {
         return org;
@@ -124,6 +133,27 @@ public class Team {
         this.playerOwner = playerOwner;
     }
 
+    public Boolean getActive() {
+        return isActive;
+    }
 
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
 
+    public Position getRegularPosition() {
+        return regularPosition;
+    }
+
+    public void setRegularPosition(Position regularPosition) {
+        this.regularPosition = regularPosition;
+    }
+
+    public Integer getPlayerNumber() {
+        return playerNumber;
+    }
+
+    public void setPlayerNumber(Integer playerNumber) {
+        this.playerNumber = playerNumber;
+    }
 }

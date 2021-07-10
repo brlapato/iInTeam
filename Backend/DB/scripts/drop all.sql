@@ -1,5 +1,6 @@
-DROP TABLE Game;
-DROP TABLE Team;
+DROP TABLE HockeyGame;
+DROP TABLE TeamEvent;
+DROP TABLE HockeyTeam;
 DROP TABLE Org;
 DROP TABLE Player;
 DROP TABLE Media;

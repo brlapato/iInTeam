@@ -1,9 +1,8 @@
 package com.hockey43.iInTeam;
 
-import com.hockey43.iInTeam.dataServices.PlayerService;
+import com.hockey43.iInTeam.dataServices.HockeyTeamService;
 import com.hockey43.iInTeam.dataObjects.*;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,14 +14,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 
-import javax.persistence.Convert;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.List;
 
 @SpringBootApplication
 public class JourneymanApplication {
@@ -39,23 +35,32 @@ public class JourneymanApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
-			LOG.info("EXECUTING : Hibernate Test");
 
-			LOG.info("EXECUTING : Create Session");
-			Session session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
+			boolean initializeDatabase = !dataExist();
 
-			initializeData(session);
+			if (initializeDatabase) {
 
-			LOG.info("EXECUTING : Commit");
-			session.getTransaction().commit();
+				LOG.info("Begin database initialization...");
+				LOG.info("Creating Session");
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				session.beginTransaction();
 
-			session.beginTransaction();
-			PlayerService pa = new PlayerService();
-			Player cPlayer = pa.getPlayer(1L);
-			System.out.println(String.format("%s, %s",cPlayer.getLastName(), cPlayer.getFirstName()));
-			session.getTransaction().commit();
-			//HibernateUtil.shutdown();
+				LOG.info("Running initialization...");
+				initializeData(session);
+
+				LOG.info("Committing Database population...");
+				session.getTransaction().commit();
+			}
+
+			LOG.info("Test database connection");
+			HockeyTeamService hts = new HockeyTeamService();
+			List<HockeyTeam> activeTeams = hts.getHockeyTeams(1, true);
+			LOG.info("Found " + String.valueOf(activeTeams.size()) + " active teams for Player 1...");
+			for (int teamIdx = 0; teamIdx < activeTeams.size(); teamIdx++) {
+				LOG.info(activeTeams.get(teamIdx).getName());
+			}
+
+
 		};
 	}
 
@@ -94,7 +99,7 @@ public class JourneymanApplication {
 		orgFred.setName("Freeze");
 		orgFred.setCity("Frederick");
 
-		Team mites1 = new Team();
+		HockeyTeam mites1 = new HockeyTeam();
 		mites1.setOrg(orgFred);
 		mites1.setPlayerOwner(owner);
 		mites1.setAgeClass(AgeClass.U8);
@@ -155,64 +160,115 @@ public class JourneymanApplication {
 		orgHoward.setCity("Howard");
 		session.save(orgHoward);
 
+		Org orgVaVipers = new Org();
+		orgVaVipers.setName("Vipers");
+		orgVaVipers.setCity("Viginia");
+		session.save(orgVaVipers);
+
 		// Create Teams
-		Team mites1 = new Team();
+		HockeyTeam mites1 = new HockeyTeam();
 		mites1.setOrg(orgFred);
 		mites1.setPlayerOwner(bradleyPlayer);
 		mites1.setAgeClass(AgeClass.U8);
 		mites1.setLevel(Level.UA);
-		mites1.setName("Frederick Freeze Mites 1");
+		mites1.setName("20-21 Frederick Freeze Mites 1");
 		mites1.setHeadCoach("Tommy Demers");
 		mites1.setAssistantCoach1("Christian Wilson");
+		mites1.setPlayerNumber(43);
+		mites1.setRegularPosition(Position.Defense);
+		mites1.setActive(false);
 		session.save(mites1);
 
-		Team mites2 = new Team();
+		HockeyTeam mites2 = new HockeyTeam();
 		mites2.setOrg(orgFred);
 		mites2.setPlayerOwner(wesleyPlayer);
 		mites2.setAgeClass(AgeClass.U8);
 		mites2.setLevel(Level.LA);
-		mites2.setName("Frederick Freeze Mites 2");
+		mites2.setName("20-21 Frederick Freeze Mites 2");
 		mites2.setHeadCoach("Brian Ball");
 		mites2.setAssistantCoach1("Glen MacLachlan");
+		mites2.setRegularPosition(Position.Forward);
+		mites2.setPlayerNumber(14);
+		mites2.setActive(false);
 		session.save(mites2);
 
-		Team howardSquirts = new Team();
+		HockeyTeam howardSquirts = new HockeyTeam();
 		howardSquirts.setOrg(orgHoward);
 		howardSquirts.setPlayerOwner(bradleyPlayer);
 		howardSquirts.setAgeClass(AgeClass.U10);
 		howardSquirts.setLevel(Level.AA);
-		howardSquirts.setName("Howard Squirt Blue AA");
+		howardSquirts.setName("21-22 Howard Squirt Blue AA");
 		howardSquirts.setHeadCoach("Brad Powell");
+		howardSquirts.setManager("Shayna Walsh");
+		howardSquirts.setPlayerNumber(3);
+		howardSquirts.setRegularPosition(Position.Defense);
+		howardSquirts.setActive(true);
 		session.save(howardSquirts);
 
-		Team howardMites = new Team();
+		/*** VA Vipers ***/
+		HockeyTeam vaVipers = new HockeyTeam();
+		vaVipers.setOrg(orgVaVipers);
+		vaVipers.setPlayerOwner(bradleyPlayer);
+		vaVipers.setAgeClass(AgeClass.U10);
+		vaVipers.setLevel(Level.AA);
+		vaVipers.setName("2021 Virginia Vipers Tournament Team");
+		vaVipers.setHeadCoach("Chris Bass");
+		vaVipers.setPlayerNumber(10);
+		vaVipers.setRegularPosition(Position.Defense);
+		vaVipers.setActive(true);
+		session.save(vaVipers);
+
+		HockeyGame vaGame1 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 07, 16, 13, 10), "IW JEST 2012", Level.AA, Side.Home);
+		vaGame1.setLocation("Ice Works Rink 1");
+		vaGame1.setGameType(GameType.Tournament);
+		vaGame1.setLeague("2021 Ice Works Summer Fire Tournament");
+		session.save(vaGame1);
+
+		HockeyGame vaGame2 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 07, 17, 06, 15), "Gotta Hockey", Level.AA, Side.Home);
+		vaGame2.setLocation("Ice Works Rink 4");
+		vaGame2.setGameType(GameType.Tournament);
+		vaGame2.setLeague("2021 Ice Works Summer Fire Tournament");
+		session.save(vaGame2);
+
+		HockeyGame vaGame3 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 07, 17, 13, 45), "Richmond Selects", Level.AA, Side.Home);
+		vaGame3.setLocation("PNY Rink");
+		vaGame3.setGameType(GameType.Tournament);
+		vaGame3.setLeague("2021 Ice Works Summer Fire Tournament");
+		session.save(vaGame3);
+
+		HockeyTeam howardMites = new HockeyTeam();
 		howardMites.setOrg(orgHoward);
-		howardMites.setPlayerOwner(bradleyPlayer);
+		howardMites.setPlayerOwner(wesleyPlayer);
 		howardMites.setAgeClass(AgeClass.U8);
-		howardMites.setLevel(Level.UA);
-		howardMites.setName("Howard Squirt Blue AA");
+		howardMites.setLevel(Level.LA);
+		howardMites.setName("21-22 Howard Mites Blue LA");
 		howardMites.setHeadCoach("Brian Walsh");
 		howardMites.setManager("Shayna Walsh");
+		howardMites.setActive(true);
 		session.save(howardMites);
 
 		// Create Games
-		Game game1 = new Game(mites1, LocalDateTime.of(2020, 02, 01, 13, 00), "Loudon Knights", Level.LA, Side.Home);
+		HockeyGame game1 = new HockeyGame(mites1, LocalDateTime.of(2020, 02, 01, 13, 00), "Loudon Knights", Level.LA, Side.Home);
 		game1.setOpponentScore(3);
 		game1.setTeamScore(7);
+		game1.setResult(GameResult.Win);
+		game1.setOvertime(false);
 		game1.setGoals(1);
 		game1.setAssists(2);
 		game1.setShots(3);
-		game1.setRink("Skate Frederick");
+		game1.setLocation("Skate Frederick");
 		game1.setGameType(GameType.NonLeague);
 		session.save(game1);
 
-		Game game2 = new Game(mites1, LocalDateTime.of(2020, 02, 13, 14, 30), "Howard Huskies", Level.UA, Side.Away);
+		HockeyGame game2 = new HockeyGame(mites1, LocalDateTime.of(2020, 02, 13, 14, 30), "Howard Huskies", Level.UA, Side.Away);
 		game2.setOpponentScore(4);
 		game2.setTeamScore(5);
+		game2.setResult(GameResult.Win);
+		game1.setOvertime(true);
 		game2.setGoals(0);
 		game2.setAssists(1);
 		game2.setShots(5);
-		game2.setRink("Laurel Ice Gardens, Patrick Rink");
+		game2.setLocation("Laurel Ice Gardens, Patrick Rink");
 		game2.setGameType(GameType.League);
 		game2.setLeague("CBHL");
 		session.save(game2);
@@ -228,6 +284,25 @@ public class JourneymanApplication {
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
 		InputStream is = classloader.getResourceAsStream(filePath);
 		return Base64.getEncoder().encodeToString(is.readAllBytes());
+	}
+
+	private boolean dataExist() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+
+		LOG.info("Checking if data initialized...");
+
+		List<Player> players = session.createQuery("from Player")
+				.list();
+
+		session.getTransaction().commit();
+
+		if (players.size() > 0) {
+			return true;
+		} else {
+			LOG.info("No data found, need to initialize...");
+			return false;
+		}
 	}
 
 

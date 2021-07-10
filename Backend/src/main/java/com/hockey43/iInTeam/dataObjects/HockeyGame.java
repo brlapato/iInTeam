@@ -4,20 +4,13 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="Game")
-public class Game {
-
-    @Id
-    @Column(name="GameId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int gameId;
+@Table(name="HockeyGame")
+@PrimaryKeyJoinColumn(name = "EventId")
+public class HockeyGame extends TeamEvent {
 
     @ManyToOne()
     @JoinColumn(name="TeamId", nullable = false)
     private HockeyTeam ownerHockeyTeam;
-
-    @Column(name="startDateTime", columnDefinition = "DATETIME", nullable = false)
-    private LocalDateTime startDateTime;
 
     @Column(name="OpponentTeamName", nullable = false)
     private String opponentTeamName;
@@ -31,13 +24,10 @@ public class Game {
     private Side side;
 
     @Column(name="TeamScore")
-    private Integer teamScore;
+    private int teamScore;
 
     @Column(name="OpponentScore")
-    private Integer opponentScore;
-
-    @Column(name="Rink")
-    private String rink;
+    private int opponentScore;
 
     @Column(name="PeriodLength", nullable = false)
     private int periodLength = 20;
@@ -46,13 +36,16 @@ public class Game {
     private int numberPeriods = 3;
 
     @Column(name="Goals")
-    private Integer goals;
+    private int goals;
 
     @Column(name="Assists")
-    private Integer assists;
+    private int assists;
 
     @Column(name="Shots")
-    private Integer shots;
+    private int shots;
+
+    @Column(name="PenaltyMin")
+    private int penaltyMin;
 
     @Column(name="PreGameNotes")
     private String preGameNotes;
@@ -67,11 +60,16 @@ public class Game {
     @Column(name="League")
     private String League;
 
+    @Column(name="Result")
+    private GameResult result;
+
+    @Column(name="IsOvertime")
+    private boolean isOvertime;
 
 
-    public Game() {}
+    public HockeyGame() {}
 
-    public Game(HockeyTeam ownerHockeyTeam, LocalDateTime startDateTime, String opponentTeamName, Level opponentLevel, Side side) {
+    public HockeyGame(HockeyTeam ownerHockeyTeam, LocalDateTime startDateTime, String opponentTeamName, Level opponentLevel, Side side) {
         this.ownerHockeyTeam = ownerHockeyTeam;
         this.startDateTime = startDateTime;
         this.opponentTeamName = opponentTeamName;
@@ -79,12 +77,20 @@ public class Game {
         this.side = side;
     }
 
-    public int getGameId() {
-        return gameId;
-    }
+    @Override
+    public TeamEventSummary getTeamEventSummary() {
+        TeamEventSummary eventSummary = new TeamEventSummary();
 
-    public void setGameId(int gameId) {
-        this.gameId = gameId;
+        String locationModifier = "vs";
+        if (this.side == Side.Away) {
+            locationModifier = "@";
+        }
+
+        eventSummary.setEventName(String.format("%s %s (%s)", locationModifier, this.getOpponentTeamName(), this.getLeague()));
+        eventSummary.setStartDateTime(this.getStartDateTime());
+        eventSummary.setEventLocation(this.getLocation());
+
+        return eventSummary;
     }
 
     public HockeyTeam getOwnerTeam() {
@@ -93,14 +99,6 @@ public class Game {
 
     public void setOwnerTeam(HockeyTeam ownerHockeyTeam) {
         this.ownerHockeyTeam = ownerHockeyTeam;
-    }
-
-    public LocalDateTime getStartDateTime() {
-        return startDateTime;
-    }
-
-    public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime = startDateTime;
     }
 
     public String getOpponentTeamName() {
@@ -141,14 +139,6 @@ public class Game {
 
     public void setOpponentScore(Integer opponentScore) {
         this.opponentScore = opponentScore;
-    }
-
-    public String getRink() {
-        return rink;
-    }
-
-    public void setRink(String rink) {
-        this.rink = rink;
     }
 
     public int getPeriodLength() {
@@ -221,5 +211,29 @@ public class Game {
 
     public void setLeague(String league) {
         League = league;
+    }
+
+    public Integer getPenaltyMin() {
+        return penaltyMin;
+    }
+
+    public void setPenaltyMin(Integer penaltyMin) {
+        this.penaltyMin = penaltyMin;
+    }
+
+    public GameResult getResult() {
+        return result;
+    }
+
+    public void setResult(GameResult result) {
+        this.result = result;
+    }
+
+    public boolean isOvertime() {
+        return isOvertime;
+    }
+
+    public void setOvertime(boolean overtime) {
+        isOvertime = overtime;
     }
 }

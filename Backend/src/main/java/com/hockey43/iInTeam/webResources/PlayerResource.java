@@ -3,7 +3,6 @@ package com.hockey43.iInTeam.webResources;
 import com.hockey43.iInTeam.dataObjects.Media;
 import com.hockey43.iInTeam.dataObjects.Player;
 import com.hockey43.iInTeam.dataServices.IPlayerService;
-import com.hockey43.iInTeam.webResources.exportDataObjects.ExportMedia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -31,34 +30,7 @@ public class PlayerResource {
         }
 
         return playerImage;
-
-
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-//        headers.setContentType(MediaType.parseMediaType(mediaTypeValue));
-//
-//        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(playerImage.getFile(), headers, HttpStatus.OK);
-//        return responseEntity;
     }
-
-//    @GetMapping(value = "/players/{playerId}/profileImageB")
-//    public ResponseEntity<byte[]> getPlayerProfileImageB(@PathVariable long playerId) {
-//        Media playerImage = this.playerService.getProfileImage(playerId);
-//        String mediaTypeValue = MediaType.IMAGE_PNG_VALUE;
-//        if ( playerImage == null) {
-//            // TODO: load default image
-//        } else {
-//            mediaTypeValue = playerImage.getMediaType();
-//        }
-//
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-//        headers.setContentType(MediaType.parseMediaType(mediaTypeValue));
-//
-//        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(playerImage.getFile(), headers, HttpStatus.OK);
-//        return responseEntity;
-//    }
 
     @PutMapping("players/{playerId}")
     public ResponseEntity<Player> updatePlayer (
