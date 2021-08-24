@@ -1,0 +1,7 @@
+
+<div class="container border">
+    <div *ngFor="let cRecord of winRecords" class="row">
+        <div class="col-2">{{cRecord.description}}</div>
+        <div class="col-4">{{getDisplayString(cRecord.winRecord)}}</div>
+    </div>
+</div>

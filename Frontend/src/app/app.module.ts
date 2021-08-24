@@ -15,6 +15,14 @@ import { ProfileSmallComponent } from './components/player/profile-small/profile
 import { SecurePipe } from './pipes/secure.pipe';
 import { TeamSummaryComponent } from './components/teams/team-summary/team-summary.component';
 import { TeamSummaryListComponent } from './components/teams/team-summary-list/team-summary-list.component';
+import { TeamListItemComponent } from './components/teams/team-list-item/team-list-item.component';
+import { TeamListComponent } from './components/teams/team-list/team-list.component';
+import { TeamDetailComponent } from './components/teams/team-detail/team-detail.component';
+import { HockeyTeamDetailComponent } from './components/teams/hockey-team-detail/hockey-team-detail.component';
+import { TeamRecordComponent } from './components/teams/team-record/team-record.component';
+import { PlayerStatsComponent } from './components/player/player-stats/player-stats.component';
+import { HockeyGameListComponent } from './components/games/hockey-game-list/hockey-game-list.component';
+import { HockeyGameListItemComponent } from './components/games/hockey-game-list-item/hockey-game-list-item.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +35,15 @@ import { TeamSummaryListComponent } from './components/teams/team-summary-list/t
     ProfileSmallComponent,
     SecurePipe,
     TeamSummaryComponent,
-    TeamSummaryListComponent
+    TeamSummaryListComponent,
+    TeamListItemComponent,
+    TeamListComponent,
+    TeamDetailComponent,
+    HockeyTeamDetailComponent,
+    TeamRecordComponent,
+    PlayerStatsComponent,
+    HockeyGameListComponent,
+    HockeyGameListItemComponent
   ],
   imports: [
     BrowserModule,

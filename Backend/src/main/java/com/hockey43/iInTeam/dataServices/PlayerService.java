@@ -2,15 +2,12 @@ package com.hockey43.iInTeam.dataServices;
 
 import com.hockey43.iInTeam.dataObjects.Media;
 import com.hockey43.iInTeam.dataObjects.Player;
-import com.hockey43.iInTeam.dataObjects.PlayerStats;
+import com.hockey43.iInTeam.dataObjects.hockey.HockeyPlayerStats;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.SharedSessionContract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -61,9 +58,9 @@ public class PlayerService implements IPlayerService {
     }
 
     @Override
-    public PlayerStats getPlayerStats(Long playerId) {
+    public HockeyPlayerStats getPlayerStats(Long playerId) {
         LOG.warn("getPlayerStats does not have a real implementation yet.");
-        return new PlayerStats();
+        return new HockeyPlayerStats();
     }
 
 

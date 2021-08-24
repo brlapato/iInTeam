@@ -1,4 +1,7 @@
-package com.hockey43.iInTeam.dataObjects;
+package com.hockey43.iInTeam.dataObjects.hockey;
+
+import com.hockey43.iInTeam.dataObjects.Position;
+import com.hockey43.iInTeam.dataObjects.Shot;
 
 import javax.persistence.*;
 

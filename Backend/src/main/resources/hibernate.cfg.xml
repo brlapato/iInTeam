@@ -19,10 +19,10 @@
         <property name="hbm2ddl.auto">update</property>
         <mapping class="com.hockey43.iInTeam.dataObjects.Player" />
         <mapping class="com.hockey43.iInTeam.dataObjects.Org" />
-        <mapping class="com.hockey43.iInTeam.dataObjects.HockeyTeam" />
-        <mapping class="com.hockey43.iInTeam.dataObjects.HockeyGame" />
+        <mapping class="com.hockey43.iInTeam.dataObjects.hockey.HockeyTeam" />
+        <mapping class="com.hockey43.iInTeam.dataObjects.hockey.HockeyGame" />
         <mapping class="com.hockey43.iInTeam.dataObjects.Media" />
-        <mapping class="com.hockey43.iInTeam.dataObjects.HockeyAttributes" />
+        <mapping class="com.hockey43.iInTeam.dataObjects.hockey.HockeyAttributes" />
     </session-factory>
 
 </hibernate-configuration>

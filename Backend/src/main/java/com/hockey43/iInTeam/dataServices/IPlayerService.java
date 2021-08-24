@@ -2,7 +2,7 @@ package com.hockey43.iInTeam.dataServices;
 
 import com.hockey43.iInTeam.dataObjects.Media;
 import com.hockey43.iInTeam.dataObjects.Player;
-import com.hockey43.iInTeam.dataObjects.PlayerStats;
+import com.hockey43.iInTeam.dataObjects.hockey.HockeyPlayerStats;
 
 public interface IPlayerService {
 
@@ -17,7 +17,7 @@ public interface IPlayerService {
 
     public Player createPlayer(Long userId, Player player);
 
-    public PlayerStats getPlayerStats(Long playerId);
+    public HockeyPlayerStats getPlayerStats(Long playerId);
 
 
 

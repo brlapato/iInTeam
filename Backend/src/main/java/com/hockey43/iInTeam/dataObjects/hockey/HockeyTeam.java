@@ -1,28 +1,14 @@
-package com.hockey43.iInTeam.dataObjects;
+package com.hockey43.iInTeam.dataObjects.hockey;
+
+import com.hockey43.iInTeam.dataObjects.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="HockeyTeam")
-public class HockeyTeam {
+@PrimaryKeyJoinColumn(name = "TeamId")
+public class HockeyTeam extends Team {
 
-
-    @Id
-    @Column(name="TeamId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int teamId;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "OrgId")
-    private Org org;
-
-
-    @ManyToOne()
-    @JoinColumn(name="PlayerId", nullable = false)
-    private Player playerOwner;
-
-    @Column(name="Name")
-    private String name;
 
     @Column(name="Level")
     @Enumerated(EnumType.STRING)
@@ -49,33 +35,6 @@ public class HockeyTeam {
 
     @Column(name="PlayerNumber")
     private Integer playerNumber;
-
-    @Column(name="IsActive")
-    private Boolean isActive;
-
-    public Org getOrg() {
-        return org;
-    }
-
-    public void setOrg(Org org) {
-        this.org = org;
-    }
-
-    public int getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(int teamId) {
-        this.teamId = teamId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Level getLevel() {
         return level;
@@ -125,22 +84,6 @@ public class HockeyTeam {
         this.manager = manager;
     }
 
-    public Player getPlayerOwner() {
-        return playerOwner;
-    }
-
-    public void setPlayerOwner(Player playerOwner) {
-        this.playerOwner = playerOwner;
-    }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
     public Position getRegularPosition() {
         return regularPosition;
     }
@@ -155,5 +98,10 @@ public class HockeyTeam {
 
     public void setPlayerNumber(Integer playerNumber) {
         this.playerNumber = playerNumber;
+    }
+
+    @Override
+    public Sport getSport() {
+        return Sport.Hockey;
     }
 }

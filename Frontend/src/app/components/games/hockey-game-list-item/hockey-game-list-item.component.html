@@ -1,0 +1,27 @@
+<div class="container border rounded-3 mb-2 bg-white">
+    <div class="row align-items-center">
+        <div class="col-2">
+            <div class="container">
+                <div class="row"><div class="column">{{game.startDateTime | date:'mediumDate'}}</div></div>
+                <div class="row text-center"><div class="column">{{game.startDateTime | date:'shortTime'}}</div></div>
+            </div>
+        </div>
+        <div class="col-2">
+            <h6>{{getSideModifierString(game)}} {{game.opponentTeamName}}</h6>
+        </div>
+        <div class="col-5">
+            <div class="container">
+                <div class="row"><div class="column">{{game.gameType}} ({{game.league}})</div></div>
+                <div class="row"><div class="column">{{game.location}}</div></div>
+            </div>
+        </div>
+        <div class="col-2">
+            {{getGameResultString(game)}}
+        </div>
+        <div class="col-1">
+            <svg class="bi" width="16" height="16" fill="currentColor">
+                <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
+           </svg>
+        </div>
+    </div>
+</div>

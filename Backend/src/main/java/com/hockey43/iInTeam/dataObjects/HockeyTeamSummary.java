@@ -1,5 +1,8 @@
 package com.hockey43.iInTeam.dataObjects;
 
+import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
+import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeam;
+
 import java.util.List;
 
 public class HockeyTeamSummary {

@@ -1,4 +1,6 @@
-package com.hockey43.iInTeam.dataObjects;
+package com.hockey43.iInTeam.dataObjects.hockey;
+
+import com.hockey43.iInTeam.dataObjects.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -65,6 +67,9 @@ public class HockeyGame extends TeamEvent {
 
     @Column(name="IsOvertime")
     private boolean isOvertime;
+
+    @Column(name="IsPlayoff")
+    private boolean isPlayoff;
 
 
     public HockeyGame() {}

@@ -1,8 +1,11 @@
-package com.hockey43.iInTeam.dataObjects;
+package com.hockey43.iInTeam.dataObjects.hockey;
 
-public class PlayerStats {
+import com.hockey43.iInTeam.dataObjects.Stats;
+
+public class HockeyPlayerStats extends Stats {
     private int goals;
     private int assists;
+    private int points;
     private int shots;
     private int penaltyMin;
 
@@ -36,5 +39,13 @@ public class PlayerStats {
 
     public void setPenaltyMin(int penaltyMin) {
         this.penaltyMin = penaltyMin;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

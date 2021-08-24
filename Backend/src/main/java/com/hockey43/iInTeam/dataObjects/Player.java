@@ -1,5 +1,6 @@
 package com.hockey43.iInTeam.dataObjects;
 
+import com.hockey43.iInTeam.dataObjects.hockey.HockeyAttributes;
 import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;

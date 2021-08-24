@@ -74,22 +74,94 @@ export class HockeyAttributes {
       public ties: number,
       public overTimeLosses: number
     ) {}
+
+    public static getDisplayString(winRecord: WinRecord):string {
+      return `${winRecord.wins}-${winRecord.losses + winRecord.overTimeLosses}-${winRecord.ties}`;
+    }
   }
 
-  export class HockeyTeam {
+  export class HockeyPlayerStats {
+    constructor(
+      public goals: number,
+      public assists: number,
+      public points: number,
+      public shots: number,
+      public penaltyMin: number
+    ) {}
+
+    public static getDefault() {
+      return new HockeyPlayerStats(0,0,0,0,0);
+    }
+  }
+
+  export class HockeyPlayerStatsEntry {
+    constructor (
+      public description:string,
+      public hockeyPlayerStats: HockeyPlayerStats
+    ) {}
+
+    public static getDefault() {
+      return new HockeyPlayerStatsEntry("", HockeyPlayerStats.getDefault());
+    }
+  }
+
+  export class WinRecordEntry {
+    constructor (
+      public description: string,
+      public winRecord: WinRecord
+    ) {}
+
+  }
+
+  export class Team {
+    constructor(
+      public teamId: number,
+      public sport: string,
+      public org: Organization,
+      public name: String,
+      public isActive: boolean,
+      public startDate: Date
+    ) {}
+
+    public static getDefault() {
+      return new Team(
+        -1,
+        "",
+        new Organization("",""),
+        "",
+        false,
+        new Date());
+    }
+  }
+
+  export class HockeyTeam extends Team{
     constructor(
       public teamId: number,
       public org: Organization,
       public name: String,
-      public level: String,
+      public headCoach: String,
+      public assistantCoach1: String,
+      public assistantCoach2: String,
+      public manager: String,
+      public isActive: boolean,
+      public startDate: Date,
       public ageClass: String,
       public playerNumber: number,
       public regularPosition: String,
       public nextGame: HockeyGame
-    ) {}
+    ) {super(teamId, "Hockey", org, name, isActive,startDate);}
 
     public static getDefault() {
-      return new HockeyTeam(-1,new Organization("",""),"","","",-1,"", HockeyGame.getDefault());
+      return new HockeyTeam(
+        -1,
+        new Organization("",""),
+        "","","","","",
+        false,
+        new Date(),
+        "",
+        -1,
+        "",
+        HockeyGame.getDefault());
     }
   }
 
@@ -100,11 +172,15 @@ export class HockeyAttributes {
       public startDateTime: Date,
       public location: String,
       public side: String,
-      public league: String
+      public league: String,
+      public gameType: String,
+      public result: String,
+      public teamScore: number,
+      public opponentScore: number
     ) {}
 
     public static getDefault() {
-      return new HockeyGame(-1, "", new Date(), "","","");
+      return new HockeyGame(-1, "", new Date(), "","","","","",-1,-1);
     }
   }
 

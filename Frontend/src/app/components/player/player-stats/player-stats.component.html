@@ -1,0 +1,25 @@
+
+<div class="container border rounded-3 bg-white">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Goals</th>
+                <th>Assists</th>
+                <th>Points</th>
+                <th>Shots</th>
+                <th>Penalty Min</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let currentStat of playerStats">
+                <td>{{currentStat.description}}</td>
+                <td style="text-align: center">{{currentStat.hockeyPlayerStats.goals}}</td>
+                <td style="text-align: center">{{currentStat.hockeyPlayerStats.assists}}</td>
+                <td style="text-align: center">{{currentStat.hockeyPlayerStats.points}}</td>
+                <td style="text-align: center">{{currentStat.hockeyPlayerStats.shots}}</td>
+                <td style="text-align: center">{{currentStat.hockeyPlayerStats.penaltyMin}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

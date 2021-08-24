@@ -1,1 +1,17 @@
-<p>teams works!</p>
+<div class="container-fluid px-5 py-5">
+    <div class="row">
+        <div class="col-3">
+            <div class="container border border-dark rounded-3 bg-white">
+                <h3>Teams</h3>
+                <div class="container">
+                    <ul class="teams">
+                        <li *ngFor="let team of teamList" [class.selected]="team === selectedTeam"  (click)="onSelectTeam(team)">{{ team.name }} <span class="badge rounded-pill bg-secondary" style="float: right;">{{team.sport}}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <app-team-detail [team]="this.selectedTeam"></app-team-detail>
+        </div>
+    </div>
+</div>
