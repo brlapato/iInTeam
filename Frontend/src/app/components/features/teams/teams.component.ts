@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Team } from 'src/app/data-objects/data-objects.module';
 import { TeamService } from 'src/app/services/data/team.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
@@ -16,20 +17,32 @@ export class TeamsComponent implements OnInit {
 
   constructor(
     public auth: AuthenticationService,
+    private route: ActivatedRoute,
     public teamService: TeamService
   ) { }
   
 
   ngOnInit(): void {
-    this.loadTeamList();
+    let desiredTeamId = this.route.snapshot.params['selectedId'];
+    if (desiredTeamId == null) {
+      desiredTeamId = -1;
+    }
+    this.loadTeamList(desiredTeamId);
   }
 
-  loadTeamList() {
+  loadTeamList(selectedTeam: number) {
     this.auth.playerId$.subscribe(
       (playerId:number | null) => {
         if (playerId) {
           this.teamLoaded = false; 
-          this.teamService.retrieveTeams(playerId).subscribe((data:Team[]) => {this.teamList = data;})
+          this.teamService.retrieveTeams(playerId).subscribe((data:Team[]) => {
+            this.teamList = data;
+            for (let i=0; i < data.length; i++) {
+              if (this.teamList[i].teamId == selectedTeam) {
+                  this.onSelectTeam(this.teamList[i]);
+              }
+            }
+          })
         }
       }
     );
@@ -37,7 +50,6 @@ export class TeamsComponent implements OnInit {
 
   
   onSelectTeam(team?: Team): void {
-    console.log(team);
     this.selectedTeam = team;
   }
 

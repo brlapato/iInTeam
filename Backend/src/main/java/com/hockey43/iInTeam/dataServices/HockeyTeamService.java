@@ -2,15 +2,13 @@ package com.hockey43.iInTeam.dataServices;
 
 import com.hockey43.iInTeam.dataObjects.*;
 import com.hockey43.iInTeam.dataObjects.Record;
-import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
-import com.hockey43.iInTeam.dataObjects.hockey.HockeyPlayerStats;
-import com.hockey43.iInTeam.dataObjects.hockey.HockeyPlayerStatsEntry;
-import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeam;
+import com.hockey43.iInTeam.dataObjects.hockey.*;
 import com.hockey43.iInTeam.exceptions.GameNotFoundException;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Query;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -31,7 +29,7 @@ public class HockeyTeamService {
         return teams;
     }
 
-    public HockeyTeam getHockeyTeam(long teamId) throws GameNotFoundException {
+    public HockeyTeam getHockeyTeam(long teamId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         List<HockeyTeam> teams = session.createQuery("from HockeyTeam ht WHERE ht.teamId = :tid")
@@ -43,7 +41,7 @@ public class HockeyTeamService {
         if (teams.size() > 0)
             return teams.get(0);
         else
-            throw new GameNotFoundException();
+            return null;
     }
 
     public HockeyTeamSummary getHockeyTeamSummary(long teamId) throws GameNotFoundException {
@@ -206,6 +204,48 @@ public class HockeyTeamService {
 
 
         return games;
+    }
+
+    public HockeyGame getHockeyGame(long teamId, long gameId) {
+        List<HockeyGame> games = this.getGames(teamId);
+
+        return games.stream()
+                .filter(game -> game.getEventId() == gameId)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public HockeyGame getNewGame(long teamId) {
+        HockeyTeam targetTeam = this.getHockeyTeam(teamId);
+
+        HockeyGame newGame = new HockeyGame();
+        newGame.setOwnerTeam(targetTeam);
+
+
+        return newGame;
+    }
+
+    public void saveHockeyGame(HockeyGame game) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        session.saveOrUpdate(game);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void deleteHockeyGameById(long gameId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("delete HockeyGame WHERE eventId = :id");
+        query.setParameter("id", gameId);
+        query.executeUpdate();
+
+
+        session.getTransaction().commit();
+        session.close();
     }
 
     private void updatePlayerStats(HockeyGame game, HockeyPlayerStats stats) {

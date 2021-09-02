@@ -167,7 +167,9 @@ export class HockeyAttributes {
 
   export class HockeyGame {
     constructor(
-      public eventId: number,
+      public gameId: number,
+      public teamId: number,
+      public teamName: String,
       public opponentTeamName: String,
       public startDateTime: Date,
       public location: String,
@@ -175,12 +177,22 @@ export class HockeyAttributes {
       public league: String,
       public gameType: String,
       public result: String,
-      public teamScore: number,
-      public opponentScore: number
+      public teamScore: number| undefined,
+      public opponentScore: number| undefined,
+      public numberPeriods: number,
+      public periodLength: number,
+      public isPlayoff: boolean,
+      public isOvertime: boolean,
+      public goals: number | undefined,
+      public assists: number | undefined,
+      public shots: number | undefined,
+      public penaltyMin: number | undefined,
+      public preGameNotes: String,
+      public postGameNotes: String
     ) {}
 
     public static getDefault() {
-      return new HockeyGame(-1, "", new Date(), "","","","","",-1,-1);
+      return new HockeyGame(-1,-1,"", "", new Date(), "","Home","","","Undetermined",undefined,undefined,3,20,false,false,undefined,undefined,undefined,undefined,"","");
     }
   }
 

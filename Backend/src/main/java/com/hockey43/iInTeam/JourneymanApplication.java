@@ -212,7 +212,7 @@ public class JourneymanApplication {
 		howardSquirts.setHeadCoach("Brad Powell");
 		howardSquirts.setManager("Shayna Walsh");
 		howardSquirts.setPlayerNumber(3);
-		howardSquirts.setRegularPosition(Position.Defense);
+		howardSquirts.setRegularPosition(Position.LeftWing);
 		howardSquirts.setActive(true);
 		howardSquirts.setStartDate(LocalDateTime.of(2021, 05, 21,0,0,0));
 		session.save(howardSquirts);
@@ -221,24 +221,46 @@ public class JourneymanApplication {
 		howard10UEJ1.setLocation("Klick Lewis Arena");
 		howard10UEJ1.setGameType(GameType.League);
 		howard10UEJ1.setLeague("EJEPL");
+		howard10UEJ1.setResult(GameResult.Win);
+		howard10UEJ1.setTeamScore(6);
+		howard10UEJ1.setOpponentScore(1);
+		howard10UEJ1.setShots(3);
+		howard10UEJ1.setAssists(1);
 		session.save(howard10UEJ1);
 
 		HockeyGame howard10UEJ2 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 8, 27, 15, 0), "Darien", Level.AA, Side.Away);
 		howard10UEJ2.setLocation("Klick Lewis Arena");
 		howard10UEJ2.setGameType(GameType.League);
 		howard10UEJ2.setLeague("EJEPL");
+		howard10UEJ2.setResult(GameResult.Win);
+		howard10UEJ2.setTeamScore(10);
+		howard10UEJ2.setOpponentScore(1);
+		howard10UEJ2.setShots(1);
+		howard10UEJ2.setAssists(2);
 		session.save(howard10UEJ2);
 
 		HockeyGame howard10UEJ3 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 8, 28, 9, 45), "Central Caps", Level.AA, Side.Home);
 		howard10UEJ3.setLocation("Klick Lewis Arena");
 		howard10UEJ3.setGameType(GameType.League);
 		howard10UEJ3.setLeague("EJEPL");
+		howard10UEJ3.setResult(GameResult.Win);
+		howard10UEJ3.setTeamScore(7);
+		howard10UEJ3.setOpponentScore(1);
+		howard10UEJ3.setShots(3);
+		howard10UEJ3.setAssists(1);
+		howard10UEJ3.setGoals(1);
 		session.save(howard10UEJ3);
 
 		HockeyGame howard10UEJ4 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 8, 28, 13, 15), "CT Riverhawks", Level.AA, Side.Home);
 		howard10UEJ4.setLocation("Klick Lewis Arena");
 		howard10UEJ4.setGameType(GameType.League);
 		howard10UEJ4.setLeague("EJEPL");
+		howard10UEJ4.setResult(GameResult.Win);
+		howard10UEJ4.setTeamScore(2);
+		howard10UEJ4.setOpponentScore(0);
+		howard10UEJ4.setShots(3);
+		howard10UEJ4.setAssists(0);
+		howard10UEJ4.setGoals(1);
 		session.save(howard10UEJ4);
 
 

@@ -35,12 +35,10 @@ export class ProfileSmallComponent implements OnInit {
         if (playerId) { 
           this.playerService.retrievePlayerProfileImage(playerId).subscribe(
             (data: Media) => {
-              console.log(data.mediaType)
               this.profileImageSrc = this.sanitizer.sanitize(SecurityContext.HTML, 'data:' + data.mediaType + ';base64,' + data.file)?.toString();
             }   
           );
           //this.profileImageSrc = `${API_URL}/players/${playerId}/profileImageB`;
-          //console.log(this.profileImageSrc)
           this.playerService.retrievePlayer(playerId).subscribe(
             (data:Player) => {this.player = data;}
           )
