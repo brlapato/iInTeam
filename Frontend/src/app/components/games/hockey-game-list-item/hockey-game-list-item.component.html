@@ -19,9 +19,16 @@
             {{getGameResultString(game)}}
         </div>
         <div class="col-1">
-            <svg class="bi" width="16" height="16" fill="currentColor">
-                <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
-           </svg>
+            <button id=buttonEdit (click)="editGame(game.teamId, game.gameId)" class="border-0 bg-white">
+                <svg class="bi" width="16" height="16" fill="currentColor">
+                    <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
+                </svg>
+            </button>
+            <button id=buttonDelete (click)="deleteGame(game.teamId, game.gameId)" class="border-0 bg-white">
+                <svg class="bi" width="24" height="24" fill="currentColor">
+                    <use xlink:href="assets/icons/bootstrap-icons.svg#x"/>
+                </svg>
+            </button>
         </div>
     </div>
 </div>

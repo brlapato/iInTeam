@@ -47,7 +47,7 @@ export class TeamSummaryComponent implements OnInit {
   }
 
   populateTeamDisplay(teamSummary: HockeyTeamSummary) {
-    console.log("loading team: " + teamSummary.hockeyTeam.name);
+    
     this.teamSummary = teamSummary;
     this.winRecord = `(${teamSummary.record.wins}-${teamSummary.record.losses + teamSummary.record.overTimeLosses}-${teamSummary.record.ties})`;
     if (teamSummary.nextGame != null) {

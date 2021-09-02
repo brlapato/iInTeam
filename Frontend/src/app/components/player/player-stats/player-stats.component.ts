@@ -12,7 +12,7 @@ import { AuthenticationService } from 'src/app/services/user/authentication.serv
 })
 export class PlayerStatsComponent implements OnInit {
 
-  @Input() teamId: number = 0;
+  @Input() teamId: number = -1;
   public playerStats: HockeyPlayerStatsEntry[] = [];
 
   constructor(
@@ -21,7 +21,7 @@ export class PlayerStatsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadTeamRecord();
+    
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -32,9 +32,9 @@ export class PlayerStatsComponent implements OnInit {
   loadTeamRecord() {
     this.auth.playerId$.subscribe(
       (playerId:number | null) => {
-        if (playerId && this.teamId) {
+        if (playerId && this.teamId != -1) {
           
-          this.teamService.retrievePlayerStatsForTeam(playerId, this.teamId).subscribe((data:HockeyPlayerStatsEntry[]) => {this.playerStats = data; console.log(data);})
+          this.teamService.retrievePlayerStatsForTeam(playerId, this.teamId).subscribe((data:HockeyPlayerStatsEntry[]) => {this.playerStats = data;})
         }
       }
     );

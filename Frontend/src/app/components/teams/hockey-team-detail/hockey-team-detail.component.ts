@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Team, HockeyTeam } from 'src/app/data-objects/data-objects.module';
 
 @Component({
@@ -10,9 +11,17 @@ export class HockeyTeamDetailComponent implements OnInit {
 
   @Input() team?: HockeyTeam = HockeyTeam.getDefault();
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  addGame() {
+    if (this.team != null) {
+      this.router.navigate(['hockeyGame', this.team?.teamId, -1]);
+    }
   }
 
 }
