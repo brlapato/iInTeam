@@ -14,14 +14,17 @@ public class HockeyGame extends TeamEvent {
     @JoinColumn(name="TeamId", nullable = false)
     private HockeyTeam ownerHockeyTeam;
 
-    @Column(name="OpponentTeamName", nullable = false)
+    @Column(name="OpponentTeamName",
+            nullable = false,
+            length = 150)
     private String opponentTeamName;
 
-    @Column(name="OpponentLevel")
-    @Enumerated(EnumType.STRING)
-    private Level opponentLevel;
+    @Column(name="OpponentLevel",
+            nullable = true,
+            length = 5)
+    private String opponentLevel;
 
-    @Column(name="Side")
+    @Column(name="Side", nullable = false)
     @Enumerated(EnumType.STRING)
     private Side side;
 
@@ -49,17 +52,17 @@ public class HockeyGame extends TeamEvent {
     @Column(name="PenaltyMin")
     private int penaltyMin;
 
-    @Column(name="PreGameNotes")
+    @Column(name="PreGameNotes", length = 3500)
     private String preGameNotes;
 
-    @Column(name="PostGameNotes")
+    @Column(name="PostGameNotes", length = 3500)
     private String postGameNotes;
 
-    @Column(name="GameType")
+    @Column(name="GameType", nullable = false)
     @Enumerated(EnumType.STRING)
     private GameType gameType;
 
-    @Column(name="League")
+    @Column(name="League", nullable = false)
     private String League;
 
     @Column(name="Result")
@@ -74,7 +77,7 @@ public class HockeyGame extends TeamEvent {
 
     public HockeyGame() {}
 
-    public HockeyGame(HockeyTeam ownerHockeyTeam, LocalDateTime startDateTime, String opponentTeamName, Level opponentLevel, Side side) {
+    public HockeyGame(HockeyTeam ownerHockeyTeam, LocalDateTime startDateTime, String opponentTeamName, String opponentLevel, Side side) {
         this.ownerHockeyTeam = ownerHockeyTeam;
         this.startDateTime = startDateTime;
         this.opponentTeamName = opponentTeamName;
@@ -114,11 +117,11 @@ public class HockeyGame extends TeamEvent {
         this.opponentTeamName = opponentTeamName;
     }
 
-    public Level getOpponentLevel() {
+    public String getOpponentLevel() {
         return opponentLevel;
     }
 
-    public void setOpponentLevel(Level opponentLevel) {
+    public void setOpponentLevel(String opponentLevel) {
         this.opponentLevel = opponentLevel;
     }
 

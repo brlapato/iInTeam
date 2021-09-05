@@ -1,6 +1,5 @@
 package com.hockey43.iInTeam.dataObjects.hockey;
 
-import com.hockey43.iInTeam.dataObjects.Position;
 import com.hockey43.iInTeam.dataObjects.Shot;
 
 import javax.persistence.*;
@@ -14,11 +13,14 @@ public class HockeyAttributes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long hockeyAttributeId;
 
-    @Column(name="Position")
-    @Enumerated(EnumType.STRING)
-    private Position position;
+    @Column(name="Position",
+            nullable = true,
+            length = 10)
+    private String position;
 
-    @Column(name="Shot")
+    @Column(name="Shot",
+            nullable = true,
+            length = 10)
     @Enumerated(EnumType.STRING)
     private Shot shot;
 
@@ -30,11 +32,11 @@ public class HockeyAttributes {
         hockeyAttributeId = hockeyAttributeId;
     }
 
-    public Position getPosition() {
+    public String getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 
