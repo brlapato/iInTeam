@@ -212,7 +212,7 @@ public class JourneymanApplication {
 		howardSquirts.setHeadCoach("Brad Powell");
 		howardSquirts.setManager("Shayna Walsh");
 		howardSquirts.setPlayerNumber(3);
-		howardSquirts.setRegularPosition("Defense");
+		howardSquirts.setRegularPosition("Left Wing");
 		howardSquirts.setActive(true);
 		howardSquirts.setStartDate(LocalDateTime.of(2021, 05, 21,0,0,0));
 		session.save(howardSquirts);
