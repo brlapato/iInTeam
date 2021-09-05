@@ -13,14 +13,14 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mediaId;
 
-    @Column(name="Description")
+    @Column(name="Description", length = 500)
     private String description;
 
     @Lob
     @Column(name="File")
     private String file;
 
-    @Column(name="MediaType")
+    @Column(name="MediaType", length = 15)
     private String mediaType;
 
     public Long getMediaId() {

@@ -7,6 +7,8 @@ public class Record {
 
     private int overTimeLosses;
 
+    private int overTimeWins;
+
     private int ties;
 
     public int getWins() {
@@ -39,5 +41,13 @@ public class Record {
 
     public void setTies(int ties) {
         this.ties = ties;
+    }
+
+    public int getOverTimeWins() {
+        return overTimeWins;
+    }
+
+    public void setOverTimeWins(int overTimeWins) {
+        this.overTimeWins = overTimeWins;
     }
 }

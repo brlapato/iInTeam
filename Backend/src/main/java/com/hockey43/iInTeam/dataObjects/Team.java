@@ -11,14 +11,18 @@ public abstract class Team {
     @Column(name="TeamId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long teamId;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "OrgId")
     private Org org;
+
     @ManyToOne()
     @JoinColumn(name="PlayerId", nullable = false)
     private Player playerOwner;
+
     @Column(name="Name")
     private String name;
+
     @Column(name="IsActive")
     private Boolean isActive;
 

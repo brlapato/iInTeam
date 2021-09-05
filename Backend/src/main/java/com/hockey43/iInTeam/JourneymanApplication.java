@@ -112,7 +112,7 @@ public class JourneymanApplication {
 		mites1.setOrg(orgFred);
 		mites1.setPlayerOwner(owner);
 		mites1.setAgeClass(AgeClass.U8);
-		mites1.setLevel(Level.UA);
+		mites1.setLevel("UA");
 		mites1.setName("Frederick Freeze Mites 1");
 		mites1.setHeadCoach("Tommy Demers");
 		mites1.setAssistantCoach1("Christian Wilson");
@@ -131,7 +131,7 @@ public class JourneymanApplication {
 		bradleyPlayer.setHeightInches(5);
 		bradleyPlayer.setWeight(74);
 		bradleyPlayer.setIncludeHockey(true);
-		bradleyPlayer.getHockeyAttributes().setPosition(Position.Defense);
+		bradleyPlayer.getHockeyAttributes().setPosition("Defense");
 		bradleyPlayer.getHockeyAttributes().setShot(Shot.Left);
 		Media bradleyImage = new Media();
 		bradleyImage.setDescription("Bradley profile picture");
@@ -149,7 +149,7 @@ public class JourneymanApplication {
 		wesleyPlayer.setHeightFeet(4);
 		wesleyPlayer.setHeightInches(0);
 		wesleyPlayer.setIncludeHockey(true);
-		wesleyPlayer.getHockeyAttributes().setPosition(Position.Forward);
+		wesleyPlayer.getHockeyAttributes().setPosition("Forward");
 		wesleyPlayer.getHockeyAttributes().setShot(Shot.Right);
 		Media wesleyImage = new Media();
 		wesleyImage.setDescription("Wesley profile picture");
@@ -179,12 +179,12 @@ public class JourneymanApplication {
 		mites1.setOrg(orgFred);
 		mites1.setPlayerOwner(bradleyPlayer);
 		mites1.setAgeClass(AgeClass.U8);
-		mites1.setLevel(Level.UA);
+		mites1.setLevel("UA");
 		mites1.setName("20-21 Frederick Freeze Mites 1");
 		mites1.setHeadCoach("Tommy Demers");
 		mites1.setAssistantCoach1("Christian Wilson");
 		mites1.setPlayerNumber(43);
-		mites1.setRegularPosition(Position.Defense);
+		mites1.setRegularPosition("Defense");
 		mites1.setActive(false);
 		mites1.setStartDate(LocalDateTime.of(2020, 05, 21,0,0,0));
 		session.save(mites1);
@@ -193,11 +193,11 @@ public class JourneymanApplication {
 		mites2.setOrg(orgFred);
 		mites2.setPlayerOwner(wesleyPlayer);
 		mites2.setAgeClass(AgeClass.U8);
-		mites2.setLevel(Level.LA);
+		mites2.setLevel("LA");
 		mites2.setName("20-21 Frederick Freeze Mites 2");
 		mites2.setHeadCoach("Brian Ball");
 		mites2.setAssistantCoach1("Glen MacLachlan");
-		mites2.setRegularPosition(Position.Forward);
+		mites2.setRegularPosition("Forward");
 		mites2.setPlayerNumber(14);
 		mites2.setActive(false);
 		mites2.setStartDate(LocalDateTime.of(2020, 05, 21,0,0,0));
@@ -207,17 +207,18 @@ public class JourneymanApplication {
 		howardSquirts.setOrg(orgHoward);
 		howardSquirts.setPlayerOwner(bradleyPlayer);
 		howardSquirts.setAgeClass(AgeClass.U10);
-		howardSquirts.setLevel(Level.AA);
+		howardSquirts.setLevel("AA");
 		howardSquirts.setName("21-22 Howard Squirt Blue AA");
 		howardSquirts.setHeadCoach("Brad Powell");
 		howardSquirts.setManager("Shayna Walsh");
 		howardSquirts.setPlayerNumber(3);
-		howardSquirts.setRegularPosition(Position.LeftWing);
+		howardSquirts.setRegularPosition("Left Wing");
+
 		howardSquirts.setActive(true);
 		howardSquirts.setStartDate(LocalDateTime.of(2021, 05, 21,0,0,0));
 		session.save(howardSquirts);
 
-		HockeyGame howard10UEJ1 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 8, 27, 11, 30), "Nassau", Level.AA, Side.Home);
+		HockeyGame howard10UEJ1 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 8, 27, 11, 30), "Nassau", "AA", Side.Home);
 		howard10UEJ1.setLocation("Klick Lewis Arena");
 		howard10UEJ1.setGameType(GameType.League);
 		howard10UEJ1.setLeague("EJEPL");
@@ -228,7 +229,7 @@ public class JourneymanApplication {
 		howard10UEJ1.setAssists(1);
 		session.save(howard10UEJ1);
 
-		HockeyGame howard10UEJ2 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 8, 27, 15, 0), "Darien", Level.AA, Side.Away);
+		HockeyGame howard10UEJ2 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 8, 27, 15, 0), "Darien", "AA", Side.Away);
 		howard10UEJ2.setLocation("Klick Lewis Arena");
 		howard10UEJ2.setGameType(GameType.League);
 		howard10UEJ2.setLeague("EJEPL");
@@ -239,7 +240,7 @@ public class JourneymanApplication {
 		howard10UEJ2.setAssists(2);
 		session.save(howard10UEJ2);
 
-		HockeyGame howard10UEJ3 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 8, 28, 9, 45), "Central Caps", Level.AA, Side.Home);
+		HockeyGame howard10UEJ3 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 8, 28, 9, 45), "Central Caps", "AA", Side.Home);
 		howard10UEJ3.setLocation("Klick Lewis Arena");
 		howard10UEJ3.setGameType(GameType.League);
 		howard10UEJ3.setLeague("EJEPL");
@@ -251,7 +252,7 @@ public class JourneymanApplication {
 		howard10UEJ3.setGoals(1);
 		session.save(howard10UEJ3);
 
-		HockeyGame howard10UEJ4 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 8, 28, 13, 15), "CT Riverhawks", Level.AA, Side.Home);
+		HockeyGame howard10UEJ4 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 8, 28, 13, 15), "CT Riverhawks", "AA", Side.Home);
 		howard10UEJ4.setLocation("Klick Lewis Arena");
 		howard10UEJ4.setGameType(GameType.League);
 		howard10UEJ4.setLeague("EJEPL");
@@ -263,34 +264,63 @@ public class JourneymanApplication {
 		howard10UEJ4.setGoals(1);
 		session.save(howard10UEJ4);
 
+		HockeyGame howard10U911 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 11, 9, 0), "St James", "AA", Side.Home);
+		howard10U911.setLocation("Gardens Ice House (Logsdon)");
+		howard10U911.setGameType(GameType.League);
+		howard10U911.setLeague("CBHL");
+		session.save(howard10U911);
 
-		HockeyGame howard10U1 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 12, 12, 10), "Loudoun Knights Gold", Level.AA, Side.Away);
+		HockeyGame howard10U1 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 12, 4, 10), "Loudoun Knights Gold", "AA", Side.Away);
 		howard10U1.setLocation("Ion");
-		howard10U1.setGameType(GameType.NonLeague);
-		howard10U1.setLeague("Exhibition");
+		howard10U1.setGameType(GameType.League);
+		howard10U1.setLeague("EJEPL, CBHL");
 		session.save(howard10U1);
 
-		HockeyGame howard10U2 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 25, 16, 15), "Loudoun Knights Gold", Level.AA, Side.Home);
+		HockeyGame howard10U919 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 19, 12, 0), "Ashburn Extreme", "AA", Side.Home);
+		howard10U919.setLocation("Columbia Ice Rink");
+		howard10U919.setGameType(GameType.League);
+		howard10U919.setLeague("CBHL");
+		session.save(howard10U919);
+
+		HockeyGame howard10U2 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 25, 16, 15), "Loudoun Knights Gold", "AA", Side.Home);
 		howard10U2.setLocation("Columbia Ice Rink");
-		howard10U2.setGameType(GameType.NonLeague);
-		howard10U2.setLeague("Exhibition");
+		howard10U2.setGameType(GameType.League);
+		howard10U2.setLeague("EJEPL, CBHL");
 		session.save(howard10U2);
+
+		HockeyGame howard10U926 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 26, 16, 15), "Montgomery", "AA", Side.Home);
+		howard10U926.setLocation("Columbia Ice Rink");
+		howard10U926.setGameType(GameType.League);
+		howard10U926.setLeague("CBHL");
+		session.save(howard10U926);
+
+		HockeyGame howard10U1002a = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 10, 02, 12, 20), "Aston Nordiques", "AA", Side.Home);
+		howard10U1002a.setLocation("Gardens Ice House (Logsdon)");
+		howard10U1002a.setGameType(GameType.League);
+		howard10U1002a.setLeague("EJEPL");
+		session.save(howard10U1002a);
+
+		HockeyGame howard10U1002b = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 10, 02, 5, 10), "Aston Nordiques", "AA", Side.Home);
+		howard10U1002b.setLocation("Gardens Ice House (Logsdon)");
+		howard10U1002b.setGameType(GameType.League);
+		howard10U1002b.setLeague("EJEPL");
+		session.save(howard10U1002b);
 
 		/*** VA Vipers ***/
 		HockeyTeam vaVipers = new HockeyTeam();
 		vaVipers.setOrg(orgVaVipers);
 		vaVipers.setPlayerOwner(bradleyPlayer);
 		vaVipers.setAgeClass(AgeClass.U10);
-		vaVipers.setLevel(Level.AA);
+		vaVipers.setLevel("AA");
 		vaVipers.setName("2021 Virginia Vipers Tournament Team");
 		vaVipers.setHeadCoach("Chris Bass");
 		vaVipers.setPlayerNumber(10);
-		vaVipers.setRegularPosition(Position.Defense);
+		vaVipers.setRegularPosition("Defense");
 		vaVipers.setActive(true);
 		vaVipers.setStartDate(LocalDateTime.of(2021, 04, 21,0,0,0));
 		session.save(vaVipers);
 
-		HockeyGame vaGame1 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 07, 16, 13, 10), "Aston Thunder Cats", Level.AA, Side.Home);
+		HockeyGame vaGame1 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 07, 16, 13, 10), "Aston Thunder Cats", "AA", Side.Home);
 		vaGame1.setLocation("Ice Works Rink 1");
 		vaGame1.setGameType(GameType.Tournament);
 		vaGame1.setLeague("2021 Ice Works Summer Fire Tournament");
@@ -302,7 +332,7 @@ public class JourneymanApplication {
 		vaGame1.setTeamScore(5);
 		session.save(vaGame1);
 
-		HockeyGame vaGame2 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 07, 17, 06, 15), "Gotta Hockey", Level.AA, Side.Home);
+		HockeyGame vaGame2 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 07, 17, 06, 15), "Gotta Hockey", "AA", Side.Home);
 		vaGame2.setLocation("Ice Works Rink 4");
 		vaGame2.setGameType(GameType.Tournament);
 		vaGame2.setLeague("2021 Ice Works Summer Fire Tournament");
@@ -314,7 +344,7 @@ public class JourneymanApplication {
 		vaGame2.setTeamScore(0);
 		session.save(vaGame2);
 
-		HockeyGame vaGame3 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 07, 17, 13, 45), "Delco Phantoms", Level.AA, Side.Home);
+		HockeyGame vaGame3 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 07, 17, 13, 45), "Delco Phantoms", "AA", Side.Home);
 		vaGame3.setLocation("PNY Rink");
 		vaGame3.setGameType(GameType.Tournament);
 		vaGame3.setLeague("2021 Ice Works Summer Fire Tournament");
@@ -326,7 +356,7 @@ public class JourneymanApplication {
 		vaGame3.setTeamScore(2);
 		session.save(vaGame3);
 
-		HockeyGame vaGame4 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 07, 18, 6, 00), "Gotta Hockey", Level.AA, Side.Home);
+		HockeyGame vaGame4 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 07, 18, 6, 00), "Gotta Hockey", "AA", Side.Home);
 		vaGame4.setLocation("Ice Works Rink 3");
 		vaGame4.setGameType(GameType.Tournament);
 		vaGame4.setLeague("2021 Ice Works Summer Fire Tournament");
@@ -340,7 +370,7 @@ public class JourneymanApplication {
 		session.save(vaGame4);
 
 
-		HockeyGame vaGame5 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 8, 06, 6, 45), "Aston 1494", Level.AAA, Side.Away);
+		HockeyGame vaGame5 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 8, 06, 6, 45), "Aston 1494", "AAA", Side.Away);
 		vaGame5.setLocation("Ice Works Rink 4");
 		vaGame5.setGameType(GameType.Tournament);
 		vaGame5.setLeague("2021 One Hockey Philadelphia Summer");
@@ -352,7 +382,7 @@ public class JourneymanApplication {
 		vaGame5.setShots(2);
 		session.save(vaGame5);
 
-		HockeyGame vaGame6 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 8, 07, 13, 00), "Hockey Lab", Level.AAA, Side.Away);
+		HockeyGame vaGame6 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 8, 07, 13, 00), "Hockey Lab", "AAA", Side.Away);
 		vaGame6.setLocation("Ice Works Rink 3");
 		vaGame6.setGameType(GameType.Tournament);
 		vaGame6.setLeague("2021 One Hockey Philadelphia Summer");
@@ -365,7 +395,7 @@ public class JourneymanApplication {
 		vaGame6.setShots(2);
 		session.save(vaGame6);
 
-		HockeyGame vaGame7 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 8, 7, 19, 00), "Valley Forge Minutemen", Level.AAA, Side.Home);
+		HockeyGame vaGame7 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 8, 7, 19, 00), "Valley Forge Minutemen", "AAA", Side.Home);
 		vaGame7.setLocation("Ice Works Rink 3");
 		vaGame7.setGameType(GameType.Tournament);
 		vaGame7.setLeague("2021 One Hockey Philadelphia Summer");
@@ -379,7 +409,7 @@ public class JourneymanApplication {
 		vaGame7.setPostGameNotes("Played wing");
 		session.save(vaGame7);
 
-		HockeyGame vaGame8 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 8, 8, 8, 30), "Hockey Lab", Level.AAA, Side.Home);
+		HockeyGame vaGame8 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 8, 8, 8, 30), "Hockey Lab", "AAA", Side.Home);
 		vaGame8.setLocation("Ice Works Rink 3");
 		vaGame8.setGameType(GameType.Tournament);
 		vaGame8.setLeague("2021 One Hockey Philadelphia Summer");
@@ -401,7 +431,7 @@ public class JourneymanApplication {
 		howardMites.setOrg(orgHoward);
 		howardMites.setPlayerOwner(wesleyPlayer);
 		howardMites.setAgeClass(AgeClass.U8);
-		howardMites.setLevel(Level.LA);
+		howardMites.setLevel("LA");
 		howardMites.setName("21-22 Howard Mites Blue LA");
 		howardMites.setHeadCoach("Brian Walsh");
 		howardMites.setManager("Shayna Walsh");
@@ -409,32 +439,32 @@ public class JourneymanApplication {
 		howardMites.setStartDate(LocalDateTime.of(2021, 05, 21,0,0,0));
 		session.save(howardMites);
 
-		HockeyGame howard08U1 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 0), "STJ", Level.LA, Side.Away);
+		HockeyGame howard08U1 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 0), "STJ", "LA", Side.Away);
 		howard08U1.setLocation("Bowie Ice Rink");
 		howard08U1.setGameType(GameType.NonLeague);
 		howard08U1.setLeague("Bowie Mini-Jamboree");
 		session.save(howard08U1);
 
-		HockeyGame howard08U2 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 0), "Southern Maryland", Level.LA, Side.Away);
+		HockeyGame howard08U2 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 0), "Southern Maryland", "LA", Side.Away);
 		howard08U2.setLocation("Bowie Ice Rink");
 		howard08U2.setGameType(GameType.NonLeague);
 		howard08U2.setLeague("Bowie Mini-Jamboree");
 		session.save(howard08U2);
 
-		HockeyGame howard08U3 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 0), "Bowie", Level.LA, Side.Away);
+		HockeyGame howard08U3 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 0), "Bowie", "LA", Side.Away);
 		howard08U3.setLocation("Bowie Ice Rink");
 		howard08U3.setGameType(GameType.NonLeague);
 		howard08U3.setLeague("Bowie Mini-Jamboree");
 		session.save(howard08U3);
 
-		HockeyGame howard08U4 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 18, 7, 40), "Frederick", Level.LA, Side.Away);
+		HockeyGame howard08U4 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 18, 7, 40), "Frederick", "LA", Side.Away);
 		howard08U4.setLocation("Skate Frederick");
 		howard08U4.setGameType(GameType.NonLeague);
 		howard08U4.setLeague("CBHL");
 		session.save(howard08U4);
 
 		// Create Games
-		HockeyGame game1 = new HockeyGame(mites1, LocalDateTime.of(2020, 02, 01, 13, 00), "Loudon Knights", Level.LA, Side.Home);
+		HockeyGame game1 = new HockeyGame(mites1, LocalDateTime.of(2020, 02, 01, 13, 00), "Loudon Knights", "LA", Side.Home);
 		game1.setOpponentScore(3);
 		game1.setTeamScore(7);
 		game1.setResult(GameResult.Win);
@@ -444,9 +474,10 @@ public class JourneymanApplication {
 		game1.setShots(3);
 		game1.setLocation("Skate Frederick");
 		game1.setGameType(GameType.NonLeague);
+		game1.setLeague("Exhibition");
 		session.save(game1);
 
-		HockeyGame game2 = new HockeyGame(mites1, LocalDateTime.of(2020, 02, 13, 14, 30), "Howard Huskies", Level.UA, Side.Away);
+		HockeyGame game2 = new HockeyGame(mites1, LocalDateTime.of(2020, 02, 13, 14, 30), "Howard Huskies", "UA", Side.Away);
 		game2.setOpponentScore(4);
 		game2.setTeamScore(5);
 		game2.setResult(GameResult.Win);

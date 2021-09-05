@@ -3,7 +3,6 @@ package com.hockey43.iInTeam.dataObjects.hockey;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hockey43.iInTeam.dataObjects.GameResult;
 import com.hockey43.iInTeam.dataObjects.GameType;
-import com.hockey43.iInTeam.dataObjects.Level;
 import com.hockey43.iInTeam.dataObjects.Side;
 
 import javax.persistence.*;
@@ -17,7 +16,7 @@ public class HockeyGameSheet {
     private long teamId;
     private String teamName;
     private String opponentTeamName;
-    private Level opponentLevel;
+    private String opponentLevel;
     private String location;
     private Side side;
     private int teamScore;
@@ -81,11 +80,11 @@ public class HockeyGameSheet {
         this.opponentTeamName = opponentTeamName;
     }
 
-    public Level getOpponentLevel() {
+    public String getOpponentLevel() {
         return opponentLevel;
     }
 
-    public void setOpponentLevel(Level opponentLevel) {
+    public void setOpponentLevel(String opponentLevel) {
         this.opponentLevel = opponentLevel;
     }
 

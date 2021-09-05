@@ -1,8 +1,6 @@
 package com.hockey43.iInTeam.dataObjects.hockey;
 
-import com.hockey43.iInTeam.dataObjects.Stats;
-
-public class HockeyPlayerStats extends Stats {
+public class HockeyPlayerStats {
     private int goals;
     private int assists;
     private int points;

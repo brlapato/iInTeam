@@ -1,0 +1,7 @@
+CREATE TABLE `Org` (
+  `OrgId` int NOT NULL AUTO_INCREMENT,
+  `City` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`OrgId`),
+  UNIQUE KEY `UK_Name_City` (`Name`,`City`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

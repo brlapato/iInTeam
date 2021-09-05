@@ -1,0 +1,18 @@
+CREATE TABLE `Player` (
+  `PlayerId` bigint NOT NULL AUTO_INCREMENT,
+  `FirstName` varchar(255) NOT NULL,
+  `HeightFeet` int DEFAULT NULL,
+  `HeightInches` int DEFAULT NULL,
+  `IncludeHockey` bit(1) DEFAULT NULL,
+  `LastName` varchar(255) NOT NULL,
+  `Nickname` varchar(255) DEFAULT NULL,
+  `UserId` varchar(255) NOT NULL,
+  `Weight` int DEFAULT NULL,
+  `HockeyAttributeId` bigint DEFAULT NULL,
+  `PlayerPictureMediaId` bigint DEFAULT NULL,
+  PRIMARY KEY (`PlayerId`),
+  KEY `FK_HockeyAttributeId` (`HockeyAttributeId`),
+  KEY `FK_PlayerPictureMedia` (`PlayerPictureMediaId`),
+  CONSTRAINT `FK_HockeyAttributeId` FOREIGN KEY (`HockeyAttributeId`) REFERENCES `HockeyAttributes` (`HockeyAttributeId`),
+  CONSTRAINT `FK_PlayerPictureMedia` FOREIGN KEY (`PlayerPictureMediaId`) REFERENCES `Media` (`MediaId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

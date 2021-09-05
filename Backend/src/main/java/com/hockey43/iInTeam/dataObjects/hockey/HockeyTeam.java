@@ -10,9 +10,8 @@ import javax.persistence.*;
 public class HockeyTeam extends Team {
 
 
-    @Column(name="Level")
-    @Enumerated(EnumType.STRING)
-    private Level level;
+    @Column(name="Level", nullable = false, length = 10)
+    private String level;
 
     @Column(name="AgeClass")
     @Enumerated(EnumType.STRING)
@@ -30,17 +29,17 @@ public class HockeyTeam extends Team {
     @Column(name="Manager")
     private String manager;
 
-    @Column(name="RegularPosition")
-    private Position regularPosition;
+    @Column(name="RegularPosition", length = 15)
+    private String regularPosition;
 
     @Column(name="PlayerNumber")
     private Integer playerNumber;
 
-    public Level getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(Level level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 
@@ -84,11 +83,11 @@ public class HockeyTeam extends Team {
         this.manager = manager;
     }
 
-    public Position getRegularPosition() {
+    public String getRegularPosition() {
         return regularPosition;
     }
 
-    public void setRegularPosition(Position regularPosition) {
+    public void setRegularPosition(String regularPosition) {
         this.regularPosition = regularPosition;
     }
 
