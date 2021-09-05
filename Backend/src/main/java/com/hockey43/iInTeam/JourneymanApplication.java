@@ -264,18 +264,47 @@ public class JourneymanApplication {
 		howard10UEJ4.setGoals(1);
 		session.save(howard10UEJ4);
 
+		HockeyGame howard10U911 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 11, 9, 0), "St James", "AA", Side.Home);
+		howard10U911.setLocation("Gardens Ice House (Logsdon)");
+		howard10U911.setGameType(GameType.League);
+		howard10U911.setLeague("CBHL");
+		session.save(howard10U911);
 
-		HockeyGame howard10U1 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 12, 12, 10), "Loudoun Knights Gold", "AA", Side.Away);
+		HockeyGame howard10U1 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 12, 4, 10), "Loudoun Knights Gold", "AA", Side.Away);
 		howard10U1.setLocation("Ion");
-		howard10U1.setGameType(GameType.NonLeague);
-		howard10U1.setLeague("Exhibition");
+		howard10U1.setGameType(GameType.League);
+		howard10U1.setLeague("EJEPL, CBHL");
 		session.save(howard10U1);
+
+		HockeyGame howard10U919 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 19, 12, 0), "Ashburn Extreme", "AA", Side.Home);
+		howard10U919.setLocation("Columbia Ice Rink");
+		howard10U919.setGameType(GameType.League);
+		howard10U919.setLeague("CBHL");
+		session.save(howard10U919);
 
 		HockeyGame howard10U2 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 25, 16, 15), "Loudoun Knights Gold", "AA", Side.Home);
 		howard10U2.setLocation("Columbia Ice Rink");
-		howard10U2.setGameType(GameType.NonLeague);
-		howard10U2.setLeague("Exhibition");
+		howard10U2.setGameType(GameType.League);
+		howard10U2.setLeague("EJEPL, CBHL");
 		session.save(howard10U2);
+
+		HockeyGame howard10U926 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 26, 16, 15), "Montgomery", "AA", Side.Home);
+		howard10U926.setLocation("Columbia Ice Rink");
+		howard10U926.setGameType(GameType.League);
+		howard10U926.setLeague("CBHL");
+		session.save(howard10U926);
+
+		HockeyGame howard10U1002a = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 10, 02, 12, 20), "Aston Nordiques", "AA", Side.Home);
+		howard10U1002a.setLocation("Gardens Ice House (Logsdon)");
+		howard10U1002a.setGameType(GameType.League);
+		howard10U1002a.setLeague("EJEPL");
+		session.save(howard10U1002a);
+
+		HockeyGame howard10U1002b = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 10, 02, 5, 10), "Aston Nordiques", "AA", Side.Home);
+		howard10U1002b.setLocation("Gardens Ice House (Logsdon)");
+		howard10U1002b.setGameType(GameType.League);
+		howard10U1002b.setLeague("EJEPL");
+		session.save(howard10U1002b);
 
 		/*** VA Vipers ***/
 		HockeyTeam vaVipers = new HockeyTeam();

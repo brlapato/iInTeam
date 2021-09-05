@@ -1,0 +1,131 @@
+-- DROP Existing files
+
+DROP TABLE IF EXISTS HockeyGame;
+DROP TABLE IF EXISTS TeamEvent;
+DROP TABLE IF EXISTS HockeyTeam;
+DROP TABLE IF EXISTS Team;
+DROP TABLE IF EXISTS Org;
+DROP TABLE IF EXISTS Player;
+DROP TABLE IF EXISTS Media;
+DROP TABLE IF EXISTS HockeyAttributes;
+
+
+
+-- 000
+CREATE TABLE `HockeyAttributes` (
+  `HockeyAttributeId` bigint NOT NULL AUTO_INCREMENT,
+  `Position` varchar(10) DEFAULT NULL,
+  `Shot` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`HockeyAttributeId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 010 
+CREATE TABLE `Media` (
+  `MediaId` bigint NOT NULL AUTO_INCREMENT,
+  `Description` varchar(500) DEFAULT NULL,
+  `File` longtext,
+  `MediaType` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`MediaId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 020
+CREATE TABLE `Player` (
+  `PlayerId` bigint NOT NULL AUTO_INCREMENT,
+  `FirstName` varchar(255) NOT NULL,
+  `HeightFeet` int DEFAULT NULL,
+  `HeightInches` int DEFAULT NULL,
+  `IncludeHockey` bit(1) DEFAULT NULL,
+  `LastName` varchar(255) NOT NULL,
+  `Nickname` varchar(255) DEFAULT NULL,
+  `UserId` varchar(255) NOT NULL,
+  `Weight` int DEFAULT NULL,
+  `HockeyAttributeId` bigint DEFAULT NULL,
+  `PlayerPictureMediaId` bigint DEFAULT NULL,
+  PRIMARY KEY (`PlayerId`),
+  KEY `FK_HockeyAttributeId` (`HockeyAttributeId`),
+  KEY `FK_PlayerPictureMedia` (`PlayerPictureMediaId`),
+  CONSTRAINT `FK_HockeyAttributeId` FOREIGN KEY (`HockeyAttributeId`) REFERENCES `HockeyAttributes` (`HockeyAttributeId`),
+  CONSTRAINT `FK_PlayerPictureMedia` FOREIGN KEY (`PlayerPictureMediaId`) REFERENCES `Media` (`MediaId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- 030
+CREATE TABLE `Org` (
+  `OrgId` int NOT NULL AUTO_INCREMENT,
+  `City` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`OrgId`),
+  UNIQUE KEY `UK_Name_City` (`Name`,`City`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+-- 040
+CREATE TABLE `Team` (
+  `TeamId` bigint NOT NULL AUTO_INCREMENT,
+  `IsActive` bit(1) DEFAULT NULL,
+  `Name` varchar(255) DEFAULT NULL,
+  `StartDate` datetime NOT NULL,
+  `OrgId` int DEFAULT NULL,
+  `PlayerId` bigint NOT NULL,
+  PRIMARY KEY (`TeamId`),
+  KEY `FK_OrgId` (`OrgId`),
+  KEY `FKPlayerId` (`PlayerId`),
+  CONSTRAINT `FK_OrgId` FOREIGN KEY (`PlayerId`) REFERENCES `Player` (`PlayerId`),
+  CONSTRAINT `FKPlayerId` FOREIGN KEY (`OrgId`) REFERENCES `Org` (`OrgId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+-- 050
+CREATE TABLE `HockeyTeam` (
+  `AgeClass` varchar(255) DEFAULT NULL,
+  `AssistantCoach1` varchar(255) DEFAULT NULL,
+  `AssistantCoach2` varchar(255) DEFAULT NULL,
+  `HeadCoach` varchar(255) DEFAULT NULL,
+  `Level` varchar(10) NOT NULL,
+  `Manager` varchar(255) DEFAULT NULL,
+  `PlayerNumber` int DEFAULT NULL,
+  `RegularPosition` varchar(15) DEFAULT NULL,
+  `TeamId` bigint NOT NULL,
+  PRIMARY KEY (`TeamId`),
+  CONSTRAINT `FK_TeamId` FOREIGN KEY (`TeamId`) REFERENCES `Team` (`TeamId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- 060
+CREATE TABLE `TeamEvent` (
+  `EventId` bigint NOT NULL AUTO_INCREMENT,
+  `Location` varchar(255) DEFAULT NULL,
+  `startDateTime` datetime NOT NULL,
+  PRIMARY KEY (`EventId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- 070
+CREATE TABLE `HockeyGame` (
+  `League` varchar(255) NOT NULL,
+  `Assists` int DEFAULT NULL,
+  `GameType` varchar(255) NOT NULL,
+  `Goals` int DEFAULT NULL,
+  `IsOvertime` bit(1) DEFAULT NULL,
+  `IsPlayoff` bit(1) DEFAULT NULL,
+  `NumPeriods` int NOT NULL,
+  `OpponentLevel` varchar(5) DEFAULT NULL,
+  `OpponentScore` int DEFAULT NULL,
+  `OpponentTeamName` varchar(150) NOT NULL,
+  `PenaltyMin` int DEFAULT NULL,
+  `PeriodLength` int NOT NULL,
+  `PostGameNotes` varchar(3500) DEFAULT NULL,
+  `PreGameNotes` varchar(3500) DEFAULT NULL,
+  `Result` int DEFAULT NULL,
+  `Shots` int DEFAULT NULL,
+  `Side` varchar(255) NOT NULL,
+  `TeamScore` int DEFAULT NULL,
+  `EventId` bigint NOT NULL,
+  `TeamId` bigint NOT NULL,
+  PRIMARY KEY (`EventId`),
+  KEY `FK_TeamId` (`TeamId`),
+  CONSTRAINT `FK_HockeyTeamId` FOREIGN KEY (`TeamId`) REFERENCES `HockeyTeam` (`TeamId`),
+  CONSTRAINT `FK_EventId` FOREIGN KEY (`EventId`) REFERENCES `TeamEvent` (`EventId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

@@ -21,6 +21,6 @@ CREATE TABLE `HockeyGame` (
   `TeamId` bigint NOT NULL,
   PRIMARY KEY (`EventId`),
   KEY `FK_TeamId` (`TeamId`),
-  CONSTRAINT `FK_TeamId` FOREIGN KEY (`TeamId`) REFERENCES `HockeyTeam` (`TeamId`),
+  CONSTRAINT `FK_HockeyTeamId` FOREIGN KEY (`TeamId`) REFERENCES `HockeyTeam` (`TeamId`),
   CONSTRAINT `FK_EventId` FOREIGN KEY (`EventId`) REFERENCES `TeamEvent` (`EventId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
