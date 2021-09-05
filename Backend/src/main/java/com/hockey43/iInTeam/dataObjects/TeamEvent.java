@@ -11,7 +11,7 @@ public abstract class TeamEvent {
     @Id
     @Column(name="EventId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int eventId;
+    private long eventId;
 
     @Column(name="startDateTime", columnDefinition = "DATETIME", nullable = false)
     protected LocalDateTime startDateTime;
@@ -19,11 +19,11 @@ public abstract class TeamEvent {
     @Column(name="Location")
     private String location;
 
-    public int getEventId() {
+    public long getEventId() {
         return eventId;
     }
 
-    public void setEventId(int eventId) {
+    public void setEventId(long eventId) {
         this.eventId = eventId;
     }
 

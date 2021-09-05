@@ -19,7 +19,7 @@ export class TeamRecordComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadTeamRecord();
+    
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -32,7 +32,7 @@ export class TeamRecordComponent implements OnInit {
       (playerId:number | null) => {
         if (playerId && this.teamId) {
           
-          this.teamService.retrieveTeamRecord(playerId, this.teamId).subscribe((data:WinRecordEntry[]) => {this.winRecords = data; console.log(data);})
+          this.teamService.retrieveTeamRecord(playerId, this.teamId).subscribe((data:WinRecordEntry[]) => {this.winRecords = data; })
         }
       }
     );

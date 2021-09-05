@@ -71,6 +71,8 @@ public class HockeyGame extends TeamEvent {
     @Column(name="IsOvertime")
     private boolean isOvertime;
 
+
+
     @Column(name="IsPlayoff")
     private boolean isPlayoff;
 
@@ -100,6 +102,32 @@ public class HockeyGame extends TeamEvent {
 
         return eventSummary;
     }
+
+    public void mergeHockeyGameSheet(HockeyGameSheet gameSheet) {
+        this.setOpponentTeamName(gameSheet.getOpponentTeamName());
+        this.setGameType(gameSheet.getGameType());
+        this.setLeague(gameSheet.getLeague());
+        this.setResult(gameSheet.getResult());
+        this.setNumberPeriods(gameSheet.getNumberPeriods());
+        this.setPeriodLength(gameSheet.getPeriodLength());
+        this.setStartDateTime(gameSheet.getStartDateTime());
+        this.setLocation(gameSheet.getLocation());
+        this.setSide(gameSheet.getSide());
+        this.setPlayoff(gameSheet.isPlayoff());
+        this.setOvertime(gameSheet.isOvertime());
+
+        this.setTeamScore(gameSheet.getTeamScore());
+        this.setOpponentScore(gameSheet.getOpponentScore());
+        this.setGoals(gameSheet.getGoals());
+        this.setAssists(gameSheet.getAssists());
+        this.setShots(gameSheet.getShots());
+        this.setPenaltyMin(gameSheet.getPenaltyMin());
+
+        this.setPreGameNotes(gameSheet.getPreGameNotes());
+        this.setPostGameNotes(gameSheet.getPostGameNotes());
+    }
+
+    // region Getters/Setters
 
     public HockeyTeam getOwnerTeam() {
         return ownerHockeyTeam;
@@ -244,4 +272,14 @@ public class HockeyGame extends TeamEvent {
     public void setOvertime(boolean overtime) {
         isOvertime = overtime;
     }
+
+    public boolean isPlayoff() {
+        return isPlayoff;
+    }
+
+    public void setPlayoff(boolean playoff) {
+        isPlayoff = playoff;
+    }
+
+    //endregion
 }

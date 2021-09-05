@@ -1,0 +1,13 @@
+CREATE TABLE `Team` (
+  `TeamId` bigint NOT NULL AUTO_INCREMENT,
+  `IsActive` bit(1) DEFAULT NULL,
+  `Name` varchar(255) DEFAULT NULL,
+  `StartDate` datetime NOT NULL,
+  `OrgId` int DEFAULT NULL,
+  `PlayerId` bigint NOT NULL,
+  PRIMARY KEY (`TeamId`),
+  KEY `FK_OrgId` (`OrgId`),
+  KEY `FKPlayerId` (`PlayerId`),
+  CONSTRAINT `FK_OrgId` FOREIGN KEY (`PlayerId`) REFERENCES `Player` (`PlayerId`),
+  CONSTRAINT `FKPlayerId` FOREIGN KEY (`OrgId`) REFERENCES `Org` (`OrgId`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

@@ -42,13 +42,22 @@
                     </div>
                     <div class="accordian-item">
                         <h2 class="accordion-header" id="headerGames">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelGames" aria-expanded="true" aria-controls="panelGames">
+                            <button class="accordion-button" style="overflow: visible;" type="button" data-bs-toggle="collapse" data-bs-target="#panelGames" aria-expanded="true" aria-controls="panelGames">
                                 Games
                             </button>
                         </h2>
                         <div id="panelGames" class="accordion-collapse collapse show" aria-labelledby="headerGames">
-                            <div class="accordion-body bg-secondary">
-                              <app-hockey-game-list [teamId]="this.team.teamId"></app-hockey-game-list>
+                            <div class="accordion-body bg-secondary container">
+                                <div class="row">
+                                    <div class="col offset-md-10">
+                                        <button class="btn btn-sm bg-white rounded-pill" (click)="addGame()">New Game</button>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col">
+                                        <app-hockey-game-list [teamId]="this.team.teamId"></app-hockey-game-list>
+                                    </div>
+                                </div>
                             </div>
                           </div>
                     </div>

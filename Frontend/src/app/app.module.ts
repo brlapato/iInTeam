@@ -23,6 +23,8 @@ import { TeamRecordComponent } from './components/teams/team-record/team-record.
 import { PlayerStatsComponent } from './components/player/player-stats/player-stats.component';
 import { HockeyGameListComponent } from './components/games/hockey-game-list/hockey-game-list.component';
 import { HockeyGameListItemComponent } from './components/games/hockey-game-list-item/hockey-game-list-item.component';
+import { HockeyGameComponent } from './components/games/hockey-game/hockey-game.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -43,12 +45,14 @@ import { HockeyGameListItemComponent } from './components/games/hockey-game-list
     TeamRecordComponent,
     PlayerStatsComponent,
     HockeyGameListComponent,
-    HockeyGameListItemComponent
+    HockeyGameListItemComponent,
+    HockeyGameComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     AuthModule.forRoot({
       domain: 'dev-hockey43.us.auth0.com',
       clientId: 'sbJUIAi6tefnkox1oOrVpBgNKucjjpVT',

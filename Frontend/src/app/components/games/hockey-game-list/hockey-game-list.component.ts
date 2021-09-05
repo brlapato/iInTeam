@@ -19,7 +19,7 @@ export class HockeyGameListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadTeamList();
+   
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -32,10 +32,18 @@ export class HockeyGameListComponent implements OnInit {
       (playerId:number | null) => {
         if (playerId && this.teamId) {
           
-          this.teamService.retrieveHockeyGames(playerId, this.teamId).subscribe((data:HockeyGame[]) => {this.games = data; console.log(data);})
+          this.teamService.retrieveHockeyGames(playerId, this.teamId).subscribe((data:HockeyGame[]) => {this.games = data;})
         }
       }
     );
+  }
+
+  onGameDeleted(gameId: number) {
+    for (let i:number = 0; i < this.games.length; i++) {
+      if (this.games[i].gameId === gameId) {
+        this.games.splice(i, 1);
+      }
+    }
   }
 
 }

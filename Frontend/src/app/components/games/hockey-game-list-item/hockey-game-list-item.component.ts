@@ -1,5 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { HockeyGame } from 'src/app/data-objects/data-objects.module';
+import { GameService } from 'src/app/services/data/game.service';
+import { AuthenticationService } from 'src/app/services/user/authentication.service';
+
 
 @Component({
   selector: 'app-hockey-game-list-item',
@@ -9,8 +13,13 @@ import { HockeyGame } from 'src/app/data-objects/data-objects.module';
 export class HockeyGameListItemComponent  {
 
   @Input() game: HockeyGame = HockeyGame.getDefault();
+  @Output() gameDeleted = new EventEmitter<number>();
   
-  constructor() {}
+  constructor(
+    private router: Router,
+    public auth: AuthenticationService,
+    public gameService: GameService
+  ) {}
 
   public getSideModifierString(game: HockeyGame) {
     if (game.side=="Home") {
@@ -23,11 +32,27 @@ export class HockeyGameListItemComponent  {
   public getGameResultString(game: HockeyGame) {
     let resultStr = "";
 
-    if (this.game.result != null) {
+    if (this.game.result != null && this.game.result != "Undetermined") {
       resultStr = `${this.game.result} (${this.game.teamScore}-${this.game.opponentScore})`
     }
 
     return resultStr;
+  }
+
+  public editGame(teamId: number, gameId: number) {
+    this.router.navigate(['hockeyGame', teamId, gameId]);
+  }
+
+  public deleteGame(teamId: number, gameId: number) {
+    this.auth.playerId$.subscribe(
+      (playerId:number | null) => {
+        if (playerId && teamId) {
+          this.gameService.deleteHockeyGame(playerId, teamId, this.game.gameId).subscribe(
+            (data:HockeyGame) => { this.gameDeleted.emit(gameId); }
+          );
+        }
+      }
+    );
   }
 
 

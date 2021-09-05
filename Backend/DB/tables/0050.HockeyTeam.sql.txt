@@ -1,0 +1,13 @@
+CREATE TABLE `HockeyTeam` (
+  `AgeClass` varchar(255) DEFAULT NULL,
+  `AssistantCoach1` varchar(255) DEFAULT NULL,
+  `AssistantCoach2` varchar(255) DEFAULT NULL,
+  `HeadCoach` varchar(255) DEFAULT NULL,
+  `Level` varchar(10) NOT NULL,
+  `Manager` varchar(255) DEFAULT NULL,
+  `PlayerNumber` int DEFAULT NULL,
+  `RegularPosition` varchar(15) DEFAULT NULL,
+  `TeamId` bigint NOT NULL,
+  PRIMARY KEY (`TeamId`),
+  CONSTRAINT `FK_TeamId` FOREIGN KEY (`TeamId`) REFERENCES `Team` (`TeamId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

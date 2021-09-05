@@ -28,7 +28,7 @@ export class AuthenticationService {
   }
 
   logout() {
-    console.log("Logging out user...");
+    
     sessionStorage.removeItem(PLAYER_ID);
     this.auth.logout({ returnTo: 'http://localhost:4200' })
     //auth.logout({ returnTo: document.location.origin })
