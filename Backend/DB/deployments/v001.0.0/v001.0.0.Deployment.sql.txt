@@ -130,3 +130,11 @@ CREATE TABLE `HockeyGame` (
   CONSTRAINT `FK_HockeyTeamId` FOREIGN KEY (`TeamId`) REFERENCES `HockeyTeam` (`TeamId`),
   CONSTRAINT `FK_EventId` FOREIGN KEY (`EventId`) REFERENCES `TeamEvent` (`EventId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `DBVersion` (
+  `CurrentVersion` varchar(255) NOT NULL,
+  PRIMARY KEY (`CurrentVersion`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO DBVersion (CurrentVersion) VALUES ('v0.9.0');

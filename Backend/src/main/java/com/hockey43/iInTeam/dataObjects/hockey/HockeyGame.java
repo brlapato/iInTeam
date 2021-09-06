@@ -4,6 +4,8 @@ import com.hockey43.iInTeam.dataObjects.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="HockeyGame")
@@ -103,6 +105,8 @@ public class HockeyGame extends TeamEvent {
         return eventSummary;
     }
 
+    // region public methods
+
     public void mergeHockeyGameSheet(HockeyGameSheet gameSheet) {
         this.setOpponentTeamName(gameSheet.getOpponentTeamName());
         this.setGameType(gameSheet.getGameType());
@@ -126,6 +130,21 @@ public class HockeyGame extends TeamEvent {
         this.setPreGameNotes(gameSheet.getPreGameNotes());
         this.setPostGameNotes(gameSheet.getPostGameNotes());
     }
+
+    public String[] getSeperateLeages() {
+        String[] results = null;
+
+        if (this.getLeague().length() > 0) {
+            results = this.getLeague().split(",");
+            for (int i=0; i<results.length; i++) {
+                results[i] = results[i].trim();
+            }
+        }
+
+        return results;
+    }
+
+    // endregion
 
     // region Getters/Setters
 
