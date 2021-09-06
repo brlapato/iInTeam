@@ -106,6 +106,7 @@ public class HockeyTeamService {
         session.close();
 
         Map<String, Record> records = new LinkedHashMap<String, Record>();
+        Map<String, Record> leagueRecords = new LinkedHashMap<String, Record>();
 
         Record overallRecord = new Record();
         records.put("Overall", overallRecord);
@@ -123,9 +124,28 @@ public class HockeyTeamService {
             }
             updateGameRecord(cGame, subTypeRecord);
 
+            String[] allLeagues = cGame.getSeperateLeages();
+            if (allLeagues != null) {
+                for (int leagueIndex=0; leagueIndex < allLeagues.length; leagueIndex++) {
+                    String league = allLeagues[leagueIndex];
+                    Record currentLeagueRecord = leagueRecords.getOrDefault(league, null);
+                    if (currentLeagueRecord == null) {
+                        currentLeagueRecord = new Record();
+                        leagueRecords.put(league, currentLeagueRecord);
+                    }
+                    updateGameRecord(cGame, currentLeagueRecord);
+                }
+            }
+
         }
         List<RecordEntry> results = new ArrayList<RecordEntry>();
         for (Map.Entry<String, Record> entry : records.entrySet()) {
+            RecordEntry newEntry = new RecordEntry();
+            newEntry.setDescription(entry.getKey());
+            newEntry.setWinRecord(entry.getValue());
+            results.add(newEntry);
+        }
+        for (Map.Entry<String, Record> entry : leagueRecords.entrySet()) {
             RecordEntry newEntry = new RecordEntry();
             newEntry.setDescription(entry.getKey());
             newEntry.setWinRecord(entry.getValue());
@@ -166,13 +186,18 @@ public class HockeyTeamService {
             }
             updatePlayerStats(cGame, subTypeStats);
 
-            String league = cGame.getLeague().toString();
-            HockeyPlayerStats currentLeagueStats = leagueStats.getOrDefault(league, null);
-            if (currentLeagueStats == null) {
-                currentLeagueStats = new HockeyPlayerStats();
-                leagueStats.put(league, currentLeagueStats);
+            String[] allLeagues = cGame.getSeperateLeages();
+            if (allLeagues != null) {
+                for (int leagueIndex=0; leagueIndex < allLeagues.length; leagueIndex++) {
+                    String league = allLeagues[leagueIndex];
+                    HockeyPlayerStats currentLeagueStats = leagueStats.getOrDefault(league, null);
+                    if (currentLeagueStats == null) {
+                        currentLeagueStats = new HockeyPlayerStats();
+                        leagueStats.put(league, currentLeagueStats);
+                    }
+                    updatePlayerStats(cGame, currentLeagueStats);
+                }
             }
-            updatePlayerStats(cGame, currentLeagueStats);
 
         }
         List<HockeyPlayerStatsEntry> results = new ArrayList<HockeyPlayerStatsEntry>();
