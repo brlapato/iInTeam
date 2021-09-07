@@ -1,31 +1,24 @@
-<div class="container-fluid px-5 py-5">
+<div class="container-fluid px-2 py-3">
     <div class="row gy-5">
         <div class="col-sm-4">
-            <div class="card">
-                <div class="card-header text-center text-white bg-primary">Upcomming Schedule</div>
-                <div class="card-body">
-                    
-                </div>
+            <div class="container rounded-2 shadow bg-light pb-5 mb-3">
+                <h3>Upcoming Games</h3>
             </div>
-            <div class="card">
-                <div class="card-header text-center text-white bg-primary">Recent Games</div>
-                <div class="card-body">
+            <div class="container rounded-2 shadow bg-light pb-5">
+                <h3>Recent Games</h3>
                     
-                </div>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="card">
-                <div class="card-header text-center text-white bg-primary">Teams</div>
-                <div class="card-body">
-                    <app-team-summary-list [activeOnly]="true"></app-team-summary-list>
-                </div>
+            <div class="container rounded-2 shadow bg-light pb-5">
+                <h3>Current Teams</h3>
+                <app-team-summary-list [activeOnly]="true"></app-team-summary-list>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="card">
-                <div class="card-header text-center text-white bg-primary">Profile</div>
-                <div class="card-body">
+            <div class="container rounded-2 shadow bg-light pb-5">
+                <h3>Profile</h3>
+                <div class="container p-1">
                     <app-profile-small></app-profile-small>
                 </div>
             </div>
