@@ -16,8 +16,10 @@ public class HockeyGameSheet {
     private long teamId;
     private String teamName;
     private String opponentTeamName;
+    private String opponentTeamNameMod;
     private String opponentLevel;
     private String location;
+    private String locationDetail;
     private Side side;
     private int teamScore;
     private int opponentScore;
@@ -208,6 +210,22 @@ public class HockeyGameSheet {
         this.result = result;
     }
 
+    public String getOpponentTeamNameMod() {
+        return opponentTeamNameMod;
+    }
+
+    public void setOpponentTeamNameMod(String opponentTeamNameMod) {
+        this.opponentTeamNameMod = opponentTeamNameMod;
+    }
+
+    public String getLocationDetail() {
+        return locationDetail;
+    }
+
+    public void setLocationDetail(String locationDetail) {
+        this.locationDetail = locationDetail;
+    }
+
     @JsonProperty("isOvertime")
     public boolean isOvertime() {
         return isOvertime;
@@ -243,8 +261,10 @@ public class HockeyGameSheet {
         this.teamId = hockeyGame.getOwnerTeam().getTeamId();
         this.teamName = hockeyGame.getOwnerTeam().getName();
         this.opponentTeamName = hockeyGame.getOpponentTeamName();
+        this.opponentTeamNameMod = hockeyGame.getOpponentTeamNameMod();
         this.opponentLevel = hockeyGame.getOpponentLevel();
         this.location = hockeyGame.getLocation();
+        this.locationDetail = hockeyGame.getLocationDetail();
         this.side = hockeyGame.getSide();
         this.teamScore = hockeyGame.getTeamScore();
         this.opponentScore = hockeyGame.getOpponentScore();

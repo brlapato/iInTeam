@@ -9,6 +9,7 @@ CREATE TABLE `HockeyGame` (
   `OpponentLevel` varchar(5) DEFAULT NULL,
   `OpponentScore` int DEFAULT NULL,
   `OpponentTeamName` varchar(150) NOT NULL,
+  `OpponentTeamNameMod` varchar(150) DEFAULT NULL,
   `PenaltyMin` int DEFAULT NULL,
   `PeriodLength` int NOT NULL,
   `PostGameNotes` varchar(3500) DEFAULT NULL,

@@ -21,6 +21,11 @@ public class HockeyGame extends TeamEvent {
             length = 150)
     private String opponentTeamName;
 
+    @Column(name="OpponentTeamNameMod",
+            nullable = true,
+            length = 150)
+    private String opponentTeamNameMod;
+
     @Column(name="OpponentLevel",
             nullable = true,
             length = 5)
@@ -109,6 +114,7 @@ public class HockeyGame extends TeamEvent {
 
     public void mergeHockeyGameSheet(HockeyGameSheet gameSheet) {
         this.setOpponentTeamName(gameSheet.getOpponentTeamName());
+        this.setOpponentTeamNameMod(gameSheet.getOpponentTeamNameMod());
         this.setGameType(gameSheet.getGameType());
         this.setLeague(gameSheet.getLeague());
         this.setResult(gameSheet.getResult());
@@ -116,6 +122,7 @@ public class HockeyGame extends TeamEvent {
         this.setPeriodLength(gameSheet.getPeriodLength());
         this.setStartDateTime(gameSheet.getStartDateTime());
         this.setLocation(gameSheet.getLocation());
+        this.setLocationDetail(gameSheet.getLocationDetail());
         this.setSide(gameSheet.getSide());
         this.setPlayoff(gameSheet.isPlayoff());
         this.setOvertime(gameSheet.isOvertime());
@@ -298,6 +305,46 @@ public class HockeyGame extends TeamEvent {
 
     public void setPlayoff(boolean playoff) {
         isPlayoff = playoff;
+    }
+
+    public HockeyTeam getOwnerHockeyTeam() {
+        return ownerHockeyTeam;
+    }
+
+    public void setOwnerHockeyTeam(HockeyTeam ownerHockeyTeam) {
+        this.ownerHockeyTeam = ownerHockeyTeam;
+    }
+
+    public String getOpponentTeamNameMod() {
+        return opponentTeamNameMod;
+    }
+
+    public void setOpponentTeamNameMod(String opponentTeamNameMod) {
+        this.opponentTeamNameMod = opponentTeamNameMod;
+    }
+
+    public void setTeamScore(int teamScore) {
+        this.teamScore = teamScore;
+    }
+
+    public void setOpponentScore(int opponentScore) {
+        this.opponentScore = opponentScore;
+    }
+
+    public void setGoals(int goals) {
+        this.goals = goals;
+    }
+
+    public void setAssists(int assists) {
+        this.assists = assists;
+    }
+
+    public void setShots(int shots) {
+        this.shots = shots;
+    }
+
+    public void setPenaltyMin(int penaltyMin) {
+        this.penaltyMin = penaltyMin;
     }
 
     //endregion

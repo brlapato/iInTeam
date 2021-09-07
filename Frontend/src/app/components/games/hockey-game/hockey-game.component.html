@@ -31,9 +31,16 @@
                         <input type="text" class="form-control" name="opponent" required="required" [(ngModel)]="hockeyGame.opponentTeamName" >
                     </div>
                     <div class="input-group mb-3">
+                        <span class="input-group-text" style="width:100px"></span>
+                        <input type="text" class="form-control" name="opponentMod" [(ngModel)]="hockeyGame.opponentTeamNameMod" >
+                    </div>
+                    <div class="input-group mb-3">
                         <span class="input-group-text" style="width:100px">Location</span>
                         <input type="text" class="form-control" name="location" required="required"  [(ngModel)]="hockeyGame.location" >
-                        
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" style="width:100px"></span>
+                        <input type="text" class="form-control" name="locationDetail" [(ngModel)]="hockeyGame.locationDetail" >
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" style="width:100px">Game Type</span>
