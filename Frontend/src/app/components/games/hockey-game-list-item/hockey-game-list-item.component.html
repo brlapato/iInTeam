@@ -12,7 +12,7 @@
         <div class="col-5">
             <div class="container">
                 <div class="row"><div class="column">{{game.gameType}} ({{game.league}})</div></div>
-                <div class="row"><div class="column">{{game.location}}</div></div>
+                <div class="row"><div class="column">{{game.location}} <span *ngIf="game.locationDetail != null && game.locationDetail.length > 0">({{game.locationDetail}})</span></div></div>
             </div>
         </div>
         <div class="col-2">

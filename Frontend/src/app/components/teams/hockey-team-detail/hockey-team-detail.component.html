@@ -1,4 +1,4 @@
-<div *ngIf="this.team" class="container border border-2 border-dark rounded-3 bg-light" style="padding: 15px">
+<div *ngIf="this.team" class="container rounded-3 bg-white" style="padding: 15px">
     <h2>{{team.name}} <span class="badge bg-primary rounded-pill">#{{team.playerNumber}}-{{team.regularPosition}}</span></h2>
     <div class="container">
         <div class="row">
@@ -6,7 +6,7 @@
                 <div class="accordian border" id="hockeyTeamAccordian">
                     <div class="accordian-item">
                         <h2 class="accordion-header" id="headerRecord">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelRecord" aria-expanded="true" aria-controls="panelRecord">
+                            <button class="accordion-button bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#panelRecord" aria-expanded="true" aria-controls="panelRecord">
                                 General
                             </button>
                         </h2>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="accordian-item">
                         <h2 class="accordion-header" id="headerStats">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelStats" aria-expanded="true" aria-controls="panelStats">
+                            <button class="accordion-button  bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#panelStats" aria-expanded="true" aria-controls="panelStats">
                                 Player Stats
                             </button>
                         </h2>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="accordian-item">
                         <h2 class="accordion-header" id="headerGames">
-                            <button class="accordion-button" style="overflow: visible;" type="button" data-bs-toggle="collapse" data-bs-target="#panelGames" aria-expanded="true" aria-controls="panelGames">
+                            <button class="accordion-button  bg-light" style="overflow: visible;" type="button" data-bs-toggle="collapse" data-bs-target="#panelGames" aria-expanded="true" aria-controls="panelGames">
                                 Games
                             </button>
                         </h2>

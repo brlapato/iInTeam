@@ -1,6 +1,7 @@
 CREATE TABLE `TeamEvent` (
   `EventId` bigint NOT NULL AUTO_INCREMENT,
   `Location` varchar(255) DEFAULT NULL,
+  `LocationDetail` varchar(255) DEFAULT NULL,
   `startDateTime` datetime NOT NULL,
   PRIMARY KEY (`EventId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

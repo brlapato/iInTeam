@@ -13,7 +13,7 @@ export class WelcomeComponent implements OnInit {
   userInfo:UserInfo = new UserInfo("","","","",0);
   playerId:number | null = null;
 
-  constructor(private auth: AuthenticationService) { }
+  constructor(public auth: AuthenticationService) { }
 
   ngOnInit(): void {
     this.auth.playerId$.subscribe(

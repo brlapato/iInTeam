@@ -16,8 +16,11 @@ public abstract class TeamEvent {
     @Column(name="startDateTime", columnDefinition = "DATETIME", nullable = false)
     protected LocalDateTime startDateTime;
 
-    @Column(name="Location")
+    @Column(name="Location", length = 255)
     private String location;
+
+    @Column(name="LocationDetail", length = 255, nullable = true)
+    private String LocationDetail;
 
     public long getEventId() {
         return eventId;
@@ -41,6 +44,14 @@ public abstract class TeamEvent {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getLocationDetail() {
+        return LocationDetail;
+    }
+
+    public void setLocationDetail(String locationDetail) {
+        LocationDetail = locationDetail;
     }
 
     public abstract TeamEventSummary getTeamEventSummary();

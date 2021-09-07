@@ -7,20 +7,16 @@
                 <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Teams</a></li>
                 <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Camps/Clinics</a></li>
                 <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Calendar</a></li>
-                <li *ngIf="auth.user$ | async as user"><a  routerLink="/player" class="nav-link">Player</a></li>
+                <li *ngIf="auth.user$ | async as user"><a  routerLink="/player" class="nav-link">Player</a></li>                
             </ul>
             <ul class="navbar-nav navbar-collapse justify-content-end">
                 <li *ngIf="auth.user$ | async as user"><a routerLink="/login" class="nav-link">Account</a></li>
                 
-                <ng-container *ngIf="auth.isAuthenticated$ | async as user; else loggedOut">
+                <ng-container *ngIf="auth.isAuthenticated$ | async as user">
                     <li><button (click)="auth.logout();" class="btn btn-primary">
                       Log out
                     </button></li>
                   </ng-container>
-              
-                  <ng-template #loggedOut>
-                    <li><button (click)="auth.login()" class="btn btn-primary">Log in</button></li>
-                  </ng-template>
             </ul>
         </div>
     </nav>
