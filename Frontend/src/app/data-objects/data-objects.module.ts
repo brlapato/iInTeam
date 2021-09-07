@@ -171,8 +171,10 @@ export class HockeyAttributes {
       public teamId: number,
       public teamName: String,
       public opponentTeamName: String,
+      public opponentTeamNameMod: String,
       public startDateTime: Date,
       public location: String,
+      public locationDetail: String,
       public side: String,
       public league: String,
       public gameType: String,
@@ -192,7 +194,7 @@ export class HockeyAttributes {
     ) {}
 
     public static getDefault() {
-      return new HockeyGame(-1,-1,"", "", new Date(), "","Home","","","Undetermined",undefined,undefined,3,20,false,false,undefined,undefined,undefined,undefined,"","");
+      return new HockeyGame(-1,-1,"", "", "", new Date(), "", "","Home","","","Undetermined",undefined,undefined,3,20,false,false,undefined,undefined,undefined,undefined,"","");
     }
   }
 
