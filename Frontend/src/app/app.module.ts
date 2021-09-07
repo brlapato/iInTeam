@@ -25,6 +25,7 @@ import { HockeyGameListComponent } from './components/games/hockey-game-list/hoc
 import { HockeyGameListItemComponent } from './components/games/hockey-game-list-item/hockey-game-list-item.component';
 import { HockeyGameComponent } from './components/games/hockey-game/hockey-game.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './components/navigation/login/login.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { FormsModule } from '@angular/forms';
     PlayerStatsComponent,
     HockeyGameListComponent,
     HockeyGameListItemComponent,
-    HockeyGameComponent
+    HockeyGameComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

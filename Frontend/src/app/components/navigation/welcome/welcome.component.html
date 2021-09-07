@@ -1,6 +1,41 @@
-<p>welcome works!</p>
+<div class="container-fluid p-5 position-relative">
+    <div *ngIf="(auth.isAuthenticated$ | async) === false" class="container position-absolute top-0" style="left:75%;width:350px">
+        <div class="container border-start border-bottom border-end rounded-bottom bg-light shadow-sm">
+            <app-login></app-login>
+        </div>
+        
+    </div>
+    <div class="d-flex justify-content-center">
+        <img  src="/assets/images/logo1.png">
+        
+    </div>
+    <div class="d-flex justify-content-center">
+        <h3>iInTeam</h3>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div style="font-family: progress;font-size: x-large;">Your Teams | Your Games | Your Stats</div>
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <div class="container rounded-2 shadow bg-light pb-5 h-100">
+                <div class="d-flex justify-content-center border-bottom" style="font-family: progress;font-size: large;">Remember your past</div>  
+                <div class="text-center">Keep track off all of your games and events from all of your teams.  Keep your stats and see counts of your goals, wins and losses accross leagues.  Keep game notes to remember cool plays or areas to work on.  Your old games will always be available to go back, remember and learn from. </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="container rounded-2 shadow bg-light pb-5 h-100">
+                <div class="d-flex justify-content-center border-bottom" style="font-family: progress;font-size: large;">Organize your present</div>
+                <div class="text-center">Know what games, practices and events are coming up, even when playing for multiple teams or leagues. Understand how your team is trending and figure out a game plan going into the next event.</div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="container rounded-2 shadow bg-light pb-5 h-100">
+                <div class="d-flex justify-content-center border-bottom" style="font-family: progress;font-size: large;">Plan your future</div>
+                <div class="text-center">Identify your goals and what you want to work on to develop yourself as a player.  Keep track of what you are doing to work towards and achieve your goals. Take ownership of your development and achieve your potential.</div>
+            </div>
+        </div>
+    </div>
+</div>
 
-
- Player Id = {{ playerId }}
 
   
