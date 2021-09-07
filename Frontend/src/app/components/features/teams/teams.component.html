@@ -1,12 +1,17 @@
-<div class="container-fluid px-5 py-5">
+<div class="container-fluid px-3 py-3">
     <div class="row">
         <div class="col-3">
-            <div class="container border border-dark rounded-3 bg-white">
+            <div class="container rounded-2 shadow bg-light pb-5">
                 <h3>Teams</h3>
-                <div class="container">
-                    <ul class="teams">
-                        <li *ngFor="let team of teamList" [class.selected]="team === selectedTeam"  (click)="onSelectTeam(team)">{{ team.name }} <span class="badge rounded-pill bg-secondary" style="float: right;">{{team.sport}}</span></li>
-                    </ul>
+                <div class="container p-1">
+                    <div *ngFor="let team of teamList" 
+                            class="container border-bottom p-2" 
+                            [class.bg-secondary]="team === selectedTeam"  
+                            [class.text-white]="team === selectedTeam"
+                            (click)="onSelectTeam(team)"
+                            style="cursor: pointer;">
+                        {{ team.name }} 
+                    </div>
                 </div>
             </div>
         </div>
