@@ -1,5 +1,5 @@
 /* teamsComponent's private CSS styles */
-.teams {
+/*.teams {
     margin: 0 0 2em 0;
     list-style-type: none;
     padding: 0;
@@ -16,6 +16,7 @@
     border-radius: 4px;
     vertical-align: middle;
   }
+
   .teams li:hover {
     color: #2c3a41;
     background-color: #e6e6e6;
@@ -38,7 +39,7 @@
   input {
     padding: .5rem;
   }
-  
+  */
   
   /*
   Copyright Google LLC. All Rights Reserved.
