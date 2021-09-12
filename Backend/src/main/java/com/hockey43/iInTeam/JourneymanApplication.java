@@ -131,7 +131,7 @@ public class JourneymanApplication {
 		bradleyPlayer.setHeightInches(5);
 		bradleyPlayer.setWeight(74);
 		bradleyPlayer.setIncludeHockey(true);
-		bradleyPlayer.getHockeyAttributes().setPosition("Defense");
+		bradleyPlayer.getHockeyAttributes().setPosition("Forward");
 		bradleyPlayer.getHockeyAttributes().setShot(Shot.Left);
 		Media bradleyImage = new Media();
 		bradleyImage.setDescription("Bradley profile picture");
@@ -271,14 +271,18 @@ public class JourneymanApplication {
 		HockeyGame howard10U911 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 11, 9, 0), "St James", "AA", Side.Home);
 		howard10U911.setLocation("Gardens Ice House");
 		howard10U911.setLocationDetail("Logsdon");
-		howard10U911.setGameType(GameType.League);
-		howard10U911.setLeague("CBHL");
+		howard10U911.setGameType(GameType.NonLeague);
+		howard10U911.setLeague("Exhibition");
+		howard10U911.setResult(GameResult.Loss);
+		howard10U911.setTeamScore(0);
+		howard10U911.setOpponentScore(4);
+		howard10U911.setShots(2);
 		session.save(howard10U911);
 
-		HockeyGame howard10U1 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 12, 4, 10), "Loudoun Knights", "AA", Side.Away);
+		HockeyGame howard10U1 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 12, 12, 10), "Loudoun Knights", "AA", Side.Away);
 		howard10U1.setOpponentTeamNameMod("Gold");
 		howard10U1.setLocation("Ion");
-		howard10U1.setLocationDetail("Ion Rink");
+		howard10U1.setLocationDetail("Arena Rink");
 		howard10U1.setGameType(GameType.League);
 		howard10U1.setLeague("EJEPL, CBHL");
 		session.save(howard10U1);

@@ -200,7 +200,9 @@ export class HockeyAttributes {
 
   export class HockeyTeamSummary {
     constructor(
-      public hockeyTeam: HockeyTeam,
+      public teamName: String,
+      public regularPosition: String,
+      public playerNumber: number,
       public record: WinRecord,
       public goals: number,
       public assists: number,
@@ -212,7 +214,7 @@ export class HockeyAttributes {
 
     public static getDefault() {
       return new HockeyTeamSummary(
-        HockeyTeam.getDefault(),
+        "", "", -1,
         new WinRecord(0,0,0,0),
         0,0,0,0,0, 
         HockeyGame.getDefault()

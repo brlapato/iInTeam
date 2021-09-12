@@ -17,7 +17,7 @@ export class TeamService {
   }
 
   public retrieveTeamList(playerId: number, activeOnly: boolean) {
-    return this.http.get<HockeyTeam[]>(`${API_URL}/players/${playerId}/HockeyTeams?active=${activeOnly}`);
+    return this.http.get<HockeyTeamSummary[]>(`${API_URL}/players/${playerId}/HockeyTeams/summary?active=${activeOnly}`);
   }
 
   public retrieveTeams(playerId: number) {

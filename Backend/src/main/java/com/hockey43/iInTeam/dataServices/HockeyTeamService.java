@@ -29,6 +29,25 @@ public class HockeyTeamService {
         return teams;
     }
 
+    public List<HockeyTeamSummary> getHockeyTeamSummaries(long playerId, boolean activeOnly)  {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List<Long> teams = session.createQuery("SELECT T.teamId FROM Team T WHERE PlayerId = :pid AND (:activeOnly = false OR isActive = true)")
+                .setParameter("pid", playerId)
+                .setParameter("activeOnly", activeOnly)
+                .list();
+
+        session.getTransaction().commit();
+        session.close();
+
+        List<HockeyTeamSummary> teamSummaries = new ArrayList<HockeyTeamSummary>();
+        teams.forEach( (teamId)-> {
+            teamSummaries.add(this.getHockeyTeamSummary(teamId));
+        });
+
+        return teamSummaries;
+    }
+
     public HockeyTeam getHockeyTeam(long teamId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -44,7 +63,7 @@ public class HockeyTeamService {
             return null;
     }
 
-    public HockeyTeamSummary getHockeyTeamSummary(long teamId) throws GameNotFoundException {
+    public HockeyTeamSummary getHockeyTeamSummary(long teamId) {
         HockeyTeam team = this.getHockeyTeam(teamId);
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -58,8 +77,9 @@ public class HockeyTeamService {
 
         List<TeamEvent> schedule = new ArrayList<>(games);
         HockeyTeamSummary teamSummary = new HockeyTeamSummary();
-        teamSummary.setHockeyTeam(team);
-        teamSummary.setSchedule(schedule);
+        teamSummary.setTeamName(team.getName());
+        teamSummary.setPlayerNumber(team.getPlayerNumber());
+        teamSummary.setRegularPosition(team.getRegularPosition());
 
         int goals = 0; int assists = 0; int shots = 0; int penaltyMin = 0;
         Record teamRecord = new Record();
@@ -89,7 +109,9 @@ public class HockeyTeamService {
         teamSummary.setPoints(goals+assists);
         teamSummary.setPenaltyMin(penaltyMin);
         teamSummary.setRecord(teamRecord);
-        teamSummary.setNextGame(nextGame);
+        if (nextGame != null) {
+            teamSummary.setNextGame(new HockeyGameSheet(nextGame));
+        }
 
 
         return teamSummary;

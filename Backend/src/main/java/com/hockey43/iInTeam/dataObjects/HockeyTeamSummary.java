@@ -1,13 +1,18 @@
 package com.hockey43.iInTeam.dataObjects;
 
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
+import com.hockey43.iInTeam.dataObjects.hockey.HockeyGameSheet;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeam;
 
 import java.util.List;
 
 public class HockeyTeamSummary {
 
-    private HockeyTeam hockeyTeam;
+    private String teamName;
+
+    private String regularPosition;
+
+    private int playerNumber;
 
     private Record record;
 
@@ -21,17 +26,7 @@ public class HockeyTeamSummary {
 
     private int penaltyMin;
 
-    private List<TeamEvent> schedule;
-
-    private HockeyGame nextGame;
-
-    public HockeyTeam getHockeyTeam() {
-        return hockeyTeam;
-    }
-
-    public void setHockeyTeam(HockeyTeam hockeyTeam) {
-        this.hockeyTeam = hockeyTeam;
-    }
+    private HockeyGameSheet nextGame;
 
     public Record getRecord() {
         return record;
@@ -73,14 +68,6 @@ public class HockeyTeamSummary {
         this.penaltyMin = penaltyMin;
     }
 
-    public List<TeamEvent> getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(List<TeamEvent> schedule) {
-        this.schedule = schedule;
-    }
-
     public int getPoints() {
         return points;
     }
@@ -89,11 +76,35 @@ public class HockeyTeamSummary {
         this.points = points;
     }
 
-    public HockeyGame getNextGame() {
+    public HockeyGameSheet getNextGame() {
         return nextGame;
     }
 
-    public void setNextGame(HockeyGame nextGame) {
+    public void setNextGame(HockeyGameSheet nextGame) {
         this.nextGame = nextGame;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
+    }
+
+    public String getRegularPosition() {
+        return regularPosition;
+    }
+
+    public void setRegularPosition(String regularPosition) {
+        this.regularPosition = regularPosition;
+    }
+
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
+    public void setPlayerNumber(int playerNumber) {
+        this.playerNumber = playerNumber;
     }
 }

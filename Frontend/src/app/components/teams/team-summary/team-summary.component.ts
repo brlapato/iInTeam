@@ -12,8 +12,8 @@ import { LOCALE_ID, Inject } from "@angular/core";
 })
 export class TeamSummaryComponent implements OnInit {
 
-  @Input() teamId: number = 0;
-  public teamSummary: HockeyTeamSummary = HockeyTeamSummary.getDefault();
+  @Input() teamSummary: HockeyTeamSummary = HockeyTeamSummary.getDefault();
+  
   public winRecord: string = "";
   public nextGameDate: String = "(None)"
   public nextGameVs: String = ""
@@ -27,23 +27,7 @@ export class TeamSummaryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadTeamSummary();
-  }
-
-  loadTeamSummary() {
-    this.auth.playerId$.subscribe(
-      (playerId:number | null) => {
-        if (playerId) {
-          this.teamLoaded = false; 
-          this.teamService.retrieveTeamSummary(playerId, this.teamId).subscribe(
-            (data:HockeyTeamSummary) => {
-              console.log(data);
-              this.populateTeamDisplay(data)
-            }
-          )
-        }
-      }
-    );
+    this.populateTeamDisplay(this.teamSummary);
   }
 
   populateTeamDisplay(teamSummary: HockeyTeamSummary) {

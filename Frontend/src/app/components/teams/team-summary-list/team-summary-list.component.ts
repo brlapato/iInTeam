@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HockeyTeam } from 'src/app/data-objects/data-objects.module';
+import { HockeyTeam, HockeyTeamSummary } from 'src/app/data-objects/data-objects.module';
 import { TeamService } from 'src/app/services/data/team.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
 
@@ -11,7 +11,9 @@ import { AuthenticationService } from 'src/app/services/user/authentication.serv
 export class TeamSummaryListComponent implements OnInit {
 
   @Input() activeOnly: boolean = false;
-  public teams: HockeyTeam[] = [];
+  public teams: HockeyTeamSummary[] = [];
+
+  
 
   constructor(
     public auth: AuthenticationService,
@@ -27,7 +29,7 @@ export class TeamSummaryListComponent implements OnInit {
       (playerId:number | null) => {
         if (playerId) { 
           this.teamService.retrieveTeamList(playerId, this.activeOnly).subscribe(
-            (data:HockeyTeam[]) => {
+            (data:HockeyTeamSummary[]) => {
               this.teams = data;
             }
           )

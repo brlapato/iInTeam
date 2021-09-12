@@ -36,6 +36,11 @@ public class TeamResource {
         return this.hockeyTeamService.getHockeyTeams(playerId, activeOnly);
     }
 
+    @GetMapping("/players/{playerId}/HockeyTeams/summary")
+    public List<HockeyTeamSummary> getHockeyTeamSummaries(@PathVariable long playerId, @RequestParam(name="active", required = false, defaultValue = "false") boolean activeOnly) {
+        return this.hockeyTeamService.getHockeyTeamSummaries(playerId, activeOnly);
+    }
+
     @GetMapping("/players/{playerId}/HockeyTeams/{teamId}/teamSummary")
     public HockeyTeamSummary getHockeyTeamSummary(@PathVariable long teamId) throws GameNotFoundException {
         return this.hockeyTeamService.getHockeyTeamSummary(teamId);

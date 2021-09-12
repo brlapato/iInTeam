@@ -1,5 +1,5 @@
 <div class="card mt-3" *ngIf="teamLoaded">
-    <div class="card-header"><div class="row align-items-end"><div class="col-8 h5 fst-italic">{{teamSummary.hockeyTeam.name}}</div><div class="col small" >{{winRecord}}</div><div class="col align-self-end">U10</div></div></div>
+    <div class="card-header"><div class="row align-items-end"><div class="col-8 h5 fst-italic">{{teamSummary.teamName}}</div><div class="col small" >{{winRecord}}</div><div class="col align-self-end">U10</div></div></div>
     <div class="card-body">
         <div class="container">
             <div class="row">
@@ -25,7 +25,7 @@
                     
                 </div>
                 <div class="col-2">
-                    <div class="row">#{{teamSummary.hockeyTeam.playerNumber}}</div><div class="row">{{teamSummary.hockeyTeam.regularPosition}}</div>
+                    <div class="row">#{{teamSummary.playerNumber}}</div><div class="row">{{teamSummary.regularPosition}}</div>
                 </div>
             </div>
             <div class="row align-items-start ">
