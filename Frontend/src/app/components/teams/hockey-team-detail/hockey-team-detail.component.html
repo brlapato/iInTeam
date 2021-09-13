@@ -1,67 +1,47 @@
 <div *ngIf="this.team" class="container rounded-3 bg-white" style="padding: 15px">
     <h2>{{team.name}} <span class="badge bg-primary rounded-pill">#{{team.playerNumber}}-{{team.regularPosition}}</span></h2>
-    <div class="container">
-        <div class="row">
+    <div class="container bg-secondary rounded-3 ">
+        <div class="row my-2 gy-3">
             <div class="col">
-                <div class="accordian border" id="hockeyTeamAccordian">
-                    <div class="accordian-item">
-                        <h2 class="accordion-header" id="headerRecord">
-                            <button class="accordion-button bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#panelRecord" aria-expanded="true" aria-controls="panelRecord">
-                                General
-                            </button>
-                        </h2>
-                        <div id="panelRecord" class="accordion-collapse collapse show " aria-labelledby="headerRecord">
-                            <div class="accordion-body bg-secondary">
-                                <div class="container bg-white rounded-3">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="row"><div class="col-3">Coach:</div><div class="col">{{team.headCoach}}</div></div>
-                                            <div class="row" *ngIf="team.assistantCoach1"><div class="col-3">Assistant Coach:</div><div class="col">{{team.assistantCoach1}}</div></div>
-                                            <div class="row" *ngIf="team.assistantCoach2"><div class="col-3">Assistant Coach:</div><div class="col">{{team.assistantCoach2}}</div></div>
-                                            <div class="row" *ngIf="team.manager"><div class="col-3">Manager:</div><div class="col">{{team.manager}}</div></div>
-                                        </div>
-                                        <div class="col">
-                                            <app-team-record [teamId]="this.team.teamId"></app-team-record>
-                                        </div>
-                                    </div>
-                                </div>
+                        
+                
+                <div class="container bg-white rounded-3">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row"><div class="col-3">Coach:</div><div class="col">{{team.headCoach}}</div></div>
+                            <div class="row" *ngIf="team.assistantCoach1"><div class="col-3">Assistant Coach:</div><div class="col">{{team.assistantCoach1}}</div></div>
+                            <div class="row" *ngIf="team.assistantCoach2"><div class="col-3">Assistant Coach:</div><div class="col">{{team.assistantCoach2}}</div></div>
+                            <div class="row" *ngIf="team.manager"><div class="col-3">Manager:</div><div class="col">{{team.manager}}</div></div>
+                        </div>
+                        <div class="col">
+                            <div class="overflow-auto">
+                                <app-team-record [teamId]="this.team.teamId"></app-team-record>
                             </div>
-                          </div>
-                    </div>
-                    <div class="accordian-item">
-                        <h2 class="accordion-header" id="headerStats">
-                            <button class="accordion-button  bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#panelStats" aria-expanded="true" aria-controls="panelStats">
-                                Player Stats
-                            </button>
-                        </h2>
-                        <div id="panelStats" class="accordion-collapse collapse show" aria-labelledby="headerStats">
-                            <div class="accordion-body bg-secondary">
-                                <app-player-stats [teamId]="this.team.teamId"></app-player-stats>
-                            </div>
-                          </div>
-                    </div>
-                    <div class="accordian-item">
-                        <h2 class="accordion-header" id="headerGames">
-                            <button class="accordion-button  bg-light" style="overflow: visible;" type="button" data-bs-toggle="collapse" data-bs-target="#panelGames" aria-expanded="true" aria-controls="panelGames">
-                                Games
-                            </button>
-                        </h2>
-                        <div id="panelGames" class="accordion-collapse collapse show" aria-labelledby="headerGames">
-                            <div class="accordion-body bg-secondary container">
-                                <div class="row">
-                                    <div class="col offset-md-10">
-                                        <button class="btn btn-sm bg-white rounded-pill" (click)="addGame()">New Game</button>
-                                    </div>
-                                </div>
-                                <div class="row" style="margin-top: 10px;">
-                                    <div class="col">
-                                        <app-hockey-game-list [teamId]="this.team.teamId"></app-hockey-game-list>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
+                        </div>
                     </div>
                 </div>
+                
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col smallFont">                
+                <app-player-stats [teamId]="this.team.teamId"></app-player-stats>
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col">
+                
+                <div class="row">
+                    <div class="col offset-md-10">
+                        <button class="btn btn-sm bg-white rounded-pill" (click)="addGame()">New Game</button>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col">
+                        <app-hockey-game-list [teamId]="this.team.teamId"></app-hockey-game-list>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>

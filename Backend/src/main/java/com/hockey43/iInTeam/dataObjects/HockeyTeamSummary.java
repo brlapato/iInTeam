@@ -12,7 +12,7 @@ public class HockeyTeamSummary {
 
     private String regularPosition;
 
-    private int playerNumber;
+    private Integer playerNumber;
 
     private Record record;
 
@@ -100,11 +100,11 @@ public class HockeyTeamSummary {
         this.regularPosition = regularPosition;
     }
 
-    public int getPlayerNumber() {
+    public Integer getPlayerNumber() {
         return playerNumber;
     }
 
-    public void setPlayerNumber(int playerNumber) {
+    public void setPlayerNumber(Integer playerNumber) {
         this.playerNumber = playerNumber;
     }
 }
