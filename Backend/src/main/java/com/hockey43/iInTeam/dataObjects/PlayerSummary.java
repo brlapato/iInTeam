@@ -1,51 +1,29 @@
 package com.hockey43.iInTeam.dataObjects;
 
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyAttributes;
-import net.minidev.json.annotate.JsonIgnore;
+import com.hockey43.iInTeam.dataObjects.hockey.HockeyPlayerStatsEntry;
 
-import javax.persistence.*;
 
-@Entity
-@Table(name="Player")
-public class Player {
+import java.util.List;
 
-    @Id
-    @Column(name="PlayerId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PlayerSummary {
+
     private Long playerId;
-
-    @Column(name="UserId", nullable = false)
     private String userId;
-
-    @Column(name="FirstName", nullable = false)
     private String firstName;
-
-    @Column(name="LastName", nullable = false)
     private String lastName;
-
-    @Column(name="Nickname")
     private String nickName;
-
-    @Column(name="HeightFeet")
     private int heightFeet;
-
-    @Column(name="HeightInches")
     private int heightInches;
-
-    @Column(name="Weight")
     private int weight;
 
-    @Column(name="IncludeHockey")
     private boolean includeHockey;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "HockeyAttributeId", referencedColumnName = "HockeyAttributeId")
     private HockeyAttributes hockeyAttributes = new HockeyAttributes();
+    private List<HockeyPlayerStatsEntry> hockeyPlayerStats;
+    private List<RecordEntry> hockeyTeamRecords;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="PlayerPictureMediaId", nullable = true)
-    private Media playerPicture;
 
+    //region Getter/Setter
 
     public Long getPlayerId() {
         return playerId;
@@ -53,6 +31,14 @@ public class Player {
 
     public void setPlayerId(Long playerId) {
         this.playerId = playerId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -119,20 +105,41 @@ public class Player {
         this.hockeyAttributes = hockeyAttributes;
     }
 
-    @JsonIgnore
-    public Media getPlayerPicture() {
-        return playerPicture;
+    public List<HockeyPlayerStatsEntry> getHockeyPlayerStats() {
+        return hockeyPlayerStats;
     }
 
-    public void setPlayerPicture(Media playerPicture) {
-        this.playerPicture = playerPicture;
+    public void setHockeyPlayerStats(List<HockeyPlayerStatsEntry> hockeyPlayerStats) {
+        this.hockeyPlayerStats = hockeyPlayerStats;
     }
 
-    public String getUserId() {
-        return userId;
+    public List<RecordEntry> getHockeyTeamRecords() {
+        return hockeyTeamRecords;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setHockeyTeamRecords(List<RecordEntry> hockeyTeamRecords) {
+        this.hockeyTeamRecords = hockeyTeamRecords;
+    }
+
+
+    //endregion
+
+    public PlayerSummary() {
+
+    }
+
+    public PlayerSummary(Player player) {
+        this();
+
+        this.firstName = player.getFirstName();
+        this.lastName = player.getLastName();
+        this.heightFeet = player.getHeightFeet();
+        this.heightInches = player.getHeightInches();
+        this.hockeyAttributes = player.getHockeyAttributes();
+        this.nickName = player.getNickName();
+        this.weight = player.getWeight();
+        this.includeHockey = player.isIncludeHockey();
+        this.userId = player.getUserId();
+        this.playerId = player.getPlayerId();
     }
 }

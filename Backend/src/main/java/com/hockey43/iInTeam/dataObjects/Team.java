@@ -78,4 +78,6 @@ public abstract class Team {
     }
 
     public abstract Sport getSport();
+
+    public abstract TeamSummary getTeamSummary();
 }

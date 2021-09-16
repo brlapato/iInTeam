@@ -12,12 +12,9 @@ export class TeamService {
     private http:HttpClient
   ) { }
 
-  public retrieveTeamSummary(playerId: number, teamId: number) {
-    return this.http.get<HockeyTeamSummary>(`${API_URL}/players/${playerId}/HockeyTeams/${teamId}/teamSummary`);
-  }
 
   public retrieveTeamList(playerId: number, activeOnly: boolean) {
-    return this.http.get<HockeyTeamSummary[]>(`${API_URL}/players/${playerId}/HockeyTeams/summary?active=${activeOnly}`);
+    return this.http.get<HockeyTeamSummary[]>(`${API_URL}/players/${playerId}/HockeyTeams?active=${activeOnly}`);
   }
 
   public retrieveTeams(playerId: number) {

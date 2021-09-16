@@ -2,6 +2,7 @@ package com.hockey43.iInTeam.webResources;
 
 import com.hockey43.iInTeam.dataObjects.Media;
 import com.hockey43.iInTeam.dataObjects.Player;
+import com.hockey43.iInTeam.dataObjects.PlayerSummary;
 import com.hockey43.iInTeam.dataServices.IPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -15,8 +16,9 @@ public class PlayerResource {
     private IPlayerService playerService;
 
     @GetMapping("/players/{playerId}")
-    public Player getPlayer(@PathVariable long playerId) {
-        return this.playerService.getPlayer(playerId);
+    public PlayerSummary getPlayer(@PathVariable long playerId) {
+        return new PlayerSummary(this.playerService.getPlayer(playerId));
+
     }
 
     @GetMapping(value = "/players/{playerId}/profileImage")

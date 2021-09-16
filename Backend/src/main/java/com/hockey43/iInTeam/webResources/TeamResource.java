@@ -1,11 +1,7 @@
 package com.hockey43.iInTeam.webResources;
 
-import com.hockey43.iInTeam.JourneymanApplication;
 import com.hockey43.iInTeam.dataObjects.*;
-import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
-import com.hockey43.iInTeam.dataObjects.hockey.HockeyGameSheet;
-import com.hockey43.iInTeam.dataObjects.hockey.HockeyPlayerStatsEntry;
-import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeam;
+import com.hockey43.iInTeam.dataObjects.hockey.*;
 import com.hockey43.iInTeam.dataServices.HockeyTeamService;
 import com.hockey43.iInTeam.dataServices.TeamService;
 import com.hockey43.iInTeam.exceptions.GameNotFoundException;
@@ -31,12 +27,12 @@ public class TeamResource {
     @Autowired
     private TeamService teamService;
 
-    @GetMapping("/players/{playerId}/HockeyTeams")
-    public List<HockeyTeam> getHockeyTeams(@PathVariable long playerId, @RequestParam(name="active", required = false, defaultValue = "false") boolean activeOnly) {
-        return this.hockeyTeamService.getHockeyTeams(playerId, activeOnly);
-    }
+    //@GetMapping("/players/{playerId}/HockeyTeams")
+    //public List<HockeyTeam> getHockeyTeams(@PathVariable long playerId, @RequestParam(name="active", required = false, defaultValue = "false") boolean activeOnly) {
+    //    return this.hockeyTeamService.getHockeyTeams(playerId, activeOnly);
+    //}
 
-    @GetMapping("/players/{playerId}/HockeyTeams/summary")
+    @GetMapping("/players/{playerId}/HockeyTeams")
     public List<HockeyTeamSummary> getHockeyTeamSummaries(@PathVariable long playerId, @RequestParam(name="active", required = false, defaultValue = "false") boolean activeOnly) {
         return this.hockeyTeamService.getHockeyTeamSummaries(playerId, activeOnly);
     }
@@ -47,8 +43,12 @@ public class TeamResource {
     }
 
     @GetMapping("/players/{playerId}/teams")
-    public List<Team> getTeamsForPlayer(@PathVariable long playerId) {
-        return this.teamService.getTeamForPlayer(playerId);
+    public List<TeamSummary> getTeamsForPlayer(@PathVariable long playerId) {
+        List<Team> teams = this.teamService.getTeamForPlayer(playerId);
+
+        List<TeamSummary> teamSheets = new ArrayList<TeamSummary>();
+        teams.forEach((team)->teamSheets.add(team.getTeamSummary()));
+        return teamSheets;
     }
 
     @GetMapping("/players/{playerId}/HockeyTeams/{teamId}/teamRecord")

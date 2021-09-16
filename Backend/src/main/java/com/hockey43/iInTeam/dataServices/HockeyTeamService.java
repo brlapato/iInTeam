@@ -3,7 +3,6 @@ package com.hockey43.iInTeam.dataServices;
 import com.hockey43.iInTeam.dataObjects.*;
 import com.hockey43.iInTeam.dataObjects.Record;
 import com.hockey43.iInTeam.dataObjects.hockey.*;
-import com.hockey43.iInTeam.exceptions.GameNotFoundException;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
@@ -76,10 +75,8 @@ public class HockeyTeamService {
         session.close();
 
         List<TeamEvent> schedule = new ArrayList<>(games);
-        HockeyTeamSummary teamSummary = new HockeyTeamSummary();
-        teamSummary.setTeamName(team.getName());
-        teamSummary.setPlayerNumber(team.getPlayerNumber());
-        teamSummary.setRegularPosition(team.getRegularPosition());
+        HockeyTeamSummary teamSummary = new HockeyTeamSummary(team);
+
 
         int goals = 0; int assists = 0; int shots = 0; int penaltyMin = 0;
         Record teamRecord = new Record();

@@ -103,4 +103,9 @@ public class HockeyTeam extends Team {
     public Sport getSport() {
         return Sport.Hockey;
     }
+
+    @Override
+    public TeamSummary getTeamSummary() {
+        return new HockeyTeamSummary(this);
+    }
 }

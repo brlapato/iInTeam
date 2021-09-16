@@ -210,6 +210,8 @@ public class JourneymanApplication {
 		howardSquirts.setLevel("AA");
 		howardSquirts.setName("21-22 Howard Squirt Blue AA");
 		howardSquirts.setHeadCoach("Brad Powell");
+		howardSquirts.setAssistantCoach1("Sam Mrvos");
+		howardSquirts.setAssistantCoach2("Kevin McCarthy");
 		howardSquirts.setManager("Shayna Walsh");
 		howardSquirts.setPlayerNumber(3);
 		howardSquirts.setRegularPosition("Left Wing");
@@ -295,7 +297,8 @@ public class JourneymanApplication {
 		session.save(howard10U1);
 
 		HockeyGame howard10U919 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 19, 12, 0), "Ashburn Xtreme", "AA", Side.Home);
-		howard10U919.setLocation("Columbia Ice Rink");
+		howard10U919.setLocation("Gardens Ice House");
+		howard10U919.setLocationDetail("Resor");
 		howard10U919.setGameType(GameType.League);
 		howard10U919.setLeague("CBHL");
 		session.save(howard10U919);

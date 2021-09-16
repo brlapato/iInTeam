@@ -25,18 +25,38 @@ public class PlayerService implements IPlayerService {
 
     @Override
     public Player getPlayer(String userId) {
-        return getPlayerWithQuery("FROM Player WHERE UserId = :pid", userId);
+        return getPlayerWithQuery("FROM Player WHERE UserId = :pid", userId, false);
     }
 
     @Override
     public Player getPlayer(Long playerId) {
-        return getPlayerWithQuery("FROM Player WHERE PlayerId = :pid", playerId.toString());
+        return getPlayerWithQuery("FROM Player WHERE PlayerId = :pid", playerId.toString(), false);
     }
 
     @Override
     public Media getProfileImage(Long playerId) {
-        Player player = getPlayerWithQuery("FROM Player WHERE PlayerId = :pid", playerId.toString());
-        return player.getPlayerPicture();
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List<Player> players = session.createQuery("FROM Player WHERE PlayerId = :pid")
+                .setParameter("pid", playerId.toString())
+                .list();
+
+        Media playerImage;
+        if (0 < players.size()) {
+            Media playerImageTemp = players.get(0).getPlayerPicture();
+            playerImage = new Media();
+            playerImage.setDescription(playerImageTemp.getDescription());
+            playerImage.setMediaType(playerImageTemp.getMediaType());
+            playerImage.setFile(playerImageTemp.getFile());
+            playerImage.setMediaId(playerImageTemp.getMediaId());
+        } else {
+            playerImage = null;
+        }
+        session.getTransaction().commit();
+        session.close();
+
+        return playerImage;
     }
 
     @Override
@@ -64,20 +84,27 @@ public class PlayerService implements IPlayerService {
     }
 
 
-    private Player getPlayerWithQuery(String query, String lookupValue) {
+    private Player getPlayerWithQuery(String query, String lookupValue, Boolean loadPlayerImage) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         List<Player> players = session.createQuery(query)
                 .setParameter("pid", lookupValue)
                 .list();
 
+        Player player;
+        if (0 < players.size()) {
+            player = players.get(0);
+            if (loadPlayerImage) {
+                //force loading the player picture
+                player.getPlayerPicture().getMediaType();
+            }
+        } else {
+            player = null;
+        }
         session.getTransaction().commit();
         session.close();
-        if (0 < players.size()) {
-            return players.get(0);
-        } else {
-            return null;
-        }
+
+        return player;
     }
 
 
