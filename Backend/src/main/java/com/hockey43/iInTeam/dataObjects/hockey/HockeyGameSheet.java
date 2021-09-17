@@ -1,14 +1,14 @@
 package com.hockey43.iInTeam.dataObjects.hockey;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.hockey43.iInTeam.dataObjects.TeamEventSheet;
 import com.hockey43.iInTeam.dataObjects.GameResult;
 import com.hockey43.iInTeam.dataObjects.GameType;
 import com.hockey43.iInTeam.dataObjects.Side;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
-public class HockeyGameSheet {
+public class HockeyGameSheet extends TeamEventSheet {
 
     // region Member Variables
     private LocalDateTime startDateTime;
@@ -251,7 +251,8 @@ public class HockeyGameSheet {
     // region Constructors
 
     public HockeyGameSheet() {
-
+        super();
+        this.setSport("Hockey");
     }
 
     public HockeyGameSheet(HockeyGame hockeyGame) {

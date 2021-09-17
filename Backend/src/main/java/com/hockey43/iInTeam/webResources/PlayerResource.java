@@ -1,12 +1,15 @@
 package com.hockey43.iInTeam.webResources;
 
-import com.hockey43.iInTeam.dataObjects.Media;
-import com.hockey43.iInTeam.dataObjects.Player;
-import com.hockey43.iInTeam.dataObjects.PlayerSummary;
+import com.hockey43.iInTeam.dataObjects.*;
+import com.hockey43.iInTeam.dataObjects.hockey.HockeyGameSheet;
 import com.hockey43.iInTeam.dataServices.IPlayerService;
+import com.hockey43.iInTeam.dataServices.hockey.HockeyGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -14,6 +17,11 @@ public class PlayerResource {
 
     @Autowired
     private IPlayerService playerService;
+
+    @Autowired
+    private HockeyGameService hockeyGameService;
+
+
 
     @GetMapping("/players/{playerId}")
     public PlayerSummary getPlayer(@PathVariable long playerId) {
@@ -33,6 +41,17 @@ public class PlayerResource {
 
         return playerImage;
     }
+
+    @GetMapping(value = "/players/{playerId}/recentGames")
+    public List<TeamEventSheet> getRecentGames(@PathVariable long playerId, @RequestParam(defaultValue = "5") Integer numGames) {
+        List<TeamEvent> hockeyGames = this.hockeyGameService.getRecentGames(playerId, numGames);
+
+        List<TeamEventSheet> gameSummaries = new ArrayList<TeamEventSheet>();
+        hockeyGames.forEach((game)->gameSummaries.add(game.getTeamEventSheet()));
+        return gameSummaries;
+    }
+
+
 
     @PutMapping("players/{playerId}")
     public ResponseEntity<Player> updatePlayer (

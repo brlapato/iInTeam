@@ -12,9 +12,7 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "EventId")
 public class HockeyGame extends TeamEvent {
 
-    @ManyToOne()
-    @JoinColumn(name="TeamId", nullable = false)
-    private HockeyTeam ownerHockeyTeam;
+
 
     @Column(name="OpponentTeamName",
             nullable = false,
@@ -87,7 +85,8 @@ public class HockeyGame extends TeamEvent {
     public HockeyGame() {}
 
     public HockeyGame(HockeyTeam ownerHockeyTeam, LocalDateTime startDateTime, String opponentTeamName, String opponentLevel, Side side) {
-        this.ownerHockeyTeam = ownerHockeyTeam;
+        this();
+        this.setOwnerTeam(ownerHockeyTeam);
         this.startDateTime = startDateTime;
         this.opponentTeamName = opponentTeamName;
         this.opponentLevel = opponentLevel;
@@ -108,6 +107,11 @@ public class HockeyGame extends TeamEvent {
         eventSummary.setEventLocation(this.getLocation());
 
         return eventSummary;
+    }
+
+    @Override
+    public TeamEventSheet getTeamEventSheet() {
+        return new HockeyGameSheet(this);
     }
 
     // region public methods
@@ -154,14 +158,6 @@ public class HockeyGame extends TeamEvent {
     // endregion
 
     // region Getters/Setters
-
-    public HockeyTeam getOwnerTeam() {
-        return ownerHockeyTeam;
-    }
-
-    public void setOwnerTeam(HockeyTeam ownerHockeyTeam) {
-        this.ownerHockeyTeam = ownerHockeyTeam;
-    }
 
     public String getOpponentTeamName() {
         return opponentTeamName;
@@ -307,13 +303,6 @@ public class HockeyGame extends TeamEvent {
         isPlayoff = playoff;
     }
 
-    public HockeyTeam getOwnerHockeyTeam() {
-        return ownerHockeyTeam;
-    }
-
-    public void setOwnerHockeyTeam(HockeyTeam ownerHockeyTeam) {
-        this.ownerHockeyTeam = ownerHockeyTeam;
-    }
 
     public String getOpponentTeamNameMod() {
         return opponentTeamNameMod;

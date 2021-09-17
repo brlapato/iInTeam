@@ -26,6 +26,8 @@ import { HockeyGameListItemComponent } from './components/games/hockey-game-list
 import { HockeyGameComponent } from './components/games/hockey-game/hockey-game.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/navigation/login/login.component';
+import { RecentGamesComponent } from './components/games/recent-games/recent-games.component';
+import { HockeyGameCardComponent } from './components/games/hockey-game-card/hockey-game-card.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { LoginComponent } from './components/navigation/login/login.component';
     HockeyGameListComponent,
     HockeyGameListItemComponent,
     HockeyGameComponent,
-    LoginComponent
+    LoginComponent,
+    RecentGamesComponent,
+    HockeyGameCardComponent
   ],
   imports: [
     BrowserModule,

@@ -1,25 +1,28 @@
 <div class="container-fluid px-2 py-3">
     <div class="row gy-5">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <div class="container rounded-2 shadow bg-light pb-5 mb-3">
                 <h3>Upcoming Games</h3>
             </div>
             <div class="container rounded-2 shadow bg-light pb-5">
                 <h3>Recent Games</h3>
-                    
+                <div class="container p-1">
+                    <app-recent-games [numberGames]="6"></app-recent-games>
+                </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class="container rounded-2 shadow bg-light pb-5">
-                <h3>Current Teams</h3>
-                <app-team-summary-list [activeOnly]="true"></app-team-summary-list>
-            </div>
+        <div class="col-sm-1">
+            
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <div class="container rounded-2 shadow bg-light pb-5">
                 <h3>Profile</h3>
                 <div class="container p-1">
                     <app-profile-small></app-profile-small>
+                </div>
+                <div class="container rounded-2 shadow bg-light pb-5">
+                    <h3>Current Teams</h3>
+                    <app-team-summary-list [activeOnly]="true"></app-team-summary-list>
                 </div>
             </div>
         </div>

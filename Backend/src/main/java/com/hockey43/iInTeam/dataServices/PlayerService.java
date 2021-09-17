@@ -2,6 +2,7 @@ package com.hockey43.iInTeam.dataServices;
 
 import com.hockey43.iInTeam.dataObjects.Media;
 import com.hockey43.iInTeam.dataObjects.Player;
+import com.hockey43.iInTeam.dataObjects.TeamEvent;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyPlayerStats;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
 import org.hibernate.Session;
@@ -81,6 +82,10 @@ public class PlayerService implements IPlayerService {
     public HockeyPlayerStats getPlayerStats(Long playerId) {
         LOG.warn("getPlayerStats does not have a real implementation yet.");
         return new HockeyPlayerStats();
+    }
+
+    public List<TeamEvent> getRecentGames(long playerId, int numberOfEvents) {
+        return null;
     }
 
 

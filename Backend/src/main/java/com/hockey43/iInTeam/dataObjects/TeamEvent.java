@@ -1,5 +1,7 @@
 package com.hockey43.iInTeam.dataObjects;
 
+import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeam;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -12,6 +14,10 @@ public abstract class TeamEvent {
     @Column(name="EventId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long eventId;
+
+    @ManyToOne()
+    @JoinColumn(name="TeamId", nullable = false)
+    private Team ownerTeam;
 
     @Column(name="startDateTime", columnDefinition = "DATETIME", nullable = false)
     protected LocalDateTime startDateTime;
@@ -55,4 +61,15 @@ public abstract class TeamEvent {
     }
 
     public abstract TeamEventSummary getTeamEventSummary();
+
+    public Team getOwnerTeam() {
+        return ownerTeam;
+    }
+
+    public void setOwnerTeam(Team ownerTeam) {
+        this.ownerTeam = ownerTeam;
+    }
+
+    public abstract TeamEventSheet getTeamEventSheet();
+
 }

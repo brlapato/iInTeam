@@ -1,0 +1,7 @@
+<div class="container">
+    <div class="row">
+        <div class="col m-0 p-0" *ngFor="let game of recentGames.slice().reverse()">
+            <app-hockey-game-card [game]="game"></app-hockey-game-card>
+        </div>
+    </div>
+</div>

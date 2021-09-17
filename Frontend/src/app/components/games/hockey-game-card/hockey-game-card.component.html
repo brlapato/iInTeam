@@ -1,0 +1,18 @@
+<div class="container p-0 m-0" style="width:130px;">
+    <div class="rounded-top cardTitle">{{game.league}}</div>
+    <div class="container border shadow text-center smallFont text-wrap overflow-hidden p-0 m-0 position-relative" 
+            [class.winCard]="game.result==='Win'"
+            [class.lossCard]="game.result==='Loss'"
+            [class.tieCard]="game.result != 'Win' && game.result != 'Loss'"
+            style="height:150px;" 
+            *ngIf="game.gameId > 0">
+        <div style="font-weight: 700;">{{game.startDateTime | date:'MM/dd'}}</div>
+        <div [class.winText]="game.result==='Win'" [class.lossText]="game.result==='Loss'">{{game.result}}</div>
+        <div>{{formatOppenentName(game)}}</div>
+        <div class="position-absolute fixed-bottom">
+            <div style='height:1.75em'>{{formatScore(game)}}</div>
+            <div style='height:1.75em'>{{getScoringSummary(game)}}</div>
+        </div>
+        
+    </div>
+</div>

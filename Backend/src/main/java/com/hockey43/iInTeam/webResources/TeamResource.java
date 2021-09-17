@@ -2,7 +2,7 @@ package com.hockey43.iInTeam.webResources;
 
 import com.hockey43.iInTeam.dataObjects.*;
 import com.hockey43.iInTeam.dataObjects.hockey.*;
-import com.hockey43.iInTeam.dataServices.HockeyTeamService;
+import com.hockey43.iInTeam.dataServices.hockey.HockeyTeamService;
 import com.hockey43.iInTeam.dataServices.TeamService;
 import com.hockey43.iInTeam.exceptions.GameNotFoundException;
 import org.slf4j.Logger;

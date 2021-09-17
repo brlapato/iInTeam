@@ -2,7 +2,8 @@ package com.hockey43.iInTeam;
 
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeam;
-import com.hockey43.iInTeam.dataServices.HockeyTeamService;
+import com.hockey43.iInTeam.dataServices.hockey.HockeyGameService;
+import com.hockey43.iInTeam.dataServices.hockey.HockeyTeamService;
 import com.hockey43.iInTeam.dataObjects.*;
 import com.hockey43.iInTeam.dataServices.TeamService;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
@@ -69,6 +70,11 @@ public class JourneymanApplication {
 			for (int teamIdx = 0; teamIdx < teams.size(); teamIdx++) {
 				LOG.info(teams.get(teamIdx).toString());
 			}
+
+			HockeyGameService hockeyGameService = new HockeyGameService();
+			List<TeamEvent> games =  hockeyGameService.getRecentGames(1, 5);
+			LOG.info("Found " + String.valueOf(games.size()) + " recent games for Player 1...");
+			LOG.info("Last game location: " + games.get(0).getLocation());
 
 		};
 	}

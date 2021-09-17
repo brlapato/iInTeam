@@ -1,10 +1,13 @@
-package com.hockey43.iInTeam.dataServices;
+package com.hockey43.iInTeam.dataServices.hockey;
 
 import com.hockey43.iInTeam.dataObjects.*;
 import com.hockey43.iInTeam.dataObjects.Record;
 import com.hockey43.iInTeam.dataObjects.hockey.*;
+import com.hockey43.iInTeam.dataServices.IPlayerService;
+import com.hockey43.iInTeam.dataServices.TeamService;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
@@ -13,6 +16,9 @@ import java.util.*;
 
 @Service
 public class HockeyTeamService {
+
+    @Autowired
+    private HockeyGameService hockeyGameService;
 
     public List<HockeyTeam> getHockeyTeams(long playerId, boolean activeOnly) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -65,16 +71,8 @@ public class HockeyTeamService {
     public HockeyTeamSummary getHockeyTeamSummary(long teamId) {
         HockeyTeam team = this.getHockeyTeam(teamId);
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        List<HockeyGame> games = session.createQuery("from HockeyGame WHERE TeamId = :tid")
-                .setParameter("tid", teamId)
-                .list();
+        List<TeamEvent> games = this.hockeyGameService.getGamesForTeam(teamId);
 
-        session.getTransaction().commit();
-        session.close();
-
-        List<TeamEvent> schedule = new ArrayList<>(games);
         HockeyTeamSummary teamSummary = new HockeyTeamSummary(team);
 
 
@@ -84,18 +82,20 @@ public class HockeyTeamService {
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         for (int gameIdx = 0; gameIdx < games.size(); gameIdx++) {
-            HockeyGame cGame = games.get(gameIdx);
-            goals += cGame.getGoals();
-            assists += cGame.getAssists();
-            shots += cGame.getShots();
-            penaltyMin += cGame.getPenaltyMin();
+            if (games.get(gameIdx) instanceof HockeyGame) {
+                HockeyGame cGame = (HockeyGame) games.get(gameIdx);
+                goals += cGame.getGoals();
+                assists += cGame.getAssists();
+                shots += cGame.getShots();
+                penaltyMin += cGame.getPenaltyMin();
 
-            updateGameRecord(cGame, teamRecord);
+                updateGameRecord(cGame, teamRecord);
 
-            LocalDateTime startTime = cGame.getStartDateTime();
-            if (startTime.isAfter(currentDateTime)) {
-                if (nextGame == null || cGame.getStartDateTime().isBefore(nextGame.getStartDateTime())) {
-                    nextGame = cGame;
+                LocalDateTime startTime = cGame.getStartDateTime();
+                if (startTime.isAfter(currentDateTime)) {
+                    if (nextGame == null || cGame.getStartDateTime().isBefore(nextGame.getStartDateTime())) {
+                        nextGame = cGame;
+                    }
                 }
             }
         }
@@ -115,14 +115,9 @@ public class HockeyTeamService {
     }
 
     public List<RecordEntry> getTeamRecord(long teamId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        List<HockeyGame> games = session.createQuery("from HockeyGame WHERE TeamId = :tid")
-                .setParameter("tid", teamId)
-                .list();
 
-        session.getTransaction().commit();
-        session.close();
+        List<TeamEvent> games = this.hockeyGameService.getGamesForTeam(teamId);
+
 
         Map<String, Record> records = new LinkedHashMap<String, Record>();
         Map<String, Record> leagueRecords = new LinkedHashMap<String, Record>();
@@ -131,28 +126,30 @@ public class HockeyTeamService {
         records.put("Overall", overallRecord);
 
         for (int gameIdx = 0; gameIdx < games.size(); gameIdx++) {
-            HockeyGame cGame = games.get(gameIdx);
+            if (games.get(gameIdx) instanceof HockeyGame) {
+                HockeyGame cGame = (HockeyGame) games.get(gameIdx);
 
-            updateGameRecord(cGame, overallRecord);
+                updateGameRecord(cGame, overallRecord);
 
-            String gameType = cGame.getGameType().toString();
-            Record subTypeRecord = records.getOrDefault(gameType, null);
-            if (subTypeRecord == null) {
-                subTypeRecord = new Record();
-                records.put(gameType, subTypeRecord);
-            }
-            updateGameRecord(cGame, subTypeRecord);
+                String gameType = cGame.getGameType().toString();
+                Record subTypeRecord = records.getOrDefault(gameType, null);
+                if (subTypeRecord == null) {
+                    subTypeRecord = new Record();
+                    records.put(gameType, subTypeRecord);
+                }
+                updateGameRecord(cGame, subTypeRecord);
 
-            String[] allLeagues = cGame.getSeperateLeages();
-            if (allLeagues != null) {
-                for (int leagueIndex=0; leagueIndex < allLeagues.length; leagueIndex++) {
-                    String league = allLeagues[leagueIndex];
-                    Record currentLeagueRecord = leagueRecords.getOrDefault(league, null);
-                    if (currentLeagueRecord == null) {
-                        currentLeagueRecord = new Record();
-                        leagueRecords.put(league, currentLeagueRecord);
+                String[] allLeagues = cGame.getSeperateLeages();
+                if (allLeagues != null) {
+                    for (int leagueIndex = 0; leagueIndex < allLeagues.length; leagueIndex++) {
+                        String league = allLeagues[leagueIndex];
+                        Record currentLeagueRecord = leagueRecords.getOrDefault(league, null);
+                        if (currentLeagueRecord == null) {
+                            currentLeagueRecord = new Record();
+                            leagueRecords.put(league, currentLeagueRecord);
+                        }
+                        updateGameRecord(cGame, currentLeagueRecord);
                     }
-                    updateGameRecord(cGame, currentLeagueRecord);
                 }
             }
 
