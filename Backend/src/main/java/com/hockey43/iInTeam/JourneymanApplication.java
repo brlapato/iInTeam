@@ -534,51 +534,83 @@ public class JourneymanApplication {
 		howardMites.setName("21-22 Howard Mites Blue LA");
 		howardMites.setHeadCoach("Brian Walsh");
 		howardMites.setAssistantCoach1("Adam Boston");
-		howardMites.setManager("Shayna Walsh");
+		howardMites.setManager("Mark Dorsey");
 		howardMites.setActive(true);
+		howardMites.setPlayerNumber(14);
 		howardMites.setStartDate(LocalDateTime.of(2021, 05, 21,0,0,0));
 		session.save(howardMites);
 
-		HockeyGame howard08U1 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 10), "Jr. Black Bears", "LA", Side.Away);
+		HockeyGame howard08U1 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 50), "Jr. Black Bears", "LA", Side.Away);
 		howard08U1.setLocation("Bowie Ice Rink");
 		howard08U1.setGameType(GameType.NonLeague);
-		howard08U1.setLeague("Bowie Mini-Jamboree");
+		howard08U1.setLeague("Bowie Jamboree");
+		howard08U1.setSide(Side.Home);
 		session.save(howard08U1);
 
-		HockeyGame howard08U2 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 10), "Southern Maryland", "LA", Side.Away);
+		HockeyGame howard08U2 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 0), "Southern Maryland", "LA", Side.Away);
 		howard08U2.setLocation("Bowie Ice Rink");
 		howard08U2.setGameType(GameType.NonLeague);
-		howard08U2.setLeague("Bowie Mini-Jamboree");
+		howard08U2.setLeague("Bowie Jamboree");
+		howard08U2.setSide(Side.Away);
 		session.save(howard08U2);
 
-		HockeyGame howard08U3 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 10), "Bowie", "LA", Side.Away);
+		HockeyGame howard08U3 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 25), "Bowie", "LA", Side.Away);
 		howard08U3.setLocation("Bowie Ice Rink");
 		howard08U3.setGameType(GameType.NonLeague);
-		howard08U3.setLeague("Bowie Mini-Jamboree");
+		howard08U3.setLeague("Bowie Jamboree");
+		howard08U3.setSide(Side.Home);
 		session.save(howard08U3);
 
-		HockeyGame howard08U4 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 25, 7, 40), "Frederick", "LA", Side.Away);
+		HockeyGame howard08U4 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 18, 8, 20), "Frederick", "LA", Side.Away);
 		howard08U4.setLocation("Skate Frederick");
 		howard08U4.setGameType(GameType.NonLeague);
-		howard08U4.setLeague("Frederick Mini-Jamboree");
+		howard08U4.setLeague("Frederick Jamboree");
+		howard08U4.setSide(Side.Away);
+		howard08U4.setTeamScore(5);
+		howard08U4.setOpponentScore(3);
+		howard08U4.setResult(GameResult.Win);
+		howard08U4.setShots(3);
+		howard08U4.setGoals(1);
+		howard08U4.setAssists(1);
+		howard08U4.setNumberPeriods(1);
+		howard08U4.setPeriodLength(16);
 		session.save(howard08U4);
 
-		HockeyGame howard08U5 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 18, 7, 40), "Hagerstown", "LA", Side.Away);
+		HockeyGame howard08U5 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 18, 8, 0), "Hagerstown", "LA", Side.Away);
 		howard08U5.setLocation("Skate Frederick");
 		howard08U5.setGameType(GameType.NonLeague);
-		howard08U5.setLeague("Frederick Mini-Jamboree");
+		howard08U5.setLeague("Frederick Jamboree");
+		howard08U5.setSide(Side.Away);
+		howard08U5.setTeamScore(4);
+		howard08U5.setOpponentScore(1);
+		howard08U5.setResult(GameResult.Loss);
+		howard08U5.setShots(2);
+		howard08U5.setGoals(0);
+		howard08U5.setAssists(0);
+		howard08U5.setNumberPeriods(1);
+		howard08U5.setPeriodLength(16);
 		session.save(howard08U5);
 
 		HockeyGame howard08U6 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 18, 7, 40), "Bowie", "LA", Side.Away);
 		howard08U6.setLocation("Skate Frederick");
 		howard08U6.setGameType(GameType.NonLeague);
-		howard08U6.setLeague("Frederick Mini-Jamboree");
+		howard08U6.setLeague("Frederick Jamboree");
+		howard08U6.setSide(Side.Away);
+		howard08U6.setTeamScore(0);
+		howard08U6.setOpponentScore(5);
+		howard08U6.setResult(GameResult.Loss);
+		howard08U6.setShots(1);
+		howard08U6.setGoals(0);
+		howard08U6.setAssists(0);
+		howard08U6.setNumberPeriods(1);
+		howard08U6.setPeriodLength(16);
 		session.save(howard08U6);
 
-		HockeyGame howard08U7= new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 18, 7, 40), "Frederick", "LA", Side.Away);
+		HockeyGame howard08U7= new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 25, 7, 40), "Frederick", "LA", Side.Away);
 		howard08U7.setLocation("Skate Frederick");
 		howard08U7.setGameType(GameType.NonLeague);
 		howard08U7.setLeague("Exhibition");
+		howard08U7.setSide(Side.Away);
 		session.save(howard08U7);
 
 		HockeyGame howard08U8= new HockeyGame(howardMites, LocalDateTime.of(2021, 10, 02, 12, 0), "TBD 1", "LA", Side.Away);

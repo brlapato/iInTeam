@@ -100,6 +100,7 @@ CREATE TABLE `TeamEvent` (
   `Location` varchar(255) DEFAULT NULL,
   `LocationDetail` varchar(255) DEFAULT NULL,
   `startDateTime` datetime NOT NULL,
+  `TeamId` bigint NOT NULL,
   PRIMARY KEY (`EventId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -126,10 +127,7 @@ CREATE TABLE `HockeyGame` (
   `Side` varchar(255) NOT NULL,
   `TeamScore` int DEFAULT NULL,
   `EventId` bigint NOT NULL,
-  `TeamId` bigint NOT NULL,
   PRIMARY KEY (`EventId`),
-  KEY `FK_TeamId` (`TeamId`),
-  CONSTRAINT `FK_HockeyTeamId` FOREIGN KEY (`TeamId`) REFERENCES `HockeyTeam` (`TeamId`),
   CONSTRAINT `FK_EventId` FOREIGN KEY (`EventId`) REFERENCES `TeamEvent` (`EventId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
