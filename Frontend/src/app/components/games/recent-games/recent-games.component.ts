@@ -10,8 +10,15 @@ import { AuthenticationService } from 'src/app/services/user/authentication.serv
 })
 export class RecentGamesComponent implements OnInit {
 
-  @Input() numberGames: number = 5;
+  @Input() numberGames: number = 3;
+  @Input() showRecent: boolean = true;
+  @Input() showUpcoming: boolean = true;
+
+
   public recentGames: HockeyGame[] = [];
+  public upcomingGames: HockeyGame[] = [];
+
+
 
   constructor(
     public auth: AuthenticationService,
@@ -19,15 +26,33 @@ export class RecentGamesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadRecentGames();
+    this.loadGames();
   }
 
+  public loadGames() {
+    if (this.showRecent) {
+      this.loadRecentGames();
+    }
+    if (this.showUpcoming) {
+      this.loadUpcomingGames();
+    }
+  }
 
-  loadRecentGames() {
+  public loadRecentGames() {
     this.auth.playerId$.subscribe(
       (playerId:number | null) => {
         if (playerId) {
           this.gameService.retrieveRecentGames(playerId, this.numberGames).subscribe((data:HockeyGame[]) => {this.recentGames = data;})
+        }
+      }
+    );
+  }
+
+  public loadUpcomingGames() {
+    this.auth.playerId$.subscribe(
+      (playerId:number | null) => {
+        if (playerId) {
+          this.gameService.retrieveUpcomingGames(playerId, this.numberGames).subscribe((data:HockeyGame[]) => {this.upcomingGames = data;})
         }
       }
     );

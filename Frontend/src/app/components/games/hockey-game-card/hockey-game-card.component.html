@@ -1,17 +1,23 @@
-<div class="container p-0 m-0" style="width:130px;">
+<div class="container p-1 m-0" style="width:130px;">
     <div class="rounded-top cardTitle">{{game.league}}</div>
     <div class="container border shadow text-center smallFont text-wrap overflow-hidden p-0 m-0 position-relative" 
-            [class.winCard]="game.result==='Win'"
-            [class.lossCard]="game.result==='Loss'"
-            [class.tieCard]="game.result != 'Win' && game.result != 'Loss'"
+            [class.winCard]="isGameComplete(game) && isGameWin(game)"
+            [class.lossCard]="isGameComplete(game) && isGameLoss(game)"
+            [class.tieCard]="isGameComplete(game) && isGameTie(game)"
+            [class.unplayedCard]="!isGameComplete(game)"
             style="height:150px;" 
             *ngIf="game.gameId > 0">
         <div style="font-weight: 700;">{{game.startDateTime | date:'MM/dd'}}</div>
+        <div style="font-weight: 300;" *ngIf="!isGameComplete(game)">{{game.startDateTime | date:'hh:mm aa'}}</div>
         <div [class.winText]="game.result==='Win'" [class.lossText]="game.result==='Loss'">{{game.result}}</div>
         <div>{{formatOppenentName(game)}}</div>
-        <div class="position-absolute fixed-bottom">
+        <div class="position-absolute fixed-bottom" *ngIf="isGameComplete(game)">
             <div style='height:1.75em'>{{formatScore(game)}}</div>
             <div style='height:1.75em'>{{getScoringSummary(game)}}</div>
+        </div>
+        <div class="position-absolute fixed-bottom" *ngIf="!isGameComplete(game)">
+            <div style='height:1.75em'>{{game.location}}</div>
+            <div style='height:1.75em'>{{game.locationDetail}}</div>
         </div>
         
     </div>

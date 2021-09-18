@@ -51,6 +51,15 @@ public class PlayerResource {
         return gameSummaries;
     }
 
+    @GetMapping(value = "/players/{playerId}/upcomingGames")
+    public List<TeamEventSheet> getUpcomingGames(@PathVariable long playerId, @RequestParam(defaultValue = "5") Integer numGames) {
+        List<TeamEvent> hockeyGames = this.hockeyGameService.getUpcomingGames(playerId, numGames);
+
+        List<TeamEventSheet> gameSummaries = new ArrayList<TeamEventSheet>();
+        hockeyGames.forEach((game)->gameSummaries.add(game.getTeamEventSheet()));
+        return gameSummaries;
+    }
+
 
 
     @PutMapping("players/{playerId}")

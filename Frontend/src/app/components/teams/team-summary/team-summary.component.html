@@ -1,8 +1,16 @@
 <div class="card mt-3" *ngIf="teamLoaded">
-    <div class="card-header"><div class="row align-items-end"><div class="col-8 h5 fst-italic">{{teamSummary.teamName}}</div><div class="col small" >{{winRecord}}</div><div class="col align-self-end">U10</div></div></div>
+    <div class="card-header"><div class="row align-items-end"><div class="col-8 h5 fst-italic">{{teamSummary.teamName}}</div><div class="col align-self-end">U10</div></div></div>
     <div class="card-body">
         <div class="container">
-            <div class="row">
+            
+            <div class="row row-cols-auto">
+                <div class="col-3 fst-italic fw-light small">Overall Record:</div>
+                <div class="col-5 text-start">
+                    <div class="col small" >{{winRecord}}</div>        
+                </div>
+                
+            </div>
+            <div class="row row-cols-auto pt-2">
                 <div class="col-2 fst-italic fw-light small">Season Stats:</div>
                 <div class="col-5 text-center">
                     <div class="row border-bottom small">
@@ -25,18 +33,13 @@
                     
                 </div>
                 <div class="col-2">
-                    <div class="row" *ngIf="teamSummary.playerNumber">#{{teamSummary.playerNumber}}</div><div class="row">{{teamSummary.regularPosition}}</div>
+                    <div class="row" *ngIf="teamSummary.playerNumber">
+                        <div class="col playerNumber"> #{{teamSummary.playerNumber}}</div>
+                    </div>
+                    <div class="row">{{teamSummary.regularPosition}}</div>
                 </div>
             </div>
-            <div class="row align-items-start py-3">
-                <div class="col-2 fst-italic fw-light smallFont">Next Game:</div>
-                <div class="col">
-                    <div class="row"><div class="col smallFont">{{nextGameDate}}</div></div>
-                    <div class="row"><div class="col smallFont">{{nextGameVs}}</div></div>
-                    <div class="row"><div class="col smallFont">{{nextGameLocation}}</div></div>
-                </div>
-            </div>
-            
+                        
         </div>
     </div>
 </div>

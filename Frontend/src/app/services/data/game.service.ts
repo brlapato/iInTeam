@@ -20,6 +20,10 @@ export class GameService {
     return this.http.get<HockeyGame[]>(`${API_URL}/players/${playerId}/recentGames?numGames=${numberGames}`);
   }
 
+  public retrieveUpcomingGames(playerId: number, numberGames: number) {
+    return this.http.get<HockeyGame[]>(`${API_URL}/players/${playerId}/upcomingGames?numGames=${numberGames}`);
+  }
+
   public updateHockeyGame(playerId: number, teamId: number, gameId:number, hockeyGame: HockeyGame) {
     return this.http.put(`${API_URL}/players/${playerId}/HockeyTeams/${teamId}/games/${gameId}`, hockeyGame);
   }

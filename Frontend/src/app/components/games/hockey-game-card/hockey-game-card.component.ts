@@ -15,6 +15,22 @@ export class HockeyGameCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public isGameComplete(game: HockeyGame) {
+    return (game.result && game.result != "Undetermined");
+  }
+
+  public isGameWin(game: HockeyGame) {
+    return (game.result && (game.result === "Win" || game.result === "OvertimeWin"));
+  }
+
+  public isGameLoss(game: HockeyGame) {
+    return (game.result && (game.result === "Loss" || game.result === "OvertimeLoss"));
+  }
+
+  public isGameTie(game: HockeyGame) {
+    return (game.result && game.result === "Tie");
+  }
+
   public formatOppenentName(game:HockeyGame) {
      let vsString = 'vs';
      if (game.side === "Away") {
