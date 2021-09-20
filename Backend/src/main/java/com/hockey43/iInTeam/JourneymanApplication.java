@@ -181,33 +181,7 @@ public class JourneymanApplication {
 		session.save(orgVaVipers);
 
 		// Create Teams
-		HockeyTeam mites1 = new HockeyTeam();
-		mites1.setOrg(orgFred);
-		mites1.setPlayerOwner(bradleyPlayer);
-		mites1.setAgeClass(AgeClass.U8);
-		mites1.setLevel("UA");
-		mites1.setName("20-21 Frederick Freeze Mites 1");
-		mites1.setHeadCoach("Tommy Demers");
-		mites1.setAssistantCoach1("Christian Wilson");
-		mites1.setPlayerNumber(43);
-		mites1.setRegularPosition("Defense");
-		mites1.setActive(false);
-		mites1.setStartDate(LocalDateTime.of(2020, 05, 21,0,0,0));
-		session.save(mites1);
 
-		HockeyTeam mites2 = new HockeyTeam();
-		mites2.setOrg(orgFred);
-		mites2.setPlayerOwner(wesleyPlayer);
-		mites2.setAgeClass(AgeClass.U8);
-		mites2.setLevel("LA");
-		mites2.setName("20-21 Frederick Freeze Mites 2");
-		mites2.setHeadCoach("Brian Ball");
-		mites2.setAssistantCoach1("Glen MacLachlan");
-		mites2.setRegularPosition("Forward");
-		mites2.setPlayerNumber(14);
-		mites2.setActive(false);
-		mites2.setStartDate(LocalDateTime.of(2020, 05, 21,0,0,0));
-		session.save(mites2);
 
 		HockeyTeam howardSquirts = new HockeyTeam();
 		howardSquirts.setOrg(orgHoward);
@@ -221,6 +195,7 @@ public class JourneymanApplication {
 		howardSquirts.setManager("Shayna Walsh");
 		howardSquirts.setPlayerNumber(3);
 		howardSquirts.setRegularPosition("Left Wing");
+		howardSquirts.setSeason("2021-22");
 
 		howardSquirts.setActive(true);
 		howardSquirts.setStartDate(LocalDateTime.of(2021, 05, 21,0,0,0));
@@ -307,6 +282,10 @@ public class JourneymanApplication {
 		howard10U919.setLocationDetail("Resor");
 		howard10U919.setGameType(GameType.League);
 		howard10U919.setLeague("CBHL");
+		howard10U919.setResult(GameResult.Loss);
+		howard10U919.setShots(4);
+		howard10U919.setOpponentScore(5);
+		howard10U919.setTeamScore(2);
 		session.save(howard10U919);
 
 		HockeyGame howard10U2 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 25, 16, 15), "Loudoun Knights", "AA", Side.Home);
@@ -410,6 +389,7 @@ public class JourneymanApplication {
 		vaVipers.setRegularPosition("Defense");
 		vaVipers.setActive(true);
 		vaVipers.setStartDate(LocalDateTime.of(2021, 04, 21,0,0,0));
+		vaVipers.setSeason("2021-22");
 		session.save(vaVipers);
 
 		HockeyGame vaGame1 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 07, 16, 13, 10), "Aston Thunder Cats", "AA", Side.Home);
@@ -538,6 +518,7 @@ public class JourneymanApplication {
 		howardMites.setActive(true);
 		howardMites.setPlayerNumber(14);
 		howardMites.setStartDate(LocalDateTime.of(2021, 05, 21,0,0,0));
+		howardMites.setSeason("2021-22");
 		session.save(howardMites);
 
 		HockeyGame howard08U1 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 50), "Jr. Black Bears", "LA", Side.Away);
@@ -545,6 +526,10 @@ public class JourneymanApplication {
 		howard08U1.setGameType(GameType.NonLeague);
 		howard08U1.setLeague("Bowie Jamboree");
 		howard08U1.setSide(Side.Home);
+		howard08U1.setShots(1);
+		howard08U1.setResult(GameResult.Win);
+		howard08U1.setTeamScore(7);
+		howard08U1.setOpponentScore(5);
 		session.save(howard08U1);
 
 		HockeyGame howard08U2 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 0), "Southern Maryland", "LA", Side.Away);
@@ -552,6 +537,11 @@ public class JourneymanApplication {
 		howard08U2.setGameType(GameType.NonLeague);
 		howard08U2.setLeague("Bowie Jamboree");
 		howard08U2.setSide(Side.Away);
+		howard08U2.setResult(GameResult.Win);
+		howard08U2.setTeamScore(4);
+		howard08U2.setOpponentScore(1);
+		howard08U2.setAssists(2);
+		howard08U2.setShots(1);
 		session.save(howard08U2);
 
 		HockeyGame howard08U3 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 19, 8, 25), "Bowie", "LA", Side.Away);
@@ -559,6 +549,10 @@ public class JourneymanApplication {
 		howard08U3.setGameType(GameType.NonLeague);
 		howard08U3.setLeague("Bowie Jamboree");
 		howard08U3.setSide(Side.Home);
+		howard08U3.setResult(GameResult.Loss);
+		howard08U3.setTeamScore(1);
+		howard08U3.setOpponentScore(4);
+		howard08U3.setShots(1);
 		session.save(howard08U3);
 
 		HockeyGame howard08U4 = new HockeyGame(howardMites, LocalDateTime.of(2021, 9, 18, 8, 20), "Frederick", "LA", Side.Away);
@@ -631,32 +625,7 @@ public class JourneymanApplication {
 		howard08U10.setLeague("CBHL Preseason Jamboree");
 		session.save(howard08U10);
 
-		// Create Games
-		HockeyGame game1 = new HockeyGame(mites1, LocalDateTime.of(2020, 02, 01, 13, 00), "Loudon Knights", "LA", Side.Home);
-		game1.setOpponentScore(3);
-		game1.setTeamScore(7);
-		game1.setResult(GameResult.Win);
-		game1.setOvertime(false);
-		game1.setGoals(1);
-		game1.setAssists(2);
-		game1.setShots(3);
-		game1.setLocation("Skate Frederick");
-		game1.setGameType(GameType.NonLeague);
-		game1.setLeague("Exhibition");
-		session.save(game1);
 
-		HockeyGame game2 = new HockeyGame(mites1, LocalDateTime.of(2020, 02, 13, 14, 30), "Howard Huskies", "UA", Side.Away);
-		game2.setOpponentScore(4);
-		game2.setTeamScore(5);
-		game2.setResult(GameResult.Win);
-		game1.setOvertime(true);
-		game2.setGoals(0);
-		game2.setAssists(1);
-		game2.setShots(5);
-		game2.setLocation("Laurel Ice Gardens, Patrick Rink");
-		game2.setGameType(GameType.League);
-		game2.setLeague("CBHL");
-		session.save(game2);
 	}
 
 	private byte[] readFile(String filePath) throws IOException {

@@ -82,6 +82,7 @@ export class HockeyAttributes {
 
   export class HockeyPlayerStats {
     constructor(
+      public gamesPlayed: number,
       public goals: number,
       public assists: number,
       public points: number,
@@ -90,7 +91,7 @@ export class HockeyAttributes {
     ) {}
 
     public static getDefault() {
-      return new HockeyPlayerStats(0,0,0,0,0);
+      return new HockeyPlayerStats(0,0,0,0,0,0);
     }
   }
 

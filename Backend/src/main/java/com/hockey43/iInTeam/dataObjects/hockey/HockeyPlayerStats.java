@@ -1,6 +1,7 @@
 package com.hockey43.iInTeam.dataObjects.hockey;
 
 public class HockeyPlayerStats {
+    private int gamesPlayed;
     private int goals;
     private int assists;
     private int points;
@@ -45,5 +46,13 @@ public class HockeyPlayerStats {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public int getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    public void setGamesPlayed(int gamesPlayed) {
+        this.gamesPlayed = gamesPlayed;
     }
 }

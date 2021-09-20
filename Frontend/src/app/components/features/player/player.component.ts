@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Player } from 'src/app/data-objects/data-objects.module';
 import { PlayerService } from 'src/app/services/data/player.service';
+import { AuthenticationService } from 'src/app/services/user/authentication.service';
 
 @Component({
   selector: 'app-player',
@@ -14,6 +15,7 @@ export class PlayerComponent implements OnInit {
   player: Player = Player.getDefault();
 
   constructor(
+    public auth: AuthenticationService,
     private playerService: PlayerService
   ) { }
 
@@ -23,8 +25,15 @@ export class PlayerComponent implements OnInit {
 
 
   refreshPlayer(playerId:number) {
-    this.playerService.retrievePlayer(playerId).subscribe(
-      (response:Player) => {this.player = response;}
+
+    this.auth.playerId$.subscribe(
+      (playerId:number | null) => {
+        if (playerId) {
+          this.playerService.retrievePlayer(playerId).subscribe(
+            (response:Player) => {this.player = response;}
+          );
+        }
+      }
     );
   }
 

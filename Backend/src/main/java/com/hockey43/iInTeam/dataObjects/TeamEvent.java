@@ -72,4 +72,6 @@ public abstract class TeamEvent {
 
     public abstract TeamEventSheet getTeamEventSheet();
 
+    public abstract boolean isComplete();
+
 }

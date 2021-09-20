@@ -5,9 +5,9 @@
             <ul class="navbar-nav">
                 <li *ngIf="auth.user$ | async as user"><a  routerLink="/dashboard" class="nav-link">Dashboard</a></li>
                 <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Teams</a></li>
+                <li *ngIf="auth.user$ | async as user"><a  routerLink="/player" class="nav-link">Player</a></li>
                 <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Camps/Clinics</a></li>
-                <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Calendar</a></li>
-                <li *ngIf="auth.user$ | async as user"><a  routerLink="/player" class="nav-link">Player</a></li>                
+                <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Calendar</a></li>                
             </ul>
             <ul class="navbar-nav navbar-collapse justify-content-end">
                 <li *ngIf="auth.user$ | async as user"><a routerLink="/login" class="nav-link">Account</a></li>

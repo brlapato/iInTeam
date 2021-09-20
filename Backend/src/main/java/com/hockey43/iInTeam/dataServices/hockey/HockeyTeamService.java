@@ -20,6 +20,9 @@ public class HockeyTeamService {
     @Autowired
     private HockeyGameService hockeyGameService;
 
+    @Autowired
+    private HockeyStatsService hockeyStatsService;
+
     public List<HockeyTeam> getHockeyTeams(long playerId, boolean activeOnly) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -183,54 +186,11 @@ public class HockeyTeamService {
         session.getTransaction().commit();
         session.close();
 
-        Map<String, HockeyPlayerStats> typeStats = new LinkedHashMap<String, HockeyPlayerStats>();
-        Map<String, HockeyPlayerStats> leagueStats = new LinkedHashMap<String, HockeyPlayerStats>();
+        List<HockeyPlayerStatsEntry> stats = this.hockeyStatsService.aggregateStats(games, "Overall");
+        stats.addAll(this.hockeyStatsService.aggregateStats(games, "ByGameType"));
+        stats.addAll(this.hockeyStatsService.aggregateStats(games, "ByLeagueDetail"));
 
-        HockeyPlayerStats overallStats = new HockeyPlayerStats();
-        typeStats.put("Overall", overallStats);
-
-        for (int gameIdx = 0; gameIdx < games.size(); gameIdx++) {
-            HockeyGame cGame = games.get(gameIdx);
-
-            updatePlayerStats(cGame, overallStats);
-
-            String gameType = cGame.getGameType().toString();
-            HockeyPlayerStats subTypeStats = typeStats.getOrDefault(gameType, null);
-            if (subTypeStats == null) {
-                subTypeStats = new HockeyPlayerStats();
-                typeStats.put(gameType, subTypeStats);
-            }
-            updatePlayerStats(cGame, subTypeStats);
-
-            String[] allLeagues = cGame.getSeperateLeages();
-            if (allLeagues != null) {
-                for (int leagueIndex=0; leagueIndex < allLeagues.length; leagueIndex++) {
-                    String league = allLeagues[leagueIndex];
-                    HockeyPlayerStats currentLeagueStats = leagueStats.getOrDefault(league, null);
-                    if (currentLeagueStats == null) {
-                        currentLeagueStats = new HockeyPlayerStats();
-                        leagueStats.put(league, currentLeagueStats);
-                    }
-                    updatePlayerStats(cGame, currentLeagueStats);
-                }
-            }
-
-        }
-        List<HockeyPlayerStatsEntry> results = new ArrayList<HockeyPlayerStatsEntry>();
-        for (Map.Entry<String, HockeyPlayerStats> entry : typeStats.entrySet()) {
-            HockeyPlayerStatsEntry newEntry = new HockeyPlayerStatsEntry();
-            newEntry.setDescription(entry.getKey());
-            newEntry.setHockeyPlayerStats(entry.getValue());
-            results.add(newEntry);
-        }
-        for (Map.Entry<String, HockeyPlayerStats> entry : leagueStats.entrySet()) {
-            HockeyPlayerStatsEntry newEntry = new HockeyPlayerStatsEntry();
-            newEntry.setDescription(entry.getKey());
-            newEntry.setHockeyPlayerStats(entry.getValue());
-            results.add(newEntry);
-        }
-
-        return results;
+        return stats;
     }
 
     public List<HockeyGame> getGames(long teamId) {

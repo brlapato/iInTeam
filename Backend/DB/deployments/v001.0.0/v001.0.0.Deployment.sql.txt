@@ -69,6 +69,7 @@ CREATE TABLE `Team` (
   `StartDate` datetime NOT NULL,
   `OrgId` int DEFAULT NULL,
   `PlayerId` bigint NOT NULL,
+  `Season` varchar(10) NOT NULL,
   PRIMARY KEY (`TeamId`),
   KEY `FK_OrgId` (`OrgId`),
   KEY `FKPlayerId` (`PlayerId`),

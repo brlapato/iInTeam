@@ -29,6 +29,9 @@ public abstract class Team {
     @Column(name="StartDate", columnDefinition = "DATETIME", nullable = false)
     private LocalDateTime startDate;
 
+    @Column(name="Season", length = 10, nullable = false)
+    private String season;
+
     public Org getOrg() {
         return org;
     }
@@ -80,4 +83,12 @@ public abstract class Team {
     public abstract Sport getSport();
 
     public abstract TeamSummary getTeamSummary();
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
 }

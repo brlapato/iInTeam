@@ -1,5 +1,34 @@
-<p>player works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div>
+                Info for: {{ player.firstName }}  {{ player.lastName }}
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="player.includeHockey">
+        <div class="col">
+            <div class="h3">Player Stats</div>
+            <div class="container shadow p-3">
+                <app-player-stats displayMode="PlayerStats" statSet="Overall" title="Overall"></app-player-stats>
+                <app-player-stats displayMode="PlayerStats" statSet="BySeason" title="By Season"></app-player-stats>
+                <app-player-stats displayMode="PlayerStats" statSet="ByAgeClass" title="Age Class"></app-player-stats>
+                <app-player-stats displayMode="PlayerStats" statSet="ByTeam" title="By Team"></app-player-stats>
+                <app-player-stats displayMode="PlayerStats" statSet="ByLeague" title="By League"></app-player-stats>
+                <app-player-stats displayMode="PlayerStats" statSet="ByOpponent" title="By Opponent"></app-player-stats>
+                <app-player-stats displayMode="PlayerStats" statSet="ByRink" title="By Rink"></app-player-stats>
+                
+            </div>
+        </div>
+        <div class="col">
+            
+        </div>
+    </div>
 
-<div>
-    Info for: {{ player.firstName }}  {{ player.lastName }}
 </div>
+
+
+
+
+
+

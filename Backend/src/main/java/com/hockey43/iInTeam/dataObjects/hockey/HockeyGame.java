@@ -114,6 +114,12 @@ public class HockeyGame extends TeamEvent {
         return new HockeyGameSheet(this);
     }
 
+    @Override
+    public boolean isComplete(){
+        return !(this.result == null || this.getResult() == GameResult.Undetermined);
+    }
+
+
     // region public methods
 
     public void mergeHockeyGameSheet(HockeyGameSheet gameSheet) {

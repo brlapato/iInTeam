@@ -1,19 +1,21 @@
 
 <div class="container border rounded-3 bg-white">
-    <table class="table table-striped">
+    <table class="table table-sm table-striped">
         <thead>
             <tr>
-                <th></th>
-                <th style="text-align: center">Goals</th>
-                <th style="text-align: center">Assists</th>
-                <th style="text-align: center">Points</th>
-                <th style="text-align: center">Shots</th>
-                <th style="text-align: center">Penalty Min</th>
+                <th style="width:22%">{{title}}</th>
+                <th style="width:13%;text-align: center">GP</th>
+                <th style="width:13%;text-align: center">Goals</th>
+                <th style="width:13%;text-align: center">Assists</th>
+                <th style="width:13%;text-align: center">Points</th>
+                <th style="width:13%;text-align: center">Shots</th>
+                <th style="width:13%;text-align: center">Penalty Min</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let currentStat of playerStats">
                 <td>{{currentStat.description}}</td>
+                <td style="text-align: center">{{currentStat.hockeyPlayerStats.gamesPlayed}}</td>
                 <td style="text-align: center">{{currentStat.hockeyPlayerStats.goals}}</td>
                 <td style="text-align: center">{{currentStat.hockeyPlayerStats.assists}}</td>
                 <td style="text-align: center">{{currentStat.hockeyPlayerStats.points}}</td>
