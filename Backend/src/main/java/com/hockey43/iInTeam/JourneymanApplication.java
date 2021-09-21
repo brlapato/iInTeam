@@ -52,8 +52,21 @@ public class JourneymanApplication {
 				LOG.info("Running initialization...");
 				initializeData(session);
 
+
+
 				LOG.info("Committing Database population...");
 				session.getTransaction().commit();
+
+
+				LOG.info("Creating Session");
+				Session testDataSession = HibernateUtil.getSessionFactory().openSession();
+				testDataSession.beginTransaction();
+
+				LOG.info("Generating Test Data");
+				initializeRandomData(testDataSession);
+
+				testDataSession.getTransaction().commit();
+
 			}
 
 			LOG.info("Test database connection");
@@ -447,7 +460,7 @@ public class JourneymanApplication {
 
 		HockeyGame vaGame5 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 8, 06, 6, 45), "Aston 1494", "AAA", Side.Away);
 		vaGame5.setLocation("Ice Works");
-		vaGame5.setLocation("Rink 4");
+		vaGame5.setLocationDetail("Rink 4");
 		vaGame5.setGameType(GameType.Tournament);
 		vaGame5.setLeague("2021 One Hockey Philadelphia Summer");
 		vaGame5.setNumberPeriods(3);
@@ -460,7 +473,7 @@ public class JourneymanApplication {
 
 		HockeyGame vaGame6 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 8, 07, 13, 00), "Hockey Lab", "AAA", Side.Away);
 		vaGame6.setLocation("Ice Works");
-		vaGame6.setLocation("Rink 3");
+		vaGame6.setLocationDetail("Rink 3");
 		vaGame6.setGameType(GameType.Tournament);
 		vaGame6.setLeague("2021 One Hockey Philadelphia Summer");
 		vaGame6.setNumberPeriods(3);
@@ -474,7 +487,7 @@ public class JourneymanApplication {
 
 		HockeyGame vaGame7 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 8, 7, 19, 00), "Valley Forge Minutemen", "AAA", Side.Home);
 		vaGame7.setLocation("Ice Works");
-		vaGame7.setLocation("Rink 3");
+		vaGame7.setLocationDetail("Rink 3");
 		vaGame7.setGameType(GameType.Tournament);
 		vaGame7.setLeague("2021 One Hockey Philadelphia Summer");
 		vaGame7.setNumberPeriods(3);
@@ -489,7 +502,7 @@ public class JourneymanApplication {
 
 		HockeyGame vaGame8 = new HockeyGame(vaVipers, LocalDateTime.of(2021, 8, 8, 8, 30), "Hockey Lab", "AAA", Side.Home);
 		vaGame8.setLocation("Ice Works");
-		vaGame8.setLocation("Rink 3");
+		vaGame8.setLocationDetail("Rink 3");
 		vaGame8.setGameType(GameType.Tournament);
 		vaGame8.setLeague("2021 One Hockey Philadelphia Summer");
 		vaGame8.setNumberPeriods(3);
@@ -503,8 +516,6 @@ public class JourneymanApplication {
 		vaGame8.setPreGameNotes("Championship game.");
 		session.save(vaGame8);
 
-
-		session.save(vaGame1);
 
 		HockeyTeam howardMites = new HockeyTeam();
 		howardMites.setOrg(orgHoward);
@@ -626,6 +637,83 @@ public class JourneymanApplication {
 		session.save(howard08U10);
 
 
+	}
+
+	private void initializeRandomData(Session session) throws IOException {
+		for (int playerIdx = 0; playerIdx < 100; playerIdx++) {
+			createTestTeam(session, playerIdx, 5, 35);
+		}
+	}
+
+	private void createTestTeam(Session session, int testId, int numTeams, int numGames) throws IOException {
+		// create test player
+		Player testPlayer = new Player();
+		testPlayer.setFirstName("TestFirstName" + String.valueOf(testId));
+		testPlayer.setLastName("TestLastName" + String.valueOf(testId));
+		testPlayer.setUserId("auth0|");
+		testPlayer.setHeightFeet(4);
+		testPlayer.setHeightInches(5);
+		testPlayer.setWeight(74);
+		testPlayer.setIncludeHockey(true);
+		testPlayer.getHockeyAttributes().setPosition("Forward");
+		testPlayer.getHockeyAttributes().setShot(Shot.Left);
+		Media bradleyImage = new Media();
+		bradleyImage.setDescription("Bradley profile picture");
+		bradleyImage.setFile(this.readFileBase64("images/bradley.jpeg"));
+		bradleyImage.setMediaType(MediaType.IMAGE_JPEG_VALUE);
+		testPlayer.setPlayerPicture(bradleyImage);
+
+		session.save(testPlayer);
+
+		Org orgTest = new Org();
+		orgTest.setName("TestOrg" + String.valueOf(testId));
+		orgTest.setCity("Test Org");
+		session.save(orgTest);
+
+		// create 5 test teams
+		for (int teamIdx=0; teamIdx < numTeams; teamIdx++) {
+			HockeyTeam testTeam = new HockeyTeam();
+			testTeam.setOrg(orgTest);
+			testTeam.setPlayerOwner(testPlayer);
+			testTeam.setAgeClass(AgeClass.U10);
+			testTeam.setLevel("AA");
+			testTeam.setName("Test Team " + String.valueOf(testId) + "_" + String.valueOf(teamIdx));
+			testTeam.setHeadCoach("Test Coach");
+			testTeam.setPlayerNumber(10);
+			testTeam.setRegularPosition("Defense");
+			testTeam.setActive(true);
+			testTeam.setStartDate(LocalDateTime.of(2021, 04, 21,0,0,0));
+			testTeam.setSeason("2021-22");
+			session.save(testTeam);
+
+			for(int gameIdx =0; gameIdx < numGames; gameIdx++) {
+				HockeyGame testGame= new HockeyGame(testTeam, LocalDateTime.of(2021, 10, 02, 12, 0).plusDays(gameIdx), "TBD 3", "LA", Side.Away);
+				testGame.setLocation("A Rink");
+				testGame.setGameType(GameType.League);
+				testGame.setLeague("NHL");
+
+
+				if (gameIdx % 2 == 0) {
+					testGame.setSide(Side.Away);
+				} else {
+					testGame.setSide(Side.Home);
+				}
+
+				testGame.setTeamScore(4);
+				testGame.setOpponentScore(1);
+				testGame.setResult(GameResult.Loss);
+				testGame.setShots(2);
+				testGame.setGoals(0);
+				testGame.setAssists(0);
+				testGame.setNumberPeriods(1);
+				testGame.setPeriodLength(16);
+
+				session.save(testGame);
+			}
+		}
+
+
+		// for each team, create 30 games
 	}
 
 	private byte[] readFile(String filePath) throws IOException {

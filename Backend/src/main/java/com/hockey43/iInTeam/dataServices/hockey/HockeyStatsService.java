@@ -33,6 +33,13 @@ public class HockeyStatsService {
 
     public List<HockeyPlayerStatsEntry> aggregateStats(List<HockeyGame> games, String statSet) {
 
+        Comparator<HockeyGame> comparator = this.getComparator(statSet);
+
+        if (comparator != null) {
+            games.sort(comparator);
+        }
+
+
         Map<String, HockeyPlayerStats> statsMap = new LinkedHashMap<String, HockeyPlayerStats>();
 
         for (int gameIdx = 0; gameIdx < games.size(); gameIdx++) {
@@ -117,6 +124,47 @@ public class HockeyStatsService {
         }
 
         return key;
+    }
+
+    private Comparator<HockeyGame> getComparator(String statSet) {
+        Comparator<HockeyGame> comparator = null;
+        switch (statSet.toLowerCase(Locale.ROOT)) {
+            case "byleague":
+                comparator = new Comparator<HockeyGame>() {
+                    @Override
+                    public int compare(HockeyGame o1, HockeyGame o2) {
+                        if(o1.getGameType() == GameType.NonLeague) {
+                            return 1;
+                        } else if (o2.getGameType() == GameType.NonLeague){
+                            return -1;
+                        } else if (o1.getGameType() == GameType.Tournament) {
+                           return 1;
+                        } else if (o1.getGameType() == GameType.Tournament) {
+                            return -1;
+                        }
+                        return o1.getLeague().compareTo(o2.getLeague());
+                    }
+                };
+                break;
+            case "byteam":
+                comparator = new Comparator<HockeyGame>() {
+                    @Override
+                    public int compare(HockeyGame o1, HockeyGame o2) {
+                        return o1.getOwnerTeam().getOrg().getCity().compareTo(o2.getOwnerTeam().getOrg().getCity());
+                    }
+                };
+                break;
+            case "byopponent":
+                comparator = new Comparator<HockeyGame>() {
+                    @Override
+                    public int compare(HockeyGame o1, HockeyGame o2) {
+                        return o1.getOpponentTeamName().compareTo(o2.getOpponentTeamName());
+                    }
+                };
+                break;
+        }
+
+        return comparator;
     }
 
     private void updatePlayerStats(HockeyGame game, HockeyPlayerStats stats) {
