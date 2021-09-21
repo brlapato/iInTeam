@@ -5,6 +5,7 @@ import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
 import com.hockey43.iInTeam.dataServices.GameService;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
 import org.hibernate.Session;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 @Service
 public class HockeyGameService extends GameService {
     @Override
+    @Cacheable(value = "hockeyGamesForPlayer", key = "{#playerId, #activeTeams}")
     public List<TeamEvent> getGamesForPlayer(long playerId, boolean activeTeams) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -29,6 +31,7 @@ public class HockeyGameService extends GameService {
     }
 
     @Override
+    @Cacheable(value = "hockeyGamesForTeam", key = "#teamId")
     public List<TeamEvent> getGamesForTeam(long teamId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -44,6 +47,7 @@ public class HockeyGameService extends GameService {
     }
 
     @Override
+    @Cacheable(value = "upcomingHockeyGames")
     public List<TeamEvent> getUpcomingGames(long playerId, int gameCount) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -60,6 +64,7 @@ public class HockeyGameService extends GameService {
     }
 
     @Override
+    @Cacheable(value = "recentHockeyGames")
     public List<TeamEvent> getRecentGames(long playerId, int gameCount) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();

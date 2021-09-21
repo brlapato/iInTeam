@@ -8,6 +8,7 @@ import com.hockey43.iInTeam.dataServices.TeamService;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
@@ -226,6 +227,7 @@ public class HockeyTeamService {
         return newGame;
     }
 
+    @CacheEvict(value = {"hockeyGamesForPlayer", "hockeyGamesForTeam", "upcomingHockeyGames", "recentHockeyGames"}, allEntries = true)
     public void saveHockeyGame(HockeyGame game) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -236,6 +238,7 @@ public class HockeyTeamService {
         session.close();
     }
 
+    @CacheEvict(value = {"hockeyGamesForPlayer", "hockeyGamesForTeam", "upcomingHockeyGames", "recentHockeyGames"}, allEntries = true)
     public void deleteHockeyGameById(long gameId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -249,14 +252,6 @@ public class HockeyTeamService {
         session.close();
     }
 
-    private void updatePlayerStats(HockeyGame game, HockeyPlayerStats stats) {
-        stats.setGoals(stats.getGoals() + game.getGoals());
-        stats.setAssists(stats.getAssists() + game.getAssists());
-        stats.setPoints(stats.getPoints() + game.getAssists() + game.getGoals());
-        stats.setShots(stats.getShots() + game.getShots());
-        stats.setPenaltyMin(stats.getPenaltyMin() + game.getPenaltyMin());
-
-    }
 
     private void updateGameRecord(HockeyGame cGame, Record record) {
         if (cGame.getResult() != null) {
