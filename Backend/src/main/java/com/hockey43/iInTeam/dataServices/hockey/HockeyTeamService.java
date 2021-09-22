@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.Query;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class HockeyTeamService {
@@ -79,21 +80,12 @@ public class HockeyTeamService {
 
         HockeyTeamSummary teamSummary = new HockeyTeamSummary(team);
 
-
-        int goals = 0; int assists = 0; int shots = 0; int penaltyMin = 0;
-        Record teamRecord = new Record();
         HockeyGame nextGame = null;
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         for (int gameIdx = 0; gameIdx < games.size(); gameIdx++) {
             if (games.get(gameIdx) instanceof HockeyGame) {
                 HockeyGame cGame = (HockeyGame) games.get(gameIdx);
-                goals += cGame.getGoals();
-                assists += cGame.getAssists();
-                shots += cGame.getShots();
-                penaltyMin += cGame.getPenaltyMin();
-
-                updateGameRecord(cGame, teamRecord);
 
                 LocalDateTime startTime = cGame.getStartDateTime();
                 if (startTime.isAfter(currentDateTime)) {
@@ -104,16 +96,19 @@ public class HockeyTeamService {
             }
         }
 
-        teamSummary.setGoals(goals);
-        teamSummary.setAssists(assists);
-        teamSummary.setShots(shots);
-        teamSummary.setPoints(goals+assists);
-        teamSummary.setPenaltyMin(penaltyMin);
-        teamSummary.setRecord(teamRecord);
         if (nextGame != null) {
             teamSummary.setNextGame(new HockeyGameSheet(nextGame));
         }
 
+
+        HockeyPlayerStats stats = this.hockeyStatsService.aggregateStatsFromEvents(games, "Overall").get(0).getHockeyPlayerStats();
+        teamSummary.setGoals(stats.getGoals());
+        teamSummary.setAssists(stats.getAssists());
+        teamSummary.setShots(stats.getShots());
+        teamSummary.setPoints(stats.getPoints());
+        teamSummary.setPenaltyMin(stats.getPenaltyMin());
+
+        teamSummary.setRecord(this.hockeyStatsService.aggregateRecordFromEvents(games, "Overall").get(0).getWinRecord());
 
         return teamSummary;
     }
@@ -123,58 +118,11 @@ public class HockeyTeamService {
         List<TeamEvent> games = this.hockeyGameService.getGamesForTeam(teamId);
 
 
-        Map<String, Record> records = new LinkedHashMap<String, Record>();
-        Map<String, Record> leagueRecords = new LinkedHashMap<String, Record>();
+        List<RecordEntry> winRecord = this.hockeyStatsService.aggregateRecordFromEvents(games, "Overall");
+        winRecord.addAll(this.hockeyStatsService.aggregateRecordFromEvents(games, "ByGameType"));
+        winRecord.addAll(this.hockeyStatsService.aggregateRecordFromEvents(games, "ByLeagueDetail"));
 
-        Record overallRecord = new Record();
-        records.put("Overall", overallRecord);
-
-        for (int gameIdx = 0; gameIdx < games.size(); gameIdx++) {
-            if (games.get(gameIdx) instanceof HockeyGame) {
-                HockeyGame cGame = (HockeyGame) games.get(gameIdx);
-
-                updateGameRecord(cGame, overallRecord);
-
-                String gameType = cGame.getGameType().toString();
-                Record subTypeRecord = records.getOrDefault(gameType, null);
-                if (subTypeRecord == null) {
-                    subTypeRecord = new Record();
-                    records.put(gameType, subTypeRecord);
-                }
-                updateGameRecord(cGame, subTypeRecord);
-
-                String[] allLeagues = cGame.getSeperateLeages();
-                if (allLeagues != null) {
-                    for (int leagueIndex = 0; leagueIndex < allLeagues.length; leagueIndex++) {
-                        String league = allLeagues[leagueIndex];
-                        Record currentLeagueRecord = leagueRecords.getOrDefault(league, null);
-                        if (currentLeagueRecord == null) {
-                            currentLeagueRecord = new Record();
-                            leagueRecords.put(league, currentLeagueRecord);
-                        }
-                        updateGameRecord(cGame, currentLeagueRecord);
-                    }
-                }
-            }
-
-        }
-        List<RecordEntry> results = new ArrayList<RecordEntry>();
-        for (Map.Entry<String, Record> entry : records.entrySet()) {
-            RecordEntry newEntry = new RecordEntry();
-            newEntry.setDescription(entry.getKey());
-            newEntry.setWinRecord(entry.getValue());
-            results.add(newEntry);
-        }
-        for (Map.Entry<String, Record> entry : leagueRecords.entrySet()) {
-            RecordEntry newEntry = new RecordEntry();
-            newEntry.setDescription(entry.getKey());
-            newEntry.setWinRecord(entry.getValue());
-            results.add(newEntry);
-        }
-
-        return results;
-
-
+        return winRecord;
     }
 
     public List<HockeyPlayerStatsEntry> getPlayerStatsForTeam(long teamId) {
@@ -253,22 +201,4 @@ public class HockeyTeamService {
     }
 
 
-    private void updateGameRecord(HockeyGame cGame, Record record) {
-        if (cGame.getResult() != null) {
-            switch (cGame.getResult()) {
-                case Win:
-                    record.setWins(record.getWins() + 1);
-                    break;
-                case Loss:
-                    record.setLosses(record.getLosses() + 1);
-                    break;
-                case Tie:
-                    record.setTies(record.getTies() + 1);
-                    break;
-                case OvertimeLoss:
-                    record.setOverTimeLosses(record.getOverTimeLosses() + 1);
-                    break;
-            }
-        }
-    }
 }

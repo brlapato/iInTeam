@@ -1,6 +1,7 @@
 package com.hockey43.iInTeam.webResources;
 
 import com.hockey43.iInTeam.dataObjects.Media;
+import com.hockey43.iInTeam.dataObjects.RecordEntry;
 import com.hockey43.iInTeam.dataObjects.TeamEvent;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyPlayerStatsEntry;
 import com.hockey43.iInTeam.dataServices.IPlayerService;
@@ -31,5 +32,12 @@ public class StatResource {
         List<TeamEvent> events = this.hockeyGameService.getGamesForPlayer(playerId, false);
 
         return this.hockeyStatService.aggregateStatsFromEvents(events, statSet);
+    }
+
+    @GetMapping(value = "/players/{playerId}/winRecord")
+    public List<RecordEntry> getPlayerRecordHockey(@PathVariable long playerId, @RequestParam(required = true) String statSet) {
+        List<TeamEvent> events = this.hockeyGameService.getGamesForPlayer(playerId, false);
+
+        return this.hockeyStatService.aggregateRecordFromEvents(events, statSet);
     }
 }

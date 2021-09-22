@@ -58,14 +58,13 @@ public class JourneymanApplication {
 				session.getTransaction().commit();
 
 
-				LOG.info("Creating Session");
-				Session testDataSession = HibernateUtil.getSessionFactory().openSession();
-				testDataSession.beginTransaction();
+
+
 
 				LOG.info("Generating Test Data");
-				initializeRandomData(testDataSession);
+				initializeRandomData();
+				LOG.info("Test Data Done");
 
-				testDataSession.getTransaction().commit();
 
 			}
 
@@ -639,10 +638,21 @@ public class JourneymanApplication {
 
 	}
 
-	private void initializeRandomData(Session session) throws IOException {
-		for (int playerIdx = 0; playerIdx < 100; playerIdx++) {
-			createTestTeam(session, playerIdx, 5, 35);
+	private void initializeRandomData() throws IOException {
+
+		int numPlayers = 1000;
+
+		for (int playerIdx = 0; playerIdx < numPlayers; playerIdx++) {
+			Session testDataSession = HibernateUtil.getSessionFactory().openSession();
+			testDataSession.beginTransaction();
+			createTestTeam(testDataSession, playerIdx, 5, 35);
+			if (playerIdx % (numPlayers / 10) == 0) {
+				LOG.info( String.valueOf(numPlayers / 10) + "%" );
+			}
+			testDataSession.getTransaction().commit();
 		}
+
+
 	}
 
 	private void createTestTeam(Session session, int testId, int numTeams, int numGames) throws IOException {

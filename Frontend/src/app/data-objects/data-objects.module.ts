@@ -72,6 +72,7 @@ export class HockeyAttributes {
       public wins: number,
       public losses: number,
       public ties: number,
+      public overTimeWins: number,
       public overTimeLosses: number
     ) {}
 
@@ -216,7 +217,7 @@ export class HockeyAttributes {
     public static getDefault() {
       return new HockeyTeamSummary(
         "", "", -1,
-        new WinRecord(0,0,0,0),
+        new WinRecord(0,0,0,0,0),
         0,0,0,0,0, 
         HockeyGame.getDefault()
       );

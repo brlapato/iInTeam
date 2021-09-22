@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { WinRecord, WinRecordEntry } from 'src/app/data-objects/data-objects.module';
+import { PlayerStatsService } from 'src/app/services/data/player-stats.service';
 import { TeamService } from 'src/app/services/data/team.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
 
@@ -11,11 +12,15 @@ import { AuthenticationService } from 'src/app/services/user/authentication.serv
 export class TeamRecordComponent implements OnInit {
 
   @Input() teamId: number = 0;
+  @Input() displayMode: String = "TeamRecord"
+  @Input() statSet: String = "";
+  @Input() title: String = "";
   public winRecords: WinRecordEntry[] = [];
 
   constructor(
     public auth: AuthenticationService,
-    public teamService: TeamService
+    public teamService: TeamService,
+    public statService: PlayerStatsService
   ) { }
 
   ngOnInit(): void {
@@ -23,8 +28,19 @@ export class TeamRecordComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.loadTeamRecord();
-}
+    console.log(`display mode: ${this.displayMode}`);
+    
+    switch (this.displayMode) {
+      case "TeamRecord":
+        this.loadTeamRecord();
+        break;
+      case "PlayerRecord":
+        this.loadPlayerRecord();
+        break;
+      default:
+        // don't load anything  
+    }
+  }
 
 
   loadTeamRecord() {
@@ -33,6 +49,17 @@ export class TeamRecordComponent implements OnInit {
         if (playerId && this.teamId) {
           
           this.teamService.retrieveTeamRecord(playerId, this.teamId).subscribe((data:WinRecordEntry[]) => {this.winRecords = data; })
+        }
+      }
+    );
+  }
+
+  loadPlayerRecord() {
+    this.auth.playerId$.subscribe(
+      (playerId:number | null) => {
+        if (playerId) {
+          
+          this.statService.retrievePlayerHockeyRecord(playerId, this.statSet).subscribe((data:WinRecordEntry[]) => {this.winRecords = data; })
         }
       }
     );

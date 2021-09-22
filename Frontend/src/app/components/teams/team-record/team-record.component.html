@@ -1,11 +1,25 @@
 
 
 <div class="container">
-    <table class="table table-sm smallFont" >
+    <table class="table table-sm smallFont table-striped" >
+        <thead>
+            <tr>
+                <th>{{title}}</th>
+                <th style="width:10%;text-align: center">W</th>
+                <th style="width:10%;text-align: center">L</th>
+                <th style="width:10%;text-align: center">T</th>
+                <th style="width:10%;text-align: center">OTW</th>
+                <th style="width:10%;text-align: center">OTL</th>
+            </tr>
+        </thead>
          <tbody>
             <tr *ngFor="let cRecord of winRecords" class=p-2> 
                 <td>{{cRecord.description}}</td>
-                <td>{{getDisplayString(cRecord.winRecord)}}</td>
+                <td style="text-align: center">{{cRecord.winRecord.wins}}</td>
+                <td style="text-align: center">{{cRecord.winRecord.losses}}</td>
+                <td style="text-align: center">{{cRecord.winRecord.ties}}</td>
+                <td style="text-align: center">{{cRecord.winRecord.overTimeWins}}</td>
+                <td style="text-align: center">{{cRecord.winRecord.overTimeLosses}}</td>
             </tr>
         </tbody>
     </table>

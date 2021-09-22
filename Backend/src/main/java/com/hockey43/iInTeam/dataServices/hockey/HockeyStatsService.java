@@ -71,8 +71,54 @@ public class HockeyStatsService {
         return results;
     }
 
-    public List<RecordEntry> getPlayerWinRecords(long playerId, String statSet) {
-        return null;
+    public List<RecordEntry> aggregateRecordFromEvents(List<TeamEvent> events, String statSet) {
+        List<HockeyGame> hockeyGames = new ArrayList<HockeyGame>();
+        events.forEach((event)->{
+            if(event instanceof HockeyGame) {
+                hockeyGames.add((HockeyGame) event);
+            }
+        });
+
+        return aggregateWinRecord(hockeyGames, statSet);
+    }
+
+    public List<RecordEntry> aggregateWinRecord(List<HockeyGame> games, String statSet) {
+        Comparator<HockeyGame> comparator = this.getComparator(statSet);
+
+        if (comparator != null) {
+            games.sort(comparator);
+        }
+
+
+        Map<String, Record> recordMap = new LinkedHashMap<String, Record>();
+
+        for (int gameIdx = 0; gameIdx < games.size(); gameIdx++) {
+            HockeyGame cGame = games.get(gameIdx);
+
+            if(cGame.isComplete()) {
+                String[] gameKeys = this.getKey(cGame, statSet);
+                if( gameKeys != null ) {
+                    for (int keyIndex = 0; keyIndex < gameKeys.length; keyIndex++) {
+                        String gameKey = gameKeys[keyIndex];
+                        Record groupRecord = recordMap.getOrDefault(gameKey, null);
+                        if (groupRecord == null) {
+                            groupRecord = new Record();
+                            recordMap.put(gameKey, groupRecord);
+                        }
+                        updateGameRecord(cGame, groupRecord);
+                    }
+                }
+            }
+        }
+        List<RecordEntry> results = new ArrayList<RecordEntry>();
+        for (Map.Entry<String, Record> entry : recordMap.entrySet()) {
+            RecordEntry newEntry = new RecordEntry();
+            newEntry.setDescription(entry.getKey());
+            newEntry.setWinRecord(entry.getValue());
+            results.add(newEntry);
+        }
+
+        return results;
     }
 
 
@@ -174,7 +220,25 @@ public class HockeyStatsService {
         stats.setPoints(stats.getPoints() + game.getAssists() + game.getGoals());
         stats.setShots(stats.getShots() + game.getShots());
         stats.setPenaltyMin(stats.getPenaltyMin() + game.getPenaltyMin());
+    }
 
+    private void updateGameRecord(HockeyGame cGame, Record record) {
+        if (cGame.getResult() != null) {
+            switch (cGame.getResult()) {
+                case Win:
+                    record.setWins(record.getWins() + 1);
+                    break;
+                case Loss:
+                    record.setLosses(record.getLosses() + 1);
+                    break;
+                case Tie:
+                    record.setTies(record.getTies() + 1);
+                    break;
+                case OvertimeLoss:
+                    record.setOverTimeLosses(record.getOverTimeLosses() + 1);
+                    break;
+            }
+        }
     }
 
 

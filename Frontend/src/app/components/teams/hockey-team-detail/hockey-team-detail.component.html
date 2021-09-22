@@ -1,10 +1,9 @@
 <div *ngIf="this.team" class="container rounded-3 bg-white" style="padding: 15px">
     <h2>{{team.name}} <span class="badge bg-primary rounded-pill">#{{team.playerNumber}}-{{team.regularPosition}}</span></h2>
-    <div class="container bg-secondary rounded-3 ">
-        <div class="row my-2 gy-3">
-            <div class="col">
-                        
-                
+    <div class="container bg-white rounded-3 shadow-lg pt-3">
+        <div class="row my-2 mx-3 ">
+            <div class="col mx-2">
+
                 <div class="container bg-white rounded-3">
                     <div class="row">
                         <div class="col">
@@ -23,8 +22,10 @@
                 
             </div>
         </div>
-        <div class="row my-2">
-            <div class="col smallFont">                
+        <div class="row my-2 mx-3">
+            <div class="col">
+            </div>
+            <div class="col bg-white rounded-3 mx-2">                
                 <app-player-stats [teamId]="this.team.teamId" [displayMode]="'TeamStats'"></app-player-stats>
             </div>
         </div>

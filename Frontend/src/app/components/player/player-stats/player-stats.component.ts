@@ -44,9 +44,7 @@ export class PlayerStatsComponent implements OnInit {
       default:
         // don't load anything  
     }
-      
-    
-}
+  }
 
 
   private loadTeamStats() {

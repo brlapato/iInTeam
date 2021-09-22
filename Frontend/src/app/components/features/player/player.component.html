@@ -1,29 +1,49 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</button>
+          <button class="nav-link" id="nav-hockey-tab" data-bs-toggle="tab" data-bs-target="#nav-hockey" type="button" role="tab" aria-controls="nav-hockey" aria-selected="false">Hockey Stats</button>
+          
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
             <div>
                 Info for: {{ player.firstName }}  {{ player.lastName }}
             </div>
         </div>
-    </div>
-    <div class="row" *ngIf="player.includeHockey">
-        <div class="col">
-            <div class="h3">Player Stats</div>
-            <div class="container shadow p-3">
-                <app-player-stats displayMode="PlayerStats" statSet="Overall" title="Overall"></app-player-stats>
-                <app-player-stats displayMode="PlayerStats" statSet="BySeason" title="By Season"></app-player-stats>
-                <app-player-stats displayMode="PlayerStats" statSet="ByAgeClass" title="Age Class"></app-player-stats>
-                <app-player-stats displayMode="PlayerStats" statSet="ByTeam" title="By Team"></app-player-stats>
-                <app-player-stats displayMode="PlayerStats" statSet="ByLeague" title="By League"></app-player-stats>
-                <app-player-stats displayMode="PlayerStats" statSet="ByOpponent" title="By Opponent"></app-player-stats>
-                <app-player-stats displayMode="PlayerStats" statSet="ByRink" title="By Rink"></app-player-stats>
-                
+        <div class="tab-pane fade show" id="nav-hockey" role="tabpanel" aria-labelledby="nav-hockey-tab">
+            <div class="row" *ngIf="player.includeHockey">
+                <div class="col">
+                    <div class="h3">Player Stats</div>
+                    <div class="container shadow p-2">
+                        <app-player-stats displayMode="PlayerStats" statSet="Overall" title="Overall"></app-player-stats>
+                        <app-player-stats displayMode="PlayerStats" statSet="BySeason" title="By Season"></app-player-stats>
+                        <app-player-stats displayMode="PlayerStats" statSet="ByAgeClass" title="Age Class"></app-player-stats>
+                        <app-player-stats displayMode="PlayerStats" statSet="ByTeam" title="By Team"></app-player-stats>
+                        <app-player-stats displayMode="PlayerStats" statSet="ByLeague" title="By League"></app-player-stats>
+                        <app-player-stats displayMode="PlayerStats" statSet="ByOpponent" title="By Opponent"></app-player-stats>
+                        <app-player-stats displayMode="PlayerStats" statSet="ByRink" title="By Rink"></app-player-stats>
+                        
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="h3">Record</div>
+                    <div class="container shadow p-2">
+                        <app-team-record displayMode="PlayerRecord" statSet="Overall" title="Overall"></app-team-record>
+                        <app-team-record displayMode="PlayerRecord" statSet="BySeason" title="By Season"></app-team-record>
+                        <app-team-record displayMode="PlayerRecord" statSet="ByAgeClass" title="Age Class"></app-team-record>
+                        <app-team-record displayMode="PlayerRecord" statSet="ByTeam" title="By Team"></app-team-record>
+                        <app-team-record displayMode="PlayerRecord" statSet="ByLeague" title="By League"></app-team-record>
+                        <app-team-record displayMode="PlayerRecord" statSet="ByOpponent" title="By Opponent"></app-team-record>
+                        <app-team-record displayMode="PlayerRecord" statSet="ByRink" title="By Rink"></app-team-record>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col">
-            
-        </div>
     </div>
+
+    
 
 </div>
 
