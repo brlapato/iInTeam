@@ -18,12 +18,12 @@
                     <div class="h3">Player Stats</div>
                     <div class="container shadow p-2">
                         <app-player-stats displayMode="PlayerStats" statSet="Overall" title="Overall"></app-player-stats>
-                        <app-player-stats displayMode="PlayerStats" statSet="BySeason" title="By Season"></app-player-stats>
-                        <app-player-stats displayMode="PlayerStats" statSet="ByAgeClass" title="Age Class"></app-player-stats>
-                        <app-player-stats displayMode="PlayerStats" statSet="ByTeam" title="By Team"></app-player-stats>
-                        <app-player-stats displayMode="PlayerStats" statSet="ByLeague" title="By League"></app-player-stats>
-                        <app-player-stats displayMode="PlayerStats" statSet="ByOpponent" title="By Opponent"></app-player-stats>
-                        <app-player-stats displayMode="PlayerStats" statSet="ByRink" title="By Rink"></app-player-stats>
+                        <app-player-stats displayMode="PlayerStats" statSet="BySeason" title="By Season" [displayColumnHeaders]="false"></app-player-stats>
+                        <app-player-stats displayMode="PlayerStats" statSet="ByAgeClass" title="Age Class"  [displayColumnHeaders]="false"></app-player-stats>
+                        <app-player-stats displayMode="PlayerStats" statSet="ByTeam" title="By Team"  [displayColumnHeaders]="false"></app-player-stats>
+                        <app-player-stats displayMode="PlayerStats" statSet="ByLeague" title="By League"  [displayColumnHeaders]="false"></app-player-stats>
+                        <app-player-stats displayMode="PlayerStats" statSet="ByOpponent" title="By Opponent"  [displayColumnHeaders]="false"></app-player-stats>
+                        <app-player-stats displayMode="PlayerStats" statSet="ByRink" title="By Rink"  [displayColumnHeaders]="false"></app-player-stats>
                         
                     </div>
                 </div>
@@ -31,12 +31,12 @@
                     <div class="h3">Record</div>
                     <div class="container shadow p-2">
                         <app-team-record displayMode="PlayerRecord" statSet="Overall" title="Overall"></app-team-record>
-                        <app-team-record displayMode="PlayerRecord" statSet="BySeason" title="By Season"></app-team-record>
-                        <app-team-record displayMode="PlayerRecord" statSet="ByAgeClass" title="Age Class"></app-team-record>
-                        <app-team-record displayMode="PlayerRecord" statSet="ByTeam" title="By Team"></app-team-record>
-                        <app-team-record displayMode="PlayerRecord" statSet="ByLeague" title="By League"></app-team-record>
-                        <app-team-record displayMode="PlayerRecord" statSet="ByOpponent" title="By Opponent"></app-team-record>
-                        <app-team-record displayMode="PlayerRecord" statSet="ByRink" title="By Rink"></app-team-record>
+                        <app-team-record displayMode="PlayerRecord" statSet="BySeason" title="By Season" [displayColumnHeaders]="false"></app-team-record>
+                        <app-team-record displayMode="PlayerRecord" statSet="ByAgeClass" title="Age Class" [displayColumnHeaders]="false"></app-team-record>
+                        <app-team-record displayMode="PlayerRecord" statSet="ByTeam" title="By Team" [displayColumnHeaders]="false"></app-team-record>
+                        <app-team-record displayMode="PlayerRecord" statSet="ByLeague" title="By League" [displayColumnHeaders]="false"></app-team-record>
+                        <app-team-record displayMode="PlayerRecord" statSet="ByOpponent" title="By Opponent" [displayColumnHeaders]="false"></app-team-record>
+                        <app-team-record displayMode="PlayerRecord" statSet="ByRink" title="By Rink" [displayColumnHeaders]="false"></app-team-record>
                     </div>
                 </div>
             </div>

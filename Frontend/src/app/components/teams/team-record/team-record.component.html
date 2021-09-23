@@ -5,11 +5,11 @@
         <thead>
             <tr>
                 <th>{{title}}</th>
-                <th style="width:10%;text-align: center">W</th>
-                <th style="width:10%;text-align: center">L</th>
-                <th style="width:10%;text-align: center">T</th>
-                <th style="width:10%;text-align: center">OTW</th>
-                <th style="width:10%;text-align: center">OTL</th>
+                <th style="width:10%;text-align: center"><span *ngIf="displayColumnHeaders">W</span></th>
+                <th style="width:10%;text-align: center"><span *ngIf="displayColumnHeaders">L</span></th>
+                <th style="width:10%;text-align: center"><span *ngIf="displayColumnHeaders">T</span></th>
+                <th style="width:10%;text-align: center"><span *ngIf="displayColumnHeaders">OTW</span></th>
+                <th style="width:10%;text-align: center"><span *ngIf="displayColumnHeaders">OTL</span></th>
             </tr>
         </thead>
          <tbody>

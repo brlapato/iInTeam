@@ -57,12 +57,8 @@ public class JourneymanApplication {
 				LOG.info("Committing Database population...");
 				session.getTransaction().commit();
 
-
-
-
-
 				LOG.info("Generating Test Data");
-				initializeRandomData();
+				//initializeRandomData();
 				LOG.info("Test Data Done");
 
 
@@ -104,38 +100,6 @@ public class JourneymanApplication {
 		session.save(newPlayer);
 
 		return newPlayer;
-	}
-
-	private void orgTest(Session session) {
-		LOG.info("EXECUTING : Create Orgs");
-		Org orgFred = new Org();
-		orgFred.setName("Freeze");
-		orgFred.setCity("Frederick");
-
-		Org orgHoward = new Org();
-		orgHoward.setName("Huskies");
-		orgHoward.setCity("Howard");
-
-		LOG.info("EXECUTING : Save Orgs");
-		session.save(orgFred);
-		session.save(orgHoward);
-	}
-
-	private void teamTest(Session session, Player owner) {
-		Org orgFred = new Org();
-		orgFred.setName("Freeze");
-		orgFred.setCity("Frederick");
-
-		HockeyTeam mites1 = new HockeyTeam();
-		mites1.setOrg(orgFred);
-		mites1.setPlayerOwner(owner);
-		mites1.setAgeClass(AgeClass.U8);
-		mites1.setLevel("UA");
-		mites1.setName("Frederick Freeze Mites 1");
-		mites1.setHeadCoach("Tommy Demers");
-		mites1.setAssistantCoach1("Christian Wilson");
-
-		session.save(mites1);
 	}
 
 	private void initializeData(Session session) throws IOException {
@@ -323,7 +287,7 @@ public class JourneymanApplication {
 
 		HockeyGame howard10U1002b = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 10, 02, 17, 10), "Aston Nordiques", "AA", Side.Home);
 		howard10U1002b.setLocation("Gardens Ice House");
-		howard10U1002b.setLocation("Logsdon");
+		howard10U1002b.setLocationDetail("Logsdon");
 		howard10U1002b.setGameType(GameType.League);
 		howard10U1002b.setLeague("EJEPL");
 		session.save(howard10U1002b);

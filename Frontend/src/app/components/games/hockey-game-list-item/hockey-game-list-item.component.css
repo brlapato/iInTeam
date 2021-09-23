@@ -1,0 +1,38 @@
+.winCard {
+    border-style: solid;
+    border-width: 1px;
+    border-color: grey;
+    border-left-color: green;
+    border-left-width: 5px;
+    border-left-style: solid;
+    background-image: linear-gradient(to left, white, rgba(0, 255, 0, 0.1))
+    
+}
+
+.lossCard {
+    border-style: solid;
+    border-width: 1px;
+    border-color: grey;
+    border-left-color: rgba(255, 0, 0, 1);
+    border-left-width: 5px;
+    border-left-style: solid;
+    background-image: linear-gradient(to left, white, rgba(255, 0, 0, 0.1))
+}
+
+.tieCard {
+    border-style: solid;
+    border-width: 1px;
+    border-color: grey;
+    border-left-color: red;
+    border-left-width: 5px;
+    border-left-style: solid;
+    background-image: linear-gradient(to left, white, gray)
+    
+}
+
+.unplayedCard {
+    border-style: solid;
+    border-width: 1px;
+    border-color: grey;
+    
+}

@@ -1,9 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 /*@import url(https://unpkg.com/bootstrap@5.1.0/dist/css/bootstrap.min.css)*/
 
+:root {
+  --primaryColor: rgb(4, 46, 160);
+}
+
 @font-face {
     font-family: progress;
     src: url(assets/fonts/progress.ttf);
+  }
+
+  @font-face {
+    font-family: varsity;
+    src: url(assets/fonts/varsity_regular.ttf);
   }
 
 .smallFont {

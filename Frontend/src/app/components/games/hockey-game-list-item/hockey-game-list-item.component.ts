@@ -55,5 +55,21 @@ export class HockeyGameListItemComponent  {
     );
   }
 
+  public isGameComplete(game: HockeyGame) {
+    return (game.result && game.result != "Undetermined");
+  }
+
+  public isGameWin(game: HockeyGame) {
+    return (game.result && (game.result === "Win" || game.result === "OvertimeWin"));
+  }
+
+  public isGameLoss(game: HockeyGame) {
+    return (game.result && (game.result === "Loss" || game.result === "OvertimeLoss"));
+  }
+
+  public isGameTie(game: HockeyGame) {
+    return (game.result && game.result === "Tie");
+  }
+
 
 }

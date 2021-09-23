@@ -15,6 +15,7 @@ export class TeamRecordComponent implements OnInit {
   @Input() displayMode: String = "TeamRecord"
   @Input() statSet: String = "";
   @Input() title: String = "";
+  @Input() displayColumnHeaders: boolean = true;
   public winRecords: WinRecordEntry[] = [];
 
   constructor(

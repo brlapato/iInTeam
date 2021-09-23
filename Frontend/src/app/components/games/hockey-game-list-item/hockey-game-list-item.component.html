@@ -1,7 +1,11 @@
-<div class="container border rounded-3 mb-2 bg-white">
+<div class="container  rounded-3 mb-2"
+            [class.winCard]="isGameComplete(game) && isGameWin(game)"
+            [class.lossCard]="isGameComplete(game) && isGameLoss(game)"
+            [class.tieCard]="isGameComplete(game) && isGameTie(game)"
+            [class.unplayedCard]="!isGameComplete(game)">
     <div class="row align-items-center">
         <div class="col-2">
-            <div class="container">
+            <div class="container p0 m0">
                 <div class="row"><div class="column">{{game.startDateTime | date:'mediumDate'}}</div></div>
                 <div class="row text-center"><div class="column">{{game.startDateTime | date:'shortTime'}}</div></div>
             </div>

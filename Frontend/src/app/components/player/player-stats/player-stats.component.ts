@@ -18,6 +18,7 @@ export class PlayerStatsComponent implements OnInit {
   @Input() displayMode: String = "TeamStats"
   @Input() statSet: String = "";
   @Input() title: String = "";
+  @Input() displayColumnHeaders: boolean = true;
 
   public playerStats: HockeyPlayerStatsEntry[] = [];
 
