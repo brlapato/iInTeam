@@ -8,7 +8,7 @@
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <!--property name="connection.driver_class">com.mysql.jdbc.Driver</property-->
         <property name="connection.url">jdbc:mysql://projects/Journeyman</property>
-        <!--property name="connection.url">jdbc:mysql://iinteam-dev.c5luiuaijbhu.us-east-2.rds.amazonaws.com/Journeyman</property-->
+        <!--property name="connection.url">jdbc:mysql://iinteam-dev.ciio39vgsdtd.us-east-1.rds.amazonaws.com/Journeyman</property-->
         <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name="connection.username">journeyman</property>
         <property name="connection.password">j0^rn3ym@n</property>

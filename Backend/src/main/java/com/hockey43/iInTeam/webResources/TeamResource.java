@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 public class TeamResource {
 
     private static Logger LOG = LoggerFactory

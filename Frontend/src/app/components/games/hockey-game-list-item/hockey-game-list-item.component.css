@@ -23,7 +23,7 @@
     border-style: solid;
     border-width: 1px;
     border-color: grey;
-    border-left-color: red;
+    border-left-color: darkgray;
     border-left-width: 5px;
     border-left-style: solid;
     background-image: linear-gradient(to left, white, gray)
