@@ -19,7 +19,7 @@
     font-weight: 500;
     overflow: hidden;
     color:white; 
-    background-color: rgba(65, 131, 215, .6);
+    background-color: var(--lightAccentColor);
     padding-left:10px;
     
 }

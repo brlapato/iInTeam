@@ -14,7 +14,7 @@
              [class.tieText]="game.result==='Tie'">{{game.result}}</div>
         <div>{{formatOppenentName(game)}}</div>
         <div class="position-absolute fixed-bottom" *ngIf="isGameComplete(game)">
-            <div style='height:1.75em'>{{formatScore(game)}}</div>
+            <div style='height:1.75em;font-weight: 500;'>{{formatScore(game)}}<span class="overtimeMarker rounded-3" style="margin-left: 3px;margin-top:1px;position: absolute;" *ngIf="game.isOvertime">OT</span></div>
             <div style='height:1.75em'>{{getScoringSummary(game)}}</div>
         </div>
         <div class="position-absolute fixed-bottom" *ngIf="!isGameComplete(game)">

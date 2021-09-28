@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="col-2">
-            {{getGameResultString(game)}}
+            {{getGameResultString(game)}} <span *ngIf="game.isOvertime" class="overtimeMarker rounded-3" style="margin-left:4px;font-size:.65em">OT</span>
         </div>
         <div class="col-1">
             <button id=buttonEdit (click)="editGame(game.teamId, game.gameId)" class="border-0 bg-white">

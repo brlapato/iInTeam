@@ -279,7 +279,7 @@ public class JourneymanApplication {
 
 		session.save(howard10U2);
 
-		HockeyGame howard10U926 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 26, 16, 15), "Montgomery Blue Devils", "AA", Side.Home);
+		HockeyGame howard10U926 = new HockeyGame(howardSquirts, LocalDateTime.of(2021, 9, 26, 8, 10), "Montgomery Blue Devils", "AA", Side.Home);
 		howard10U926.setOpponentTeamNameMod("Gold");
 		howard10U926.setLocation("Columbia Ice Rink");
 		howard10U926.setGameType(GameType.NonLeague);
@@ -382,7 +382,7 @@ public class JourneymanApplication {
 		vaVipers.setHeadCoach("Chris Bass");
 		vaVipers.setPlayerNumber(10);
 		vaVipers.setRegularPosition("Defense");
-		vaVipers.setActive(true);
+		vaVipers.setActive(false);
 		vaVipers.setStartDate(LocalDateTime.of(2021, 04, 21,0,0,0));
 		vaVipers.setSeason("2021-22");
 		session.save(vaVipers);
@@ -436,7 +436,6 @@ public class JourneymanApplication {
 		vaGame4.setShots(4);
 		vaGame4.setOpponentScore(14);
 		vaGame4.setTeamScore(0);
-		vaGame4.setOvertime(true);
 		session.save(vaGame4);
 
 

@@ -3,9 +3,11 @@
 
 :root {
   --primaryColor: rgb(4, 46, 160);
+  --lightAccentColor: rgba(65, 131, 215, .6);
   --winGradientColor: rgba(0, 255, 0, 0.1);
   --LossGradientColor: rgba(255, 0, 0, 0.1);
   --tieGradientColor: rgb(190, 188, 188, .5);
+
 }
 
 @font-face {
@@ -13,11 +15,20 @@
     src: url(assets/fonts/progress.ttf);
   }
 
-  @font-face {
-    font-family: varsity;
-    src: url(assets/fonts/varsity_regular.ttf);
-  }
+@font-face {
+  font-family: varsity;
+  src: url(assets/fonts/varsity_regular.ttf);
+}
 
 .smallFont {
   font-size: .8em;
+}
+
+.overtimeMarker {
+  background-color: var(--lightAccentColor);
+  color: white;
+  font-size: .75em;
+  font-weight: 800;
+  display: inline-block;
+  padding:2px
 }
