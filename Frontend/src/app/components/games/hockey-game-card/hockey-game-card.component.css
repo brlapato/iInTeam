@@ -1,13 +1,13 @@
 .winCard {
-    background-image: linear-gradient(rgba(232, 232, 232, .2), rgba(0, 255, 0, 0.1))
+    background-image: linear-gradient(rgba(232, 232, 232, .2), var(--winGradientColor))
 }
 
 .lossCard {
-    background-image: linear-gradient(rgba(232, 232, 232, .2), rgba(255, 0, 0, 0.1))
+    background-image: linear-gradient(rgba(232, 232, 232, .2), var(--LossGradientColor))
 }
 
 .tieCard {
-    background-image: linear-gradient(rgba(232, 232, 232, .2), rgba(0, 255, 0, 0.1))
+    background-image: linear-gradient(rgba(232, 232, 232, .2), var(--tieGradientColor))
 }
 
 .unplayedCard {
@@ -33,5 +33,11 @@
 .lossText {
     font-size: 1.1em;
     color: red;
+    font-weight: 500;
+}
+
+.tieText {
+    font-size: 1.1em;
+    color: rgb(31, 31, 31);
     font-weight: 500;
 }

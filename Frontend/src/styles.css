@@ -3,6 +3,9 @@
 
 :root {
   --primaryColor: rgb(4, 46, 160);
+  --winGradientColor: rgba(0, 255, 0, 0.1);
+  --LossGradientColor: rgba(255, 0, 0, 0.1);
+  --tieGradientColor: rgb(190, 188, 188, .5);
 }
 
 @font-face {
