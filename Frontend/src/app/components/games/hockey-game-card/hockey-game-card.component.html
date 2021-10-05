@@ -9,7 +9,7 @@
             *ngIf="game.gameId > 0">
         <div style="font-weight: 700;">{{game.startDateTime | date:'MM/dd'}}</div>
         <div style="font-weight: 300;" *ngIf="!isGameComplete(game)">{{game.startDateTime | date:'hh:mm aa'}}</div>
-        <div [class.winText]="game.result==='Win' || game.result==='OvertimeWin'"
+        <div *ngIf="isGameComplete(game)" [class.winText]="game.result==='Win' || game.result==='OvertimeWin'"
              [class.lossText]="game.result==='Loss' || game.result==='OvertimeLoss'"
              [class.tieText]="game.result==='Tie'">{{game.result}}</div>
         <div>{{formatOppenentName(game)}}</div>
