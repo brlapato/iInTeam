@@ -16,6 +16,7 @@ export class HockeyGameComponent implements OnInit {
   gameId: number = -1;
   hockeyGame: HockeyGame = HockeyGame.getDefault();
   startDate: Date = new Date();
+  newStartDate: string = "";
   startTime: string = "";
 
   constructor(
@@ -53,7 +54,18 @@ export class HockeyGameComponent implements OnInit {
 
   saveGame() {
     // set game date/time
-    this.hockeyGame.startDateTime = new Date(new Date(this.startDate).toDateString() + " " + this.startTime + "Z"); 
+    
+    let startDateStr = "";
+    if (this.newStartDate.length > 0) {
+      startDateStr = new Date(this.newStartDate + "T00:00:00").toDateString();
+    } else {
+      startDateStr = new Date(this.startDate).toDateString();
+    }
+      
+    
+    this.hockeyGame.startDateTime = new Date(startDateStr + " " + this.startTime + "Z"); 
+    console.log(this.hockeyGame.startDateTime);
+    
 
     if(this.gameId == -1) {
       this.auth.playerId$.subscribe(
@@ -79,6 +91,7 @@ export class HockeyGameComponent implements OnInit {
   navigateBack() {
     this.router.navigate(['teams', this.teamId]);
   }
+  
 
   
 
