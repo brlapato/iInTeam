@@ -7,9 +7,11 @@ import { WelcomeComponent } from './components/navigation/welcome/welcome.compon
 import { HockeyGame } from './data-objects/data-objects.module';
 import { AuthGuard } from '@auth0/auth0-angular';
 import { HockeyGameComponent } from './components/games/hockey-game/hockey-game.component';
+import { LandingComponent } from './components/navigation/landing/landing.component';
 
 const routes: Routes = [
   { path:'login', component:WelcomeComponent },
+  { path:'landing', component:LandingComponent, canActivate:[AuthGuard] },
   { path:'dashboard', component:DashboardComponent, canActivate:[AuthGuard] },
   { path:'teams', component:TeamsComponent, canActivate:[AuthGuard] },
   { path:'teams/:selectedId', component:TeamsComponent, canActivate:[AuthGuard] },

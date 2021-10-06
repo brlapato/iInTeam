@@ -24,7 +24,7 @@ export class AuthenticationService {
   }
 
   login() {
-    this.auth.loginWithRedirect({redirect_uri: 'http://localhost:4200/dashboard'});
+    this.auth.loginWithRedirect({redirect_uri: 'http://localhost:4200/landing'});
   }
 
   logout() {

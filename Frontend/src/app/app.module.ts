@@ -28,6 +28,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/navigation/login/login.component';
 import { RecentGamesComponent } from './components/games/recent-games/recent-games.component';
 import { HockeyGameCardComponent } from './components/games/hockey-game-card/hockey-game-card.component';
+import { LandingComponent } from './components/navigation/landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { HockeyGameCardComponent } from './components/games/hockey-game-card/hoc
     HockeyGameComponent,
     LoginComponent,
     RecentGamesComponent,
-    HockeyGameCardComponent
+    HockeyGameCardComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
