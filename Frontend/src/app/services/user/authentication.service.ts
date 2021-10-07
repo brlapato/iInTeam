@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserInfo } from 'src/app/data-objects/data-objects.module';
-import { API_URL, PLAYER_ID } from 'src/app/app.constants';
+import { API_URL, HOME_URL, PLAYER_ID } from 'src/app/app.constants';
 import { map } from 'rxjs/operators'
 import { AuthService } from '@auth0/auth0-angular';
 import { Observable } from 'rxjs';
@@ -24,13 +24,13 @@ export class AuthenticationService {
   }
 
   login() {
-    this.auth.loginWithRedirect({redirect_uri: 'http://localhost:4200/landing'});
+    this.auth.loginWithRedirect({redirect_uri: `${HOME_URL}/landing`});
   }
 
   logout() {
     
     sessionStorage.removeItem(PLAYER_ID);
-    this.auth.logout({ returnTo: 'http://localhost:4200' })
+    this.auth.logout({ returnTo: `${HOME_URL}` })
     //auth.logout({ returnTo: document.location.origin })
   }
 
@@ -46,8 +46,6 @@ export class AuthenticationService {
       )
     } else {
       observer.next(parseInt(playerId));
-    }
-
-    
+    }   
   });
 }
