@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                //.mvcMatchers(HttpMethod.GET, "/players/**").permitAll()
+                .mvcMatchers(HttpMethod.GET, "/test").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().cors()
