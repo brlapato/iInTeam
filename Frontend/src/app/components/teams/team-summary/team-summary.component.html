@@ -1,7 +1,7 @@
 <div class="card mt-3" *ngIf="teamLoaded">
     <div class="card-header"><div class="row align-items-end"><div class="col-8 h5 fst-italic">{{teamSummary.teamName}}</div><div class="col align-self-end"></div></div></div>
     <div class="card-body">
-        <div class="container">
+        <div class="container" style="position: relative;">
             
             <div class="row row-cols-auto">
                 <div class="col-3 fst-italic fw-light small">Overall Record:</div>
@@ -33,10 +33,12 @@
                     
                 </div>
                 <div class="col-2">
-                    <div class="row" *ngIf="teamSummary.playerNumber">
-                        <div class="col playerNumber"><span style="font-family: varsity;color: var(--primaryColor);font-size: 1.5em;" class="primary">#{{teamSummary.playerNumber}}</span></div>
+                    <div style="position: absolute; top:3px">
+                        <div class="row" *ngIf="teamSummary.playerNumber">
+                            <div class="col playerNumber"><span style="font-family: varsity;color: var(--primaryColor);font-size: 1.2em;" class="primary">#{{teamSummary.playerNumber}}</span></div>
+                        </div>
+                        <div class="row">{{teamSummary.regularPosition}}</div>
                     </div>
-                    <div class="row">{{teamSummary.regularPosition}}</div>
                 </div>
             </div>
                         

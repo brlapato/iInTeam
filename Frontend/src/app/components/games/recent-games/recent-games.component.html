@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row row-cols-auto">
-        <div class="col ms-3 p-0 " *ngFor="let game of recentGames.slice().reverse().concat(upcomingGames)">
+        <div class="col ms-2 p-0 " *ngFor="let game of recentGames.slice().reverse().concat(upcomingGames)">
             <app-hockey-game-card [game]="game"></app-hockey-game-card>
         </div>
     </div>
