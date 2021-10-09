@@ -12,12 +12,25 @@ public class HibernateUtil
         try
         {
             // Create the SessionFactory from hibernate.cfg.xml
-            return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+            Configuration config = new Configuration().configure("hibernate.cfg.xml");
+
+            HibernateUtil.overrideSetting(config, "hibernate.connection.url", "DB_CONNECTION_URL");
+            HibernateUtil.overrideSetting(config, "hibernate.connection.username", "DB_USER");
+            HibernateUtil.overrideSetting(config, "hibernate.connection.password", "DB_PASSWORD");
+
+            return config.buildSessionFactory();
         }
         catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
+        }
+    }
+
+    private static void overrideSetting(Configuration config, String settingName, String envVariableName) {
+        String envVariableValue = System.getenv(envVariableName);
+        if (envVariableValue != null) {
+            config.setProperty(settingName, envVariableValue);
         }
     }
 
