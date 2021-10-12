@@ -1,7 +1,6 @@
 import { ReadVarExpr } from '@angular/compiler';
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { API_URL } from 'src/app/app.constants';
 import { Media, Player } from 'src/app/data-objects/data-objects.module';
 import { PlayerService } from 'src/app/services/data/player.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
