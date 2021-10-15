@@ -1,18 +1,18 @@
 <div class="container-fluid">
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</button>
-          <button class="nav-link" id="nav-hockey-tab" data-bs-toggle="tab" data-bs-target="#nav-hockey" type="button" role="tab" aria-controls="nav-hockey" aria-selected="false">Hockey Stats</button>
+          <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</button>
+          <button class="nav-link active" id="nav-hockey-tab" data-bs-toggle="tab" data-bs-target="#nav-hockey" type="button" role="tab" aria-controls="nav-hockey" aria-selected="false">Hockey Stats</button>
           
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
             <div>
                 Info for: {{ player.firstName }}  {{ player.lastName }}
             </div>
         </div>
-        <div class="tab-pane fade show" id="nav-hockey" role="tabpanel" aria-labelledby="nav-hockey-tab">
+        <div class="tab-pane fade show active" id="nav-hockey" role="tabpanel" aria-labelledby="nav-hockey-tab">
             <div class="row" *ngIf="player.includeHockey">
                 <div class="col">
                     <div class="h3">Player Stats</div>
