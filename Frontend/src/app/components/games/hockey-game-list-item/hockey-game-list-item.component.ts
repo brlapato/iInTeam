@@ -43,16 +43,18 @@ export class HockeyGameListItemComponent  {
     this.router.navigate(['hockeyGame', teamId, gameId]);
   }
 
-  public deleteGame(teamId: number, gameId: number) {
-    this.auth.playerId$.subscribe(
-      (playerId:number | null) => {
-        if (playerId && teamId) {
-          this.gameService.deleteHockeyGame(playerId, teamId, this.game.gameId).subscribe(
-            (data:HockeyGame) => { this.gameDeleted.emit(gameId); }
-          );
+  public deleteGame(teamId: number, gameId: number, opponentName: String) {
+    if(confirm('Are you sure you want to delete the game against ' + opponentName + '?')) {
+      this.auth.playerId$.subscribe(
+        (playerId:number | null) => {
+          if (playerId && teamId) {
+            this.gameService.deleteHockeyGame(playerId, teamId, this.game.gameId).subscribe(
+              (data:HockeyGame) => { this.gameDeleted.emit(gameId); }
+            );
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   public isGameComplete(game: HockeyGame) {

@@ -10,7 +10,7 @@ import { DashboardComponent } from './components/features/dashboard/dashboard.co
 import { PlayerComponent } from './components/features/player/player.component';
 import { TeamsComponent } from './components/features/teams/teams.component';
 import { WelcomeComponent } from './components/navigation/welcome/welcome.component';
-import { API_URL } from './app.constants';
+import { API_URL } from 'src/environments/environment';
 import { ProfileSmallComponent } from './components/player/profile-small/profile-small.component';
 import { SecurePipe } from './pipes/secure.pipe';
 import { TeamSummaryComponent } from './components/teams/team-summary/team-summary.component';

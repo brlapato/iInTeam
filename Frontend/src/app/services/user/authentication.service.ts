@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserInfo } from 'src/app/data-objects/data-objects.module';
-import { API_URL, HOME_URL, PLAYER_ID } from 'src/app/app.constants';
+import { PLAYER_ID } from 'src/app/app.constants';
+import { API_URL, HOME_URL } from 'src/environments/environment';
 import { map } from 'rxjs/operators'
 import { AuthService } from '@auth0/auth0-angular';
 import { Observable } from 'rxjs';

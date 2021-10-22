@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_URL } from 'src/app/app.constants';
+import { API_URL } from 'src/environments/environment';
 import { Media, Player } from 'src/app/data-objects/data-objects.module';
 
 @Injectable({

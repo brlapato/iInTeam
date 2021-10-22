@@ -89,8 +89,25 @@ export class HockeyGameComponent implements OnInit {
   }
 
   navigateBack() {
+    console.log("Navigate back");
     this.router.navigate(['teams', this.teamId]);
   }
+
+  public deleteGame(teamId: number, gameId: number) {
+    if(confirm('Are you sure you want to delete this game?')) {
+      this.auth.playerId$.subscribe(
+        (playerId:number | null) => {
+          if (playerId && teamId) {
+            this.gameService.deleteHockeyGame(playerId, teamId, gameId).subscribe(
+              (data:HockeyGame) => { this.navigateBack(); }
+            );
+          }
+        }
+      );
+    }
+  }
+
+  
   
 
   
