@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HockeyGame } from 'src/app/data-objects/data-objects.module';
 import { GameService } from 'src/app/services/data/game.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
+import { LoginComponent } from '../../navigation/login/login.component';
 
 
 @Component({
@@ -43,6 +44,10 @@ export class HockeyGameListItemComponent  {
     this.router.navigate(['hockeyGame', teamId, gameId]);
   }
 
+  public scoreGame(teamId: number, gameId: number) {
+    this.router.navigate(['hockeyGameInGame', teamId, gameId]);
+  }
+
   public deleteGame(teamId: number, gameId: number, opponentName: String) {
     if(confirm('Are you sure you want to delete the game against ' + opponentName + '?')) {
       this.auth.playerId$.subscribe(
@@ -71,6 +76,10 @@ export class HockeyGameListItemComponent  {
 
   public isGameTie(game: HockeyGame) {
     return (game.result && game.result === "Tie");
+  }
+
+  public isWithinTimeWindow(targetDate:Date, timeWindowHours:number) {
+    return (Math.abs(new Date(targetDate).getTime() - new Date().getTime()) / 1000 / 60 / 60) < timeWindowHours;
   }
 
 

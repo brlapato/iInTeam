@@ -1,0 +1,85 @@
+<div class="container border border-dark bg-white rounded-3 pb-5 shadow">
+    <form #hockeyGameForm="ngForm" (ngSubmit)="!hockeyGameForm.invalid && saveGame()"> 
+        <div class="row pt-4 pb-4">
+            <div class="col-3">
+                <button id=buttonBack class="border-0 bg-white" type="button"  (click)="navigateBack();">
+                    <svg class="bi" width="28" height="28" fill="currentColor">
+                        <use xlink:href="assets/icons/bootstrap-icons.svg#arrow-left"/>
+                    </svg>
+                </button>
+                <button id=buttonSaveTop class="border-0 bg-white" type="submit">
+                    <svg class="bi" width="22" height="22" fill="currentColor">
+                        <use xlink:href="assets/icons/bootstrap-icons.svg#save"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="col">
+                {{hockeyGame.startDateTime | date:'MM/dd'}} - {{getSideModifierString(hockeyGame)}} {{hockeyGame.opponentTeamName}}
+            </div>
+        </div>
+        <div class="row border border-gray pb-3">
+            <div class="col">
+                <h5>Results</h5>
+                <div class="input-group  input-group-sm mb-3">
+                    <span class="input-group-text input-group-sm" style="width:100px">Outcome</span>
+                    <select class="form-select" id="result" name="result" [(ngModel)]="hockeyGame.result">
+                        <option value="Undetermined">--</option>
+                        <option value="Win">Win</option>
+                        <option value="Loss">Loss</option>
+                        <option value="OvertimeLoss">Overtime Loss</option>
+                        <option value="Tie">Tie</option>
+                    </select>
+                </div>
+                <div class="row mb-3">
+                    <label>Score</label>
+                    
+                    <div class="col-sm-4">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="width:100px">Team</span><input type="number" class="form-control" id="teamScore" name="teamScore" [(ngModel)]="hockeyGame.teamScore">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="width:100px" >Opponent</span><input type="number" class="form-control" id="opponentScore" name="opponentScore" [(ngModel)]="hockeyGame.opponentScore" >
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="form-check form-switch ms-4">
+                        <input class="form-check-input" type="checkbox" id="isOvertime" name="isOvertime" [(ngModel)]="hockeyGame.isOvertime" >
+                        <label class="form-check-label" for="isOvertime">Game went to overtime</label>
+                    </div>
+                </div>
+                <div class="row border border-gray pb-3">
+                    <div class="col">
+                        <h5>Stats</h5>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text" style="width:100px">Goals</span><input type="number" class="form-control" id="goals" name="goals" [(ngModel)]="hockeyGame.goals">
+                                </div>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text" style="width:100px">Assists</span><input type="number" class="form-control" id="assists" name="assists" [(ngModel)]="hockeyGame.assists"> 
+                                </div>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text" style="width:100px">Shots</span><input type="number" class="form-control" id="shots" name="shots" [(ngModel)]="hockeyGame.shots">
+                                </div>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text" style="width:100px">Penalty Min</span><input type="number" class="form-control" id="penaltyMin" name="penaltyMin" [(ngModel)]="hockeyGame.penaltyMin">
+                                </div>
+                            </div>
+                        </div>
+                    </div>               
+                </div>
+                <div class="row border border-gray pb-3 pt-2">
+                    <div class="col">
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-text"  style="width:100%">Game Notes:</div>
+                            <textarea class="form-control" id="postGameNotes" rows="5" name="postGameNotes" aria-label="Postgame Notes" [(ngModel)]="hockeyGame.postGameNotes"></textarea>
+                        </div>
+                    </div>               
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
