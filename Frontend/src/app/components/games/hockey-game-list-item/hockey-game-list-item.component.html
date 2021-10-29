@@ -4,31 +4,34 @@
             [class.tieCard]="isGameComplete(game) && isGameTie(game)"
             [class.unplayedCard]="!isGameComplete(game)">
     <div class="row align-items-center">
-        <div class="col-2">
+        <div class="col-md-2">
             <div class="container p0 m0">
-                <div class="row"><div class="column">{{game.startDateTime | date:'mediumDate'}}</div></div>
-                <div class="row text-center"><div class="column">{{game.startDateTime | date:'shortTime'}}</div></div>
+                <div class="row">
+                    <div class="col">{{game.startDateTime | date:'mediumDate'}}</div>
+                    <div class="col">{{game.startDateTime | date:'shortTime'}}</div>
+                </div>
+                <div class="row text-center"></div>
             </div>
         </div>
-        <div class="col-2">
+        <div class="col-md-2">
             <h6>{{getSideModifierString(game)}} {{game.opponentTeamName}}</h6>
         </div>
-        <div class="col-5">
+        <div class="col-md-5">
             <div class="container">
                 <div class="row"><div class="column">{{game.gameType}} ({{game.league}})</div></div>
                 <div class="row"><div class="column">{{game.location}} <span *ngIf="game.locationDetail != null && game.locationDetail.length > 0">({{game.locationDetail}})</span></div></div>
             </div>
         </div>
-        <div class="col-2">
+        <div class="col-md-2">
             {{getGameResultString(game)}} <span *ngIf="game.isOvertime" class="overtimeMarker rounded-3" style="margin-left:4px;font-size:.65em">OT</span>
         </div>
         <div class="col-1" style="overflow: visible;">
-            <button id=buttonEdit (click)="editGame(game.teamId, game.gameId)" class="border-0 bg-white">
-                <svg class="bi" width="14" height="14" fill="currentColor">
+            <button id=buttonEdit (click)="editGame(game.teamId, game.gameId)" class="border-0" style="background-color: transparent;">
+                <svg class="bi" width="14" height="14" fill="none">
                     <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
                 </svg>
             </button>
-            <button id=buttonDelete (click)="deleteGame(game.teamId, game.gameId, game.opponentTeamName)" class="border-0 bg-white">
+            <button id=buttonDelete (click)="deleteGame(game.teamId, game.gameId, game.opponentTeamName)" class="border-0" style="background-color: transparent;">
                 <svg class="bi" width="15" height="15" fill="currentColor">
                     <use xlink:href="assets/icons/bootstrap-icons.svg#trash"/>
                 </svg>

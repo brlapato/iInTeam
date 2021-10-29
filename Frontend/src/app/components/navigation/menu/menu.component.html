@@ -2,22 +2,27 @@
     <nav class="navbar navbar-expand-md navbar-dark" style="background-color: var(--primaryColor);">
         <div class="container-fluid">
             <div><a href="/" class="navbar-brand">iInTeam</a></div>
-            <ul class="navbar-nav">
-                <li *ngIf="auth.user$ | async as user"><a  routerLink="/dashboard" class="nav-link">Dashboard</a></li>
-                <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Teams</a></li>
-                <li *ngIf="auth.user$ | async as user"><a  routerLink="/player" class="nav-link">Player</a></li>
-                <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Camps/Clinics</a></li>
-                <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Calendar</a></li>                
-            </ul>
-            <ul class="navbar-nav navbar-collapse justify-content-end">
-                <li *ngIf="auth.user$ | async as user"><a routerLink="/login" class="nav-link">Account</a></li>
-                
-                <ng-container *ngIf="auth.isAuthenticated$ | async as user">
-                    <li><button (click)="auth.logout();" class="btn btn-primary">
-                      Log out
-                    </button></li>
-                  </ng-container>
-            </ul>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav">
+                    <li *ngIf="auth.user$ | async as user"><a  routerLink="/dashboard" class="nav-link">Dashboard</a></li>
+                    <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Teams</a></li>
+                    <li *ngIf="auth.user$ | async as user"><a  routerLink="/player" class="nav-link">Player</a></li>
+                    <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Camps/Clinics</a></li>
+                    <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Calendar</a></li>                
+                </ul>
+                <ul class="navbar-nav navbar-collapse justify-content-end">
+                    <li *ngIf="auth.user$ | async as user"><a routerLink="/login" class="nav-link">Account</a></li>
+                    
+                    <ng-container *ngIf="auth.isAuthenticated$ | async as user">
+                        <li><button (click)="auth.logout();" class="btn btn-primary">
+                        Log out
+                        </button></li>
+                    </ng-container>
+                </ul>
+            </div>
         </div>
     </nav>
 </header>
