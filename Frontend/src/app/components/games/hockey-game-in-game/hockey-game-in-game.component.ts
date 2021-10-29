@@ -63,8 +63,7 @@ export class HockeyGameInGameComponent implements OnInit {
       
     
     this.hockeyGame.startDateTime = new Date(startDateStr + " " + this.startTime + "Z"); 
-    console.log(this.hockeyGame.startDateTime);
-    
+      
 
     if(this.gameId == -1) {
       this.auth.playerId$.subscribe(
@@ -84,7 +83,6 @@ export class HockeyGameInGameComponent implements OnInit {
       );
     }
 
-    this.navigateBack();
   }
 
   navigateBack() {
