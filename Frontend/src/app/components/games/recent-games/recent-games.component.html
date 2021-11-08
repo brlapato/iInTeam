@@ -1,5 +1,5 @@
-<div class="container">
-    <div class="row row-cols-auto">
+<div class="container" style="overflow-x: auto;">
+    <div class="row row-cols-auto nowrap" style="flex-wrap: nowrap;">
         <div class="col ms-2 p-0 " *ngFor="let game of recentGames.slice().reverse().concat(upcomingGames)">
             <app-hockey-game-card [game]="game"></app-hockey-game-card>
         </div>
