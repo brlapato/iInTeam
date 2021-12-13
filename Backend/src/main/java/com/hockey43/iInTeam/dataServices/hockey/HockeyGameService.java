@@ -13,6 +13,7 @@ import java.util.List;
 
 @Service
 public class HockeyGameService extends GameService {
+
     @Override
     @Cacheable(value = "hockeyGamesForPlayer", key = "{#playerId, #activeTeams}")
     public List<TeamEvent> getGamesForPlayer(long playerId, boolean activeTeams) {

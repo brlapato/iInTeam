@@ -30,6 +30,9 @@ import { RecentGamesComponent } from './components/games/recent-games/recent-gam
 import { HockeyGameCardComponent } from './components/games/hockey-game-card/hockey-game-card.component';
 import { LandingComponent } from './components/navigation/landing/landing.component';
 import { HockeyGameInGameComponent } from './components/games/hockey-game-in-game/hockey-game-in-game.component';
+import { ProfileComponent } from './components/player/profile/profile.component';
+import { PersonalGoalsComponent } from './components/player/personal-goals/personal-goals.component';
+import { ProfileSummaryComponent } from './components/player/profile-summary/profile-summary.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,10 @@ import { HockeyGameInGameComponent } from './components/games/hockey-game-in-gam
     RecentGamesComponent,
     HockeyGameCardComponent,
     LandingComponent,
-    HockeyGameInGameComponent
+    HockeyGameInGameComponent,
+    ProfileComponent,
+    PersonalGoalsComponent,
+    ProfileSummaryComponent
   ],
   imports: [
     BrowserModule,

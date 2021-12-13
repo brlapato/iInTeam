@@ -32,3 +32,32 @@
   display: inline-block;
   padding:2px
 }
+
+h2 {
+  font-weight: 700;
+  font-size: 1.3em;
+  color: var(--primaryColor);
+}
+
+
+h3 {
+  font-weight: 700;
+  border-bottom: 2px solid var(--primaryColor);
+  font-size: 1.1em;
+  color: var(--primaryColor);
+}
+
+h4 {
+  font-weight: 700;
+  border-bottom: 2px solid var(--primaryColor);
+  font-size: 1.0em;
+  color: var(--primaryColor);
+}
+
+.rounded-big {
+  border-radius: 1em;
+}
+
+body {
+  font-family: Cambria;
+}

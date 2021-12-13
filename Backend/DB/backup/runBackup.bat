@@ -1,0 +1,1 @@
+"C:\Program Files\MySQL\MySQL Workbench 8.0 CE\mysqldump.exe" --host=projects --port=3306 --default-character-set=utf8 --user=brian --password=Keeperman24! --protocol=tcp --column-statistics=FALSE --single-transaction=TRUE --skip-triggers "Journeyman" --result-file="export.sql"

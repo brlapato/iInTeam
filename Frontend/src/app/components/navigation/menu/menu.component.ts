@@ -13,6 +13,7 @@ export class MenuComponent implements OnInit {
   constructor(@Inject(DOCUMENT) public document: Document, public auth: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.auth.getUserInfo()
   }
 
 }

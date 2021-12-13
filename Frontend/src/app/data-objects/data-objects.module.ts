@@ -223,5 +223,29 @@ export class HockeyAttributes {
       );
     }
   }
+
+  export class PersonalGoal {
+    constructor (
+      public goalId: number,
+      public name: String,
+      public sport: String,
+      public description: String,
+      public plan: String,
+      public timeFrame: String,
+      public isComplete: boolean
+    ){}
+
+    public static getDefault() {
+      return new PersonalGoal (
+          -1,
+          "",
+          "",
+          "",
+          "",
+          "",
+          false
+      );
+    }
+  }
     
 
