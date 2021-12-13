@@ -1,28 +1,29 @@
-<div class="container-fluid px-2 py-3">
-    <div class="row gy-5">
-        <div class="col-sm-6">
-            <div class="container rounded-2 shadow bg-light pb-3 mb-2 ps-1">
-                <h3><em>Upcoming Games</em></h3>
-                <div class="container p-1">
-                    <app-recent-games [numberGames]="6" [showUpcoming]="true" [showRecent]="false"></app-recent-games>
-                </div>
+<div class="container-fluid gx-0 gx-lg-4 gy-0 gy-lg-4 py-md-3">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="container rounded-3 shadow bg-light pb-2">
+                <h3>Upcoming Games</h3>
+                <app-recent-games [numberGames]="4" [showUpcoming]="true" [showRecent]="false"></app-recent-games>
+                
             </div>
-            <div class="container rounded-2 shadow bg-light pb-5 pb-3 mb-2 ps-1">
-                <h3><em>Recent Games</em></h3>
+            <div class="container rounded-3 shadow bg-light my-md-3 pb-2">
+                <h3>Recent Games</h3>
+                <app-recent-games [numberGames]="4" [showUpcoming]="false" [showRecent]="true"></app-recent-games>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="container rounded-3 shadow bg-light pb-5">
+                <h3><em>Events</em></h3>
                 <div class="container p-1">
-                    <app-recent-games [numberGames]="6" [showUpcoming]="false" [showRecent]="true"></app-recent-games>
+                    
                 </div>
             </div>
         </div>
-        <div class="col-sm-5">
-            <div class="container rounded-2 shadow bg-light pb-5">
+        <div class="col-sm-3">
+            <div class="container rounded-3 shadow bg-light pb-5">
                 <h3><em>Profile</em></h3>
                 <div class="container p-1">
-                    <app-profile-small></app-profile-small>
-                </div>
-                <div class="container rounded-2 shadow bg-light pb-5">
-                    <h3><em>Current Teams</em></h3>
-                    <app-team-summary-list [activeOnly]="true"></app-team-summary-list>
+                    <app-profile-summary></app-profile-summary>
                 </div>
             </div>
         </div>
