@@ -5,5 +5,6 @@ public enum Sport {
     Swim,
     Rugby,
     Climbing,
-    Baseball
+    Baseball,
+    Fitness
 }
