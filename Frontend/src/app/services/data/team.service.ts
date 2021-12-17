@@ -21,6 +21,10 @@ export class TeamService {
     return this.http.get<Team[]>(`${API_URL}/players/${playerId}/teams`);
   }
 
+  public updateHockeyTeam(playerId: number, teamId: number, hockeyTeam: HockeyTeam) {
+    return this.http.put(`${API_URL}/players/${playerId}/HockeyTeams/${teamId}`, hockeyTeam);
+  }
+
   public retrieveTeamRecord(playerId: number, teamId: number) {
     return this.http.get<WinRecordEntry[]>(`${API_URL}/players/${playerId}/HockeyTeams/${teamId}/teamRecord`);
   }

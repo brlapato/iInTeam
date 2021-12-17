@@ -33,6 +33,7 @@ import { HockeyGameInGameComponent } from './components/games/hockey-game-in-gam
 import { ProfileComponent } from './components/player/profile/profile.component';
 import { PersonalGoalsComponent } from './components/player/personal-goals/personal-goals.component';
 import { ProfileSummaryComponent } from './components/player/profile-summary/profile-summary.component';
+import { HockeyTeamSummaryComponent } from './components/teams/hockey-team-summary/hockey-team-summary.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { ProfileSummaryComponent } from './components/player/profile-summary/pro
     HockeyGameInGameComponent,
     ProfileComponent,
     PersonalGoalsComponent,
-    ProfileSummaryComponent
+    ProfileSummaryComponent,
+    HockeyTeamSummaryComponent
   ],
   imports: [
     BrowserModule,

@@ -41,6 +41,26 @@ public class TeamResource {
         return this.hockeyTeamService.getHockeyTeamSummary(teamId);
     }
 
+    @PutMapping("/players/{playerId}/HockeyTeams/{teamId}")
+    public ResponseEntity<HockeyTeamSummary> updateHockeyTeam(
+            @PathVariable long teamId,
+            @RequestBody HockeyTeamSummary teamSummary
+    ) {
+        HockeyTeam targetTeam = this.hockeyTeamService.getHockeyTeam(teamId);
+
+        // Merge sheet with team
+        targetTeam.mergeHockeyTeamSummary(teamSummary);
+
+        // Save team
+        this.hockeyTeamService.saveHockeyTeam(targetTeam);
+
+        HockeyTeamSummary updatedTeamSummary = teamSummary;
+
+        return new ResponseEntity<HockeyTeamSummary>(updatedTeamSummary, HttpStatus.OK);
+    }
+
+
+
     @GetMapping("/players/{playerId}/teams")
     public List<TeamSummary> getTeamsForPlayer(@PathVariable long playerId) {
         List<Team> teams = this.teamService.getTeamForPlayer(playerId);

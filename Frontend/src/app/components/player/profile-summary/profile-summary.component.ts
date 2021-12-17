@@ -13,6 +13,7 @@ export class ProfileSummaryComponent implements OnInit {
 
   public player: Player
   public profileImageSrc: string | undefined = "";
+  
 
   constructor(
       private auth: AuthenticationService,

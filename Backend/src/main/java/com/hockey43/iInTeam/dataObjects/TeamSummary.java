@@ -16,6 +16,7 @@ public class TeamSummary {
         this.startDate = team.getStartDate();
         this.name = team.getName();
         this.sport = team.getSport();
+        this.season = team.getSeason();
     }
 
 
@@ -25,6 +26,7 @@ public class TeamSummary {
     private Boolean isActive;
     private LocalDateTime startDate;
     private Sport sport;
+    private String season;
 
     public Sport getSport() {
         return sport;
@@ -73,5 +75,13 @@ public class TeamSummary {
 
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
+    }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
     }
 }
