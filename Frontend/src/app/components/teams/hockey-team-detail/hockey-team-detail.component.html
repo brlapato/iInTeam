@@ -1,49 +1,138 @@
-<div *ngIf="this.team" class="container rounded-3 bg-white" style="padding: 15px">
-    <h2>{{team.name}} <span class="badge bg-primary rounded-pill">#{{team.playerNumber}}-{{team.regularPosition}}</span></h2>
+
+<div *ngIf="this.team" class="container h-100 rounded-3 bg-white" style="padding: 15px">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>{{team.name}} <span class="badge bg-primary rounded-pill">#{{numberPosString}}</span>
+                    <button id=buttonEdit class="border-0" style="background-color: transparent;"  data-bs-toggle="modal" data-bs-target="#editTeamModal" (click)="onEditOpened()">
+                        <svg class="bi" width="14" height="14" fill="none">
+                            <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
+                        </svg>
+                    </button>
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4>{{team.ageClass}} | {{team.level}} | {{team.season}} </h4>
+            </div>
+        </div>
+    </div>
     <div class="container bg-white rounded-3 shadow-lg pt-3">
         <div class="row my-2 mx-3 ">
-            <div class="col mx-2">
-
-                <div class="container bg-white rounded-3">
-                    <div class="row">
-                        <div class="col">
-                            <div class="row"><div class="col-3">Coach:</div><div class="col">{{team.headCoach}}</div></div>
-                            <div class="row" *ngIf="team.assistantCoach1"><div class="col-3">Assistant Coach:</div><div class="col">{{team.assistantCoach1}}</div></div>
-                            <div class="row" *ngIf="team.assistantCoach2"><div class="col-3">Assistant Coach:</div><div class="col">{{team.assistantCoach2}}</div></div>
-                            <div class="row" *ngIf="team.manager"><div class="col-3">Manager:</div><div class="col">{{team.manager}}</div></div>
-                        </div>
-                        <div class="col">
-                            <div class="overflow-auto">
-                                <app-team-record [teamId]="this.team.teamId"></app-team-record>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
+            <div class="col-md">Head Coach: {{team.headCoach}}</div>
+            <div class="col-md" *ngIf="team.assistantCoach1">Asst Coach: {{team.assistantCoach1}}</div>
+            <div class="col-md" *ngIf="team.assistantCoach2">Asst Coach: {{team.assistantCoach2}}</div>
+            <div class="col-md" *ngIf="team.manager">Manager: {{team.manager}}</div>
         </div>
-        <div class="row my-2 mx-3">
-            <div class="col">
-            </div>
-            <div class="col bg-white rounded-3 mx-2">                
+        <div class="row my-2 mx-3 ">
+            <div class="col-md">
                 <app-player-stats [teamId]="this.team.teamId" [displayMode]="'TeamStats'"></app-player-stats>
             </div>
+            <div class="col-md">
+                <app-team-record [teamId]="this.team.teamId"></app-team-record>
+            </div>
         </div>
+               
         <div class="row my-2">
-            <div class="col">
+            <div class="col-lg-6">
                 
                 <div class="row">
-                    <div class="col offset-md-10">
-                        <button class="btn btn-sm bg-white rounded-pill" (click)="addGame()">New Game</button>
+                    <div class="col offset-md-9">
+                        <button class="btn btn-md bg-white rounded-pill shadow-sm border" style="font-size:0.9em;" (click)="addGame()">
+                            <svg class="bi" width="12" height="12" fill="currentColor" style="vertical-align: text-bottom;">
+                                <use xlink:href="assets/icons/bootstrap-icons.svg#plus-lg"/>
+                            </svg>
+                            New Game
+                        </button>
                     </div>
                 </div>
-                <div class="row" style="margin-top: 10px;">
+                <div class="row d-flex flex-grow-1" style="margin-top: 10px;max-height: 400px; overflow-y: auto;">
                     <div class="col">
                         <app-hockey-game-list [teamId]="this.team.teamId"></app-hockey-game-list>
                     </div>
                 </div>
                 
             </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="this.team" class="modal fade" #editTeamModal id="editTeamModal" tabindex="-1" aria-labelledby="editTeamModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="editTeamModalLabel">{{team.name}}</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="container bg-white rounded-3 pb-5">
+                    <form #hockeyTeamForm="ngForm" id="hockeyTeamForm" (ngSubmit)="!hockeyTeamForm.invalid && saveTeam()">
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" style="width:100px">Name</span>
+                            <input type="text" class="form-control" name="teamName" required="required" [(ngModel)]="editTeam.name" >
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" style="width:100px">Season</span>
+                            <input type="text" class="form-control" name="season" required="required" [(ngModel)]="editTeam.season" >
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" style="width:100px">Org Location</span>
+                            <input type="text" class="form-control" name="org" [(ngModel)]="editTeam.org.city" >
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" style="width:100px">Org Nickname</span>
+                            <input type="text" class="form-control" name="mascot" required="required" [(ngModel)]="editTeam.org.name" >
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" style="width:100px">Player #</span>
+                            <input type="text" class="form-control" name="playerNumber" [(ngModel)]="editTeam.playerNumber" >
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" style="width:100px">Position</span>
+                            <input type="text" class="form-control" name="position" [(ngModel)]="editTeam.regularPosition" >
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" style="width:100px">Age</span>
+                            <input type="text" class="form-control" name="age" [(ngModel)]="editTeam.ageClass" >
+                        </div>
+                        <div class="input-group input-group-sm input-group-sm mb-3">
+                            <span class="input-group-text" style="width:100px">Level</span>
+                            <input type="text" class="form-control" name="level" [(ngModel)]="editTeam.level" >
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" style="width:100px">Head Coach</span>
+                            <input type="text" class="form-control" name="headCoach" [(ngModel)]="editTeam.headCoach" >
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" style="width:100px">Asst Coach</span>
+                            <input type="text" class="form-control" name="asstCoach1" [(ngModel)]="editTeam.assistantCoach1" >
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" style="width:100px">Asst Coach</span>
+                            <input type="text" class="form-control" name="asstCoach2" [(ngModel)]="editTeam.assistantCoach2" >
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" style="width:100px">Manager</span>
+                            <input type="text" class="form-control" name="Manager" [(ngModel)]="editTeam.manager" >
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" style="width:100px">Start Date</span>
+                            <input type="date" class="form-control"  name="startDate" required="required" [ngModel]="editTeam.startDate | date:'yyyy-MM-dd'" (ngModelChange)="newStartDateStr = $event">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="form-check form-switch ms-4">
+                                <label class="form-check-label" for="isActive">Active</label>
+                                <input class="form-check-input" type="checkbox" id="isActive" name="isActive" [(ngModel)]="editTeam.active" >
+                            </div>
+                        </div>
+                    </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" form="hockeyTeamForm" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+              </div>
         </div>
     </div>
 </div>

@@ -4,6 +4,7 @@ import com.hockey43.iInTeam.dataObjects.*;
 import com.hockey43.iInTeam.dataObjects.Record;
 import com.hockey43.iInTeam.dataObjects.hockey.*;
 import com.hockey43.iInTeam.dataServices.IPlayerService;
+import com.hockey43.iInTeam.dataServices.OrgService;
 import com.hockey43.iInTeam.dataServices.TeamService;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
 import org.hibernate.Session;
@@ -21,6 +22,9 @@ public class HockeyTeamService {
 
     @Autowired
     private HockeyGameService hockeyGameService;
+
+    @Autowired
+    private OrgService orgService;
 
     @Autowired
     private HockeyStatsService hockeyStatsService;
@@ -113,6 +117,29 @@ public class HockeyTeamService {
         return teamSummary;
     }
 
+    @CacheEvict(value = {"getHockeyTeamSummary", "getHockeyTeam"}, allEntries = true)
+    public void saveHockeyTeam(HockeyTeam team) {
+
+        Org teamOrg = orgService.getOrgByName(team.getOrg().getCity(), team.getOrg().getName());
+        if (teamOrg == null) {
+            teamOrg = new Org();
+            teamOrg.setCity(team.getOrg().getCity());
+            teamOrg.setName(team.getOrg().getName());
+        }
+
+        team.setOrg(teamOrg);
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        //Look up org info; create a new one if there is no matching one
+        session.saveOrUpdate(teamOrg);
+        session.saveOrUpdate(team);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
     public List<RecordEntry> getTeamRecord(long teamId) {
 
         List<TeamEvent> games = this.hockeyGameService.getGamesForTeam(teamId);
@@ -179,6 +206,8 @@ public class HockeyTeamService {
     public void saveHockeyGame(HockeyGame game) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
+        //Look up org info; create a new one if there is no matching one
 
         session.saveOrUpdate(game);
 

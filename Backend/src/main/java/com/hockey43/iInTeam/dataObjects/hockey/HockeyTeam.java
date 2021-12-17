@@ -108,4 +108,21 @@ public class HockeyTeam extends Team {
     public TeamSummary getTeamSummary() {
         return new HockeyTeamSummary(this);
     }
+
+    public void mergeHockeyTeamSummary(HockeyTeamSummary summary) {
+        this.getOrg().setName(summary.getOrg().getName());
+        this.getOrg().setCity(summary.getOrg().getCity());
+        this.setPlayerNumber(summary.getPlayerNumber());
+        this.setSeason(summary.getSeason());
+        this.setAgeClass(summary.getAgeClass());
+        this.setHeadCoach(summary.getHeadCoach());
+        this.setAssistantCoach1(summary.getAssistantCoach1());
+        this.setAssistantCoach2(summary.getAssistantCoach2());
+        this.setManager(summary.getManager());
+        this.setLevel(summary.getLevel());
+        this.setRegularPosition(summary.getRegularPosition());
+        this.setActive(summary.getActive());
+        this.setStartDate(summary.getStartDate());
+        this.setName(summary.getName());
+    }
 }

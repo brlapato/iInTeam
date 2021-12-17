@@ -1,5 +1,6 @@
 package com.hockey43.iInTeam.dataObjects.hockey;
 
+import com.hockey43.iInTeam.dataObjects.AgeClass;
 import com.hockey43.iInTeam.dataObjects.Record;
 import com.hockey43.iInTeam.dataObjects.TeamSummary;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
@@ -19,6 +20,9 @@ public class HockeyTeamSummary extends TeamSummary {
     private String assistantCoach1;
     private String assistantCoach2;
     private String manager;
+    private AgeClass ageClass;
+    private String level;
+    private String season;
     private int goals;
     private int assists;
     private int points;
@@ -40,6 +44,10 @@ public class HockeyTeamSummary extends TeamSummary {
         this.setAssistantCoach1(team.getAssistantCoach1());
         this.setAssistantCoach2(team.getAssistantCoach2());
         this.setManager(team.getManager());
+        this.setLevel(team.getLevel());
+        this.setAgeClass(team.getAgeClass());
+        this.setSeason(team.getSeason());
+        this.setActive(team.getActive());
     }
 
     // region Getters/Setters
@@ -156,5 +164,30 @@ public class HockeyTeamSummary extends TeamSummary {
     public void setPlayerNumber(Integer playerNumber) {
         this.playerNumber = playerNumber;
     }
+
+    public AgeClass getAgeClass() {
+        return ageClass;
+    }
+
+    public void setAgeClass(AgeClass ageClass) {
+        this.ageClass = ageClass;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
+
     //endregion
 }

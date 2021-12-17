@@ -121,7 +121,8 @@ export class HockeyAttributes {
       public sport: string,
       public org: Organization,
       public name: String,
-      public isActive: boolean,
+      public season: string,
+      public active: boolean,
       public startDate: Date
     ) {}
 
@@ -130,6 +131,7 @@ export class HockeyAttributes {
         -1,
         "",
         new Organization("",""),
+        "",
         "",
         false,
         new Date());
@@ -145,13 +147,15 @@ export class HockeyAttributes {
       public assistantCoach1: String,
       public assistantCoach2: String,
       public manager: String,
-      public isActive: boolean,
+      public active: boolean,
       public startDate: Date,
       public ageClass: String,
       public playerNumber: number,
       public regularPosition: String,
+      public level: string,
+      public season: string,
       public nextGame: HockeyGame
-    ) {super(teamId, "Hockey", org, name, isActive,startDate);}
+    ) {super(teamId, "Hockey", org, name,season, active,startDate);}
 
     public static getDefault() {
       return new HockeyTeam(
@@ -163,7 +167,38 @@ export class HockeyAttributes {
         "",
         -1,
         "",
+        "",
+        "",
         HockeyGame.getDefault());
+    }
+
+    public static copy(copyTeam:HockeyTeam) : HockeyTeam {
+      return new HockeyTeam(
+        copyTeam.teamId, copyTeam.org, copyTeam.name, copyTeam.headCoach, copyTeam.assistantCoach1, copyTeam.assistantCoach2,
+        copyTeam.manager, copyTeam.active, copyTeam.startDate, copyTeam.ageClass, copyTeam.playerNumber, copyTeam.regularPosition,
+        copyTeam.level, copyTeam.season,  copyTeam.nextGame
+      );
+    }
+
+    public static copyTo(copyTeam:HockeyTeam, targetTeam:HockeyTeam) : HockeyTeam {
+      
+      targetTeam.teamId = copyTeam.teamId;
+      targetTeam.org = copyTeam.org;
+      targetTeam.name = copyTeam.name;
+      targetTeam.headCoach = copyTeam.headCoach;
+      targetTeam.assistantCoach1 = copyTeam.assistantCoach1;
+      targetTeam.assistantCoach2 = copyTeam.assistantCoach2;
+      targetTeam.manager = copyTeam.manager;
+      targetTeam.active = copyTeam.active;
+      targetTeam.startDate = copyTeam.startDate;
+      targetTeam.ageClass = copyTeam.ageClass;
+      targetTeam.playerNumber = copyTeam.playerNumber;
+      targetTeam.regularPosition = copyTeam.regularPosition;
+      targetTeam.level = copyTeam.level;
+      targetTeam.nextGame = copyTeam.nextGame;
+      targetTeam.season = copyTeam.season;
+      
+      return targetTeam;
     }
   }
 
