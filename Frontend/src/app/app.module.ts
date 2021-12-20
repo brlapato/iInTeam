@@ -34,6 +34,7 @@ import { ProfileComponent } from './components/player/profile/profile.component'
 import { PersonalGoalsComponent } from './components/player/personal-goals/personal-goals.component';
 import { ProfileSummaryComponent } from './components/player/profile-summary/profile-summary.component';
 import { HockeyTeamSummaryComponent } from './components/teams/hockey-team-summary/hockey-team-summary.component';
+import { StatDisplayComponent } from './components/ui/stat-display/stat-display.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { HockeyTeamSummaryComponent } from './components/teams/hockey-team-summa
     ProfileComponent,
     PersonalGoalsComponent,
     ProfileSummaryComponent,
-    HockeyTeamSummaryComponent
+    HockeyTeamSummaryComponent,
+    StatDisplayComponent
   ],
   imports: [
     BrowserModule,

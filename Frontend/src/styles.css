@@ -54,6 +54,13 @@ h4 {
   color: var(--primaryColor);
 }
 
+h5 {
+  font-weight: 400;
+  border-top: 1.5px solid var(--primaryColor);
+  font-size: 0.8em;
+  color: var(--primaryColor);
+}
+
 .rounded-big {
   border-radius: 1em;
 }

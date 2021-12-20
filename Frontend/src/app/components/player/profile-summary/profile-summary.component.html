@@ -1,13 +1,11 @@
+<h3>{{player.firstName}} {{player.lastName}}</h3>
 <div class="row g-0 justify-content-between">
-    <div class="col-lg-4 p-2">
-        <app-hockey-team-summary></app-hockey-team-summary>
+    <div class="col-lg-7 p-2">
+        <img [src]="profileImageSrc" style="max-width:200px;max-height:auto" />
     </div>
     <div class="col offset-md-1">
-        <div class="text-start" style="font-weight: 600;">{{player.firstName}} {{player.lastName}}</div>
-        <img [src]="profileImageSrc" style="max-width:200px;max-height:auto" />
-        <h4>Height</h4>
-        <div class="text-end" style="font-size:0.8em;font-weight: 600;">{{ player.heightFeet }}'-{{ player.heightInches }}"</div>
-        <h4>Weight</h4>
-        <div class="text-end" style="font-size:0.8em;font-weight: 600;">{{ player.weight }} lbs.</div>
+        <app-stat-display label="Height">{{ player.heightFeet }}'-{{ player.heightInches }}"</app-stat-display>
+        <app-stat-display label="Weight">{{ player.weight }} lbs.</app-stat-display>
+        <app-hockey-team-summary></app-hockey-team-summary>
     </div>
 </div>
