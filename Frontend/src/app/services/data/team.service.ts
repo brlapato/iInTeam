@@ -21,6 +21,10 @@ export class TeamService {
     return this.http.get<Team[]>(`${API_URL}/players/${playerId}/teams`);
   }
 
+  public createTeam(playerId: number, team: Team) {
+    return this.http.post<Team>(`${API_URL}/players/${playerId}/teams`, team);
+  }
+
   public updateHockeyTeam(playerId: number, teamId: number, hockeyTeam: HockeyTeam) {
     return this.http.put(`${API_URL}/players/${playerId}/HockeyTeams/${teamId}`, hockeyTeam);
   }

@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class HockeyTeam extends Team {
 
 
-    @Column(name="Level", nullable = false, length = 10)
+    @Column(name="Level", length = 10)
     private String level;
 
     @Column(name="AgeClass")

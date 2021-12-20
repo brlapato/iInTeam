@@ -2,6 +2,7 @@ package com.hockey43.iInTeam.webResources;
 
 import com.hockey43.iInTeam.dataObjects.*;
 import com.hockey43.iInTeam.dataObjects.hockey.*;
+import com.hockey43.iInTeam.dataServices.PlayerService;
 import com.hockey43.iInTeam.dataServices.hockey.HockeyTeamService;
 import com.hockey43.iInTeam.dataServices.TeamService;
 import com.hockey43.iInTeam.exceptions.GameNotFoundException;
@@ -26,10 +27,8 @@ public class TeamResource {
     @Autowired
     private TeamService teamService;
 
-    //@GetMapping("/players/{playerId}/HockeyTeams")
-    //public List<HockeyTeam> getHockeyTeams(@PathVariable long playerId, @RequestParam(name="active", required = false, defaultValue = "false") boolean activeOnly) {
-    //    return this.hockeyTeamService.getHockeyTeams(playerId, activeOnly);
-    //}
+    @Autowired
+    private PlayerService playerService;
 
     @GetMapping("/players/{playerId}/HockeyTeams")
     public List<HockeyTeamSummary> getHockeyTeamSummaries(@PathVariable long playerId, @RequestParam(name="active", required = false, defaultValue = "false") boolean activeOnly) {
@@ -68,6 +67,20 @@ public class TeamResource {
         List<TeamSummary> teamSheets = new ArrayList<TeamSummary>();
         teams.forEach((team)->teamSheets.add(team.getTeamSummary()));
         return teamSheets;
+    }
+
+    @PostMapping("/players/{playerId}/teams")
+    public ResponseEntity<TeamSummary> createTeam(
+            @PathVariable long playerId,
+            @RequestBody TeamSummary teamSummary
+    ) {
+        Player player = this.playerService.getPlayer(playerId);
+
+        Team team = TeamFactory.getInstance().build(teamSummary, player);
+        this.teamService.saveTeam(team);
+        teamSummary.setTeamId(team.getTeamId());
+
+        return new ResponseEntity<TeamSummary>(teamSummary, HttpStatus.OK);
     }
 
     @GetMapping("/players/{playerId}/HockeyTeams/{teamId}/teamRecord")

@@ -3,7 +3,7 @@
         <app-hockey-team-summary></app-hockey-team-summary>
     </div>
     <div class="col offset-md-1">
-        <div class="text-start" style="font-weight: 600;">Wesley Lapato</div>
+        <div class="text-start" style="font-weight: 600;">{{player.firstName}} {{player.lastName}}</div>
         <img [src]="profileImageSrc" style="max-width:200px;max-height:auto" />
         <h4>Height</h4>
         <div class="text-end" style="font-size:0.8em;font-weight: 600;">{{ player.heightFeet }}'-{{ player.heightInches }}"</div>

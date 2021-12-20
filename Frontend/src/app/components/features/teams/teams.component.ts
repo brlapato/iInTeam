@@ -14,6 +14,9 @@ export class TeamsComponent implements OnInit {
   public teamLoaded: boolean = false;
   public teamList: Team[] = [];
   selectedTeam?: Team;
+  newStartDateStr: string = "";
+
+  newTeam: Team = Team.getDefault();
 
   constructor(
     public auth: AuthenticationService,
@@ -52,5 +55,42 @@ export class TeamsComponent implements OnInit {
   onSelectTeam(team?: Team): void {
     this.selectedTeam = team;
   }
+
+  onAddTeamOpened(): void {
+    this.resetNewTeam();
+  }
+
+  createTeam(): boolean {
+    
+    this.auth.playerId$.subscribe(
+      (playerId:number | null) => {
+        if (playerId && this.newTeam) { 
+          if (this.newStartDateStr.length > 0) {
+            this.newTeam.startDate = new Date(this.newStartDateStr + "T00:00:00");
+          } 
+          this.teamService.createTeam(playerId, this.newTeam).subscribe(
+            (data:Team) => {
+              this.loadTeamList(data.teamId)
+            }
+          );
+        }
+      }
+    )
+
+    return true;
+  }
+
+  resetNewTeam():void {
+    this.newTeam.name = "";
+    this.newTeam.org.name = "";
+    this.newTeam.org.city = "";
+    this.newTeam.sport = "";
+    this.newTeam.startDate = new Date();
+    this.newTeam.season = "";
+    this.newTeam.active = true;
+
+  }
+
+
 
 }

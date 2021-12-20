@@ -87,7 +87,6 @@ export class HockeyGameComponent implements OnInit {
   }
 
   navigateBack() {
-    console.log("Navigate back");
     this.router.navigate(['teams', this.teamId]);
   }
 
