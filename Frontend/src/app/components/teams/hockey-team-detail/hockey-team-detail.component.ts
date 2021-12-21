@@ -37,11 +37,14 @@ export class HockeyTeamDetailComponent {
   } 
 
   updateNumberPosDisplay() {
+    this.numberPosString = "";
     if (this.team) {
-      if (this.team?.regularPosition) {
-        this.numberPosString = this.team?.playerNumber.toString() + "-" + this.team.regularPosition;
-      } else {
-        this.numberPosString = this.team?.playerNumber.toString();
+      if (this.team?.regularPosition && this.team?.playerNumber) {
+        this.numberPosString = "#" + this.team?.playerNumber.toString() + "-" + this.team.regularPosition;
+      } else if (this.team?.playerNumber) {
+        this.numberPosString = "#" + this.team?.playerNumber.toString();
+      } else if (this.team?.regularPosition) {
+        this.numberPosString = this.team?.regularPosition.toString();
       }
     }
   }

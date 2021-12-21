@@ -104,15 +104,20 @@ public class HockeyTeamService {
             teamSummary.setNextGame(new HockeyGameSheet(nextGame));
         }
 
+        List<HockeyPlayerStatsEntry> statsEntries = this.hockeyStatsService.aggregateStatsFromEvents(games, "Overall");
+        if (statsEntries.size() > 0) {
+            HockeyPlayerStats stats = statsEntries.get(0).getHockeyPlayerStats();
+            teamSummary.setGoals(stats.getGoals());
+            teamSummary.setAssists(stats.getAssists());
+            teamSummary.setShots(stats.getShots());
+            teamSummary.setPoints(stats.getPoints());
+            teamSummary.setPenaltyMin(stats.getPenaltyMin());
+        }
 
-        HockeyPlayerStats stats = this.hockeyStatsService.aggregateStatsFromEvents(games, "Overall").get(0).getHockeyPlayerStats();
-        teamSummary.setGoals(stats.getGoals());
-        teamSummary.setAssists(stats.getAssists());
-        teamSummary.setShots(stats.getShots());
-        teamSummary.setPoints(stats.getPoints());
-        teamSummary.setPenaltyMin(stats.getPenaltyMin());
-
-        teamSummary.setRecord(this.hockeyStatsService.aggregateRecordFromEvents(games, "Overall").get(0).getWinRecord());
+        List<RecordEntry> records = this.hockeyStatsService.aggregateRecordFromEvents(games, "Overall");
+        if (records.size() > 0) {
+            teamSummary.setRecord(records.get(0).getWinRecord());
+        }
 
         return teamSummary;
     }

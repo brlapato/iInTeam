@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>{{team.name}} <span class="badge bg-primary rounded-pill">#{{numberPosString}}</span>
+                <h2>{{team.name}} <span *ngIf="numberPosString" class="badge bg-primary rounded-pill">{{numberPosString}}</span>
                     <button id=buttonEdit class="border-0" style="background-color: transparent;"  data-bs-toggle="modal" data-bs-target="#editTeamModal" (click)="onEditOpened()">
                         <svg class="bi" width="14" height="14" fill="none">
                             <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
@@ -20,7 +20,7 @@
     </div>
     <div class="container bg-white rounded-3 shadow-lg pt-3">
         <div class="row my-2 mx-3 ">
-            <div class="col-md">Head Coach: {{team.headCoach}}</div>
+            <div class="col-md" *ngIf="team.headCoach">Head Coach: {{team.headCoach}}</div>
             <div class="col-md" *ngIf="team.assistantCoach1">Asst Coach: {{team.assistantCoach1}}</div>
             <div class="col-md" *ngIf="team.assistantCoach2">Asst Coach: {{team.assistantCoach2}}</div>
             <div class="col-md" *ngIf="team.manager">Manager: {{team.manager}}</div>
@@ -37,16 +37,19 @@
         <div class="row my-2">
             <div class="col-lg-6">
                 
-                <div class="row">
-                    <div class="col offset-md-9">
-                        <button class="btn btn-md bg-white rounded-pill shadow-sm border" style="font-size:0.9em;" (click)="addGame()">
-                            <svg class="bi" width="12" height="12" fill="currentColor" style="vertical-align: text-bottom;">
-                                <use xlink:href="assets/icons/bootstrap-icons.svg#plus-lg"/>
-                            </svg>
-                            New Game
-                        </button>
-                    </div>
-                </div>
+                    <h3><div class="row justify-content-between pt-3">
+                            <div class="col-3  d-flex align-items-end mb-2">Games</div>
+                            <div class="col-5 mb-2">
+                                <button class="btn btn-md bg-white rounded-3 shadow-sm border" style="font-size:0.9em;" (click)="addGame()">
+                                    <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;">
+                                        <use xlink:href="assets/icons/bootstrap-icons.svg#plus-lg"/>
+                                    </svg>
+                                    New Game
+                                </button>
+                            </div>
+                        </div>
+                    </h3>
+                    
                 <div class="row d-flex flex-grow-1" style="margin-top: 10px;max-height: 400px; overflow-y: auto;">
                     <div class="col">
                         <app-hockey-game-list [teamId]="this.team.teamId"></app-hockey-game-list>

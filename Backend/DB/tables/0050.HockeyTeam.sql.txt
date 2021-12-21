@@ -3,7 +3,7 @@ CREATE TABLE `HockeyTeam` (
   `AssistantCoach1` varchar(255) DEFAULT NULL,
   `AssistantCoach2` varchar(255) DEFAULT NULL,
   `HeadCoach` varchar(255) DEFAULT NULL,
-  `Level` varchar(10) NOT NULL,
+  `Level` varchar(10) DEFAULT NULL,
   `Manager` varchar(255) DEFAULT NULL,
   `PlayerNumber` int DEFAULT NULL,
   `RegularPosition` varchar(15) DEFAULT NULL,

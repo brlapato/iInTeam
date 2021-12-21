@@ -13,6 +13,8 @@ export class ProfileSummaryComponent implements OnInit {
 
   public player: Player
   public profileImageSrc: string | undefined = "";
+  public playerHeightStr = "";
+  public playerWeightStr = "";
   
 
   constructor(
@@ -39,7 +41,11 @@ export class ProfileSummaryComponent implements OnInit {
           );
           //this.profileImageSrc = `${API_URL}/players/${playerId}/profileImageB`;
           this.playerService.retrievePlayer(playerId).subscribe(
-            (data:Player) => {this.player = data;}
+            (data:Player) => {
+              this.player = data;
+              this.playerHeightStr = this.player.heightFeet.toString() + "'-" + this.player.heightInches.toString() + "\"";
+              this.playerWeightStr = this.player.weight.toString() + " lbs.";
+            }
           )
         }
       }
