@@ -2,6 +2,7 @@ package com.hockey43.iInTeam;
 
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeam;
+import com.hockey43.iInTeam.dataServices.ClinicService;
 import com.hockey43.iInTeam.dataServices.hockey.HockeyGameService;
 import com.hockey43.iInTeam.dataServices.hockey.HockeyTeamService;
 import com.hockey43.iInTeam.dataObjects.*;
@@ -83,6 +84,10 @@ public class JourneymanApplication {
 			List<TeamEvent> games =  hockeyGameService.getRecentGames(1, 5);
 			LOG.info("Found " + String.valueOf(games.size()) + " recent games for Player 1...");
 			LOG.info("Last game location: " + games.get(0).getLocation());
+
+			ClinicService clinicService = new ClinicService();
+			List<Clinic> clinics = clinicService.getClinicsForPlayer(1, true);
+			LOG.info("Found " + String.valueOf(clinics.size()) + " clinics for Player 1...");
 
 		};
 	}

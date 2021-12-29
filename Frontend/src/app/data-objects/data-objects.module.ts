@@ -282,5 +282,32 @@ export class HockeyAttributes {
       );
     }
   }
+
+  export class Clinic {
+    constructor(
+      public clinicId: number,
+      public org: Organization,
+      public name: String,
+      public nameDetail: String,
+      public description: String,
+      public sport: String,
+      public startDateTime: Date,
+      public endDateTime: Date,
+      public location: String,
+      public locationDetail: String,
+      public headCoach: String,
+      public assistantCoach1: String,
+      public assistantCoach2: String,
+      public assistantCoach3: String,
+      public assistantCoach4: String
+    ) {}
+
+    public static getDefault() {
+      return new Clinic (-1, 
+        new Organization("",""),
+        "","","","",new Date(), new Date(), 
+        "","","","","","","")
+    }
+  }
     
 

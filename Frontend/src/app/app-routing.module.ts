@@ -9,6 +9,7 @@ import { AuthGuard } from '@auth0/auth0-angular';
 import { HockeyGameComponent } from './components/games/hockey-game/hockey-game.component';
 import { LandingComponent } from './components/navigation/landing/landing.component';
 import { HockeyGameInGameComponent } from './components/games/hockey-game-in-game/hockey-game-in-game.component';
+import { ClinicsComponent } from './components/features/clinics/clinics.component';
 
 const routes: Routes = [
   { path:'login', component:WelcomeComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path:'teams', component:TeamsComponent, canActivate:[AuthGuard] },
   { path:'teams/:selectedId', component:TeamsComponent, canActivate:[AuthGuard] },
   { path:'player', component:PlayerComponent, canActivate:[AuthGuard] },
+  { path:'clinics', component:ClinicsComponent, canActivate:[AuthGuard] },
   { path:'hockeyGame/:teamId/:gameId', component:HockeyGameComponent, canActivate:[AuthGuard]},
   { path:'hockeyGameInGame/:teamId/:gameId', component:HockeyGameInGameComponent, canActivate:[AuthGuard]},
   { path:'', component:WelcomeComponent }

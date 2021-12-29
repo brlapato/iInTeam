@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DataTablesModule } from "angular-datatables";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,6 +37,8 @@ import { PersonalGoalsComponent } from './components/player/personal-goals/perso
 import { ProfileSummaryComponent } from './components/player/profile-summary/profile-summary.component';
 import { HockeyTeamSummaryComponent } from './components/teams/hockey-team-summary/hockey-team-summary.component';
 import { StatDisplayComponent } from './components/ui/stat-display/stat-display.component';
+import { ClinicsComponent } from './components/features/clinics/clinics.component';
+import { ClinicListItemComponent } from './components/clinics/clinic-list-item/clinic-list-item.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +70,9 @@ import { StatDisplayComponent } from './components/ui/stat-display/stat-display.
     PersonalGoalsComponent,
     ProfileSummaryComponent,
     HockeyTeamSummaryComponent,
-    StatDisplayComponent
+    StatDisplayComponent,
+    ClinicsComponent,
+    ClinicListItemComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +80,7 @@ import { StatDisplayComponent } from './components/ui/stat-display/stat-display.
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    DataTablesModule,
     AuthModule.forRoot({
       domain: 'dev-hockey43.us.auth0.com',
       clientId: 'sbJUIAi6tefnkox1oOrVpBgNKucjjpVT',
