@@ -299,14 +299,16 @@ export class HockeyAttributes {
       public assistantCoach1: String,
       public assistantCoach2: String,
       public assistantCoach3: String,
-      public assistantCoach4: String
+      public assistantCoach4: String,
+      public preClinicNotes: String,
+      public postClinicNotes: String
     ) {}
 
     public static getDefault() {
       return new Clinic (-1, 
         new Organization("",""),
         "","","","",new Date(), new Date(), 
-        "","","","","","","")
+        "","","","","","","","","")
     }
 
     public static copyTo(copyClinic:Clinic, targetClinic:Clinic) : Clinic {
@@ -328,6 +330,8 @@ export class HockeyAttributes {
       targetClinic.assistantCoach2 = copyClinic.assistantCoach2;
       targetClinic.assistantCoach3 = copyClinic.assistantCoach3;
       targetClinic.assistantCoach4 = copyClinic.assistantCoach4;
+      targetClinic.preClinicNotes = copyClinic.preClinicNotes;
+      targetClinic.postClinicNotes = copyClinic.postClinicNotes;
       
       return targetClinic;
     }

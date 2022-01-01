@@ -230,5 +230,7 @@ public class Clinic {
         this.assistantCoach2 = summary.getAssistantCoach2();
         this.assistantCoach3 = summary.getAssistantCoach3();
         this.assistantCoach4 = summary.getAssistantCoach4();
+        this.preClinicNotes = summary.getPreClinicNotes();
+        this.postClinicNotes = summary.getPostClinicNotes();
     }
 }
