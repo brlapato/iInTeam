@@ -129,4 +129,19 @@ export class ClinicsComponent implements OnInit, OnDestroy {
     }
   }
 
+  public deleteClinic(clinic: Clinic) {
+    if(confirm('Are you sure you want to delete this clinic?')) {
+      this.auth.playerId$.subscribe(
+        (playerId:number | null) => {
+          if (playerId) {
+            this.clinicService.deleteClinic(playerId, clinic.clinicId).subscribe(
+              (data: Clinic) => { this.loadClinics(); }
+            );
+          }
+        }
+      );
+    }
+    
+  }
+
 }

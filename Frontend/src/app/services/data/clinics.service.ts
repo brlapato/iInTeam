@@ -25,4 +25,8 @@ export class ClinicsService {
   public updateClinic(playerId: number, clinicId: number, clinic: Clinic) {
     return this.http.put<Clinic>(`${API_URL}/players/${playerId}/clinics/${clinicId}`, clinic);
   }
+
+  public deleteClinic(playerId: number, clinicId: number) {
+    return this.http.delete<Clinic>(`${API_URL}/players/${playerId}/clinics/${clinicId}`);
+  }
 }

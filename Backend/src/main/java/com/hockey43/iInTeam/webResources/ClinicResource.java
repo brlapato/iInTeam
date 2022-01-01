@@ -1,6 +1,7 @@
 package com.hockey43.iInTeam.webResources;
 
 import com.hockey43.iInTeam.dataObjects.*;
+import com.hockey43.iInTeam.dataObjects.hockey.HockeyGameSheet;
 import com.hockey43.iInTeam.dataServices.ClinicService;
 
 import com.hockey43.iInTeam.dataServices.PlayerService;
@@ -61,6 +62,14 @@ public class ClinicResource {
         clinicSummary.setClinicId(clinic.getClinicId());
 
         return new ResponseEntity<ClinicSummary>(clinicSummary, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/players/{playerId}/clinics/{clinicId}")
+    public ResponseEntity<HockeyGameSheet> deleteClinic(
+            @PathVariable long clinicId
+    ) {
+        this.clinicService.deleteClinicById(clinicId);
+        return ResponseEntity.noContent().build();
     }
 
 }

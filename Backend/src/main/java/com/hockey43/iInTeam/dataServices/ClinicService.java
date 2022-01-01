@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Query;
 import java.util.List;
 
 @Service
@@ -69,5 +70,18 @@ public class ClinicService {
         session.close();
 
         return clinic;
+    }
+
+    public void deleteClinicById(long clinicId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("delete Clinic WHERE clinicId = :id");
+        query.setParameter("id", clinicId);
+        query.executeUpdate();
+
+
+        session.getTransaction().commit();
+        session.close();
     }
 }
