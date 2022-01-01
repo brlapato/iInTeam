@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { SimpleChanges } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
@@ -19,8 +20,10 @@ export class PlayerStatsComponent implements OnInit {
   @Input() statSet: String = "";
   @Input() title: String = "";
   @Input() displayColumnHeaders: boolean = true;
+  @Input() collapsible: boolean = true;
 
   public playerStats: HockeyPlayerStatsEntry[] = [];
+  public expanded:boolean = false;
 
   constructor(
     public auth: AuthenticationService,
@@ -29,7 +32,7 @@ export class PlayerStatsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+    this.expanded = !this.collapsible;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -67,6 +70,10 @@ export class PlayerStatsComponent implements OnInit {
         }
       }
     );
+  }
+
+  onToggleExpand() {
+    this.expanded = !this.expanded;
   }
 
 

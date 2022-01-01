@@ -16,6 +16,9 @@ export class TeamRecordComponent implements OnInit {
   @Input() statSet: String = "";
   @Input() title: String = "";
   @Input() displayColumnHeaders: boolean = true;
+  @Input() collapsible: boolean = true;
+
+  public expanded:boolean = false;
   public winRecords: WinRecordEntry[] = [];
 
   constructor(
@@ -25,7 +28,7 @@ export class TeamRecordComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+    this.expanded = !this.collapsible;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -70,6 +73,8 @@ export class TeamRecordComponent implements OnInit {
     return WinRecord.getDisplayString(winRecord);
   }
 
-  
+  onToggleExpand() {
+    this.expanded = !this.expanded;
+  }
 
 }

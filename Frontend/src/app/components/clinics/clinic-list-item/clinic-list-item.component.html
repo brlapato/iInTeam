@@ -1,0 +1,9 @@
+<div class="row">
+    <div class="col">{{ clinic.startDateTime | date:'M/d/yy h:mm a' }}-{{ clinic.endDateTime | date: 'h:mm a' }}</div>
+    <div class="col">{{ clinic.name }} ({{ clinic.nameDetail }})</div>
+    <div class="col">{{ clinic.location }} {{clinic.locationDetail }}</div>
+    
+  </div>
+  <div class="row">
+    <div class="col">Head Coach: {{clinic.headCoach}}</div>
+  </div>

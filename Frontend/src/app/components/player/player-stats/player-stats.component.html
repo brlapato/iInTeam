@@ -1,6 +1,11 @@
 
-<div class="container">
-    <table class="table table-sm smallFont  table-striped">
+<div class="container position-relative">
+    <div class="position-absolute" *ngIf="collapsible">
+        <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;top:10px" (click)="onToggleExpand()">
+            <use [attr.xlink:href]="expanded ? 'assets/icons/bootstrap-icons.svg#dash-square-dotted' : 'assets/icons/bootstrap-icons.svg#plus-square-dotted'"/>
+        </svg>
+    </div>
+    <table class="table table-sm smallFont table-striped">
         <thead>
             <tr>
                 <th style="width:22%">{{title}}</th>
@@ -13,14 +18,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let currentStat of playerStats">
-                <td>{{currentStat.description}}</td>
-                <td style="text-align: center">{{currentStat.hockeyPlayerStats.gamesPlayed}}</td>
-                <td style="text-align: center">{{currentStat.hockeyPlayerStats.goals}}</td>
-                <td style="text-align: center">{{currentStat.hockeyPlayerStats.assists}}</td>
-                <td style="text-align: center">{{currentStat.hockeyPlayerStats.points}}</td>
-                <td style="text-align: center">{{currentStat.hockeyPlayerStats.shots}}</td>
-                <td style="text-align: center">{{currentStat.hockeyPlayerStats.penaltyMin}}</td>
+            <tr *ngFor="let currentStat of playerStats;let indexOfelement=index;">
+                <ng-container *ngIf="indexOfelement == 0 || expanded">
+                    <td>{{currentStat.description}}</td>
+                    <td style="text-align: center">{{currentStat.hockeyPlayerStats.gamesPlayed}}</td>
+                    <td style="text-align: center">{{currentStat.hockeyPlayerStats.goals}}</td>
+                    <td style="text-align: center">{{currentStat.hockeyPlayerStats.assists}}</td>
+                    <td style="text-align: center">{{currentStat.hockeyPlayerStats.points}}</td>
+                    <td style="text-align: center">{{currentStat.hockeyPlayerStats.shots}}</td>
+                    <td style="text-align: center">{{currentStat.hockeyPlayerStats.penaltyMin}}</td>
+                </ng-container>
             </tr>
         </tbody>
     </table>

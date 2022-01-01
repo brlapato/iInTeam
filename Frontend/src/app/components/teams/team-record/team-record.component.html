@@ -1,25 +1,32 @@
 
 
 <div class="container">
+    <div class="position-absolute" *ngIf="collapsible">
+        <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;top:10px" (click)="onToggleExpand()">
+            <use [attr.xlink:href]="expanded ? 'assets/icons/bootstrap-icons.svg#dash-square-dotted' : 'assets/icons/bootstrap-icons.svg#plus-square-dotted'"/>
+        </svg>
+    </div>
     <table class="table table-sm smallFont table-striped" >
         <thead>
             <tr>
                 <th>{{title}}</th>
-                <th style="width:10%;text-align: center"><span *ngIf="displayColumnHeaders">W</span></th>
-                <th style="width:10%;text-align: center"><span *ngIf="displayColumnHeaders">L</span></th>
-                <th style="width:10%;text-align: center"><span *ngIf="displayColumnHeaders">T</span></th>
-                <th style="width:10%;text-align: center"><span *ngIf="displayColumnHeaders">OTW</span></th>
-                <th style="width:10%;text-align: center"><span *ngIf="displayColumnHeaders">OTL</span></th>
+                <th style="width:14%;text-align: center"><span *ngIf="displayColumnHeaders">W</span></th>
+                <th style="width:14%;text-align: center"><span *ngIf="displayColumnHeaders">L</span></th>
+                <th style="width:14%;text-align: center"><span *ngIf="displayColumnHeaders">T</span></th>
+                <th style="width:14%;text-align: center"><span *ngIf="displayColumnHeaders">OTW</span></th>
+                <th style="width:14%;text-align: center"><span *ngIf="displayColumnHeaders">OTL</span></th>
             </tr>
         </thead>
          <tbody>
-            <tr *ngFor="let cRecord of winRecords" class=p-2> 
-                <td>{{cRecord.description}}</td>
-                <td style="text-align: center">{{cRecord.winRecord.wins}}</td>
-                <td style="text-align: center">{{cRecord.winRecord.losses}}</td>
-                <td style="text-align: center">{{cRecord.winRecord.ties}}</td>
-                <td style="text-align: center">{{cRecord.winRecord.overTimeWins}}</td>
-                <td style="text-align: center">{{cRecord.winRecord.overTimeLosses}}</td>
+            <tr *ngFor="let cRecord of winRecords;let indexOfelement=index;" class=p-2> 
+                <ng-container *ngIf="indexOfelement == 0 || expanded">
+                    <td>{{cRecord.description}}</td>
+                    <td style="text-align: center">{{cRecord.winRecord.wins}}</td>
+                    <td style="text-align: center">{{cRecord.winRecord.losses}}</td>
+                    <td style="text-align: center">{{cRecord.winRecord.ties}}</td>
+                    <td style="text-align: center">{{cRecord.winRecord.overTimeWins}}</td>
+                    <td style="text-align: center">{{cRecord.winRecord.overTimeLosses}}</td>
+                </ng-container>
             </tr>
         </tbody>
     </table>

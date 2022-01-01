@@ -282,5 +282,59 @@ export class HockeyAttributes {
       );
     }
   }
+
+  export class Clinic {
+    constructor(
+      public clinicId: number,
+      public org: Organization,
+      public name: String,
+      public nameDetail: String,
+      public description: String,
+      public sport: String,
+      public startDateTime: Date,
+      public endDateTime: Date,
+      public location: String,
+      public locationDetail: String,
+      public headCoach: String,
+      public assistantCoach1: String,
+      public assistantCoach2: String,
+      public assistantCoach3: String,
+      public assistantCoach4: String,
+      public preClinicNotes: String,
+      public postClinicNotes: String
+    ) {}
+
+    public static getDefault() {
+      return new Clinic (-1, 
+        new Organization("",""),
+        "","","","",new Date(), new Date(), 
+        "","","","","","","","","")
+    }
+
+    public static copyTo(copyClinic:Clinic, targetClinic:Clinic) : Clinic {
+      
+      targetClinic.clinicId = copyClinic.clinicId;
+      if(copyClinic.org) {
+        targetClinic.org = copyClinic.org;
+      }
+      targetClinic.name = copyClinic.name;  
+      targetClinic.nameDetail = copyClinic.nameDetail;
+      targetClinic.description = copyClinic.description;
+      targetClinic.sport = copyClinic.sport;
+      targetClinic.startDateTime = copyClinic.startDateTime;
+      targetClinic.endDateTime = copyClinic.endDateTime;
+      targetClinic.location = copyClinic.location;
+      targetClinic.locationDetail = copyClinic.locationDetail;
+      targetClinic.headCoach = copyClinic.headCoach;
+      targetClinic.assistantCoach1 = copyClinic.assistantCoach1;
+      targetClinic.assistantCoach2 = copyClinic.assistantCoach2;
+      targetClinic.assistantCoach3 = copyClinic.assistantCoach3;
+      targetClinic.assistantCoach4 = copyClinic.assistantCoach4;
+      targetClinic.preClinicNotes = copyClinic.preClinicNotes;
+      targetClinic.postClinicNotes = copyClinic.postClinicNotes;
+      
+      return targetClinic;
+    }
+  }
     
 

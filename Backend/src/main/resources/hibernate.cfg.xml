@@ -21,6 +21,7 @@
         <mapping class="com.hockey43.iInTeam.dataObjects.hockey.HockeyGame" />
         <mapping class="com.hockey43.iInTeam.dataObjects.Media" />
         <mapping class="com.hockey43.iInTeam.dataObjects.PersonalGoal" />
+        <mapping class="com.hockey43.iInTeam.dataObjects.Clinic" />
         <mapping class="com.hockey43.iInTeam.dataObjects.hockey.HockeyAttributes" />
     </session-factory>
 
