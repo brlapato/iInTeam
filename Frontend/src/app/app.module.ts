@@ -39,6 +39,7 @@ import { HockeyTeamSummaryComponent } from './components/teams/hockey-team-summa
 import { StatDisplayComponent } from './components/ui/stat-display/stat-display.component';
 import { ClinicsComponent } from './components/features/clinics/clinics.component';
 import { ClinicListItemComponent } from './components/clinics/clinic-list-item/clinic-list-item.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { ClinicListItemComponent } from './components/clinics/clinic-list-item/c
     HttpClientModule,
     FormsModule,
     DataTablesModule,
+    ModalModule.forRoot(),
     AuthModule.forRoot({
       domain: 'dev-hockey43.us.auth0.com',
       clientId: 'sbJUIAi6tefnkox1oOrVpBgNKucjjpVT',

@@ -2,19 +2,7 @@
     <div class="col">{{ clinic.startDateTime | date:'M/d/yy h:mm a' }}-{{ clinic.endDateTime | date: 'h:mm a' }}</div>
     <div class="col">{{ clinic.name }} ({{ clinic.nameDetail }})</div>
     <div class="col">{{ clinic.location }} {{clinic.locationDetail }}</div>
-    <div class="col-2" style="overflow: visible;">
-      <button id=buttonEdit  class="border-0" style="background-color: transparent;">
-          <svg class="bi" width="14" height="14" fill="none">
-              <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
-          </svg>
-      </button>
-      <button id=buttonDelete  class="border-0" style="background-color: transparent;">
-          <svg class="bi" width="15" height="15" fill="currentColor">
-              <use xlink:href="assets/icons/bootstrap-icons.svg#trash"/>
-          </svg>
-      </button>
     
-  </div>
   </div>
   <div class="row">
     <div class="col">Head Coach: {{clinic.headCoach}}</div>

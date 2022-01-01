@@ -9,6 +9,7 @@ public class ClinicSummary {
 
     public ClinicSummary(Clinic clinic) {
         this.clinicId = clinic.getClinicId();
+        this.sport = clinic.getSport();
         this.name = clinic.getName();
         this.nameDetail = clinic.getNameDetail();
         this.description = clinic.getDescription();
@@ -121,7 +122,7 @@ public class ClinicSummary {
     }
 
     public void setLocationDetail(String locationDetail) {
-        locationDetail = locationDetail;
+        this.locationDetail = locationDetail;
     }
 
     public String getHeadCoach() {

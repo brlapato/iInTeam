@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Clinic } from 'src/app/data-objects/data-objects.module';
 
 @Component({
@@ -9,10 +9,16 @@ import { Clinic } from 'src/app/data-objects/data-objects.module';
 export class ClinicListItemComponent implements OnInit {
 
   @Input() clinic: Clinic = Clinic.getDefault();
+  @Output() editClinic = new EventEmitter<Clinic>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  public onEditClicked() {
+    console.log('edit clicked');
+    this.editClinic.emit(this.clinic);
   }
 
 }

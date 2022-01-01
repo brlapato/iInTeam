@@ -308,6 +308,29 @@ export class HockeyAttributes {
         "","","","",new Date(), new Date(), 
         "","","","","","","")
     }
+
+    public static copyTo(copyClinic:Clinic, targetClinic:Clinic) : Clinic {
+      
+      targetClinic.clinicId = copyClinic.clinicId;
+      if(copyClinic.org) {
+        targetClinic.org = copyClinic.org;
+      }
+      targetClinic.name = copyClinic.name;  
+      targetClinic.nameDetail = copyClinic.nameDetail;
+      targetClinic.description = copyClinic.description;
+      targetClinic.sport = copyClinic.sport;
+      targetClinic.startDateTime = copyClinic.startDateTime;
+      targetClinic.endDateTime = copyClinic.endDateTime;
+      targetClinic.location = copyClinic.location;
+      targetClinic.locationDetail = copyClinic.locationDetail;
+      targetClinic.headCoach = copyClinic.headCoach;
+      targetClinic.assistantCoach1 = copyClinic.assistantCoach1;
+      targetClinic.assistantCoach2 = copyClinic.assistantCoach2;
+      targetClinic.assistantCoach3 = copyClinic.assistantCoach3;
+      targetClinic.assistantCoach4 = copyClinic.assistantCoach4;
+      
+      return targetClinic;
+    }
   }
     
 

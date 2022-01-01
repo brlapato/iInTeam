@@ -17,4 +17,12 @@ export class ClinicsService {
   public retrieveTeamList(playerId: number, includeCompleted: boolean) {
     return this.http.get<Clinic[]>(`${API_URL}/players/${playerId}/clinics?includeCompleted=${includeCompleted}`);
   }
+
+  public createClinic(playerId: number, clinic: Clinic) {
+    return this.http.post<Clinic>(`${API_URL}/players/${playerId}/clinics`, clinic);
+  }
+
+  public updateClinic(playerId: number, clinicId: number, clinic: Clinic) {
+    return this.http.put<Clinic>(`${API_URL}/players/${playerId}/clinics/${clinicId}`, clinic);
+  }
 }

@@ -1,5 +1,7 @@
 package com.hockey43.iInTeam.dataObjects;
 
+import com.hockey43.iInTeam.dataServices.ClinicService;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -43,7 +45,7 @@ public class Clinic {
     private String location;
 
     @Column(name="LocationDetail", length = 255, nullable = true)
-    private String LocationDetail;
+    private String locationDetail;
 
     @Column(name="HeadCoach", length = 255, nullable = true)
     private String headCoach;
@@ -147,11 +149,11 @@ public class Clinic {
     }
 
     public String getLocationDetail() {
-        return LocationDetail;
+        return locationDetail;
     }
 
     public void setLocationDetail(String locationDetail) {
-        LocationDetail = locationDetail;
+        locationDetail = locationDetail;
     }
 
     public String getHeadCoach() {
@@ -208,5 +210,25 @@ public class Clinic {
 
     public void setPostClinicNotes(String postClinicNotes) {
         this.postClinicNotes = postClinicNotes;
+    }
+
+    public Clinic() { }
+
+    public void mergeSummary(ClinicSummary summary) {
+
+        this.org = summary.getOrg();
+        this.name = summary.getName();
+        this.nameDetail = summary.getNameDetail();
+        this.sport = summary.getSport();
+        this.startDateTime = summary.getStartDateTime();
+        this.endDateTime = summary.getEndDateTime();
+        this.location = summary.getLocation();
+        this.locationDetail = summary.getLocationDetail();
+        this.description = summary.getDescription();
+        this.headCoach = summary.getHeadCoach();
+        this.assistantCoach1 = summary.getAssistantCoach1();
+        this.assistantCoach2 = summary.getAssistantCoach2();
+        this.assistantCoach3 = summary.getAssistantCoach3();
+        this.assistantCoach4 = summary.getAssistantCoach4();
     }
 }
