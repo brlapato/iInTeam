@@ -17,7 +17,6 @@ export class ClinicListItemComponent implements OnInit {
   }
 
   public onEditClicked() {
-    console.log('edit clicked');
     this.editClinic.emit(this.clinic);
   }
 

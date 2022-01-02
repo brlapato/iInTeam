@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="Clinic")
-public class Clinic {
+public class Clinic implements ICalendarEventSource {
 
     @Id
     @Column(name="ClinicId")
@@ -232,5 +232,22 @@ public class Clinic {
         this.assistantCoach4 = summary.getAssistantCoach4();
         this.preClinicNotes = summary.getPreClinicNotes();
         this.postClinicNotes = summary.getPostClinicNotes();
+    }
+
+    @Override
+    public CalendarEvent getCalendarEvent() {
+        CalendarEvent calendarEvent = new CalendarEvent();
+
+        calendarEvent.setEventType("Clinic");
+        calendarEvent.setName(this.name + " - " + this.getNameDetail());
+        calendarEvent.setDescription(this.getDescription());
+        calendarEvent.setSport(this.getSport());
+        calendarEvent.setStartDateTime(this.getStartDateTime());
+        calendarEvent.setEndDateTime(this.getEndDateTime());
+        calendarEvent.setLocation(this.getLocation());
+        calendarEvent.setLocationDetail(this.getLocationDetail());
+        calendarEvent.setOrg(this.org);
+
+        return calendarEvent;
     }
 }

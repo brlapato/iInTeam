@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name="HockeyGame")
 @PrimaryKeyJoinColumn(name = "EventId")
-public class HockeyGame extends TeamEvent {
+public class HockeyGame extends TeamEvent implements ICalendarEventSource {
 
 
 
@@ -340,6 +340,23 @@ public class HockeyGame extends TeamEvent {
 
     public void setPenaltyMin(int penaltyMin) {
         this.penaltyMin = penaltyMin;
+    }
+
+    @Override
+    public CalendarEvent getCalendarEvent() {
+        CalendarEvent calendarEvent = new CalendarEvent();
+
+        calendarEvent.setEventType("Hockey Game");
+        calendarEvent.setName(this.side.toString() + " vs. " + this.opponentTeamName + " " + this.opponentTeamNameMod);
+        calendarEvent.setDescription("");
+        calendarEvent.setSport(Sport.Hockey);
+        calendarEvent.setStartDateTime(this.getStartDateTime());
+        calendarEvent.setEndDateTime(this.getStartDateTime().plusHours(1).plusMinutes(30));
+        calendarEvent.setLocation(this.getLocation());
+        calendarEvent.setLocationDetail(this.getLocationDetail());
+        calendarEvent.setOrg(this.getOwnerTeam().getOrg());
+
+        return calendarEvent;
     }
 
     //endregion

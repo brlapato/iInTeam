@@ -40,6 +40,7 @@ import { StatDisplayComponent } from './components/ui/stat-display/stat-display.
 import { ClinicsComponent } from './components/features/clinics/clinics.component';
 import { ClinicListItemComponent } from './components/clinics/clinic-list-item/clinic-list-item.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { EventListComponent } from './components/calendar/event-list/event-list.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     HockeyTeamSummaryComponent,
     StatDisplayComponent,
     ClinicsComponent,
-    ClinicListItemComponent
+    ClinicListItemComponent,
+    EventListComponent
   ],
   imports: [
     BrowserModule,
