@@ -1,0 +1,5 @@
+<div class="container">
+    <div *ngIf="calendarEvents.length == 0" class="d-flex justify-content-center"><em>No events to display.</em></div>
+    <div *ngFor="let calendarEvent of calendarEvents">{{getEventDayString(calendarEvent)}} -- {{calendarEvent.name}} -- {{calendarEvent.location}}</div>
+</div>
+

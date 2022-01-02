@@ -1,9 +1,6 @@
 package com.hockey43.iInTeam.dataServices;
 
-import com.hockey43.iInTeam.dataObjects.Clinic;
-import com.hockey43.iInTeam.dataObjects.ClinicSummary;
-import com.hockey43.iInTeam.dataObjects.Org;
-import com.hockey43.iInTeam.dataObjects.Team;
+import com.hockey43.iInTeam.dataObjects.*;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
 import org.hibernate.Session;
@@ -11,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ClinicService {
+public class ClinicService implements ICalendarEventProvider {
 
     @Autowired
     private OrgService orgService;
@@ -83,5 +82,23 @@ public class ClinicService {
 
         session.getTransaction().commit();
         session.close();
+    }
+
+    @Override
+    public List<CalendarEvent> getEventsOverDateRange(long playerId, LocalDateTime start, LocalDateTime end) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List<Clinic> clinics = session.createQuery("SELECT c from Clinic c INNER JOIN c.playerOwner p WHERE p.playerId = :pid AND :start < c.startDateTime and c.startDateTime < :end")
+                .setParameter("pid", playerId)
+                .setParameter("start", start)
+                .setParameter("end", end)
+                .list();
+
+        session.getTransaction().commit();
+        session.close();
+
+        List<CalendarEvent> events = new ArrayList<CalendarEvent>();
+        clinics.forEach(c->events.add(c.getCalendarEvent()));
+        return events;
     }
 }

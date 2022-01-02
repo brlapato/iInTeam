@@ -1,18 +1,21 @@
 package com.hockey43.iInTeam.dataServices.hockey;
 
+import com.hockey43.iInTeam.dataObjects.CalendarEvent;
 import com.hockey43.iInTeam.dataObjects.TeamEvent;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
 import com.hockey43.iInTeam.dataServices.GameService;
+import com.hockey43.iInTeam.dataServices.ICalendarEventProvider;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class HockeyGameService extends GameService {
+public class HockeyGameService extends GameService implements ICalendarEventProvider {
 
     @Override
     @Cacheable(value = "hockeyGamesForPlayer", key = "{#playerId, #activeTeams}")
@@ -78,6 +81,24 @@ public class HockeyGameService extends GameService {
         session.close();
 
         List<TeamEvent> events = new ArrayList<TeamEvent>(games);
+        return events;
+    }
+
+    @Override
+    public List<CalendarEvent> getEventsOverDateRange(long playerId, LocalDateTime start, LocalDateTime end) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List<HockeyGame> games = session.createQuery("SELECT hg from HockeyGame hg INNER JOIN hg.ownerTeam t INNER JOIN t.playerOwner p WHERE p.playerId = :pid AND :start <= startDateTime AND startDateTime <= :end ")
+                .setParameter("pid", playerId)
+                .setParameter("start", start)
+                .setParameter("end", end)
+                .list();
+
+        session.getTransaction().commit();
+        session.close();
+
+        List<CalendarEvent> events = new ArrayList<CalendarEvent>();
+        games.forEach(g->events.add(g.getCalendarEvent()));
         return events;
     }
 }

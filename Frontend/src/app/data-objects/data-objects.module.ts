@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 
 
 
@@ -334,6 +335,25 @@ export class HockeyAttributes {
       targetClinic.postClinicNotes = copyClinic.postClinicNotes;
       
       return targetClinic;
+    }
+  }
+
+  export class CalendarEvent {
+    constructor(
+      public eventType: String,
+      public name: String,
+      public description: String,
+      public sport: String,
+      public org: Organization,
+      public startDateTime: Date,
+      public endDateTime: Date,
+      public location: String,
+      public locationDetail: String
+    ) {}
+
+    public static getDefault(){
+      return new CalendarEvent("", "", "", "", new Organization("",""), new Date, new Date,
+        "","");
     }
   }
     
