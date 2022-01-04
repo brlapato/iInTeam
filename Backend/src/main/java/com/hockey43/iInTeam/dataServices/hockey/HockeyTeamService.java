@@ -212,8 +212,6 @@ public class HockeyTeamService {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
-        //Look up org info; create a new one if there is no matching one
-
         session.saveOrUpdate(game);
 
         session.getTransaction().commit();

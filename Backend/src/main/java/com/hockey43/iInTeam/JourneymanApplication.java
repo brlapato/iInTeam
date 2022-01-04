@@ -3,6 +3,7 @@ package com.hockey43.iInTeam;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeam;
 import com.hockey43.iInTeam.dataServices.ClinicService;
+import com.hockey43.iInTeam.dataServices.PracticeService;
 import com.hockey43.iInTeam.dataServices.hockey.HockeyGameService;
 import com.hockey43.iInTeam.dataServices.hockey.HockeyTeamService;
 import com.hockey43.iInTeam.dataObjects.*;
@@ -88,6 +89,14 @@ public class JourneymanApplication {
 			ClinicService clinicService = new ClinicService();
 			List<Clinic> clinics = clinicService.getClinicsForPlayer(1, true);
 			LOG.info("Found " + String.valueOf(clinics.size()) + " clinics for Player 1...");
+
+			TeamService teamService = new TeamService();
+			Team team = teamService.getTeamById(3);
+			LOG.info("Found team 3:" + team.getTeamSummary().getName());
+
+			PracticeService practiceService = new PracticeService(teamService);
+			Practice newPractice = practiceService.getNewPractice(3);
+			LOG.info("New Practice for: " + newPractice.getOwnerTeam().getTeamSummary().getName());
 
 		};
 	}
