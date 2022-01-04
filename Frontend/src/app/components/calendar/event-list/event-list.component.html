@@ -1,5 +1,9 @@
 <div class="container">
     <div *ngIf="calendarEvents.length == 0" class="d-flex justify-content-center"><em>No events to display.</em></div>
-    <div *ngFor="let calendarEvent of calendarEvents">{{getEventDayString(calendarEvent)}} -- {{calendarEvent.name}} -- {{calendarEvent.location}}</div>
+    <div *ngFor="let calendarEvent of calendarEvents" class="row">
+        <div class="col-2" style="min-width: 100px;"><span style="font-weight: 800;">{{getEventDayString(calendarEvent)}}</span></div>
+        <div class="col-2" style="min-width: 100px;"> {{calendarEvent.startDateTime | date:'shortTime'}}</div>
+        <div class="col">{{calendarEvent.name}}&nbsp;&nbsp;<em>{{calendarEvent.location}}</em></div>
+    </div>
 </div>
 

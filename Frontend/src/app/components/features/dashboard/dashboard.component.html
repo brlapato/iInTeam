@@ -1,18 +1,18 @@
 <div class="container-fluid gx-0 gx-lg-4 gy-0 gy-lg-4 py-md-3">
     <div class="row">
         <div class="col-md-4">
-            <div class="container rounded-3 shadow bg-light pb-2">
+            <div class="container rounded-3 shadow bg-light p-2">
                 <h3>Upcoming Games</h3>
                 <app-recent-games [numberGames]="4" [showUpcoming]="true" [showRecent]="false"></app-recent-games>
                 
             </div>
-            <div class="container rounded-3 shadow bg-light my-md-3 pb-2">
+            <div class="container rounded-3 shadow bg-light my-md-3 p-2">
                 <h3>Recent Games</h3>
                 <app-recent-games [numberGames]="4" [showUpcoming]="false" [showRecent]="true"></app-recent-games>
             </div>
         </div>
         <div class="col-md-5">
-            <div class="container rounded-3 shadow bg-light pb-5">
+            <div class="container rounded-3 shadow bg-light p-2">
                 <h3>Schedule</h3>
                 <div class="container p-1">
                     <app-event-list [numberOfDays]="14"></app-event-list>
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="col-sm-3">
-            <div class="container rounded-3 shadow bg-light pb-5">
+            <div class="container rounded-3 shadow bg-light p-2">
                 <div class="container p-1">
                     <app-profile-summary></app-profile-summary>
                 </div>
