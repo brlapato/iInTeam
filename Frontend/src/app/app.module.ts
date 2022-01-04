@@ -17,8 +17,6 @@ import { ProfileSmallComponent } from './components/player/profile-small/profile
 import { SecurePipe } from './pipes/secure.pipe';
 import { TeamSummaryComponent } from './components/teams/team-summary/team-summary.component';
 import { TeamSummaryListComponent } from './components/teams/team-summary-list/team-summary-list.component';
-import { TeamListItemComponent } from './components/teams/team-list-item/team-list-item.component';
-import { TeamListComponent } from './components/teams/team-list/team-list.component';
 import { TeamDetailComponent } from './components/teams/team-detail/team-detail.component';
 import { HockeyTeamDetailComponent } from './components/teams/hockey-team-detail/hockey-team-detail.component';
 import { TeamRecordComponent } from './components/teams/team-record/team-record.component';
@@ -41,6 +39,7 @@ import { ClinicsComponent } from './components/features/clinics/clinics.componen
 import { ClinicListItemComponent } from './components/clinics/clinic-list-item/clinic-list-item.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { EventListComponent } from './components/calendar/event-list/event-list.component';
+import { PracticeDisplayComponent } from './components/teams/practice-display/practice-display.component';
 
 @NgModule({
   declarations: [
@@ -54,8 +53,6 @@ import { EventListComponent } from './components/calendar/event-list/event-list.
     SecurePipe,
     TeamSummaryComponent,
     TeamSummaryListComponent,
-    TeamListItemComponent,
-    TeamListComponent,
     TeamDetailComponent,
     HockeyTeamDetailComponent,
     TeamRecordComponent,
@@ -75,7 +72,8 @@ import { EventListComponent } from './components/calendar/event-list/event-list.
     StatDisplayComponent,
     ClinicsComponent,
     ClinicListItemComponent,
-    EventListComponent
+    EventListComponent,
+    PracticeDisplayComponent
   ],
   imports: [
     BrowserModule,

@@ -7,12 +7,10 @@ public class TeamEventSummary {
     private long teamEventId;
 
     private LocalDateTime startDateTime;
-
+    private LocalDateTime endDateTime;
     private String eventName;
-
     private String eventLocation;
-
-
+    private String eventLocationDetail;
 
     public long getTeamEventId() {
         return teamEventId;
@@ -46,5 +44,19 @@ public class TeamEventSummary {
         this.eventLocation = eventLocation;
     }
 
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
+    }
 
+    public void setEndDateTime(LocalDateTime endDateTime) {
+        this.endDateTime = endDateTime;
+    }
+
+    public String getEventLocationDetail() {
+        return eventLocationDetail;
+    }
+
+    public void setEventLocationDetail(String eventLocationDetail) {
+        this.eventLocationDetail = eventLocationDetail;
+    }
 }

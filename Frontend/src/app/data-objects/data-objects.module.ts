@@ -356,5 +356,35 @@ export class HockeyAttributes {
         "","");
     }
   }
+
+  export class Practice {
+    constructor(
+      public teamEventId: number,
+      public startDateTime: Date,
+      public endDateTime: Date,
+      public eventName: String,
+      public eventLocation: String,
+      public eventLocationDetail: String,
+      public notes: String
+    ) {}
+
+    public static getDefault() {
+      return new Practice(-1, new Date(), new Date(), "","","","");
+    }
+
+    public static copyTo(copyPractice:Practice, targetPractice:Practice) : Practice {
+      
+      targetPractice.teamEventId = copyPractice.teamEventId;
+      targetPractice.eventName = copyPractice.eventName;
+      targetPractice.endDateTime = copyPractice.endDateTime;
+      targetPractice.startDateTime = copyPractice.startDateTime;
+      targetPractice.eventLocation = copyPractice.eventLocation;
+      targetPractice.eventLocationDetail = copyPractice.eventLocationDetail;
+      targetPractice.notes = copyPractice.notes;
+      
+      return targetPractice;
+    }
+
+  }
     
 

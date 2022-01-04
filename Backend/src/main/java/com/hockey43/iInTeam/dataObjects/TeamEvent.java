@@ -22,6 +22,9 @@ public abstract class TeamEvent {
     @Column(name="startDateTime", columnDefinition = "DATETIME", nullable = false)
     protected LocalDateTime startDateTime;
 
+    @Column(name="endDateTime", columnDefinition = "DATETIME", nullable = true)
+    protected LocalDateTime endDateTime;
+
     @Column(name="Location", length = 255)
     private String location;
 
@@ -64,6 +67,14 @@ public abstract class TeamEvent {
 
     public Team getOwnerTeam() {
         return ownerTeam;
+    }
+
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
+    }
+
+    public void setEndDateTime(LocalDateTime endDateTime) {
+        this.endDateTime = endDateTime;
     }
 
     public void setOwnerTeam(Team ownerTeam) {

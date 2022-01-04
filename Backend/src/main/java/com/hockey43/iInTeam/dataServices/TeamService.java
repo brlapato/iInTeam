@@ -28,6 +28,23 @@ public class TeamService {
         return teams;
     }
 
+    public Team getTeamById(long teamId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List<Team> teams = session.createQuery("from Team t WHERE t.teamId = :teamId")
+                .setParameter("teamId", teamId)
+                .list();
+
+        session.getTransaction().commit();
+        session.close();
+
+        if(teams.size() > 0) {
+            return teams.get(0);
+        } else {
+            return null;
+        }
+    }
+
     public Team saveTeam(Team team) {
         Org teamOrg = orgService.getOrgByName(team.getOrg().getCity(), team.getOrg().getName());
         if (teamOrg == null) {
@@ -50,5 +67,4 @@ public class TeamService {
 
         return team;
     }
-
 }

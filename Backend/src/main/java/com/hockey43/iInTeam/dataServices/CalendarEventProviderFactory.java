@@ -10,6 +10,7 @@ public class CalendarEventProviderFactory {
         List<ICalendarEventProvider> providers = new ArrayList<>();
         providers.add(new HockeyGameService());
         providers.add(new ClinicService());
+        providers.add(new PracticeService());
 
         return providers;
     }
