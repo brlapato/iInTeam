@@ -21,4 +21,8 @@ export class PlayerService {
     let url = `${API_URL}/players/${playerId}/profileImage`;
     return this.http.get<Media>(url);
   }
+
+  public createPlayer(player: Player) {
+    return this.http.post<Player>(`${API_URL}/players`, player);
+  }
 }

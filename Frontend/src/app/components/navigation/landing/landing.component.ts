@@ -20,7 +20,7 @@ export class LandingComponent implements OnInit {
         if (playerId) {
           this.router.navigate(['dashboard']);
         } else {
-          // new player
+          this.router.navigate(['createPlayer']);
         }
       }
     );

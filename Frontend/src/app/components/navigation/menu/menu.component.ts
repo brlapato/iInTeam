@@ -12,8 +12,18 @@ export class MenuComponent implements OnInit {
 
   constructor(@Inject(DOCUMENT) public document: Document, public auth: AuthenticationService) { }
 
+  public accountHasPlayer: boolean = false;
+
   ngOnInit(): void {
-    this.auth.getUserInfo()
+    this.auth.playerId$.subscribe(
+      (playerId:number | null) => {
+        if (playerId) {
+          this.accountHasPlayer = true;
+        } else {
+          this.accountHasPlayer = false;
+        }
+      }
+    );
   }
 
 }

@@ -135,4 +135,16 @@ public class Player {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+    public void mergePlayerSummary(PlayerSummary summary) {
+        this.setPlayerId(summary.getPlayerId());
+        this.setFirstName(summary.getFirstName());
+        this.setLastName(summary.getLastName());
+        this.setWeight(summary.getWeight());
+        this.setHeightInches(summary.getHeightInches());
+        this.setHeightFeet(summary.getHeightFeet());
+        this.setNickName(summary.getNickName());
+        this.setHockeyAttributes(summary.getHockeyAttributes());
+        this.setIncludeHockey(summary.isIncludeHockey());
+    }
 }

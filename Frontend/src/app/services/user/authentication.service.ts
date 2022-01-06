@@ -41,12 +41,21 @@ export class AuthenticationService {
     if (!playerId) {
       this.http.get<UserInfo>(`${API_URL}/users`).subscribe(
         (response:UserInfo) => {
-          sessionStorage.setItem(PLAYER_ID, response.playerId.toString());
-          observer.next(response.playerId);
+          let responsePlayerId = null;
+          if(response) {
+            responsePlayerId = response.playerId;
+            sessionStorage.setItem(PLAYER_ID, response.playerId.toString());
+          }
+
+          observer.next(responsePlayerId);
         }
       )
     } else {
       observer.next(parseInt(playerId));
     }   
   });
+
+  public setPlayerId(playerId: number) {
+    sessionStorage.setItem(PLAYER_ID, playerId.toString());
+  }
 }

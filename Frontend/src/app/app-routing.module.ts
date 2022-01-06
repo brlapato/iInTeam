@@ -10,10 +10,14 @@ import { HockeyGameComponent } from './components/games/hockey-game/hockey-game.
 import { LandingComponent } from './components/navigation/landing/landing.component';
 import { HockeyGameInGameComponent } from './components/games/hockey-game-in-game/hockey-game-in-game.component';
 import { ClinicsComponent } from './components/features/clinics/clinics.component';
+import { CreatePlayerComponent } from './components/player/create-player/create-player.component';
+import { EditProfileComponent } from './components/player/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   { path:'login', component:WelcomeComponent },
   { path:'landing', component:LandingComponent, canActivate:[AuthGuard] },
+  { path:'createPlayer', component:CreatePlayerComponent, canActivate:[AuthGuard] },
+  { path:'editProfile', component:EditProfileComponent, canActivate:[AuthGuard] },
   { path:'dashboard', component:DashboardComponent, canActivate:[AuthGuard] },
   { path:'teams', component:TeamsComponent, canActivate:[AuthGuard] },
   { path:'teams/:selectedId', component:TeamsComponent, canActivate:[AuthGuard] },

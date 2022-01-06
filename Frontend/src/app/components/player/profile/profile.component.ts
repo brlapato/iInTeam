@@ -34,7 +34,9 @@ export class ProfileComponent implements OnInit {
         if (playerId) { 
           this.playerService.retrievePlayerProfileImage(playerId).subscribe(
             (data: Media) => {
-              this.profileImageSrc = this.sanitizer.sanitize(SecurityContext.HTML, 'data:' + data.mediaType + ';base64,' + data.file)?.toString();
+              if(data) {
+                this.profileImageSrc = this.sanitizer.sanitize(SecurityContext.HTML, 'data:' + data.mediaType + ';base64,' + data.file)?.toString();
+              }
             }   
           );
           //this.profileImageSrc = `${API_URL}/players/${playerId}/profileImageB`;
