@@ -40,6 +40,8 @@ import { ClinicListItemComponent } from './components/clinics/clinic-list-item/c
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { EventListComponent } from './components/calendar/event-list/event-list.component';
 import { PracticeDisplayComponent } from './components/teams/practice-display/practice-display.component';
+import { CreatePlayerComponent } from './components/player/create-player/create-player.component';
+import { EditProfileComponent } from './components/player/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import { PracticeDisplayComponent } from './components/teams/practice-display/pr
     ClinicsComponent,
     ClinicListItemComponent,
     EventListComponent,
-    PracticeDisplayComponent
+    PracticeDisplayComponent,
+    CreatePlayerComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

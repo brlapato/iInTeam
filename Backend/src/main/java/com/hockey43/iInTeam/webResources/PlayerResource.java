@@ -6,8 +6,11 @@ import com.hockey43.iInTeam.dataServices.IPlayerService;
 import com.hockey43.iInTeam.dataServices.hockey.HockeyGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +27,9 @@ public class PlayerResource {
 
     @GetMapping("/players/{playerId}")
     public PlayerSummary getPlayer(@PathVariable long playerId) {
-        return new PlayerSummary(this.playerService.getPlayer(playerId));
-
+        PlayerSummary summary = new PlayerSummary(this.playerService.getPlayer(playerId));
+        summary.setIncludeHockey(true);
+        return summary;
     }
 
     @GetMapping(value = "/players/{playerId}/profileImage")
@@ -57,6 +61,23 @@ public class PlayerResource {
         List<TeamEventSheet> gameSummaries = new ArrayList<TeamEventSheet>();
         hockeyGames.forEach((game)->gameSummaries.add(game.getTeamEventSheet()));
         return gameSummaries;
+    }
+
+    @PostMapping("/players")
+    public ResponseEntity<PlayerSummary> createPlayer (
+            Principal principal,
+            @RequestBody PlayerSummary player ) {
+        Authentication authentication = (Authentication) principal;
+
+        Player newPlayer = new Player();
+        newPlayer.mergePlayerSummary(player);
+        newPlayer.setUserId(principal.getName());
+
+        this.playerService.savePlayer(newPlayer);
+        player.setPlayerId(newPlayer.getPlayerId());
+
+        return new ResponseEntity<PlayerSummary>(player, HttpStatus.OK);
+
     }
 
 

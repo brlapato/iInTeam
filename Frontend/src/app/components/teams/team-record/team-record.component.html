@@ -10,11 +10,14 @@
         <thead>
             <tr>
                 <th>{{title}}</th>
-                <th style="width:14%;text-align: center"><span *ngIf="displayColumnHeaders">W</span></th>
-                <th style="width:14%;text-align: center"><span *ngIf="displayColumnHeaders">L</span></th>
-                <th style="width:14%;text-align: center"><span *ngIf="displayColumnHeaders">T</span></th>
-                <th style="width:14%;text-align: center"><span *ngIf="displayColumnHeaders">OTW</span></th>
-                <th style="width:14%;text-align: center"><span *ngIf="displayColumnHeaders">OTL</span></th>
+                <th style="width:8%;text-align: center"><span *ngIf="displayColumnHeaders">W</span></th>
+                <th style="width:8%;text-align: center"><span *ngIf="displayColumnHeaders">L</span></th>
+                <th style="width:8%;text-align: center"><span *ngIf="displayColumnHeaders">T</span></th>
+                <th style="width:8%;text-align: center"><span *ngIf="displayColumnHeaders">OTW</span></th>
+                <th style="width:8%;text-align: center"><span *ngIf="displayColumnHeaders">OTL</span></th>
+                <th style="width:8%;text-align: center"><span *ngIf="displayColumnHeaders">GF</span></th>
+                <th style="width:8%;text-align: center"><span *ngIf="displayColumnHeaders">GA</span></th>
+                <th style="width:8%;text-align: center"><span *ngIf="displayColumnHeaders">Diff</span></th>
             </tr>
         </thead>
          <tbody>
@@ -26,6 +29,9 @@
                     <td style="text-align: center">{{cRecord.winRecord.ties}}</td>
                     <td style="text-align: center">{{cRecord.winRecord.overTimeWins}}</td>
                     <td style="text-align: center">{{cRecord.winRecord.overTimeLosses}}</td>
+                    <td style="text-align: center">{{cRecord.winRecord.goalsFor}}</td>
+                    <td style="text-align: center">{{cRecord.winRecord.goalsAgainst}}</td>
+                    <td style="text-align: center">{{cRecord.winRecord.goalDifferential}}</td>
                 </ng-container>
             </tr>
         </tbody>

@@ -36,8 +36,6 @@ export class PlayerStatsComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(`display mode: ${this.displayMode}`);
-    
     switch (this.displayMode) {
       case "TeamStats":
         this.loadTeamStats();

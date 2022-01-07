@@ -1,4 +1,3 @@
-import { ReadVarExpr } from '@angular/compiler';
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Media, Player } from 'src/app/data-objects/data-objects.module';
@@ -6,11 +5,12 @@ import { PlayerService } from 'src/app/services/data/player.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-edit-profile',
+  templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class EditProfileComponent implements OnInit {
+
 
   public player: Player
   public profileImageSrc: string | undefined = "";

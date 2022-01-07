@@ -67,6 +67,11 @@ h5 {
   border-radius: 1em;
 }
 
+.rounded-bottom-big {
+  border-end-end-radius: 1em;
+  border-end-start-radius: 1em;
+}
+
 body {
   font-family: Cambria;
 }

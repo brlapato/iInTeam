@@ -46,11 +46,16 @@ public class PlayerService implements IPlayerService {
         Media playerImage;
         if (0 < players.size()) {
             Media playerImageTemp = players.get(0).getPlayerPicture();
-            playerImage = new Media();
-            playerImage.setDescription(playerImageTemp.getDescription());
-            playerImage.setMediaType(playerImageTemp.getMediaType());
-            playerImage.setFile(playerImageTemp.getFile());
-            playerImage.setMediaId(playerImageTemp.getMediaId());
+            if (playerImageTemp == null) {
+                playerImage = null;
+            } else {
+                playerImage = new Media();
+                playerImage.setDescription(playerImageTemp.getDescription());
+                playerImage.setMediaType(playerImageTemp.getMediaType());
+                playerImage.setFile(playerImageTemp.getFile());
+                playerImage.setMediaId(playerImageTemp.getMediaId());
+            }
+
         } else {
             playerImage = null;
         }

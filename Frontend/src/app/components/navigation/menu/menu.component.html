@@ -5,19 +5,31 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-            <div class="collapse navbar-collapse" id="navbarContent">
-                <ul class="navbar-nav">
-                    <li *ngIf="auth.user$ | async as user"><a  routerLink="/dashboard" class="nav-link">Dashboard</a></li>
-                    <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Teams</a></li>
-                    <li *ngIf="auth.user$ | async as user"><a  routerLink="/player" class="nav-link">Player</a></li>
-                    <li *ngIf="auth.user$ | async as user"><a  routerLink="/clinics" class="nav-link">Camps/Clinics</a></li>
-                    <li *ngIf="auth.user$ | async as user"><a  routerLink="/teams" class="nav-link">Calendar</a></li>                
+            <div *ngIf="accountHasPlayer" class="collapse navbar-collapse" id="navbarContent">
+                <ul *ngIf="auth.user$ | async as user" class="navbar-nav">
+                    <li><a  routerLink="/dashboard" class="nav-link">Dashboard</a></li>
+                    <li><a  routerLink="/teams" class="nav-link">Teams</a></li>
+                    <li><a  routerLink="/clinics" class="nav-link">Camps/Clinics</a></li>
+                    <li><a  routerLink="/player" class="nav-link">Stats</a></li>
+                    <li><a  routerLink="/teams" class="nav-link">Calendar</a></li>                
                 </ul>
                 <ul class="navbar-nav navbar-collapse justify-content-end">
-                    <li *ngIf="auth.user$ | async as user"><a routerLink="/login" class="nav-link">Account</a></li>
+                    <li *ngIf="auth.user$ | async as user"><a routerLink="/editProfile" class="nav-link">Profile</a></li>
                     
                     <ng-container *ngIf="auth.isAuthenticated$ | async as user">
-                        <li><button (click)="auth.logout();" class="btn btn-primary">
+                        <li><button (click)="auth.logout();" class="btn btn-primary btn-sm">
+                        Log out
+                        </button></li>
+                    </ng-container>
+                </ul>
+            </div>
+            <div *ngIf="!accountHasPlayer" class="collapse navbar-collapse">
+                <ul *ngIf="auth.user$ | async as user" class="navbar-nav">
+                    <li><a  routerLink="/createPlayer" class="nav-link">Create Player</a></li>
+                </ul>
+                <ul class="navbar-nav navbar-collapse justify-content-end">
+                    <ng-container *ngIf="auth.isAuthenticated$ | async as user">
+                        <li><button (click)="auth.logout();" class="btn btn-primary btn-sm">
                         Log out
                         </button></li>
                     </ng-container>

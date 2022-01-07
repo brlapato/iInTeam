@@ -4,10 +4,7 @@ import com.hockey43.iInTeam.dataObjects.GameType;
 import com.hockey43.iInTeam.dataObjects.Record;
 import com.hockey43.iInTeam.dataObjects.RecordEntry;
 import com.hockey43.iInTeam.dataObjects.TeamEvent;
-import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
-import com.hockey43.iInTeam.dataObjects.hockey.HockeyPlayerStats;
-import com.hockey43.iInTeam.dataObjects.hockey.HockeyPlayerStatsEntry;
-import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeam;
+import com.hockey43.iInTeam.dataObjects.hockey.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,7 +87,7 @@ public class HockeyStatsService {
         }
 
 
-        Map<String, Record> recordMap = new LinkedHashMap<String, Record>();
+        Map<String, HockeyRecord> recordMap = new LinkedHashMap<String, HockeyRecord>();
 
         for (int gameIdx = 0; gameIdx < games.size(); gameIdx++) {
             HockeyGame cGame = games.get(gameIdx);
@@ -100,9 +97,9 @@ public class HockeyStatsService {
                 if( gameKeys != null ) {
                     for (int keyIndex = 0; keyIndex < gameKeys.length; keyIndex++) {
                         String gameKey = gameKeys[keyIndex];
-                        Record groupRecord = recordMap.getOrDefault(gameKey, null);
+                        HockeyRecord groupRecord = recordMap.getOrDefault(gameKey, null);
                         if (groupRecord == null) {
-                            groupRecord = new Record();
+                            groupRecord = new HockeyRecord();
                             recordMap.put(gameKey, groupRecord);
                         }
                         updateGameRecord(cGame, groupRecord);
@@ -111,7 +108,7 @@ public class HockeyStatsService {
             }
         }
         List<RecordEntry> results = new ArrayList<RecordEntry>();
-        for (Map.Entry<String, Record> entry : recordMap.entrySet()) {
+        for (Map.Entry<String, HockeyRecord> entry : recordMap.entrySet()) {
             RecordEntry newEntry = new RecordEntry();
             newEntry.setDescription(entry.getKey());
             newEntry.setWinRecord(entry.getValue());
@@ -222,7 +219,7 @@ public class HockeyStatsService {
         stats.setPenaltyMin(stats.getPenaltyMin() + game.getPenaltyMin());
     }
 
-    private void updateGameRecord(HockeyGame cGame, Record record) {
+    private void updateGameRecord(HockeyGame cGame, HockeyRecord record) {
         if (cGame.getResult() != null) {
             switch (cGame.getResult()) {
                 case Win:
@@ -238,6 +235,10 @@ public class HockeyStatsService {
                     record.setOverTimeLosses(record.getOverTimeLosses() + 1);
                     break;
             }
+
+            record.setGoalsFor(record.getGoalsFor() + cGame.getTeamScore());
+            record.setGoalsAgainst(record.getGoalsAgainst() + cGame.getOpponentScore());
+            record.setGoalDifferential(record.getGoalsFor() - record.getGoalsAgainst());
         }
     }
 

@@ -1,0 +1,43 @@
+<div class="container-fluid px-1 px-md-3 py-2 py-md-3">
+    <div class="container rounded-2 shadow bg-light p-5" style="max-width: 400px;">
+        <div >
+            <h3>Create Player Profile</h3>
+            <div class="row">
+                <p>Thank you for taking the time to create an account!  We just need some basic player information to get started.</p>
+            </div>
+            <div class="row">
+                <form #newPlayerForm="ngForm" id="newPlayerForm" (ngSubmit)="!newPlayerForm.invalid && savePlayer();">
+                    <h5>Required</h5>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" style="width:80px">First Name</span>
+                        <input type="text" class="form-control" name="firstName" required="true" [(ngModel)]="newPlayer.firstName" >
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" style="width:80px">Last Name</span>
+                        <input type="text" class="form-control" name="lastName" required="true" [(ngModel)]="newPlayer.lastName" >
+                    </div>
+                    <h5 style="margin-top:20px">Optional</h5>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" style="width:80px">Nickname</span>
+                        <input type="text" class="form-control" name="nickName" [(ngModel)]="newPlayer.nickName" >
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" style="width:70px">Height</span>
+                        <input type="number" class="form-control" name="heightFeet" style="text-align:right" [(ngModel)]="newPlayer.heightFeet" >
+                        <span class="input-group-text" style="width:25px">'</span>
+                        <input type="number" class="form-control" name="heightInches" style="text-align:right" [(ngModel)]="newPlayer.heightInches" >
+                        <span class="input-group-text" style="width:25px">"</span>
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" style="width:70px">Weight</span>
+                        <input type="number" class="form-control" name="weight" style="text-align:right" [(ngModel)]="newPlayer.weight" >
+                        <span class="input-group-text" style="width:65px">lbs.</span>
+                    </div>
+                </form>
+            </div>
+            <div class="row mt-3">
+                <button type="submit" form="newPlayerForm" class="btn btn-primary">Create Profile</button>
+            </div>
+        </div>
+    </div>
+</div>
