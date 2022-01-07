@@ -1,42 +1,43 @@
-<div class="container-fluid">
-    <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-hockey-tab" data-bs-toggle="tab" data-bs-target="#nav-hockey" type="button" role="tab" aria-controls="nav-hockey" aria-selected="true">Hockey Stats</button>
-        </div>
-    </nav>
-    <div class="tab-content bg-light" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-hockey" role="tabpanel" aria-labelledby="nav-hockey-tab">
-            <div class="row" *ngIf="player.includeHockey">
-                <div class="col-md">
-                    <h3>Player Stats</h3>
-                    <div class="container shadow p-2">
-                        <app-player-stats displayMode="PlayerStats" statSet="Overall" title="Overall" [collapsible]="false"></app-player-stats>
-                        <app-player-stats displayMode="PlayerStats" statSet="BySeason" title="By Season" [collapsible]="false" [displayColumnHeaders]="true"></app-player-stats>
-                        <app-player-stats displayMode="PlayerStats" statSet="ByAgeClass" title="Age Class" [collapsible]="false" [displayColumnHeaders]="true"></app-player-stats>
-                        <app-player-stats displayMode="PlayerStats" statSet="ByTeam" title="By Team" [collapsible]="false" [displayColumnHeaders]="true"></app-player-stats>
-                        <app-player-stats displayMode="PlayerStats" statSet="ByLeague" title="By League" [collapsible]="false" [displayColumnHeaders]="true"></app-player-stats>
-                        <app-player-stats displayMode="PlayerStats" statSet="ByOpponent" title="By Opponent" [collapsible]="false" [displayColumnHeaders]="true"></app-player-stats>
-                        <app-player-stats displayMode="PlayerStats" statSet="ByRink" title="By Rink" [collapsible]="false" [displayColumnHeaders]="true"></app-player-stats>
-                        
+<div class="container-fluid px-1 px-md-3 py-2 py-md-3">
+    <div class="container rounded-2 shadow bg-light p-4">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-hockey-tab" data-bs-toggle="tab" data-bs-target="#nav-hockey" type="button" role="tab" aria-controls="nav-hockey" aria-selected="true">Hockey Stats</button>
+            </div>
+        </nav>
+        <div class="tab-content bg-light" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-hockey" role="tabpanel" aria-labelledby="nav-hockey-tab">
+                <div class="row" *ngIf="player.includeHockey">
+                    <div class="col-md">
+                        <h3>Player Stats</h3>
+                        <div class="container shadow p-2">
+                            <app-player-stats displayMode="PlayerStats" statSet="Overall" title="Overall" [collapsible]="false"></app-player-stats>
+                            <app-player-stats displayMode="PlayerStats" statSet="BySeason" title="By Season" [collapsible]="false" [displayColumnHeaders]="true"></app-player-stats>
+                            <app-player-stats displayMode="PlayerStats" statSet="ByAgeClass" title="Age Class" [collapsible]="false" [displayColumnHeaders]="true"></app-player-stats>
+                            <app-player-stats displayMode="PlayerStats" statSet="ByTeam" title="By Team" [collapsible]="false" [displayColumnHeaders]="true"></app-player-stats>
+                            <app-player-stats displayMode="PlayerStats" statSet="ByLeague" title="By League" [collapsible]="false" [displayColumnHeaders]="true"></app-player-stats>
+                            <app-player-stats displayMode="PlayerStats" statSet="ByOpponent" title="By Opponent" [collapsible]="false" [displayColumnHeaders]="true"></app-player-stats>
+                            <app-player-stats displayMode="PlayerStats" statSet="ByRink" title="By Rink" [collapsible]="false" [displayColumnHeaders]="true"></app-player-stats>
+                            
+                        </div>
                     </div>
-                </div>
-                <div class="col-md">
-                    <h3>Record</h3>
-                    <div class="container shadow p-2">
-                        <app-team-record displayMode="PlayerRecord" statSet="Overall" title="Overall" [collapsible]="false"></app-team-record>
-                        <app-team-record displayMode="PlayerRecord" statSet="BySeason" title="By Season" [collapsible]="false" [displayColumnHeaders]="true"></app-team-record>
-                        <app-team-record displayMode="PlayerRecord" statSet="ByAgeClass" title="Age Class" [collapsible]="false" [displayColumnHeaders]="true"></app-team-record>
-                        <app-team-record displayMode="PlayerRecord" statSet="ByTeam" title="By Team" [collapsible]="false" [displayColumnHeaders]="true"></app-team-record>
-                        <app-team-record displayMode="PlayerRecord" statSet="ByLeague" title="By League" [collapsible]="false" [displayColumnHeaders]="true"></app-team-record>
-                        <app-team-record displayMode="PlayerRecord" statSet="ByOpponent" title="By Opponent" [collapsible]="false" [displayColumnHeaders]="true"></app-team-record>
-                        <app-team-record displayMode="PlayerRecord" statSet="ByRink" title="By Rink" [collapsible]="false" [displayColumnHeaders]="true"></app-team-record>
+                    <div class="col-md">
+                        <h3>Record</h3>
+                        <div class="container shadow p-2">
+                            <app-team-record displayMode="PlayerRecord" statSet="Overall" title="Overall" [collapsible]="false"></app-team-record>
+                            <app-team-record displayMode="PlayerRecord" statSet="BySeason" title="By Season" [collapsible]="false" [displayColumnHeaders]="true"></app-team-record>
+                            <app-team-record displayMode="PlayerRecord" statSet="ByAgeClass" title="Age Class" [collapsible]="false" [displayColumnHeaders]="true"></app-team-record>
+                            <app-team-record displayMode="PlayerRecord" statSet="ByTeam" title="By Team" [collapsible]="false" [displayColumnHeaders]="true"></app-team-record>
+                            <app-team-record displayMode="PlayerRecord" statSet="ByLeague" title="By League" [collapsible]="false" [displayColumnHeaders]="true"></app-team-record>
+                            <app-team-record displayMode="PlayerRecord" statSet="ByOpponent" title="By Opponent" [collapsible]="false" [displayColumnHeaders]="true"></app-team-record>
+                            <app-team-record displayMode="PlayerRecord" statSet="ByRink" title="By Rink" [collapsible]="false" [displayColumnHeaders]="true"></app-team-record>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    
+    </div>
 
 </div>
 
