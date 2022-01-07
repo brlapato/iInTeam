@@ -74,6 +74,7 @@ public class PlayerResource {
         newPlayer.setUserId(principal.getName());
 
         this.playerService.savePlayer(newPlayer);
+        player.setPlayerId(newPlayer.getPlayerId());
 
         return new ResponseEntity<PlayerSummary>(player, HttpStatus.OK);
 

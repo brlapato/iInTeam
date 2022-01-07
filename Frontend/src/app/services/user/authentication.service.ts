@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { UserInfo } from 'src/app/data-objects/data-objects.module';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Player, UserInfo } from 'src/app/data-objects/data-objects.module';
 import { PLAYER_ID } from 'src/app/app.constants';
 import { API_URL, HOME_URL } from 'src/environments/environment';
 import { map } from 'rxjs/operators'
@@ -14,11 +14,14 @@ export class AuthenticationService {
 
   public user$ = this.auth.user$;
   public isAuthenticated$ = this.auth.isAuthenticated$;
+  public playerLoaded$: EventEmitter<number>;
 
   constructor(
     private http:HttpClient,
     private auth:AuthService
-  ) { }
+  ) {
+    this.playerLoaded$ = new EventEmitter();
+  }
 
   getUserInfo() {
     return this.http.get<UserInfo>(`${API_URL}/users`);
@@ -44,7 +47,7 @@ export class AuthenticationService {
           let responsePlayerId = null;
           if(response) {
             responsePlayerId = response.playerId;
-            sessionStorage.setItem(PLAYER_ID, response.playerId.toString());
+            this.setPlayerId(responsePlayerId);
           }
 
           observer.next(responsePlayerId);
@@ -57,5 +60,6 @@ export class AuthenticationService {
 
   public setPlayerId(playerId: number) {
     sessionStorage.setItem(PLAYER_ID, playerId.toString());
+    this.playerLoaded$.emit(playerId);
   }
 }

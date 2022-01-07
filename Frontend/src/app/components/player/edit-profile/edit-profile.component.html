@@ -1,1 +1,25 @@
-<p>edit-profile works!</p>
+<div class="container-fluid px-1 px-md-3 py-2 py-md-3">
+    <div class="container rounded-2 shadow bg-light pb-5">
+        
+        <h1>{{player.firstName}} {{player.lastName}}</h1>
+        <div *ngIf="this.player.includeHockey && this.player.hockeyAttributes" class="border">
+            <p class="small">General</p> 
+            <div class="row">
+                <span class="col-sm">Height:</span> <span class="col-sm"> {{ player.heightFeet }}'-{{ player.heightInches }}" </span>
+            </div>
+            <div class="row">
+                <span class="col-sm">Weight:</span> <span class="col-sm"> {{ player.weight }} lbs. </span>
+            </div>
+        </div>
+        <div *ngIf="this.player.includeHockey && this.player.hockeyAttributes" class="border"> 
+            <p class="small">Hockey</p>
+            <div class="row">
+                <span class="col-sm">Position:</span> <span class="col-sm"> {{ player.hockeyAttributes.position }} </span>
+            </div>
+            <div class="row" >
+                <span class="col-sm">Shoots:</span> <span class="col-sm"> {{ player.hockeyAttributes.shot }} </span>
+            </div>
+        </div>
+        <img [src]="profileImageSrc" class=".img-fluid" style="max-width:200px;max-height:auto" />
+    </div>
+</div>

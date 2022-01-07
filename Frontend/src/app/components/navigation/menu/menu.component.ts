@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
+import { UserInfo } from 'src/app/data-objects/data-objects.module';
 
 @Component({
   selector: 'app-menu',
@@ -15,6 +16,14 @@ export class MenuComponent implements OnInit {
   public accountHasPlayer: boolean = false;
 
   ngOnInit(): void {
+    this.auth.playerLoaded$.subscribe(
+      (playerId:number | null) => {
+        if (playerId) {
+          this.accountHasPlayer = true;
+        }
+      }
+    )
+
     this.auth.playerId$.subscribe(
       (playerId:number | null) => {
         if (playerId) {
@@ -23,7 +32,7 @@ export class MenuComponent implements OnInit {
           this.accountHasPlayer = false;
         }
       }
-    );
+    )
   }
 
 }
