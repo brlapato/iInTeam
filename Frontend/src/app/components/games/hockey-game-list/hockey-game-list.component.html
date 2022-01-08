@@ -1,6 +1,9 @@
 
 <div class="container">
-        <div *ngFor="let game of games">
+        <div *ngFor="let game of displayGames">
             <app-hockey-game-list-item [game]="game" (gameDeleted)="onGameDeleted($event)"></app-hockey-game-list-item>
+        </div>
+        <div class="col-4 mb-2">
+            <app-pager [sourceData]="games" (pagedItemsChanged)="onPagedItemsChanged($event)"></app-pager>
         </div>
 </div>

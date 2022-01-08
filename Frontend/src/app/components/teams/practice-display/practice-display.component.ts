@@ -13,6 +13,7 @@ export class PracticeDisplayComponent implements OnChanges {
 
   @Input() teamId: number = -1;
   public practices: Practice[] = [];
+    public displayItems: Practice[] = [];
 
   public editPractice: Practice = Practice.getDefault();
 
@@ -34,6 +35,8 @@ export class PracticeDisplayComponent implements OnChanges {
 
  
   ngOnChanges(changes: SimpleChanges) {
+    console.log('changes: ' + changes)
+    console.log(changes)
     this.loadPractices();
   } 
 
@@ -50,7 +53,6 @@ export class PracticeDisplayComponent implements OnChanges {
       }
     )
   }
-
 
   public savePractice() {
     let startDateStr = "";
@@ -114,6 +116,11 @@ export class PracticeDisplayComponent implements OnChanges {
         }
       );
     }
+  }
+
+  public onPagedItemsChanged(pagedItems: any) {
+    console.log(pagedItems);
+    this.displayItems = pagedItems;
   }
 
 }

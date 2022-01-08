@@ -1,0 +1,4 @@
+  <button type="button" (click)="previousPage()"  class="btn btn-primary btn-sm" [disabled]="isFirstPage">&laquo;</button>
+  <span class="smallLabel" style="padding-left: 15px;padding-right: 15px;" *ngIf="showItemCount">{{firstIndex}}-{{lastIndex}} of {{itemCount}}</span>
+  <button type="button" (click)="nextPage()" class="btn btn-primary btn-sm" [disabled]="isLastPage">&raquo;</button>
+  

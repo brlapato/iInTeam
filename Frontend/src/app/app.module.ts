@@ -42,6 +42,7 @@ import { EventListComponent } from './components/calendar/event-list/event-list.
 import { PracticeDisplayComponent } from './components/teams/practice-display/practice-display.component';
 import { CreatePlayerComponent } from './components/player/create-player/create-player.component';
 import { EditProfileComponent } from './components/player/edit-profile/edit-profile.component';
+import { PagerComponent } from './components/ui/pager/pager.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { EditProfileComponent } from './components/player/edit-profile/edit-prof
     EventListComponent,
     PracticeDisplayComponent,
     CreatePlayerComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    PagerComponent
   ],
   imports: [
     BrowserModule,

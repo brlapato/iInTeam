@@ -34,17 +34,17 @@
             <div class="col-md">
                 <h3><div class="row justify-content-between pt-3">
                     <div class="col-3  d-flex align-items-end mb-2">Games</div>
-                        <div class="col-5 mb-2">
-                            <button class="btn btn-md bg-white rounded-3 shadow-sm border" style="font-size:0.9em;" (click)="addGame()">
-                                <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;">
-                                    <use xlink:href="assets/icons/bootstrap-icons.svg#plus-lg"/>
-                                </svg>
-                                New Game
-                            </button>
-                        </div>
+                    <div class="col-5 mb-2">
+                        <button class="btn btn-md bg-white rounded-3 shadow-sm border" style="font-size:0.9em;" (click)="addGame()">
+                            <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;">
+                                <use xlink:href="assets/icons/bootstrap-icons.svg#plus-lg"/>
+                            </svg>
+                            New Game
+                        </button>
+                    </div>
                     </div>
                 </h3>
-                <div class="row d-flex flex-grow-1" style="margin-top: 10px;max-height: 400px; overflow-y: auto;">
+                <div class="row d-flex flex-grow-1" style="margin-top: 10px;overflow-y: auto;">
                     <div class="col">
                         <app-hockey-game-list [teamId]="this.team.teamId"></app-hockey-game-list>
                     </div>
