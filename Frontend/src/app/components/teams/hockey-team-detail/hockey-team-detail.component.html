@@ -19,14 +19,13 @@
         </div>
     </div>
     <div class="container bg-white rounded-3 shadow-lg pt-3">
-        <div class="row my-2 mx-3 ">
-            <div class="col-md" *ngIf="team.headCoach">Head Coach: {{team.headCoach}}</div>
-            <div class="col-md" *ngIf="team.assistantCoach1">Asst Coach: {{team.assistantCoach1}}</div>
-            <div class="col-md" *ngIf="team.assistantCoach2">Asst Coach: {{team.assistantCoach2}}</div>
-            <div class="col-md" *ngIf="team.manager">Manager: {{team.manager}}</div>
-        </div>
+
         <div class="row my-2 mx-3 ">
             <div class="col-md-6">
+                <div class="" *ngIf="team.headCoach">Head Coach: {{team.headCoach}}</div>
+                <div class="" *ngIf="team.assistantCoach1">Asst Coach: {{team.assistantCoach1}}</div>
+                <div class="" *ngIf="team.assistantCoach2">Asst Coach: {{team.assistantCoach2}}</div>
+                <div class="" *ngIf="team.manager">Manager: {{team.manager}}</div>
                 <app-player-stats [teamId]="this.team.teamId" [displayMode]="'TeamStats'"></app-player-stats>
                 <app-team-record [teamId]="this.team.teamId"></app-team-record>
                 <app-practice-display [teamId]="this.team.teamId"></app-practice-display>              
