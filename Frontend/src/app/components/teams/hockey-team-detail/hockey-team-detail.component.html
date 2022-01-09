@@ -19,14 +19,13 @@
         </div>
     </div>
     <div class="container bg-white rounded-3 shadow-lg pt-3">
-        <div class="row my-2 mx-3 ">
-            <div class="col-md" *ngIf="team.headCoach">Head Coach: {{team.headCoach}}</div>
-            <div class="col-md" *ngIf="team.assistantCoach1">Asst Coach: {{team.assistantCoach1}}</div>
-            <div class="col-md" *ngIf="team.assistantCoach2">Asst Coach: {{team.assistantCoach2}}</div>
-            <div class="col-md" *ngIf="team.manager">Manager: {{team.manager}}</div>
-        </div>
+
         <div class="row my-2 mx-3 ">
             <div class="col-md-6">
+                <div class="" *ngIf="team.headCoach">Head Coach: {{team.headCoach}}</div>
+                <div class="" *ngIf="team.assistantCoach1">Asst Coach: {{team.assistantCoach1}}</div>
+                <div class="" *ngIf="team.assistantCoach2">Asst Coach: {{team.assistantCoach2}}</div>
+                <div class="" *ngIf="team.manager">Manager: {{team.manager}}</div>
                 <app-player-stats [teamId]="this.team.teamId" [displayMode]="'TeamStats'"></app-player-stats>
                 <app-team-record [teamId]="this.team.teamId"></app-team-record>
                 <app-practice-display [teamId]="this.team.teamId"></app-practice-display>              
@@ -34,17 +33,17 @@
             <div class="col-md">
                 <h3><div class="row justify-content-between pt-3">
                     <div class="col-3  d-flex align-items-end mb-2">Games</div>
-                        <div class="col-5 mb-2">
-                            <button class="btn btn-md bg-white rounded-3 shadow-sm border" style="font-size:0.9em;" (click)="addGame()">
-                                <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;">
-                                    <use xlink:href="assets/icons/bootstrap-icons.svg#plus-lg"/>
-                                </svg>
-                                New Game
-                            </button>
-                        </div>
+                    <div class="col-5 mb-2">
+                        <button class="btn btn-md bg-white rounded-3 shadow-sm border" style="font-size:0.9em;" (click)="addGame()">
+                            <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;">
+                                <use xlink:href="assets/icons/bootstrap-icons.svg#plus-lg"/>
+                            </svg>
+                            New Game
+                        </button>
+                    </div>
                     </div>
                 </h3>
-                <div class="row d-flex flex-grow-1" style="margin-top: 10px;max-height: 400px; overflow-y: auto;">
+                <div class="row d-flex flex-grow-1" style="margin-top: 10px;overflow-y: auto;">
                     <div class="col">
                         <app-hockey-game-list [teamId]="this.team.teamId"></app-hockey-game-list>
                     </div>

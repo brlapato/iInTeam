@@ -12,6 +12,7 @@ export class HockeyGameListComponent implements OnInit {
 
   @Input() teamId: number = 0;
   public games: HockeyGame[] = [];
+  public displayGames: HockeyGame[] = [];
 
   constructor(
     public auth: AuthenticationService,
@@ -44,6 +45,10 @@ export class HockeyGameListComponent implements OnInit {
         this.games.splice(i, 1);
       }
     }
+  }
+
+  public onPagedItemsChanged(pagedItems: any) {
+    this.displayGames = pagedItems;
   }
 
 }
