@@ -12,6 +12,9 @@
     </div>
 </h3>
 <div class="container">
+    <div class="d-flex justify-content-center">
+        <app-pager [sourceData]="practices" (pagedItemsChanged)="onPagedItemsChanged($event)"></app-pager>
+    </div>
     <div *ngFor="let practice of displayItems">
         <div class="row pb-0">
             <div class="col">
@@ -42,9 +45,7 @@
         </div>
         <hr>
     </div>
-    <div class="col-4 mb-2">
-        <app-pager [sourceData]="practices" (pagedItemsChanged)="onPagedItemsChanged($event)"></app-pager>
-    </div>
+    
 </div>
 
 <div class="modal fade" #editPracticeModal id="editPracticeModal" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1" aria-labelledby="editPracticeModalLabel" aria-hidden="true">
