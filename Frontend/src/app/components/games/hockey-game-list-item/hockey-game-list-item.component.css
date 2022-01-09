@@ -2,21 +2,18 @@
     border-style: solid;
     border-width: 1px;
     border-color: grey;
-    border-left-color: green;
+    border-left-color: rgb(0, 117, 0);
     border-left-width: 5px;
     border-left-style: solid;
-    background-image: linear-gradient(to left, white, var(--winGradientColor))
-    
 }
 
 .lossCard {
     border-style: solid;
     border-width: 1px;
     border-color: grey;
-    border-left-color: rgba(255, 0, 0, 1);
+    border-left-color: rgb(167, 0, 0);
     border-left-width: 5px;
     border-left-style: solid;
-    background-image: linear-gradient(to left, white, var(--LossGradientColor))
 }
 
 .tieCard {
@@ -25,9 +22,7 @@
     border-color: grey;
     border-left-color: rgb(61, 61, 61);
     border-left-width: 5px;
-    border-left-style: solid;
-    background-image: linear-gradient(to left, white, var(--tieGradientColor))
-    
+    border-left-style: solid;    
 }
 
 .unplayedCard {
@@ -35,4 +30,20 @@
     border-width: 1px;
     border-color: grey;
     
+}
+
+.currentTeam {
+    font-weight: 600;
+}
+
+.opponentTeam {
+    font-weight: 400;
+}
+
+.teamWon {
+    color: darkgreen;
+}
+
+.teamLost {
+    color: darkred;
 }
