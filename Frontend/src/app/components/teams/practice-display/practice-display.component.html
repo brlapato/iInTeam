@@ -11,7 +11,7 @@
         </div>
     </div>
 </h3>
-<div class="container">
+<div class="container p-0 p-md-1">
     <div class="d-flex justify-content-center">
         <app-pager [sourceData]="practices" (pagedItemsChanged)="onPagedItemsChanged($event)"></app-pager>
     </div>
@@ -20,13 +20,13 @@
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        <span style="font-weight: 700;">{{getPracticeDisplayDate(practice)}}</span>  {{practice.eventName}}
+                        <span style="font-weight: 700;">{{getPracticeDisplayDate(practice)}}</span><span style="margin-left: 10px;">{{practice.eventName}}</span>
                     </div>
                 </div>
-                <div class="row pb-1">
+                <div class="row pb-1 smallFont">
                     <div class="col-1"></div>
                     <div class="col">
-                        {{practice.eventLocation}} <span *ngIf="practice.eventLocationDetail">({{practice.eventLocationDetail}})</span>
+                        <em>{{practice.eventLocation}} <span *ngIf="practice.eventLocationDetail">({{practice.eventLocationDetail}})</span></em>
                     </div>
                 </div>
             </div>

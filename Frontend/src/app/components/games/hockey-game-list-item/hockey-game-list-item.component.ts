@@ -82,5 +82,47 @@ export class HockeyGameListItemComponent  {
     return (Math.abs(new Date(targetDate).getTime() - new Date().getTime()) / 1000 / 60 / 60) < timeWindowHours;
   }
 
+  public getHomeTeamName(game: HockeyGame) {
+    if (game.side == "Home") {
+      return game.teamName;
+    } else {
+      if (game.opponentTeamNameMod) {
+        return `${game.opponentTeamName} ${game.opponentTeamNameMod}`;
+      } else {
+        return `${game.opponentTeamName}`;
+      }
+    }
+  }
+
+  
+
+  public getAwayTeamName(game: HockeyGame) {
+    if (game.side == "Home") {
+      if (game.opponentTeamNameMod) {
+        return `${game.opponentTeamName} ${game.opponentTeamNameMod}`;
+      } else {
+        return `${game.opponentTeamName}`;
+      }
+    } else {
+      return game.teamName;
+    }
+  }
+
+  public getHomeTeamScore(game: HockeyGame) {
+    if (game.side == "Home") {
+      return game.teamScore;
+    } else {
+      return game.opponentScore;
+    }
+  }
+
+  public getAwayTeamScore(game: HockeyGame) {
+    if (game.side == "Home") {
+      return game.opponentScore;
+    } else {
+      return game.teamScore;
+    }
+  }
+
 
 }

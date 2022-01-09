@@ -1,27 +1,47 @@
-<div class="container  rounded-3 mb-2"
-            [class.winCard]="isGameComplete(game) && isGameWin(game)"
-            [class.lossCard]="isGameComplete(game) && isGameLoss(game)"
-            [class.tieCard]="isGameComplete(game) && isGameTie(game)"
-            [class.unplayedCard]="!isGameComplete(game)">
+<div class="container rounded-3 m-0 mb-2 p-1 p-md-1" 
+        [class.winCard]="isGameComplete(game) && isGameWin(game)"
+        [class.lossCard]="isGameComplete(game) && isGameLoss(game)"
+        [class.tieCard]="isGameComplete(game) && isGameTie(game)"
+        [class.unplayedCard]="!isGameComplete(game)">
     <div class="row">
-        <div class="col-xl-3">
-            <div class="row">                
-                <div class="col"><h6>{{getSideModifierString(game)}} {{game.opponentTeamName}}</h6></div>
+        <div class="col">
+            <div class="row"  [class.currentTeam]="game.side==='Away'" 
+                              [class.opponentTeam]="game.side==='Home'" 
+                              [class.teamWon]="isGameComplete(game) && game.side==='Away' && isGameWin(game)"
+                              [class.teamLost]="isGameComplete(game) && game.side==='Away' && isGameLoss(game)">
+                <div class="col-8">
+                    {{getAwayTeamName(game)}}
+                </div>
+                <div class="col">
+                    <span *ngIf="isGameComplete(game)">{{getAwayTeamScore(game)}}</span>
+                </div>
             </div>
-            <div class="row">                
-                <div class="col smallFont">{{game.startDateTime | date:'mediumDate'}} {{game.startDateTime | date:'shortTime'}}</div>
+            <div class="row mb-1" [class.currentTeam]="game.side==='Home'" 
+                                  [class.opponentTeam]="game.side==='Away'"
+                                  [class.teamWon]="isGameComplete(game) && game.side==='Home' && isGameWin(game)"
+                                  [class.teamLost]="isGameComplete(game) && game.side==='Home' && isGameLoss(game)">
+                <div class="col-8">
+                    {{getHomeTeamName(game)}}
+                </div>
+                <div class="col">
+                    <span *ngIf="isGameComplete(game)">{{getHomeTeamScore(game)}} <span *ngIf="game.isOvertime" class="overtimeMarker rounded-3" style="margin-left:4px;font-size:.65em">OT</span></span>
+                </div>
+            </div>
+            <div class="row smallFont">
+                <div class="col">
+                    <em>{{game.startDateTime | date:'mediumDate'}} {{game.startDateTime | date:'shortTime'}} </em>
+                </div>
+                <div class="col">
+                    <em>{{game.location}}<span *ngIf="game.locationDetail"> - {{game.locationDetail}}</span></em>
+                </div>
+            </div>
+            <div class="row smallFont">
+                <div class="col">
+                    <em>{{game.gameType}} ({{game.league}}) </em>
+                </div>
             </div>
         </div>
-        <div class="col-xl-2" style="font-weight: 600;">
-            {{getGameResultString(game)}} <span *ngIf="game.isOvertime" class="overtimeMarker rounded-3" style="margin-left:4px;font-size:.65em">OT</span>
-        </div>
-        <div class="col-xl-5">
-            <div class="container smallFont p-0 m-0">
-                <div class="row"><div class="column">{{game.gameType}} ({{game.league}})</div></div>
-                <div class="row"><div class="column">{{game.location}} <span *ngIf="game.locationDetail != null && game.locationDetail.length > 0">({{game.locationDetail}})</span></div></div>
-            </div>
-        </div>
-        <div class="col-2" style="overflow: visible;">
+        <div class="col-1" style="max-width:200px;min-width:75px">
             <button id=buttonEdit (click)="editGame(game.teamId, game.gameId)" class="border-0" style="background-color: transparent;">
                 <svg class="bi" width="14" height="14" fill="none">
                     <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
@@ -39,4 +59,5 @@
             </button>
         </div>
     </div>
+    
 </div>

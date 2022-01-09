@@ -2,6 +2,8 @@
 /*@import url(https://unpkg.com/bootstrap@5.1.0/dist/css/bootstrap.min.css)*/
 
 @import url(https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
 
 :root {
   --primaryColor: rgb(4, 46, 160);
@@ -21,6 +23,7 @@
   font-family: varsity;
   src: url(assets/fonts/varsity_regular.ttf);
 }
+
 
 .smallFont {
   font-size: .8em;
@@ -73,5 +76,6 @@ h5 {
 }
 
 body {
-  font-family: Cambria;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9em;
 }
