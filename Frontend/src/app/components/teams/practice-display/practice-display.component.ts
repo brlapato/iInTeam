@@ -13,7 +13,8 @@ export class PracticeDisplayComponent implements OnChanges {
 
   @Input() teamId: number = -1;
   public practices: Practice[] = [];
-    public displayItems: Practice[] = [];
+  public displayItems: Practice[] = [];
+  public startingDisplayIndex = 1;
 
   public editPractice: Practice = Practice.getDefault();
 
@@ -35,8 +36,6 @@ export class PracticeDisplayComponent implements OnChanges {
 
  
   ngOnChanges(changes: SimpleChanges) {
-    console.log('changes: ' + changes)
-    console.log(changes)
     this.loadPractices();
   } 
 
@@ -47,11 +46,32 @@ export class PracticeDisplayComponent implements OnChanges {
           this.practicesService.retrievePractices(playerId, this.teamId).subscribe(
             (data:Practice[]) => {
               this.practices = data;
+              this.setStartingIndex(data);
             }
           );
         }
       }
     )
+  }
+
+  public setStartingIndex(practices: Practice[]) {
+    if (practices.length == 0) {
+      this.startingDisplayIndex = -1;
+    } else {
+      let currentDate = new Date();
+      for (let i=0; i < practices.length; i++) {
+        if ( currentDate < new Date(practices[i].startDateTime) ) {
+          this.startingDisplayIndex = i;
+          return;
+        }
+      }
+
+      this.startingDisplayIndex = practices.length - 1;
+    }
+  }
+
+  public onPagedItemsChanged(pagedItems: any) {
+    this.displayItems = pagedItems;
   }
 
   public savePractice() {
@@ -118,9 +138,6 @@ export class PracticeDisplayComponent implements OnChanges {
     }
   }
 
-  public onPagedItemsChanged(pagedItems: any) {
-    console.log(pagedItems);
-    this.displayItems = pagedItems;
-  }
+  
 
 }

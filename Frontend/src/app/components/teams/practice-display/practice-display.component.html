@@ -13,7 +13,7 @@
 </h3>
 <div class="container p-0 p-md-1">
     <div class="d-flex justify-content-center">
-        <app-pager [sourceData]="practices" (pagedItemsChanged)="onPagedItemsChanged($event)"></app-pager>
+        <app-pager [sourceData]="practices" [startingItemIndex]="startingDisplayIndex" (pagedItemsChanged)="onPagedItemsChanged($event)"></app-pager>
     </div>
     <div *ngFor="let practice of displayItems">
         <div class="row pb-0">

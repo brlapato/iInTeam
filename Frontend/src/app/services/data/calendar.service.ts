@@ -15,7 +15,6 @@ export class CalendarService {
   ) { }
 
   public retieveEventsOverRange(playerId: number, start:Date, end:Date) {
-    //console.log(this.datepipe);
     let startStr = formatDate(start, 'yyyy-MM-dd', this.locale);
     let endStr = formatDate(end, 'yyyy-MM-dd', this.locale);
     return this.http.get<CalendarEvent[]>(`${API_URL}/players/${playerId}/calendar?start=${start.toISOString()}&end=${end.toISOString()}`);

@@ -1,7 +1,7 @@
 
 <div class="container p-0 p-md-2" style="overflow: visible;">
     <div class="d-flex justify-content-center mb-3">
-        <app-pager [sourceData]="games" (pagedItemsChanged)="onPagedItemsChanged($event)"></app-pager>
+        <app-pager [sourceData]="games" [startingItemIndex]="startingDisplayIndex" (pagedItemsChanged)="onPagedItemsChanged($event)"></app-pager>
     </div>
     <div *ngFor="let game of displayGames">
         <app-hockey-game-list-item [game]="game" (gameDeleted)="onGameDeleted($event)"></app-hockey-game-list-item>

@@ -106,8 +106,6 @@ export class ClinicsComponent implements OnInit, OnDestroy {
     this.editClinic.startDateTime = new Date(startDateStr + " " + this.startTime + "Z");
     this.editClinic.endDateTime = new Date(startDateStr + " " + this.endTime + "Z");
 
-    console.log(this.editClinic);
-
     if(this.editClinic.clinicId == -1) {
       this.auth.playerId$.subscribe(
         (playerId:number | null) => {
