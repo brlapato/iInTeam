@@ -1,23 +1,26 @@
-<div class="container-fluid px-1 px-md-3 py-2 py-md-3">
-  <div class="container rounded-2 shadow bg-light pb-5">
-    <h3><div class="row justify-content-between pt-3">
-          <div class="col-5  d-flex align-items-end mb-2">Camp and Clinic Sessions</div>
-          <div class="col-4 mb-2">
-              <button class="btn btn-md bg-white rounded-3 shadow-sm border" style="font-size:0.9em;" data-bs-toggle="modal" data-bs-target="#editClinicModal" (click)="onEditOpened(null)">
-                  <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;">
-                      <use xlink:href="assets/icons/bootstrap-icons.svg#plus-lg"/>
-                  </svg>
-                  New Session
-              </button>
-          </div>
+<div class="container-fluid">
+  <div class="container rounded-2 shadow bg-light p-2 pb-5">
+    <h3><div class="row justify-content-between ps-2 pt-3 pb-2">
+          <div class="col-5  d-flex align-items-end">Camp and Clinic Sessions</div>
+            <div class="col-4">
+                <button class="btn btn-md bg-white rounded-3 shadow-sm border" style="font-size:0.9em;" data-bs-toggle="modal" data-bs-target="#editClinicModal" (click)="onEditOpened(null)">
+                    <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;">
+                        <use xlink:href="assets/icons/bootstrap-icons.svg#plus-lg"/>
+                    </svg>
+                    New Session
+                </button>
+            </div>
           </div>
       </h3>
-      <div *ngFor="let clinic of clinics" class="container border rounded-3 mt-3">
+      <div class="d-flex justify-content-center pb-2">
+        <app-pager [sourceData]="clinics" (pagedItemsChanged)="onPagedItemsChanged($event)" [pageSize]="10"></app-pager>
+      </div>
+      <div *ngFor="let clinic of displayClinics" class="container border rounded-3 mb-2">
         <div class="row">
           <div class="col">
             <app-clinic-list-item [clinic]="clinic"></app-clinic-list-item>
           </div>
-          <div class="col-2">
+          <div class="col-auto">
               <button id=buttonEdit  class="border-0" style="background-color: transparent;" (click)="onEditOpened(clinic)" data-bs-toggle="modal" data-bs-target="#editClinicModal">
                   <svg class="bi" width="14" height="14" fill="none">
                       <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
