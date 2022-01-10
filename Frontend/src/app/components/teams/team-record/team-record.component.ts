@@ -31,9 +31,7 @@ export class TeamRecordComponent implements OnInit {
     this.expanded = !this.collapsible;
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(`display mode: ${this.displayMode}`);
-    
+  ngOnChanges(changes: SimpleChanges) {    
     switch (this.displayMode) {
       case "TeamRecord":
         this.loadTeamRecord();

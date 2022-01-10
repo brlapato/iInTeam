@@ -13,6 +13,7 @@ export class HockeyGameListComponent implements OnInit {
   @Input() teamId: number = 0;
   public games: HockeyGame[] = [];
   public displayGames: HockeyGame[] = [];
+  public startingDisplayIndex: number = -1;
 
   constructor(
     public auth: AuthenticationService,
@@ -33,10 +34,32 @@ export class HockeyGameListComponent implements OnInit {
       (playerId:number | null) => {
         if (playerId && this.teamId) {
           
-          this.teamService.retrieveHockeyGames(playerId, this.teamId).subscribe((data:HockeyGame[]) => {this.games = data;})
+          this.teamService.retrieveHockeyGames(playerId, this.teamId).subscribe(
+            (data:HockeyGame[]) => {
+              this.setStartingIndex(data);
+              this.games = data;
+            }
+          )
         }
       }
     );
+  }
+
+  public setStartingIndex(games: HockeyGame[]) {
+    if (games.length == 0) {
+      this.startingDisplayIndex = -1;
+    } else {
+      let currentDate = new Date();
+      for (let i=0; i < games.length; i++) {
+        
+        if ( currentDate < new Date(games[i].startDateTime) ) {
+          this.startingDisplayIndex = i;
+          return;
+        }
+      }
+
+      this.startingDisplayIndex = games.length - 1;
+    }
   }
 
   onGameDeleted(gameId: number) {

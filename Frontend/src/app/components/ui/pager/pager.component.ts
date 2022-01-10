@@ -25,6 +25,9 @@ export class PagerComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes.startingItemIndex && changes.startingItemIndex.currentValue)  {
+      this.setStartPage(changes.startingItemIndex.currentValue);
+    }
     this.pageData();
   }
 
@@ -32,6 +35,16 @@ export class PagerComponent implements OnInit, OnChanges {
     //if (this.sourceData) {
     //  this.pageData();
     //}
+  }
+
+  setStartPage(startingIndex: number) {
+    if (startingIndex < 0) {
+      startingIndex = 0;
+    } else if (startingIndex >= this.sourceData.length) {
+      startingIndex = this.sourceData.length - 1;
+    }
+
+    this.currentPage = Math.floor(startingIndex / this.pageSize) + 1;
   }
 
   pageData(){
@@ -44,17 +57,27 @@ export class PagerComponent implements OnInit, OnChanges {
         endIndex = this.sourceData.length 
       }
 
-      console.log("paging: start: " + startIndex.toString() + " end: " + endIndex.toString());
       pagedData = this.sourceData.slice(startIndex, endIndex);
       this.itemCount = this.sourceData.length;
 
       this.isFirstPage = this.currentPage == 1;
       this.isLastPage = this.currentPage == (Math.floor(this.itemCount / this.pageSize) + 1);
-      this.firstIndex = startIndex + 1;
-      this.lastIndex = endIndex;
+      if(this.sourceData.length > 0) {
+        this.firstIndex = startIndex + 1;
+        this.lastIndex = endIndex;
+      } else {
+        this.firstIndex = 0;
+        this.lastIndex = 0;
+      }
 
-      this.pagedItemsChanged.emit(pagedData);
+    } else {
+      this.isFirstPage = true;
+      this.isLastPage = true;
+      this.firstIndex = 0;
+      this.lastIndex = 0;
     }
+
+    this.pagedItemsChanged.emit(pagedData);
   }
 
   nextPage() {
