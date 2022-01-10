@@ -11,6 +11,8 @@ export class ClinicListItemComponent implements OnInit {
   @Input() clinic: Clinic = Clinic.getDefault();
   @Output() editClinic = new EventEmitter<Clinic>();
 
+  public detailsVisible: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -18,6 +20,10 @@ export class ClinicListItemComponent implements OnInit {
 
   public onEditClicked() {
     this.editClinic.emit(this.clinic);
+  }
+
+  public onToggleExpand() {
+    this.detailsVisible = !this.detailsVisible;
   }
 
 }

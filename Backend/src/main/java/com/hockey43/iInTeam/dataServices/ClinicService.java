@@ -21,7 +21,7 @@ public class ClinicService implements ICalendarEventProvider {
     public List<Clinic> getClinicsForPlayer(long playerId, boolean includeCompleted) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        List<Clinic> clinics = session.createQuery("SELECT c from Clinic c INNER JOIN c.playerOwner p WHERE p.playerId = :pid AND (:includeCompleted=true OR c.endDateTime < current_date)")
+        List<Clinic> clinics = session.createQuery("SELECT c from Clinic c INNER JOIN c.playerOwner p WHERE p.playerId = :pid AND (:includeCompleted=true OR c.endDateTime < current_date)  ORDER BY c.startDateTime ASC")
                 .setParameter("pid", playerId)
                 .setParameter("includeCompleted", includeCompleted)
                 .list();

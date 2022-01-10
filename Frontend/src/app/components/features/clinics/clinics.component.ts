@@ -1,3 +1,4 @@
+import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
@@ -16,6 +17,7 @@ export class ClinicsComponent implements OnInit, OnDestroy {
   @ViewChild('editTeamModal') editTeamModal: ModalDirective | undefined;
 
   public clinics: Clinic[] = [];
+  public displayClinics: Clinic[] = [];
   public editClinic: Clinic = Clinic.getDefault();
 
   startDate: Date = new Date();
@@ -142,6 +144,10 @@ export class ClinicsComponent implements OnInit, OnDestroy {
       );
     }
     
+  }
+
+  public onPagedItemsChanged(pagedClinics: Clinic[]) {
+    this.displayClinics = pagedClinics;
   }
 
 }
