@@ -41,11 +41,11 @@ export class HockeyGameListItemComponent  {
   }
 
   public editGame(teamId: number, gameId: number) {
-    this.router.navigate(['hockeyGame', teamId, gameId]);
+    this.router.navigate(['hockeyGame', teamId, gameId], {queryParams: {'src': 'team'}});
   }
 
   public scoreGame(teamId: number, gameId: number) {
-    this.router.navigate(['hockeyGameInGame', teamId, gameId]);
+    this.router.navigate(['hockeyGameInGame', teamId, gameId], {queryParams: {'src': 'dashboard'}});
   }
 
   public deleteGame(teamId: number, gameId: number, opponentName: String) {

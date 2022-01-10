@@ -1,4 +1,4 @@
-<div class="container p-1 m-0" style="width:130px;">
+<div class="container p-1 m-0" style="width:130px;cursor: pointer;" (click)="onClick()">
     <div class="rounded-top cardTitle">{{game.league}}</div>
     <div class="container border text-center smallFont text-wrap overflow-hidden p-1 m-0 position-relative" 
             [class.winCard]="isGameComplete(game) && isGameWin(game)"
