@@ -17,6 +17,7 @@ export class HockeyGameInGameComponent implements OnInit {
   startDate: Date = new Date();
   newStartDate: string = "";
   startTime: string = "";
+  routeSource: string | null = "";
 
   constructor(
     public auth: AuthenticationService,
@@ -28,6 +29,7 @@ export class HockeyGameInGameComponent implements OnInit {
   ngOnInit(): void {
     this.teamId = this.route.snapshot.params['teamId'];
     this.gameId = this.route.snapshot.params['gameId'];
+    this.routeSource = this.route.snapshot.queryParams['src'];
 
     this.loadHockeyGame(this.teamId, this.gameId);
   }
@@ -86,8 +88,12 @@ export class HockeyGameInGameComponent implements OnInit {
   }
 
   navigateBack() {
-    console.log("Navigate back");
-    this.router.navigate(['teams', this.teamId]);
+    if(this.routeSource === 'dashboard') {
+      this.router.navigate(['dashboard']);
+    } else {
+      this.router.navigate(['teams', this.teamId]);
+    }
+    
   }
 
   public deleteGame(teamId: number, gameId: number) {

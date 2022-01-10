@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HockeyGame } from 'src/app/data-objects/data-objects.module';
 
 @Component({
@@ -10,7 +11,9 @@ export class HockeyGameCardComponent implements OnInit {
 
   @Input() game: HockeyGame = HockeyGame.getDefault();
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
@@ -79,6 +82,10 @@ export class HockeyGameCardComponent implements OnInit {
     }
     return outString;
 
+  }
+
+  public onClick() {
+    this.router.navigate(['hockeyGameInGame', this.game.teamId, this.game.gameId], {queryParams: {'src': 'dashboard'}});
   }
 
 }
