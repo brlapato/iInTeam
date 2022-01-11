@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Subject } from 'rxjs';
 import { WinRecord, WinRecordEntry } from 'src/app/data-objects/data-objects.module';
 import { PlayerStatsService } from 'src/app/services/data/player-stats.service';
 import { TeamService } from 'src/app/services/data/team.service';
@@ -21,6 +22,9 @@ export class TeamRecordComponent implements OnInit {
   public expanded:boolean = false;
   public winRecords: WinRecordEntry[] = [];
 
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+
   constructor(
     public auth: AuthenticationService,
     public teamService: TeamService,
@@ -29,6 +33,12 @@ export class TeamRecordComponent implements OnInit {
 
   ngOnInit(): void {
     this.expanded = !this.collapsible;
+
+    this.dtOptions = {
+      paging: false,
+      searching: false,
+      info: false
+    };
   }
 
   ngOnChanges(changes: SimpleChanges) {    
@@ -50,7 +60,12 @@ export class TeamRecordComponent implements OnInit {
       (playerId:number | null) => {
         if (playerId && this.teamId) {
           
-          this.teamService.retrieveTeamRecord(playerId, this.teamId).subscribe((data:WinRecordEntry[]) => {this.winRecords = data; })
+          this.teamService.retrieveTeamRecord(playerId, this.teamId).subscribe(
+            (data:WinRecordEntry[]) => {
+              this.winRecords = data; 
+              this.dtTrigger.next();
+            }
+          )
         }
       }
     );
@@ -61,7 +76,12 @@ export class TeamRecordComponent implements OnInit {
       (playerId:number | null) => {
         if (playerId) {
           
-          this.statService.retrievePlayerHockeyRecord(playerId, this.statSet).subscribe((data:WinRecordEntry[]) => {this.winRecords = data; })
+          this.statService.retrievePlayerHockeyRecord(playerId, this.statSet).subscribe(
+            (data:WinRecordEntry[]) => {
+              this.winRecords = data; 
+              this.dtTrigger.next();
+            }
+          )
         }
       }
     );

@@ -26,7 +26,7 @@
                 <div class="" *ngIf="team.assistantCoach1">Asst Coach: {{team.assistantCoach1}}</div>
                 <div class="" *ngIf="team.assistantCoach2">Asst Coach: {{team.assistantCoach2}}</div>
                 <div class="" *ngIf="team.manager">Manager: {{team.manager}}</div>
-                <app-player-stats [teamId]="this.team.teamId" [displayMode]="'TeamStats'"></app-player-stats>
+                <app-player-stats [teamId]="this.team.teamId" [displayMode]="'TeamStats'" ></app-player-stats>
                 <app-team-record [teamId]="this.team.teamId"></app-team-record>
                 <app-practice-display [teamId]="this.team.teamId"></app-practice-display>              
             </div>

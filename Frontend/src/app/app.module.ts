@@ -43,6 +43,7 @@ import { PracticeDisplayComponent } from './components/teams/practice-display/pr
 import { CreatePlayerComponent } from './components/player/create-player/create-player.component';
 import { EditProfileComponent } from './components/player/edit-profile/edit-profile.component';
 import { PagerComponent } from './components/ui/pager/pager.component';
+import { SportIconComponent } from './components/ui/sport-icon/sport-icon.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { PagerComponent } from './components/ui/pager/pager.component';
     PracticeDisplayComponent,
     CreatePlayerComponent,
     EditProfileComponent,
-    PagerComponent
+    PagerComponent,
+    SportIconComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { SimpleChanges } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { HockeyPlayerStatsEntry } from 'src/app/data-objects/data-objects.module';
 import { PlayerStatsService } from 'src/app/services/data/player-stats.service';
 import { TeamService } from 'src/app/services/data/team.service';
@@ -25,6 +26,9 @@ export class PlayerStatsComponent implements OnInit {
   public playerStats: HockeyPlayerStatsEntry[] = [];
   public expanded:boolean = false;
 
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+
   constructor(
     public auth: AuthenticationService,
     public teamService: TeamService,
@@ -33,6 +37,12 @@ export class PlayerStatsComponent implements OnInit {
 
   ngOnInit(): void {
     this.expanded = !this.collapsible;
+
+    this.dtOptions = {
+      paging: false,
+      searching: false,
+      info: false
+    };
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -54,7 +64,11 @@ export class PlayerStatsComponent implements OnInit {
       (playerId:number | null) => {
         if (playerId && this.teamId != -1) {
           
-          this.teamService.retrievePlayerStatsForTeam(playerId, this.teamId).subscribe((data:HockeyPlayerStatsEntry[]) => {this.playerStats = data;})
+          this.teamService.retrievePlayerStatsForTeam(playerId, this.teamId).subscribe(
+            (data:HockeyPlayerStatsEntry[]) => {
+              this.playerStats = data;
+              this.dtTrigger.next();
+          })
         }
       }
     );
@@ -64,7 +78,12 @@ export class PlayerStatsComponent implements OnInit {
     this.auth.playerId$.subscribe(
       (playerId:number | null) => {
         if (playerId) {
-          this.statService.retrievePlayerHockeyStats(playerId, this.statSet).subscribe((data:HockeyPlayerStatsEntry[]) => {this.playerStats = data;})
+          this.statService.retrievePlayerHockeyStats(playerId, this.statSet).subscribe(
+            (data:HockeyPlayerStatsEntry[]) => {
+              this.playerStats = data;
+              this.dtTrigger.next();
+            }
+          )
         }
       }
     );
