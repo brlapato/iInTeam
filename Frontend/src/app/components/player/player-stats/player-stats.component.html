@@ -1,11 +1,37 @@
 
 <div class="container position-relative m-0 p-0">
     <div class="position-absolute" *ngIf="collapsible">
-        <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;top:10px" (click)="onToggleExpand()">
+        <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;top:15px" (click)="onToggleExpand()">
             <use [attr.xlink:href]="expanded ? 'assets/icons/bootstrap-icons.svg#dash-square-dotted' : 'assets/icons/bootstrap-icons.svg#plus-square-dotted'"/>
         </svg>
     </div>
-    <table class="table table-sm smallFont table-striped">
+    <table *ngIf="!collapsible" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="display stripe compact smallFont mb-2">
+        <thead>
+            <tr>
+                <th>{{title}}</th>
+                <th style="width:11%;text-align: center"><span *ngIf="displayColumnHeaders">GP</span></th>
+                <th style="width:11%;text-align: center"><span *ngIf="displayColumnHeaders"><span class="d-block d-md-none">G</span><span class="d-none d-md-block">Goals</span></span></th>
+                <th style="width:11%;text-align: center"><span *ngIf="displayColumnHeaders"><span class="d-block d-md-none">A</span><span class="d-none d-md-block">Assists</span></span></th>
+                <th style="width:11%;text-align: center"><span *ngIf="displayColumnHeaders"><span class="d-block d-md-none">P</span><span class="d-none d-md-block">Points</span></span></th>
+                <th style="width:11%;text-align: center"><span *ngIf="displayColumnHeaders"><span class="d-block d-md-none">S</span><span class="d-none d-md-block">Shots</span></span></th>
+                <th style="width:11%;text-align: center"><span *ngIf="displayColumnHeaders">PM</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let currentStat of playerStats;let indexOfelement=index;">
+                <ng-container *ngIf="indexOfelement == 0 || expanded">
+                    <td>{{currentStat.description}}</td>
+                    <td style="text-align: center">{{currentStat.hockeyPlayerStats.gamesPlayed}}</td>
+                    <td style="text-align: center">{{currentStat.hockeyPlayerStats.goals}}</td>
+                    <td style="text-align: center">{{currentStat.hockeyPlayerStats.assists}}</td>
+                    <td style="text-align: center">{{currentStat.hockeyPlayerStats.points}}</td>
+                    <td style="text-align: center">{{currentStat.hockeyPlayerStats.shots}}</td>
+                    <td style="text-align: center">{{currentStat.hockeyPlayerStats.penaltyMin}}</td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+    <table *ngIf="collapsible" class="table table-sm table-striped smallFont mb-2">
         <thead>
             <tr>
                 <th>{{title}}</th>

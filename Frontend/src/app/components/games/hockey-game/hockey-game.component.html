@@ -135,33 +135,31 @@
                     <div class="row border-gray pb-3">
                         <div class="col">
                             <h5>Stats</h5>
-                            <div class="row">
-                                <div class="col-4">
+                            
                                     <div class="input-group input-group-sm">
-                                        <span class="input-group-text" style="width:100px">Goals</span><input type="number" class="form-control" id="goals" name="goals" [(ngModel)]="hockeyGame.goals">
+                                        <span class="input-group-text" style="width:100px">Goals</span><input type="number" class="form-control" id="goals" name="goals" style="max-width:100px" [(ngModel)]="hockeyGame.goals">
                                     </div>
                                     <div class="input-group input-group-sm">
-                                        <span class="input-group-text" style="width:100px">Assists</span><input type="number" class="form-control" id="assists" name="assists" [(ngModel)]="hockeyGame.assists"> 
+                                        <span class="input-group-text" style="width:100px">Assists</span><input type="number" class="form-control" id="assists" name="assists"  style="max-width:100px" [(ngModel)]="hockeyGame.assists"> 
                                     </div>
                                     <div class="input-group input-group-sm">
-                                        <span class="input-group-text" style="width:100px">Shots</span><input type="number" class="form-control" id="shots" name="shots" [(ngModel)]="hockeyGame.shots">
+                                        <span class="input-group-text" style="width:100px">Shots</span><input type="number" class="form-control" id="shots" name="shots"  style="max-width:100px" [(ngModel)]="hockeyGame.shots">
                                     </div>
                                     <div class="input-group input-group-sm">
-                                        <span class="input-group-text" style="width:100px">Penalty Min</span><input type="number" class="form-control" id="penaltyMin" name="penaltyMin" [(ngModel)]="hockeyGame.penaltyMin">
+                                        <span class="input-group-text" style="width:100px">Penalty Min</span><input type="number" class="form-control" id="penaltyMin" name="penaltyMin"  style="max-width:100px" [(ngModel)]="hockeyGame.penaltyMin">
                                     </div>
-                                </div>
-                            </div>
+                               
                         </div>               
                     </div>
                 </div>
             </div>
             <div class="container-fluid mb-3">
-                <span class="input-group-text input-group-sm">Pregame Notes:</span>
-                <textarea class="form-control" id="preGameNotes" rows="5" name="preGameNotes" aria-label="Pregame Notes" [(ngModel)]="hockeyGame.preGameNotes"></textarea>
+                <span class="input-group-text input-group-sm" style="font-size: 0.9em;">Pregame Notes:</span>
+                <textarea class="form-control" id="preGameNotes" rows="5" name="preGameNotes" aria-label="Pregame Notes" [(ngModel)]="hockeyGame.preGameNotes" style="font-size: 0.9em;"></textarea>
             </div>
             <div class="container-fluid mb-3">
-                <span class="input-group-text input-group-sm">Postgame Notes:</span>
-                <textarea class="form-control" id="postGameNotes" rows="5" name="postGameNotes" aria-label="Postgame Notes" [(ngModel)]="hockeyGame.postGameNotes"></textarea>
+                <span class="input-group-text input-group-sm" style="font-size: 0.9em;">Postgame Notes:</span>
+                <textarea class="form-control" id="postGameNotes" rows="5" name="postGameNotes" aria-label="Postgame Notes" [(ngModel)]="hockeyGame.postGameNotes" style="font-size: 0.9em;"></textarea>
             </div>
             <div class="row mt-5">
                 <div class="col"><button class="btn btn-success" type="submit">Save</button>
