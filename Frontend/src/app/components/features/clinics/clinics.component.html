@@ -13,9 +13,9 @@
           </div>
       </h3>
       <div class="d-flex justify-content-center pb-2">
-        <app-pager [sourceData]="clinics" (pagedItemsChanged)="onPagedItemsChanged($event)" [pageSize]="10"></app-pager>
+        <app-pager [sourceData]="clinics" [startingItemIndex]="startingDisplayIndex" (pagedItemsChanged)="onPagedItemsChanged($event)" [pageSize]="10"></app-pager>
       </div>
-      <div *ngFor="let clinic of displayClinics" class="container border rounded-3 mb-2">
+      <div *ngFor="let clinic of displayClinics" class="container border rounded-3 mb-2" [class.completedClinic]="isClinicComplete(clinic)">
         <div class="row">
           <div class="col">
             <app-clinic-list-item [clinic]="clinic"></app-clinic-list-item>

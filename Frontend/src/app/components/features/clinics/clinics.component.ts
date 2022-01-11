@@ -24,6 +24,7 @@ export class ClinicsComponent implements OnInit, OnDestroy {
   newStartDate: string = "";
   startTime: string = "";
   endTime: string = "";
+  startingDisplayIndex: number = -1;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -58,6 +59,7 @@ export class ClinicsComponent implements OnInit, OnDestroy {
         if (playerId) { 
           this.clinicService.retrieveTeamList(playerId, true).subscribe(
             (data:Clinic[]) => {
+              this.setStartingIndex(data);
               this.clinics = data;
               this.dtTrigger.next();
             }
@@ -67,13 +69,24 @@ export class ClinicsComponent implements OnInit, OnDestroy {
     )
   }
 
+  public setStartingIndex(clinics: Clinic[]) {
+    if (clinics.length == 0) {
+      this.startingDisplayIndex = -1;
+    } else {
+      let currentDate = new Date();
+      for (let i=0; i < clinics.length; i++) {
+        
+        if ( currentDate < new Date(clinics[i].startDateTime) ) {
+          this.startingDisplayIndex = i;
+          return;
+        }
+      }
+
+      this.startingDisplayIndex = clinics.length - 1;
+    }
+  }
+
   public onEditClinic(clinic: Clinic) {
-
-    //if (this.editTeamModal) {
-    //  console.log(this.editTeamModal);
-    //  this.editTeamModal.show();
-    //}
-
     this.onEditOpened(clinic);
   }
 
@@ -146,6 +159,10 @@ export class ClinicsComponent implements OnInit, OnDestroy {
 
   public onPagedItemsChanged(pagedClinics: Clinic[]) {
     this.displayClinics = pagedClinics;
+  }
+
+  public isClinicComplete(clinic: Clinic) {
+    return new Date(clinic.endDateTime) < new Date();
   }
 
 }
