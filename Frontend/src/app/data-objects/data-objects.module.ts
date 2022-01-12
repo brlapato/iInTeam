@@ -20,7 +20,7 @@ export class DataObjectsModule {
     public playerId: number,
     public firstName: string,
     public lastName: string,
-    public nickName: String,
+    public nickName: string,
     public heightFeet: number,
     public heightInches: number,
     public weight: number,
@@ -37,17 +37,17 @@ export class DataObjectsModule {
 
 export class HockeyAttributes {
   constructor(
-    public position?: String,
-    public shot?: String
+    public position?: string,
+    public shot?: string
   ){}
 }
   
  export class UserInfo {
     constructor (
-      public userName: String,
-      public firstName: String,
-      public lastName: String,
-      public email: String,
+      public userName: string,
+      public firstName: string,
+      public lastName: string,
+      public email: string,
       public playerId: number
     ) {}
   }  
@@ -55,16 +55,16 @@ export class HockeyAttributes {
   export class Media {
     constructor(
       public mediaId: number,
-      public description: String,
-      public file: String,
+      public description: string,
+      public file: string,
       public mediaType: string
     ) {}
   }
 
   export class Organization {
     constructor(
-      public name: String,
-      public city: String
+      public name: string,
+      public city: string
     ) {}
   }
 
@@ -124,7 +124,7 @@ export class HockeyAttributes {
       public teamId: number,
       public sport: string,
       public org: Organization,
-      public name: String,
+      public name: string,
       public season: string,
       public active: boolean,
       public startDate: Date
@@ -146,16 +146,16 @@ export class HockeyAttributes {
     constructor(
       public teamId: number,
       public org: Organization,
-      public name: String,
-      public headCoach: String,
-      public assistantCoach1: String,
-      public assistantCoach2: String,
-      public manager: String,
+      public name: string,
+      public headCoach: string,
+      public assistantCoach1: string,
+      public assistantCoach2: string,
+      public manager: string,
       public active: boolean,
       public startDate: Date,
-      public ageClass: String,
+      public ageClass: string,
       public playerNumber: number,
-      public regularPosition: String,
+      public regularPosition: string,
       public level: string,
       public season: string,
       public nextGame: HockeyGame
@@ -210,16 +210,16 @@ export class HockeyAttributes {
     constructor(
       public gameId: number,
       public teamId: number,
-      public teamName: String,
-      public opponentTeamName: String,
-      public opponentTeamNameMod: String,
+      public teamName: string,
+      public opponentTeamName: string,
+      public opponentTeamNameMod: string,
       public startDateTime: Date,
-      public location: String,
-      public locationDetail: String,
-      public side: String,
-      public league: String,
-      public gameType: String,
-      public result: String,
+      public location: string,
+      public locationDetail: string,
+      public side: string,
+      public league: string,
+      public gameType: string,
+      public result: string,
       public teamScore: number| undefined,
       public opponentScore: number| undefined,
       public numberPeriods: number,
@@ -230,8 +230,8 @@ export class HockeyAttributes {
       public assists: number | undefined,
       public shots: number | undefined,
       public penaltyMin: number | undefined,
-      public preGameNotes: String,
-      public postGameNotes: String
+      public preGameNotes: string,
+      public postGameNotes: string
     ) {}
 
     public static getDefault() {
@@ -241,8 +241,8 @@ export class HockeyAttributes {
 
   export class HockeyTeamSummary {
     constructor(
-      public teamName: String,
-      public regularPosition: String,
+      public teamName: string,
+      public regularPosition: string,
       public playerNumber: number,
       public record: WinRecord,
       public goals: number,
@@ -266,11 +266,11 @@ export class HockeyAttributes {
   export class PersonalGoal {
     constructor (
       public goalId: number,
-      public name: String,
-      public sport: String,
-      public description: String,
-      public plan: String,
-      public timeFrame: String,
+      public name: string,
+      public sport: string,
+      public description: string,
+      public plan: string,
+      public timeFrame: string,
       public isComplete: boolean
     ){}
 
@@ -291,21 +291,21 @@ export class HockeyAttributes {
     constructor(
       public clinicId: number,
       public org: Organization,
-      public name: String,
-      public nameDetail: String,
-      public description: String,
-      public sport: String,
+      public name: string,
+      public nameDetail: string,
+      public description: string,
+      public sport: string,
       public startDateTime: Date,
       public endDateTime: Date,
-      public location: String,
-      public locationDetail: String,
-      public headCoach: String,
-      public assistantCoach1: String,
-      public assistantCoach2: String,
-      public assistantCoach3: String,
-      public assistantCoach4: String,
-      public preClinicNotes: String,
-      public postClinicNotes: String
+      public location: string,
+      public locationDetail: string,
+      public headCoach: string,
+      public assistantCoach1: string,
+      public assistantCoach2: string,
+      public assistantCoach3: string,
+      public assistantCoach4: string,
+      public preClinicNotes: string,
+      public postClinicNotes: string
     ) {}
 
     public static getDefault() {
@@ -343,15 +343,15 @@ export class HockeyAttributes {
 
   export class CalendarEvent {
     constructor(
-      public eventType: String,
-      public name: String,
-      public description: String,
-      public sport: String,
+      public eventType: string,
+      public name: string,
+      public description: string,
+      public sport: string,
       public org: Organization,
       public startDateTime: Date,
       public endDateTime: Date,
-      public location: String,
-      public locationDetail: String
+      public location: string,
+      public locationDetail: string
     ) {}
 
     public static getDefault(){
@@ -365,10 +365,10 @@ export class HockeyAttributes {
       public teamEventId: number,
       public startDateTime: Date,
       public endDateTime: Date,
-      public eventName: String,
-      public eventLocation: String,
-      public eventLocationDetail: String,
-      public notes: String
+      public eventName: string,
+      public eventLocation: string,
+      public eventLocationDetail: string,
+      public notes: string
     ) {}
 
     public static getDefault() {

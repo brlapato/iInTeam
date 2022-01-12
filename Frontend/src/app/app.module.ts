@@ -44,6 +44,16 @@ import { CreatePlayerComponent } from './components/player/create-player/create-
 import { EditProfileComponent } from './components/player/edit-profile/edit-profile.component';
 import { PagerComponent } from './components/ui/pager/pager.component';
 import { SportIconComponent } from './components/ui/sport-icon/sport-icon.component';
+import { FullCalendarModule } from '@fullcalendar/angular'; 
+import dayGridPlugin from '@fullcalendar/daygrid'; 
+import interactionPlugin from '@fullcalendar/interaction';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import { CalendarComponent } from './components/features/calendar/calendar.component'; 
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -81,7 +91,8 @@ import { SportIconComponent } from './components/ui/sport-icon/sport-icon.compon
     CreatePlayerComponent,
     EditProfileComponent,
     PagerComponent,
-    SportIconComponent
+    SportIconComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +101,7 @@ import { SportIconComponent } from './components/ui/sport-icon/sport-icon.compon
     HttpClientModule,
     FormsModule,
     DataTablesModule,
+    FullCalendarModule,
     ModalModule.forRoot(),
     AuthModule.forRoot({
       domain: 'dev-hockey43.us.auth0.com',

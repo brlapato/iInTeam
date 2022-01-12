@@ -12,6 +12,7 @@ import { HockeyGameInGameComponent } from './components/games/hockey-game-in-gam
 import { ClinicsComponent } from './components/features/clinics/clinics.component';
 import { CreatePlayerComponent } from './components/player/create-player/create-player.component';
 import { EditProfileComponent } from './components/player/edit-profile/edit-profile.component';
+import { CalendarComponent } from './components/features/calendar/calendar.component';
 
 const routes: Routes = [
   { path:'login', component:WelcomeComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path:'teams/:selectedId', component:TeamsComponent, canActivate:[AuthGuard] },
   { path:'player', component:PlayerComponent, canActivate:[AuthGuard] },
   { path:'clinics', component:ClinicsComponent, canActivate:[AuthGuard] },
+  { path:'calendar', component:CalendarComponent, canActivate:[AuthGuard] },
   { path:'hockeyGame/:teamId/:gameId', component:HockeyGameComponent, canActivate:[AuthGuard]},
   { path:'hockeyGameInGame/:teamId/:gameId', component:HockeyGameInGameComponent, canActivate:[AuthGuard]},
   { path:'', component:WelcomeComponent }
