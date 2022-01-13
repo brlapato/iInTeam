@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataTablesModule } from "angular-datatables";
 
 import { AppRoutingModule } from './app-routing.module';
@@ -47,7 +46,6 @@ import { SportIconComponent } from './components/ui/sport-icon/sport-icon.compon
 import { FullCalendarModule } from '@fullcalendar/angular'; 
 import dayGridPlugin from '@fullcalendar/daygrid'; 
 import interactionPlugin from '@fullcalendar/interaction';
-import timeGridPlugin from '@fullcalendar/timegrid';
 import { CalendarComponent } from './components/features/calendar/calendar.component'; 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -96,7 +94,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
