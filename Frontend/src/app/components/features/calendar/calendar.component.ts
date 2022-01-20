@@ -14,6 +14,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 })
 export class CalendarComponent implements OnInit {
 
+  public calendarEventDetail: CalendarEvent | null = null;
+
   calendarOptions: CalendarOptions = {
     plugins: [ timeGridPlugin, dayGridPlugin ],
     headerToolbar: {
@@ -24,7 +26,8 @@ export class CalendarComponent implements OnInit {
     initialView: 'dayGridMonth',
     height: "auto",
     themeSystem: 'standard',
-    datesSet: this.onDatesSet.bind(this)
+    datesSet: this.onDatesSet.bind(this),
+    eventClick: this.onEventClick.bind(this)
   };
 
   @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
@@ -75,7 +78,10 @@ export class CalendarComponent implements OnInit {
       events.push({
           title: c.name,
           start: c.startDateTime,
-          end: c.endDateTime
+          end: c.endDateTime,
+          extendedProps: {
+            calendarEvent: c
+          }
         }
       );
     })
@@ -85,8 +91,15 @@ export class CalendarComponent implements OnInit {
   }
 
   async onDatesSet(eventArgs: any) {
-    
     this.loadEvents(eventArgs.start, eventArgs.end);
+  }
+
+  async onEventClick(eventClickInfo: any) {
+    this.calendarEventDetail = eventClickInfo.event.extendedProps.calendarEvent;
+  }
+
+  public onCloseEventDetail() {
+    this.calendarEventDetail = null;
   }
 
 }
