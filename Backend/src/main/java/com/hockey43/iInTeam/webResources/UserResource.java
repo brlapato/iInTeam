@@ -39,6 +39,7 @@ public class UserResource {
             userInfo.setFirstName(player.getFirstName());
             userInfo.setLastName(player.getLastName());
             userInfo.setPlayerId(player.getPlayerId());
+            userInfo.setEmail(user.getClaims().toString());
             return userInfo;
         }
     }

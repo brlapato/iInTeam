@@ -82,12 +82,18 @@ public class PlayerResource {
 
 
 
+
     @PutMapping("players/{playerId}")
-    public ResponseEntity<Player> updatePlayer (
+    public ResponseEntity<PlayerSummary> updatePlayer (
             @PathVariable long playerId,
-            @RequestBody Player player
+            @RequestBody PlayerSummary player
     ) {
-        return null;
+        Player basePlayer = this.playerService.getPlayer(player.getPlayerId());
+        basePlayer.mergePlayerSummary(player);
+
+        this.playerService.savePlayer(basePlayer);
+
+        return new ResponseEntity<PlayerSummary>(player, HttpStatus.OK);
     }
 
 

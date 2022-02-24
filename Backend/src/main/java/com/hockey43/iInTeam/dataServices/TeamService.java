@@ -18,7 +18,7 @@ public class TeamService {
     public List<Team> getTeamForPlayer(long playerId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        List<Team> teams = session.createQuery("from Team WHERE PlayerId = :pid")
+        List<Team> teams = session.createQuery("from Team WHERE PlayerId = :pid ORDER BY StartDate DESC")
                 .setParameter("pid", playerId)
                 .list();
 

@@ -25,4 +25,8 @@ export class PlayerService {
   public createPlayer(player: Player) {
     return this.http.post<Player>(`${API_URL}/players`, player);
   }
+
+  public updatePlayer(player: Player) {
+    return this.http.put<Player>(`${API_URL}/players/${player.playerId}`, player);
+  }
 }

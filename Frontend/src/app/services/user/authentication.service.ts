@@ -62,4 +62,17 @@ export class AuthenticationService {
     sessionStorage.setItem(PLAYER_ID, playerId.toString());
     this.playerLoaded$.emit(playerId);
   }
+
+  public setUserInfoCache(userInfo: UserInfo) {
+    sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+  }
+
+  public getUserInfoCache(): UserInfo | null {
+    let userInfo: string | null = sessionStorage.getItem('userInfo');
+    if (userInfo == null) {
+      return null;
+    } else {
+      return JSON.parse(userInfo);
+    }
+  }
 }

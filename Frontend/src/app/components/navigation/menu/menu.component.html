@@ -14,6 +14,7 @@
                     <li><a  routerLink="/calendar" class="nav-link">Calendar</a></li>                
                 </ul>
                 <ul class="navbar-nav navbar-collapse justify-content-end">
+                    <li *ngIf="userInfo" class="nav-link"><em>{{userInfo.firstName}} {{userInfo.lastName}}</em></li>
                     <li *ngIf="auth.user$ | async as user"><a routerLink="/editProfile" class="nav-link">Profile</a></li>
                     
                     <ng-container *ngIf="auth.isAuthenticated$ | async as user">
@@ -23,7 +24,7 @@
                     </ng-container>
                 </ul>
             </div>
-            <div *ngIf="!accountHasPlayer" class="collapse navbar-collapse">
+            <div *ngIf="!accountHasPlayer && playerInfoRetrieved" class="collapse navbar-collapse">
                 <ul *ngIf="auth.user$ | async as user" class="navbar-nav">
                     <li><a  routerLink="/createPlayer" class="nav-link">Create Player</a></li>
                 </ul>

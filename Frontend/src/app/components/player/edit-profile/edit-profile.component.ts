@@ -39,13 +39,24 @@ export class EditProfileComponent implements OnInit {
               }
             }   
           );
-          //this.profileImageSrc = `${API_URL}/players/${playerId}/profileImageB`;
           this.playerService.retrievePlayer(playerId).subscribe(
             (data:Player) => {this.player = data;}
           )
         }
       }
     )
+  }
+
+  savePlayer() {
+    
+    this.auth.playerId$.subscribe(
+      (playerId:number | null) => {
+        if (playerId) {
+          console.log('save player')
+          this.playerService.updatePlayer(this.player).subscribe();
+        }
+      }
+    );
   }
 
 }

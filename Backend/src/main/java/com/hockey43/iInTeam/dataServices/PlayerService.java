@@ -69,7 +69,7 @@ public class PlayerService implements IPlayerService {
     public Player savePlayer(Player player) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        session.save(player);
+        session.saveOrUpdate(player);
         session.getTransaction().commit();
         LOG.debug(String.format("Player %s saved", player.getPlayerId()));
         session.close();
