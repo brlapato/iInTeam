@@ -2,11 +2,10 @@
        (change)="onFileSelected($event)" #fileUpload>
 
 <div class="file-upload">
+  <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">Select File</button>
 
-   {{fileName || "No file uploaded yet."}}
+  <div class="image-preview mb-3" *ngIf="previewUrl">
+    <img [src]="previewUrl" height="300" />                 
+  </div>
 
-    <button mat-mini-fab color="primary" class="upload-btn"
-      (click)="fileUpload.click()">
-        Select File
-    </button>
 </div>

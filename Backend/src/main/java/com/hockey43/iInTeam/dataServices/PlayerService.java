@@ -66,6 +66,21 @@ public class PlayerService implements IPlayerService {
     }
 
     @Override
+    public void saveProfileImage(long playerId, Media image) {
+        Player player = this.getPlayer(playerId);
+
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(image);
+        player.setPlayerPicture(image);
+        session.saveOrUpdate(player);
+        session.getTransaction().commit();
+        LOG.debug(String.format("Player %s saved", player.getPlayerId()));
+        session.close();
+    }
+
+    @Override
     public Player savePlayer(Player player) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();

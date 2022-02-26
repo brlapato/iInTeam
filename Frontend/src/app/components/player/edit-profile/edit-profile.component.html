@@ -101,9 +101,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <app-image-upload></app-image-upload>
+                <div class="container-fluid mb-3">
+                    <span class="input-group-text input-group-sm" style="font-size: 0.9em;">Description (optional):</span>
+                    <textarea class="form-control" id="mediaDescription" rows="5" name="mediaDescription" aria-label="Media Description" [(ngModel)]="newProfileImage.description" style="font-size: 0.9em;"></textarea>
+                </div>
+                <div class="container-fluid mb-3 fileUploadPanel">
+                    <app-image-upload (fileSelected)="onFilesSelected($event)"></app-image-upload>
+                </div>
+                
             </div>
             <div class="modal-footer">
+                <button class="btn btn-success btn-sm" (click)="uploadProfileImage();">Upload Image</button>
+                <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

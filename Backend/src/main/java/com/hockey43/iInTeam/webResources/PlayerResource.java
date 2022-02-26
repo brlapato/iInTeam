@@ -45,6 +45,12 @@ public class PlayerResource {
         return playerImage;
     }
 
+    @PutMapping(value = "/players/{playerId}/profileImage")
+    public ResponseEntity<Media> setPlayerProfileImage(@PathVariable long playerId, @RequestBody Media image) {
+        this.playerService.saveProfileImage(playerId, image);
+        return new ResponseEntity<Media>(image, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/players/{playerId}/recentGames")
     public List<TeamEventSheet> getRecentGames(@PathVariable long playerId, @RequestParam(defaultValue = "5") Integer numGames) {
         List<TeamEvent> hockeyGames = this.hockeyGameService.getRecentGames(playerId, numGames);

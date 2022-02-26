@@ -46,7 +46,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid'; 
 import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarComponent } from './components/features/calendar/calendar.component';
-import { ImageUploadComponent } from './components/ui/image-upload/image-upload.component'; 
+import { ImageUploadComponent } from './components/ui/image-upload/image-upload.component';
 
 
 

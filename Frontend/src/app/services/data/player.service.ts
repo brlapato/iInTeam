@@ -22,6 +22,10 @@ export class PlayerService {
     return this.http.get<Media>(url);
   }
 
+  public updatePlayerProfileImage(player: Player, media: Media) {
+    return this.http.put<Media>(`${API_URL}/players/${player.playerId}/profileImage`, media);
+  }
+
   public createPlayer(player: Player) {
     return this.http.post<Player>(`${API_URL}/players`, player);
   }

@@ -12,6 +12,8 @@ public interface IPlayerService {
 
     public Media getProfileImage(Long playerId);
 
+    void saveProfileImage(long playerId, Media image);
+
     public Player savePlayer(Player player);
 
 
