@@ -13,6 +13,10 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mediaId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="PlayerId", insertable = false, updatable = false, nullable = false)
+    private Player owner;
+
     @Column(name="Description", length = 500)
     private String description;
 
@@ -53,5 +57,20 @@ public class Media {
 
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
+    }
+
+    public Player getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
+    public void mergeMediaEntry(MediaEntry mediaEntry) {
+        this.setMediaId(mediaEntry.getMediaId());
+        this.setMediaType(mediaEntry.getMediaType());
+        this.setDescription(mediaEntry.getDescription());
+        this.setFile(mediaEntry.getFile());
     }
 }

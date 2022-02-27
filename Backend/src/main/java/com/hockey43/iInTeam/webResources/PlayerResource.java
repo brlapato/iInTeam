@@ -36,19 +36,19 @@ public class PlayerResource {
     }
 
     @GetMapping(value = "/players/{playerId}/profileImage")
-    public Media getPlayerProfileImage(@PathVariable long playerId) {
-        Media playerImage = this.playerService.getProfileImage(playerId);
+    public MediaEntry getPlayerProfileImage(@PathVariable long playerId) {
+        MediaEntry playerImage = this.playerService.getProfileImage(playerId);
         return playerImage;
     }
 
     @PutMapping(value = "/players/{playerId}/profileImage")
-    public ResponseEntity<Media> setPlayerProfileImage(@PathVariable long playerId, @RequestBody Media image) {
+    public ResponseEntity<MediaEntry> setPlayerProfileImage(@PathVariable long playerId, @RequestBody MediaEntry image) {
         this.playerService.saveProfileImage(playerId, image);
-        return new ResponseEntity<Media>(image, HttpStatus.OK);
+        return new ResponseEntity<MediaEntry>(image, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/players/{playerId}/profileImage")
-    public ResponseEntity<Media> removePlayerProfileImage(@PathVariable long playerId) {
+    public ResponseEntity<MediaEntry> removePlayerProfileImage(@PathVariable long playerId) {
         this.playerService.removeProfileImage(playerId);
         return ResponseEntity.noContent().build();
     }

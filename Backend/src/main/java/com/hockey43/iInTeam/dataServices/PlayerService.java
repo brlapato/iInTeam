@@ -1,6 +1,7 @@
 package com.hockey43.iInTeam.dataServices;
 
 import com.hockey43.iInTeam.dataObjects.Media;
+import com.hockey43.iInTeam.dataObjects.MediaEntry;
 import com.hockey43.iInTeam.dataObjects.Player;
 import com.hockey43.iInTeam.dataObjects.TeamEvent;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyPlayerStats;
@@ -39,7 +40,7 @@ public class PlayerService implements IPlayerService {
     }
 
     @Override
-    public Media getProfileImage(Long playerId) {
+    public MediaEntry getProfileImage(Long playerId) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -47,12 +48,12 @@ public class PlayerService implements IPlayerService {
                 .setParameter("pid", playerId.toString())
                 .list();
 
-        Media playerImage;
+        MediaEntry playerImage;
         if (0 < players.size()) {
             Media playerImageTemp = players.get(0).getPlayerPicture();
             if (playerImageTemp == null) {
                 try {
-                    playerImage = new Media();
+                    playerImage = new MediaEntry();
                     playerImage.setDescription("Default Profile Image");
                     playerImage.setFile(this.readFileBase64("images/emptyProfile.png"));
                     playerImage.setMediaType(MediaType.IMAGE_PNG_VALUE);
@@ -61,11 +62,7 @@ public class PlayerService implements IPlayerService {
                     playerImage = null;
                 }
             } else {
-                playerImage = new Media();
-                playerImage.setDescription(playerImageTemp.getDescription());
-                playerImage.setMediaType(playerImageTemp.getMediaType());
-                playerImage.setFile(playerImageTemp.getFile());
-                playerImage.setMediaId(playerImageTemp.getMediaId());
+                playerImage = new MediaEntry(playerImageTemp);
             }
 
         } else {
@@ -78,14 +75,16 @@ public class PlayerService implements IPlayerService {
     }
 
     @Override
-    public void saveProfileImage(long playerId, Media image) {
+    public void saveProfileImage(long playerId, MediaEntry image) {
         Player player = this.getPlayer(playerId);
-
+        Media imageMedia = new Media();
+        imageMedia.mergeMediaEntry(image);
+        imageMedia.setOwner(player);
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        session.save(image);
-        player.setPlayerPicture(image);
+        session.save(imageMedia);
+        player.setPlayerPicture(imageMedia);
         session.saveOrUpdate(player);
         session.getTransaction().commit();
         session.close();

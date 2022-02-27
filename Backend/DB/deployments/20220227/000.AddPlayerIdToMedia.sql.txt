@@ -1,0 +1,13 @@
+ALTER TABLE Media
+ADD COLUMN `PlayerId` BIGINT DEFAULT NULL;
+
+UPDATE Media
+SET PlayerId = 1
+WHERE MediaId >= 0;
+
+UPDATE Media
+SET PlayerId = 2
+WHERE MediaId = 2;
+
+ALTER TABLE Media ADD CONSTRAINT `FK_Media_PlayerId` FOREIGN KEY (`PlayerId`) REFERENCES `Player` (`PlayerId`);
+
