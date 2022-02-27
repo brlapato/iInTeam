@@ -14,6 +14,8 @@ public interface IPlayerService {
 
     void saveProfileImage(long playerId, Media image);
 
+    void removeProfileImage(long playerId);
+
     public Player savePlayer(Player player);
 
 

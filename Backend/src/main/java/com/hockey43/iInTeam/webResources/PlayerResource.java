@@ -10,8 +10,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -35,13 +38,6 @@ public class PlayerResource {
     @GetMapping(value = "/players/{playerId}/profileImage")
     public Media getPlayerProfileImage(@PathVariable long playerId) {
         Media playerImage = this.playerService.getProfileImage(playerId);
-        String mediaTypeValue = MediaType.IMAGE_PNG_VALUE;
-        if ( playerImage == null) {
-            // TODO: load default image
-        } else {
-            mediaTypeValue = playerImage.getMediaType();
-        }
-
         return playerImage;
     }
 
@@ -49,6 +45,12 @@ public class PlayerResource {
     public ResponseEntity<Media> setPlayerProfileImage(@PathVariable long playerId, @RequestBody Media image) {
         this.playerService.saveProfileImage(playerId, image);
         return new ResponseEntity<Media>(image, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/players/{playerId}/profileImage")
+    public ResponseEntity<Media> removePlayerProfileImage(@PathVariable long playerId) {
+        this.playerService.removeProfileImage(playerId);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping(value = "/players/{playerId}/recentGames")

@@ -26,6 +26,10 @@ export class PlayerService {
     return this.http.put<Media>(`${API_URL}/players/${player.playerId}/profileImage`, media);
   }
 
+  public deletePlayerProfileImage(player: Player) {
+    return this.http.delete<Media>(`${API_URL}/players/${player.playerId}/profileImage`);
+  }
+
   public createPlayer(player: Player) {
     return this.http.post<Player>(`${API_URL}/players`, player);
   }

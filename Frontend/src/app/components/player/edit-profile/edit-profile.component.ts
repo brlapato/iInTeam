@@ -35,19 +35,24 @@ export class EditProfileComponent implements OnInit {
     this.auth.playerId$.subscribe(
       (playerId:number | null) => {
         if (playerId) { 
-          this.playerService.retrievePlayerProfileImage(playerId).subscribe(
-            (data: Media) => {
-              if(data) {
-                this.profileImageSrc = this.sanitizer.sanitize(SecurityContext.HTML, 'data:' + data.mediaType + ';base64,' + data.file)?.toString();
-              }
-            }   
-          );
+          this.loadProfileImage(playerId);
+
           this.playerService.retrievePlayer(playerId).subscribe(
             (data:Player) => {this.player = data;}
           )
         }
       }
     )
+  }
+
+  loadProfileImage(playerId:number) {
+    this.playerService.retrievePlayerProfileImage(playerId).subscribe(
+      (data: Media) => {
+        if(data) {
+          this.profileImageSrc = this.sanitizer.sanitize(SecurityContext.HTML, 'data:' + data.mediaType + ';base64,' + data.file)?.toString();
+        }
+      }   
+    );
   }
 
   savePlayer() {
@@ -80,6 +85,11 @@ export class EditProfileComponent implements OnInit {
 
   deleteProfileImage() {
     if(confirm('Are you sure you want to remove your profile picture?')) {
+      this.playerService.deletePlayerProfileImage(this.player).subscribe(
+        (data: Media) => {
+          this.loadProfileImage(this.player.playerId);
+        }
+      );
     }
   }
 
