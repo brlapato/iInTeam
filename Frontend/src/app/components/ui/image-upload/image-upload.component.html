@@ -2,9 +2,17 @@
        (change)="onFileSelected($event)" #fileUpload>
 
 <div class="file-upload">
-  <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">Select File</button>
+  
+  <div style="text-align: right;">
+    <button type="button" class="btn btn-sm rounded-3 border" (click)="fileUpload.click()">
+      <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;">
+          <use xlink:href="assets/icons/bootstrap-icons.svg#file-image"/>
+      </svg>
+      Choose File
+    </button>
+  </div>
 
-  <div class="image-preview mb-3" *ngIf="previewUrl">
+  <div class="image-preview mb-3 mt-3" *ngIf="previewUrl" style="overflow: hidden;">
     <img [src]="previewUrl" height="300" />                 
   </div>
 

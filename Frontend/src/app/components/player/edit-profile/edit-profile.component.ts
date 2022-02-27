@@ -78,5 +78,10 @@ export class EditProfileComponent implements OnInit {
     }
   }
 
+  deleteProfileImage() {
+    if(confirm('Are you sure you want to remove your profile picture?')) {
+    }
+  }
+
 }
 

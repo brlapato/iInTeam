@@ -4,14 +4,25 @@
         <h2>{{player.firstName}} {{player.lastName}} Player Profile</h2>
         <form #profileForm="ngForm" id="profileForm" (ngSubmit)="!profileForm.invalid && savePlayer()"> 
             <div class="row">
-                <div class="col-md" style="max-width: 250px;">
-                    <h4>Profile Pic</h4>
-                    <img [src]="profileImageSrc" class=".img-fluid" style="max-width:200px;max-height:auto" />
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadImageModal">
-                        New Image
-                      </button>
+                <div class="col-md" style="max-width: 350px;text-align: center;">
+                    <h4 style="text-align: left;">Profile Pic</h4>
+                    
+                    <img [src]="profileImageSrc" class=".img-fluid" style="max-width:325px;max-height:auto" />
+                    <div style="max-width:325px;background-color: lightgrey; border-top: lightgrey;border-top-width: 3px;border-top-style: ridge;text-align:right">
+                        <button type="button" class="btn btn-sm rounded-3" data-bs-toggle="modal" data-bs-target="#uploadImageModal">
+                            <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;">
+                                <use xlink:href="assets/icons/bootstrap-icons.svg#upload"/>
+                            </svg>
+                          </button>
+                          <button type="button" class="btn btn-sm rounded-3" (click)="deleteProfileImage()">
+                            <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;">
+                                <use xlink:href="assets/icons/bootstrap-icons.svg#trash"/>
+                            </svg>
+                          </button>
+                    </div>
+                    
                 </div>
-                <div class="col-md" style="max-width: 500px;">
+                <div class="col-md" style="max-width: 400px;">
                     <h4>General</h4>
                     <div class="input-group input-group-sm">
                         <span class="input-group-text" style="width:100px">First Name</span>
@@ -39,7 +50,7 @@
                     </div>
                 </div>
                 <div class="col-md" style="max-width: 500px;">
-                    <h3>Sport Specific</h3>
+                    <h4>Sport Specific</h4>
                     <ng-container>
                         <h5 style="margin-top: 10px;"><input type="checkbox" [(ngModel)]="player.includeHockey" style="margin-right: 10px;">Hockey</h5>
                         <ng-container *ngIf="player.includeHockey && player.hockeyAttributes">
