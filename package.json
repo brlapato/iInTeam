@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@iplab/ngx-file-upload": "^3.3.3"
+  }
+}

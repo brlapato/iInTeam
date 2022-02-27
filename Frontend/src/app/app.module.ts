@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DataTablesModule } from "angular-datatables";
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './components/navigation/menu/menu.component';
@@ -46,7 +45,10 @@ import { SportIconComponent } from './components/ui/sport-icon/sport-icon.compon
 import { FullCalendarModule } from '@fullcalendar/angular'; 
 import dayGridPlugin from '@fullcalendar/daygrid'; 
 import interactionPlugin from '@fullcalendar/interaction';
-import { CalendarComponent } from './components/features/calendar/calendar.component'; 
+import { CalendarComponent } from './components/features/calendar/calendar.component';
+import { ImageUploadComponent } from './components/ui/image-upload/image-upload.component';
+
+
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -90,7 +92,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     EditProfileComponent,
     PagerComponent,
     SportIconComponent,
-    CalendarComponent
+    CalendarComponent,
+    ImageUploadComponent
   ],
   imports: [
     BrowserModule,

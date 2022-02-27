@@ -1,6 +1,7 @@
 package com.hockey43.iInTeam.dataServices;
 
 import com.hockey43.iInTeam.dataObjects.Media;
+import com.hockey43.iInTeam.dataObjects.MediaEntry;
 import com.hockey43.iInTeam.dataObjects.Player;
 import com.hockey43.iInTeam.dataObjects.TeamEvent;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyPlayerStats;
@@ -8,8 +9,12 @@ import com.hockey43.iInTeam.persistance.HibernateUtil;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -35,7 +40,7 @@ public class PlayerService implements IPlayerService {
     }
 
     @Override
-    public Media getProfileImage(Long playerId) {
+    public MediaEntry getProfileImage(Long playerId) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -43,17 +48,21 @@ public class PlayerService implements IPlayerService {
                 .setParameter("pid", playerId.toString())
                 .list();
 
-        Media playerImage;
+        MediaEntry playerImage;
         if (0 < players.size()) {
             Media playerImageTemp = players.get(0).getPlayerPicture();
             if (playerImageTemp == null) {
-                playerImage = null;
+                try {
+                    playerImage = new MediaEntry();
+                    playerImage.setDescription("Default Profile Image");
+                    playerImage.setFile(this.readFileBase64("images/emptyProfile.png"));
+                    playerImage.setMediaType(MediaType.IMAGE_PNG_VALUE);
+                } catch (IOException ex) {
+                    // If can't load the file, just return null
+                    playerImage = null;
+                }
             } else {
-                playerImage = new Media();
-                playerImage.setDescription(playerImageTemp.getDescription());
-                playerImage.setMediaType(playerImageTemp.getMediaType());
-                playerImage.setFile(playerImageTemp.getFile());
-                playerImage.setMediaId(playerImageTemp.getMediaId());
+                playerImage = new MediaEntry(playerImageTemp);
             }
 
         } else {
@@ -66,10 +75,39 @@ public class PlayerService implements IPlayerService {
     }
 
     @Override
+    public void saveProfileImage(long playerId, MediaEntry image) {
+        Player player = this.getPlayer(playerId);
+        Media imageMedia = new Media();
+        imageMedia.mergeMediaEntry(image);
+        imageMedia.setOwner(player);
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(imageMedia);
+        player.setPlayerPicture(imageMedia);
+        session.saveOrUpdate(player);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void removeProfileImage(long playerId) {
+        Player player = this.getPlayer(playerId);
+
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        player.setPlayerPicture(null);
+        session.saveOrUpdate(player);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
     public Player savePlayer(Player player) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        session.save(player);
+        session.saveOrUpdate(player);
         session.getTransaction().commit();
         LOG.debug(String.format("Player %s saved", player.getPlayerId()));
         session.close();
@@ -116,6 +154,13 @@ public class PlayerService implements IPlayerService {
 
         return player;
     }
+
+    private String readFileBase64(String filePath) throws IOException {
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        InputStream is = classloader.getResourceAsStream(filePath);
+        return Base64.getEncoder().encodeToString(is.readAllBytes());
+    }
+
 
 
 }

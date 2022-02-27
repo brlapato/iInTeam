@@ -16,7 +16,10 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.auth.getUserInfo().subscribe(
-      (response:UserInfo) => {this.userInfo = response}
+      (response:UserInfo) => {
+        this.userInfo = response;
+        this.auth.setUserInfoCache(this.userInfo);
+      }
     )
 
   }

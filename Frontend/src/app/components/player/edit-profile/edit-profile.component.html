@@ -1,25 +1,130 @@
 <div class="container-fluid px-1 px-md-3 py-2 py-md-3">
     <div class="container rounded-2 shadow bg-light pb-5">
         
-        <h1>{{player.firstName}} {{player.lastName}}</h1>
-        <div *ngIf="this.player.includeHockey && this.player.hockeyAttributes" class="border">
-            <p class="small">General</p> 
+        <h2>{{player.firstName}} {{player.lastName}} Player Profile</h2>
+        <form #profileForm="ngForm" id="profileForm" (ngSubmit)="!profileForm.invalid && savePlayer()"> 
             <div class="row">
-                <span class="col-sm">Height:</span> <span class="col-sm"> {{ player.heightFeet }}'-{{ player.heightInches }}" </span>
+                <div class="col-md" style="max-width: 350px;text-align: center;">
+                    <h4 style="text-align: left;">Profile Pic</h4>
+                    
+                    <img [src]="profileImageSrc" class=".img-fluid" style="max-width:325px;max-height:auto" />
+                    <div style="max-width:325px;background-color: lightgrey; border-top: lightgrey;border-top-width: 3px;border-top-style: ridge;text-align:right">
+                        <button type="button" class="btn btn-sm rounded-3" data-bs-toggle="modal" data-bs-target="#uploadImageModal">
+                            <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;">
+                                <use xlink:href="assets/icons/bootstrap-icons.svg#upload"/>
+                            </svg>
+                          </button>
+                          <button type="button" class="btn btn-sm rounded-3" (click)="deleteProfileImage()">
+                            <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;">
+                                <use xlink:href="assets/icons/bootstrap-icons.svg#trash"/>
+                            </svg>
+                          </button>
+                    </div>
+                    
+                </div>
+                <div class="col-md" style="max-width: 400px;">
+                    <h4>General</h4>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" style="width:100px">First Name</span>
+                        <input type="text" class="form-control" name="firstName" required="true" [(ngModel)]="player.firstName" >
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" style="width:100px">Last Name</span>
+                        <input type="text" class="form-control" name="lastName" required="true" [(ngModel)]="player.lastName" >
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" style="width:100px">Nickname</span>
+                        <input type="text" class="form-control" name="nickName" [(ngModel)]="player.nickName" >
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" style="width:100px">Height</span>
+                        <input type="number" class="form-control" name="heightFeet" style="text-align:right;max-width: 75px;" [(ngModel)]="player.heightFeet" >
+                        <span class="input-group-text" style="width:25px">'</span>
+                        <input type="number" class="form-control" name="heightInches" style="text-align:right;max-width: 75px;" [(ngModel)]="player.heightInches" >
+                        <span class="input-group-text" style="width:25px">"</span>
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" style="width:100px">Weight</span>
+                        <input type="number" class="form-control" name="weight" style="text-align:right;max-width: 75px;" [(ngModel)]="player.weight" >
+                        <span class="input-group-text" style="width:65px">lbs.</span>
+                    </div>
+                </div>
+                <div class="col-md" style="max-width: 500px;">
+                    <h4>Sport Specific</h4>
+                    <ng-container>
+                        <h5 style="margin-top: 10px;"><input type="checkbox" [(ngModel)]="player.includeHockey" style="margin-right: 10px;">Hockey</h5>
+                        <ng-container *ngIf="player.includeHockey && player.hockeyAttributes">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text" style="width:100px">Position</span>
+                                <input type="text" class="form-control" name="hockeyPosition"  [(ngModel)]="player.hockeyAttributes.position" >
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text" style="width:100px">Shoots</span>
+                                <input type="text" class="form-control" name="hockeyShot"  [(ngModel)]="player.hockeyAttributes.shot" >
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container >
+                        <h5 style="margin-top: 10px;"><input type="checkbox" style="margin-right: 10px;">Swimming</h5>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="width:100px">Strokes</span>
+                            <input type="text" class="form-control" name="swimEvents" >
+                        </div>
+                    </ng-container>
+                    <ng-container >
+                        <h5 style="margin-top: 10px;"><input type="checkbox" style="margin-right: 10px;">Climbing</h5>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="width:100px">Rating</span>
+                            <input type="text" class="form-control" name="swimEvents" >
+                        </div>
+                    </ng-container>
+                    <ng-container >
+                        <h5 style="margin-top: 10px;"><input type="checkbox" style="margin-right: 10px;"> Baseball</h5>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="width:100px">Bats</span>
+                            <input type="text" class="form-control" name="swimEvents" >
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="width:100px">Throws</span>
+                            <input type="text" class="form-control" name="swimEvents" >
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="width:100px">Position</span>
+                            <input type="text" class="form-control" name="swimEvents" >
+                        </div>
+                    </ng-container>
+                </div>
             </div>
-            <div class="row">
-                <span class="col-sm">Weight:</span> <span class="col-sm"> {{ player.weight }} lbs. </span>
+            <div class="row mt-5 ">
+                <div class="col d-flex justify-content-center">
+                    <button class="btn btn-success" type="submit">Save Profile</button>
+                </div>
+            </div>
+        </form>        
+    </div>
+</div>
+
+<div class="modal fade" #uploadImageModal id="uploadImageModal" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1" aria-labelledby="uploadImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Upload new profile image</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid mb-3">
+                    <span class="input-group-text input-group-sm" style="font-size: 0.9em;">Description (optional):</span>
+                    <textarea class="form-control" id="mediaDescription" rows="5" name="mediaDescription" aria-label="Media Description" [(ngModel)]="newProfileImage.description" style="font-size: 0.9em;"></textarea>
+                </div>
+                <div class="container-fluid mb-3 fileUploadPanel">
+                    <app-image-upload (fileSelected)="onFilesSelected($event)"></app-image-upload>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-sm" (click)="uploadProfileImage();">Upload Image</button>
+                <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
-        <div *ngIf="this.player.includeHockey && this.player.hockeyAttributes" class="border"> 
-            <p class="small">Hockey</p>
-            <div class="row">
-                <span class="col-sm">Position:</span> <span class="col-sm"> {{ player.hockeyAttributes.position }} </span>
-            </div>
-            <div class="row" >
-                <span class="col-sm">Shoots:</span> <span class="col-sm"> {{ player.hockeyAttributes.shot }} </span>
-            </div>
-        </div>
-        <img [src]="profileImageSrc" class=".img-fluid" style="max-width:200px;max-height:auto" />
     </div>
 </div>

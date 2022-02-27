@@ -14,6 +14,8 @@ export class MenuComponent implements OnInit {
   constructor(@Inject(DOCUMENT) public document: Document, public auth: AuthenticationService) { }
 
   public accountHasPlayer: boolean = false;
+  public playerInfoRetrieved: boolean = false;
+  public userInfo: UserInfo | null = null;
 
   ngOnInit(): void {
     this.auth.playerLoaded$.subscribe(
@@ -21,6 +23,7 @@ export class MenuComponent implements OnInit {
         if (playerId) {
           this.accountHasPlayer = true;
         }
+        this.playerInfoRetrieved = true;
       }
     )
 
@@ -28,11 +31,15 @@ export class MenuComponent implements OnInit {
       (playerId:number | null) => {
         if (playerId) {
           this.accountHasPlayer = true;
+          this.userInfo = this.auth.getUserInfoCache();
         } else {
           this.accountHasPlayer = false;
         }
+        this.playerInfoRetrieved = true;
       }
     )
+
+    
   }
 
 }

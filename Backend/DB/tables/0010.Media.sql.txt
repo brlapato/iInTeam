@@ -1,7 +1,10 @@
 CREATE TABLE `Media` (
   `MediaId` bigint NOT NULL AUTO_INCREMENT,
+  `PlayerId` bigint NOT NULL,
   `Description` varchar(500) DEFAULT NULL,
   `File` longtext,
   `MediaType` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`MediaId`)
+  KEY `FK_Media_PlayerId` (`PlayerId`),
+  CONSTRAINT `FK_Media_PlayerId` FOREIGN KEY (`PlayerId`) REFERENCES `Player` (`PlayerId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
