@@ -46,7 +46,7 @@ public class HockeyTeamService {
     public List<HockeyTeamSummary> getHockeyTeamSummaries(long playerId, boolean activeOnly)  {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        List<Long> teams = session.createQuery("SELECT T.teamId FROM Team T WHERE PlayerId = :pid AND (:activeOnly = false OR isActive = true)")
+        List<Long> teams = session.createQuery("SELECT t.teamId from HockeyTeam t WHERE PlayerId = :pid AND (:activeOnly = false OR t.isActive = true)")
                 .setParameter("pid", playerId)
                 .setParameter("activeOnly", activeOnly)
                 .list();

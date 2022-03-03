@@ -201,6 +201,7 @@ export class HockeyAttributes {
       targetTeam.level = copyTeam.level;
       targetTeam.nextGame = copyTeam.nextGame;
       targetTeam.season = copyTeam.season;
+      targetTeam.sport = copyTeam.sport;
       
       return targetTeam;
     }
@@ -239,9 +240,29 @@ export class HockeyAttributes {
     }
   }
 
-  export class HockeyTeamSummary {
+  export class TeamSummary {
     constructor(
       public teamName: string,
+      public sport: string,
+      public isActive: boolean,
+      public startDate: Date,
+      public org: Organization,
+      public season: string
+    ) {}
+
+    public static getDefault() {
+      return new TeamSummary("", "", false, new Date, new Organization("",""), "");
+    }
+  }
+
+  export class HockeyTeamSummary extends TeamSummary {
+    constructor(
+      public teamName: string,
+      public sport: string,
+      public isActive: boolean,
+      public startDate: Date,
+      public org: Organization,
+      public season: string,
       public regularPosition: string,
       public playerNumber: number,
       public record: WinRecord,
@@ -249,16 +270,16 @@ export class HockeyAttributes {
       public assists: number,
       public points: number,
       public shots: number,
-      public penaltyMin: number,
-      public nextGame: HockeyGame
-    ) {}
+      public penaltyMin: number
+    ) {
+      super(teamName, sport, isActive, startDate, org, season)
+    }
 
     public static getDefault() {
       return new HockeyTeamSummary(
-        "", "", -1,
+        "", "", false, new Date, new Organization("",""), "", "", -1,
         new WinRecord(0,0,0,0,0,0,0,0),
-        0,0,0,0,0, 
-        HockeyGame.getDefault()
+        0,0,0,0,0
       );
     }
   }
@@ -388,6 +409,61 @@ export class HockeyAttributes {
       return targetPractice;
     }
 
+  }
+
+
+  export class SwimTeam extends Team{
+    constructor(
+      public teamId: number,
+      public org: Organization,
+      public name: string,
+      public headCoach: string,
+      public assistantCoach1: string,
+      public assistantCoach2: string,
+      public active: boolean,
+      public startDate: Date,
+      public season: string,
+      public homePool: string,
+      public hometown: string,
+      public clubExcellenceLevel: string,
+      public clubRecognitionLevel: number
+    ) {super(teamId, "Swim", org, name,season, active,startDate);}
+
+    public static getDefault() {
+      return new SwimTeam(
+        -1, new Organization("",""),
+        "","","","",false,new Date(), "","","","",0
+      );
+    }
+
+    public static copy(copyTeam:SwimTeam) : SwimTeam {
+      return new SwimTeam(
+        copyTeam.teamId, copyTeam.org, copyTeam.name, copyTeam.headCoach, copyTeam.assistantCoach1, copyTeam.assistantCoach2,
+        copyTeam.active, copyTeam.startDate, copyTeam.season, copyTeam.homePool, copyTeam.hometown,
+        copyTeam.clubExcellenceLevel, copyTeam.clubRecognitionLevel
+      );
+    }
+
+    public static copyTo(copyTeam:SwimTeam, targetTeam:SwimTeam) : SwimTeam {
+      
+      targetTeam.teamId = copyTeam.teamId;
+      targetTeam.org = copyTeam.org;
+      targetTeam.name = copyTeam.name;
+      targetTeam.headCoach = copyTeam.headCoach;
+      targetTeam.assistantCoach1 = copyTeam.assistantCoach1;
+      targetTeam.assistantCoach2 = copyTeam.assistantCoach2;
+      targetTeam.active = copyTeam.active;
+      targetTeam.startDate = copyTeam.startDate;
+      targetTeam.sport = copyTeam.sport;
+
+      targetTeam.season = copyTeam.season;
+      targetTeam.homePool  = copyTeam.homePool;
+      targetTeam.hometown = copyTeam.hometown;
+      targetTeam.clubExcellenceLevel = copyTeam.clubExcellenceLevel;
+      targetTeam.clubRecognitionLevel = copyTeam.clubRecognitionLevel;
+      
+      return targetTeam;
+    }
   }
     
 

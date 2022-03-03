@@ -1,6 +1,7 @@
 package com.hockey43.iInTeam.dataObjects;
 
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeam;
+import com.hockey43.iInTeam.dataObjects.swim.SwimTeam;
 
 public final class TeamFactory {
     private static TeamFactory instance = new TeamFactory();
@@ -13,6 +14,9 @@ public final class TeamFactory {
         switch (teamSummary.getSport()) {
             case Hockey:
                 team = new HockeyTeam();
+                break;
+            case Swim:
+                team = new SwimTeam();
                 break;
         }
 

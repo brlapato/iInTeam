@@ -57,7 +57,7 @@ export class ClinicsComponent implements OnInit, OnDestroy {
     this.auth.playerId$.subscribe(
       (playerId:number | null) => {
         if (playerId) { 
-          this.clinicService.retrieveTeamList(playerId, true).subscribe(
+          this.clinicService.retrieveClinicList(playerId, true).subscribe(
             (data:Clinic[]) => {
               this.setStartingIndex(data);
               this.clinics = data;

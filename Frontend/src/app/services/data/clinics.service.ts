@@ -14,7 +14,7 @@ export class ClinicsService {
 
   }
 
-  public retrieveTeamList(playerId: number, includeCompleted: boolean) {
+  public retrieveClinicList(playerId: number, includeCompleted: boolean) {
     return this.http.get<Clinic[]>(`${API_URL}/players/${playerId}/clinics?includeCompleted=${includeCompleted}`);
   }
 

@@ -10,9 +10,9 @@ import { HockeyTeamDetailComponent } from '../hockey-team-detail/hockey-team-det
 export class TeamDetailComponent implements OnInit, OnChanges {
 
   @Input() team?: Team = Team.getDefault();
-  @ViewChild('hockeyDetail') hockeyDetail: HockeyTeamDetailComponent | undefined;
-
-  public hockeyTeam?: HockeyTeam = HockeyTeam.getDefault();
+  
+  //public team?: Team = null;
+  
 
   constructor() { }
 
@@ -21,9 +21,9 @@ export class TeamDetailComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.team?.sport==="Hockey") {
-      this.hockeyTeam = this.team as HockeyTeam;
-    }
+    //if (this.team?.sport==="Hockey") {
+    //  this.team = this.team as HockeyTeam;
+    //}
 }
 
 }

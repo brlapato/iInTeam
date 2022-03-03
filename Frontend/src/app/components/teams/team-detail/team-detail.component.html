@@ -1,2 +1,3 @@
 
-<app-hockey-team-detail *ngIf="this.team !== undefined && this.team.sport === 'Hockey'" [team]="this.hockeyTeam"></app-hockey-team-detail>
+<app-hockey-team-detail *ngIf="this.team !== undefined && this.team.sport === 'Hockey'" [team]="$any(this.team)"></app-hockey-team-detail>
+<app-swim-team-detail *ngIf="this.team !== undefined && this.team.sport === 'Swim'" [team]="$any(this.team)"></app-swim-team-detail>
