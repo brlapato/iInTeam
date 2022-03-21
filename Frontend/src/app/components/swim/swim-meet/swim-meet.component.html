@@ -1,0 +1,98 @@
+<div class="container h-100 rounded-3 bg-white mt-md-3" style="padding: 15px">
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex justify-content-end">
+                <button id=buttonBack class="border-0 bg-white" type="button"  (click)="navigateBack();">
+                    <svg class="bi" width="28" height="28" fill="currentColor">
+                        <use xlink:href="assets/icons/bootstrap-icons.svg#arrow-left"/>
+                    </svg>
+                </button>
+                <button *ngIf="savedSwimMeet.meetId >= 0" id=buttonDelete class="border-0 bg-white" type="button" (click)="deleteSwimMeet(savedSwimMeet)">
+                    <svg class="bi" width="20" height="20" fill="currentColor">
+                        <use xlink:href="assets/icons/bootstrap-icons.svg#trash"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2>
+                    <ng-container *ngIf="savedSwimMeet.meetId == -1">New Meet</ng-container> <ng-container *ngIf="savedSwimMeet.meetId >= 0">{{savedSwimMeet.name}}</ng-container>               
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <h4>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            Meet Info
+                        </div>
+                        <div class="pb-1">
+                            <app-edit-buttons [canSwitchEditMode]="canSwitchEditMode" [isEditing]="isEditing" [isSaving]="isSaving" saveSubmitsForm="swimMeetForm" 
+                                        (editClick)="editSwimMeet()" (cancelClick)="cancelSwimMeetEdit()"></app-edit-buttons>
+                        </div>
+                    </div>
+                </h4>
+                <ng-container *ngIf="!isEditing">
+                    <h6><span style="font-weight: 600;">Date: </span>{{savedSwimMeet.startDateTime | date:'MMM d, y, h:mm a'}}-{{savedSwimMeet.endDateTime | date:'shortTime'}}</h6>
+                    <h6><span style="font-weight: 600;">Location: </span>{{savedSwimMeet.location}} <span *ngIf="savedSwimMeet.locationDetail"> | {{savedSwimMeet.locationDetail}}</span></h6>
+                    <h6 *ngIf="savedSwimMeet.opponent1 || savedSwimMeet.opponent2"><span style="font-weight: 600;">Opponents: </span>{{savedSwimMeet.opponent1}} <span *ngIf="savedSwimMeet.opponent2">, {{savedSwimMeet.opponent2}}</span></h6>
+                    <h6><span style="font-weight: 600;">Pre-meet Notes: </span>{{savedSwimMeet.preMeetNotes}}</h6>
+                    <h6><span style="font-weight: 600;">Post-meet Notes: </span>{{savedSwimMeet.postMeetNotes}}</h6>
+                </ng-container>
+                <ng-container *ngIf="isEditing">
+                    <form #swimMeetForm="ngForm" id="swimMeetForm" (ngSubmit)="!swimMeetForm.invalid && saveSwimMeet()">
+                        <div class="input-group input-group-sm ">
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px">Name</span>
+                            <input type="text" class="form-control" name="meetName" required="required" [(ngModel)]="editedSwimMeet.name" >
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px">Start Date</span>
+                            <input type="date" class="form-control"  name="startDate" required="required" [ngModel]="startDate | date:'yyyy-MM-dd'" (ngModelChange)="newStartDateStr = $event">
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px">Start</span>
+                            <input type="time" class="form-control"  name="startTime" id="startTime" required="required" [ngModel]="startTimeStr" (ngModelChange)="startTimeStr = $event">
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px">End</span>
+                            <input type="time" class="form-control"  name="endTime" id="endTime" required="required" [ngModel]="endTimeStr" (ngModelChange)="endTimeStr = $event">
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px">Opponent 1</span>
+                            <input type="text" class="form-control" name="opponent1" [(ngModel)]="editedSwimMeet.opponent1" >
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px">Opponent 2</span>
+                            <input type="text" class="form-control" name="opponent2" [(ngModel)]="editedSwimMeet.opponent2" >
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px">Location</span>
+                            <input type="text" class="form-control" name="location" [(ngModel)]="editedSwimMeet.location" >
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px"></span>
+                            <input type="text" class="form-control" name="locationDetail" [(ngModel)]="editedSwimMeet.locationDetail" >
+                        </div>
+                        <div class="container-fluid p-0">
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;">Pre-Meet Notes:</span>
+                            <textarea class="form-control" id="preMeetNotes" rows="5" name="preMeetNotes" aria-label="PostMeet Notes" [(ngModel)]="editedSwimMeet.preMeetNotes" style="font-size: 0.9em;"></textarea>
+                        </div>
+                        <div class="container-fluid p-0">
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;">Post-Meet Notes:</span>
+                            <textarea class="form-control" id="postMeetNotes" rows="5" name="postMeetNotes" aria-label="PostMeet Notes" [(ngModel)]="editedSwimMeet.postMeetNotes" style="font-size: 0.9em;"></textarea>
+                        </div>
+                        
+                    </form>
+                </ng-container>
+            </div>
+            <div class="col">
+                <h4>Events</h4>
+            </div>
+        </div>
+    </div>
+    <div class="container bg-white rounded-3 shadow-lg p-0 pt-3">
+
+        
+               
+    </div>
+</div>

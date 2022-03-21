@@ -465,5 +465,42 @@ export class HockeyAttributes {
       return targetTeam;
     }
   }
+
+  export class SwimMeet {
+    constructor(
+      public teamId: number,
+      public meetId: number,
+      public name: string,
+      public startDateTime: Date,
+      public endDateTime: Date,
+      public opponent1: string,
+      public opponent2: string,
+      public location: string,
+      public locationDetail: string,
+      public preMeetNotes: string,
+      public postMeetNotes: string
+    ) { }
+
+    public static getDetault() {
+      return new SwimMeet(-1, -1, "", new Date(), new Date(), "", "", "", "", "","");
+    }
+
+
+
+    public static copyTo(source:SwimMeet, target: SwimMeet) {
+        target.teamId = source.teamId;
+        target.meetId = source.meetId;
+        target.name = source.name;
+        target.startDateTime = source.startDateTime;
+        target.endDateTime = source.endDateTime;
+        target.opponent1 = source.opponent1;
+        target.opponent2 = source.opponent2;
+        target.location = source.location;
+        target.locationDetail = source.locationDetail;
+        target.preMeetNotes = source.preMeetNotes;
+        target.postMeetNotes = source.postMeetNotes;
+
+    }
+  }
     
 

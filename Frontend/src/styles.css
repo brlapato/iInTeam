@@ -65,6 +65,12 @@ h5 {
   color: var(--primaryColor);
 }
 
+h6 {
+  font-weight: 400;
+  font-size: 0.8em;
+  color: var(--primaryColor);
+}
+
 .rounded-big {
   border-radius: 1em;
 }
@@ -72,6 +78,23 @@ h5 {
 .rounded-bottom-big {
   border-end-end-radius: 1em;
   border-end-start-radius: 1em;
+}
+
+.buttonLabel {
+  font-size: 0.9em;
+  font-weight: 200;
+  margin-left: 4px;
+}
+
+.textButton {
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--primaryColor);
+  border-radius: 4px;
+  
+  color: var(--primaryColor);
+  background-color: transparent;
+  margin-left: 3px;
 }
 
 body {

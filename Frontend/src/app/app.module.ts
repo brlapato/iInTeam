@@ -46,6 +46,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarComponent } from './components/features/calendar/calendar.component';
 import { ImageUploadComponent } from './components/ui/image-upload/image-upload.component';
 import { SwimTeamDetailComponent } from './components/swim/swim-team-detail/swim-team-detail.component';
+import { SwimMeetComponent } from './components/swim/swim-meet/swim-meet.component';
+import { EditButtonsComponent } from './components/ui/edit-buttons/edit-buttons.component';
+import { SwimMeetListItemComponent } from './components/swim/swim-meet-list-item/swim-meet-list-item.component';
 
 
 
@@ -92,7 +95,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SportIconComponent,
     CalendarComponent,
     ImageUploadComponent,
-    SwimTeamDetailComponent
+    SwimTeamDetailComponent,
+    SwimMeetComponent,
+    EditButtonsComponent,
+    SwimMeetListItemComponent
   ],
   imports: [
     BrowserModule,

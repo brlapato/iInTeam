@@ -1,0 +1,23 @@
+<div class="container p-2" *ngIf="meet">
+    <div class="row">
+        <div class="col" style="font-weight: 700;">
+            <span>{{meet.name}}</span>
+            <span>
+                <button id=buttonEdit (click)="editMeet(meet)" class="border-0" style="background-color: transparent;">
+                    <svg class="bi" width="14" height="14" fill="none">
+                        <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
+                    </svg>
+                </button>
+                <button id=buttonDelete (click)="deleteMeet(meet)" class="border-0" style="background-color: transparent;">
+                    <svg class="bi" width="15" height="15" fill="currentColor">
+                        <use xlink:href="assets/icons/bootstrap-icons.svg#trash"/>
+                    </svg>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="row" style="font-style: italic;font-size: 0.9em;">
+        <div class="col-md" >{{meet.startDateTime | date:'MMM d, y, h:mm a'}}-{{meet.endDateTime | date:'shortTime'}}</div>
+        <div class="col-md">{{meet.location}} <span *ngIf="meet.locationDetail"> ({{meet.locationDetail}})</span></div>
+    </div>
+</div>  

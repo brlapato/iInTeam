@@ -10,22 +10,23 @@ export class PagerComponent implements OnInit, OnChanges {
   @Input() currentPage: number = 1;
   @Input() pageSize: number = 5;
   @Input() sourceData: Array<any> = [];
-  @Input() startingItemIndex: number = -1;
+  @Input() startingItemIndex: number = 0;
   @Input() showItemCount: boolean = true;
   
   @Output() pagedItemsChanged = new EventEmitter<Array<any>>();
 
   public isFirstPage: boolean = true;
   public isLastPage: boolean = true;
-  public firstIndex: number = -1;
-  public lastIndex: number = -1;
-  public itemCount: number = -1;
+  public firstIndex: number = 0;
+  public lastIndex: number = 0;
+  public itemCount: number = 0;
 
   constructor() { }
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.startingItemIndex && changes.startingItemIndex.currentValue)  {
+    console.log(changes);
+    if (changes.startingItemIndex)  {
       this.setStartPage(changes.startingItemIndex.currentValue);
     }
     this.pageData();
@@ -38,13 +39,13 @@ export class PagerComponent implements OnInit, OnChanges {
   }
 
   setStartPage(startingIndex: number) {
-    if (startingIndex < 0) {
+    if (startingIndex <= 0) {
       startingIndex = 0;
     } else if (startingIndex >= this.sourceData.length) {
       startingIndex = this.sourceData.length - 1;
     }
 
-    this.currentPage = Math.floor(startingIndex / this.pageSize) + 1;
+    this.currentPage = Math.floor(startingIndex / this.pageSize) + 1;    
   }
 
   pageData(){
@@ -52,6 +53,7 @@ export class PagerComponent implements OnInit, OnChanges {
     if(this.sourceData) {
       let startIndex = (this.currentPage - 1) * this.pageSize;
       let endIndex = startIndex + this.pageSize;
+
 
       if(endIndex > this.sourceData.length) { 
         endIndex = this.sourceData.length 
