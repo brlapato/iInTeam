@@ -14,7 +14,7 @@ export class PracticeDisplayComponent implements OnChanges {
   @Input() teamId: number = -1;
   public practices: Practice[] = [];
   public displayItems: Practice[] = [];
-  public startingDisplayIndex = 1;
+  public startingDisplayIndex = 0;
 
   public editPractice: Practice = Practice.getDefault();
 
@@ -56,7 +56,7 @@ export class PracticeDisplayComponent implements OnChanges {
 
   public setStartingIndex(practices: Practice[]) {
     if (practices.length == 0) {
-      this.startingDisplayIndex = -1;
+      this.startingDisplayIndex = 0;
     } else {
       let currentDate = new Date();
       for (let i=0; i < practices.length; i++) {

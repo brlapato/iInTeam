@@ -24,6 +24,8 @@
         <mapping class="com.hockey43.iInTeam.dataObjects.Clinic" />
         <mapping class="com.hockey43.iInTeam.dataObjects.Practice" />
         <mapping class="com.hockey43.iInTeam.dataObjects.hockey.HockeyAttributes" />
+        <mapping class="com.hockey43.iInTeam.dataObjects.swim.SwimTeam" />
+        <mapping class="com.hockey43.iInTeam.dataObjects.swim.SwimMeet" />
     </session-factory>
 
 </hibernate-configuration>

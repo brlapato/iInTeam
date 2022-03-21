@@ -1,0 +1,18 @@
+<button id=buttonEdit class="shadow-sm"  [class.textButton]="displayLabels" (click)="editClick.emit($event)" *ngIf="canSwitchEditMode && !isEditing">
+    <svg class="bi" width="14" height="14" fill="none">
+        <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
+    </svg>
+    <span *ngIf="displayLabels" class="buttonLabel">Edit</span>
+</button>
+<button id=buttonSave class="shadow-sm" [attr.form]="saveSubmitsForm" [type]="saveSubmitsForm.length > 0 ? 'submit' : 'button'"   [class.textButton]="displayLabels" (click)="saveClick.emit($event)" *ngIf="isEditing">
+    <svg class="bi" width="14" height="14" fill="none">
+        <use xlink:href="assets/icons/bootstrap-icons.svg#save"/>
+    </svg>
+    <span *ngIf="displayLabels" class="buttonLabel">Save</span>
+</button>
+<button id=buttonCancel class="shadow-sm" [class.textButton]="displayLabels" (click)="cancelClick.emit($event)" *ngIf="canSwitchEditMode && isEditing">
+    <svg class="bi" width="14" height="14" fill="none">
+        <use xlink:href="assets/icons/bootstrap-icons.svg#x-lg"/>
+    </svg>
+    <span *ngIf="displayLabels" class="buttonLabel">Cancel</span>
+</button>

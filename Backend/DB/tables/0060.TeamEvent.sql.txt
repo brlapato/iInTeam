@@ -4,5 +4,6 @@ CREATE TABLE `TeamEvent` (
   `LocationDetail` varchar(255) DEFAULT NULL,
   `startDateTime` datetime NOT NULL,
   `endDateTime` DATETIME NULL DEFAULT NULL,
+  `TeamId` bigint NOT NULL,
   PRIMARY KEY (`EventId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

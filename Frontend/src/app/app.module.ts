@@ -13,8 +13,6 @@ import { WelcomeComponent } from './components/navigation/welcome/welcome.compon
 import { API_URL } from 'src/environments/environment';
 import { ProfileSmallComponent } from './components/player/profile-small/profile-small.component';
 import { SecurePipe } from './pipes/secure.pipe';
-import { TeamSummaryComponent } from './components/teams/team-summary/team-summary.component';
-import { TeamSummaryListComponent } from './components/teams/team-summary-list/team-summary-list.component';
 import { TeamDetailComponent } from './components/teams/team-detail/team-detail.component';
 import { HockeyTeamDetailComponent } from './components/teams/hockey-team-detail/hockey-team-detail.component';
 import { TeamRecordComponent } from './components/teams/team-record/team-record.component';
@@ -47,6 +45,11 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarComponent } from './components/features/calendar/calendar.component';
 import { ImageUploadComponent } from './components/ui/image-upload/image-upload.component';
+import { SwimTeamDetailComponent } from './components/swim/swim-team-detail/swim-team-detail.component';
+import { SwimMeetComponent } from './components/swim/swim-meet/swim-meet.component';
+import { EditButtonsComponent } from './components/ui/edit-buttons/edit-buttons.component';
+import { SwimMeetListItemComponent } from './components/swim/swim-meet-list-item/swim-meet-list-item.component';
+
 
 
 
@@ -64,9 +67,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TeamsComponent,
     WelcomeComponent,
     ProfileSmallComponent,
-    SecurePipe,
-    TeamSummaryComponent,
-    TeamSummaryListComponent,
+    SecurePipe,    
     TeamDetailComponent,
     HockeyTeamDetailComponent,
     TeamRecordComponent,
@@ -93,7 +94,11 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PagerComponent,
     SportIconComponent,
     CalendarComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
+    SwimTeamDetailComponent,
+    SwimMeetComponent,
+    EditButtonsComponent,
+    SwimMeetListItemComponent
   ],
   imports: [
     BrowserModule,
