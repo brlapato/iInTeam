@@ -98,7 +98,7 @@ public class SwimTeamService {
     public List<SwimMeet> getSwimMeets(long teamId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        List<SwimMeet> meets = session.createQuery("SELECT sm from SwimMeet sm INNER JOIN sm.ownerTeam t WHERE t.teamId = :tid")
+        List<SwimMeet> meets = session.createQuery("SELECT sm from SwimMeet sm INNER JOIN sm.ownerTeam t WHERE t.teamId = :tid ORDER BY startDateTime ASC")
                 .setParameter("tid", teamId)
                 .list();
 
