@@ -13,8 +13,11 @@ import com.hockey43.iInTeam.dataServices.swim.SwimTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +27,11 @@ public class SwimTeamResource {
     @Autowired
     private SwimTeamService swimTeamService;
 
+    @PreAuthorize("@authenticator.userCanAccessTeam(#principal.getName(), #teamId) && @authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @PutMapping("/players/{playerId}/SwimTeams/{teamId}")
     public ResponseEntity<SwimTeamSummary> updateSwimTeam(
+            Principal principal,
+            @PathVariable long playerId,
             @PathVariable long teamId,
             @RequestBody SwimTeamSummary teamSummary
     ) {
@@ -42,8 +48,11 @@ public class SwimTeamResource {
         return new ResponseEntity<SwimTeamSummary>(updatedTeamSummary, HttpStatus.OK);
     }
 
+    @PreAuthorize("@authenticator.userCanAccessTeam(#principal.getName(), #teamId) && @authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @GetMapping("/players/{playerId}/SwimTeams/{teamId}/meets")
     public List<SwimMeetSheet> getSwimMeets(
+            Principal principal,
+            @PathVariable long playerId,
             @PathVariable long teamId
     ) {
         List<SwimMeet> meets = this.swimTeamService.getSwimMeets(teamId);
@@ -55,8 +64,11 @@ public class SwimTeamResource {
         return meetSheets;
     }
 
+    @PreAuthorize("@authenticator.userCanAccessTeamEvent(#principal.getName(), #meetId) && @authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @GetMapping("/players/{playerId}/SwimTeams/{teamId}/meets/{meetId}")
     public SwimMeetSheet getSwimMeet(
+            Principal principal,
+            @PathVariable long playerId,
             @PathVariable long meetId
     ) {
         SwimMeet meet = this.swimTeamService.getSwimMeet(meetId);
@@ -64,8 +76,11 @@ public class SwimTeamResource {
         return new SwimMeetSheet(meet);
     }
 
+    @PreAuthorize("@authenticator.userCanAccessTeamEvent(#principal.getName(), #meetId) && @authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @PutMapping("/players/{playerId}/SwimTeams/{teamId}/meets/{meetId}")
     public ResponseEntity<SwimMeetSheet> updateSwimMeet(
+            Principal principal,
+            @PathVariable long playerId,
             @PathVariable long meetId,
             @RequestBody SwimMeetSheet meetSheet
     ) {
@@ -83,8 +98,11 @@ public class SwimTeamResource {
         return new ResponseEntity<SwimMeetSheet>(updatedSwimMeetSheet, HttpStatus.OK);
     }
 
+    @PreAuthorize("@authenticator.userCanAccessTeam(#principal.getName(), #teamId) && @authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @PostMapping("/players/{playerId}/SwimTeams/{teamId}/meets")
     public ResponseEntity<SwimMeetSheet> createSwimMeet(
+            Principal principal,
+            @PathVariable long playerId,
             @PathVariable long teamId,
             @RequestBody SwimMeetSheet meetSheet
     ) {
@@ -102,8 +120,11 @@ public class SwimTeamResource {
         return new ResponseEntity<SwimMeetSheet>(updatedSwimMeetSheet, HttpStatus.OK);
     }
 
+    @PreAuthorize("@authenticator.userCanAccessTeamEventEvent(#principal.getName(), #meetId) && @authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @DeleteMapping("/players/{playerId}/SwimTeams/{teamId}/meets/{meetId}")
     public ResponseEntity<HockeyGameSheet> deleteSwimMeet(
+            Principal principal,
+            @PathVariable long playerId,
             @PathVariable long meetId
     ) {
         this.swimTeamService.deleteSwimMeet(meetId);

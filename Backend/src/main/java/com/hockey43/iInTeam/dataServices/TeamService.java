@@ -2,6 +2,7 @@ package com.hockey43.iInTeam.dataServices;
 
 import com.hockey43.iInTeam.dataObjects.Org;
 import com.hockey43.iInTeam.dataObjects.Team;
+import com.hockey43.iInTeam.dataObjects.TeamEvent;
 import com.hockey43.iInTeam.persistance.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,23 @@ public class TeamService {
 
         if(teams.size() > 0) {
             return teams.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    public TeamEvent getTeamEventById(long teamEventId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List<TeamEvent> teamEvents = session.createQuery("from TeamEvents t WHERE t.teamEventId = :teamEventId")
+                .setParameter("teamEventId", teamEventId)
+                .list();
+
+        session.getTransaction().commit();
+        session.close();
+
+        if(teamEvents.size() > 0) {
+            return teamEvents.get(0);
         } else {
             return null;
         }
