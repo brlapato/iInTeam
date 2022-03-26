@@ -119,9 +119,6 @@ export class SwimMeetComponent implements OnInit {
         }
       }
     )
-
-    
-    
   }
 
   public cancelSwimMeetEdit() {
@@ -141,7 +138,7 @@ export class SwimMeetComponent implements OnInit {
                 (data: any) => {
                   this.navigateBack();
                 }
-              );;
+              );
             }
         }
       );

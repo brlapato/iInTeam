@@ -35,11 +35,11 @@
                     </div>
                 </h4>
                 <ng-container *ngIf="!isEditing">
-                    <h6><span style="font-weight: 600;">Date: </span>{{savedSwimMeet.startDateTime | date:'MMM d, y, h:mm a'}}-{{savedSwimMeet.endDateTime | date:'shortTime'}}</h6>
-                    <h6><span style="font-weight: 600;">Location: </span>{{savedSwimMeet.location}} <span *ngIf="savedSwimMeet.locationDetail"> | {{savedSwimMeet.locationDetail}}</span></h6>
-                    <h6 *ngIf="savedSwimMeet.opponent1 || savedSwimMeet.opponent2"><span style="font-weight: 600;">Opponents: </span>{{savedSwimMeet.opponent1}} <span *ngIf="savedSwimMeet.opponent2">, {{savedSwimMeet.opponent2}}</span></h6>
-                    <h6><span style="font-weight: 600;">Pre-meet Notes: </span>{{savedSwimMeet.preMeetNotes}}</h6>
-                    <h6><span style="font-weight: 600;">Post-meet Notes: </span>{{savedSwimMeet.postMeetNotes}}</h6>
+                    <app-text-field labelText="Date">{{savedSwimMeet.startDateTime | date:'MMM d, y, h:mm a'}}-{{savedSwimMeet.endDateTime | date:'shortTime'}}</app-text-field>
+                    <app-text-field labelText="Location">{{savedSwimMeet.location}} <span *ngIf="savedSwimMeet.locationDetail"> | {{savedSwimMeet.locationDetail}}</span></app-text-field>
+                    <app-text-field *ngIf="savedSwimMeet.opponent1 || savedSwimMeet.opponent2" labelText="Opponents">{{savedSwimMeet.opponent1}} <span *ngIf="savedSwimMeet.opponent2">, {{savedSwimMeet.opponent2}}</span></app-text-field>                    
+                    <app-text-field *ngIf="savedSwimMeet.preMeetNotes" labelText="Pre-meet Notes">{{savedSwimMeet.preMeetNotes}}</app-text-field>
+                    <app-text-field *ngIf="savedSwimMeet.postMeetNotes" labelText="Post-meet Notes">{{savedSwimMeet.postMeetNotes}}</app-text-field>
                 </ng-container>
                 <ng-container *ngIf="isEditing">
                     <form #swimMeetForm="ngForm" id="swimMeetForm" (ngSubmit)="!swimMeetForm.invalid && saveSwimMeet()">

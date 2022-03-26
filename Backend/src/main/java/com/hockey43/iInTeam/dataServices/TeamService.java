@@ -49,7 +49,7 @@ public class TeamService {
     public TeamEvent getTeamEventById(long teamEventId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        List<TeamEvent> teamEvents = session.createQuery("from TeamEvents t WHERE t.teamEventId = :teamEventId")
+        List<TeamEvent> teamEvents = session.createQuery("from TeamEvent t WHERE t.eventId = :teamEventId")
                 .setParameter("teamEventId", teamEventId)
                 .list();
 

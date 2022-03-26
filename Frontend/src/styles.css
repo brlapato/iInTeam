@@ -67,7 +67,7 @@ h5 {
 
 h6 {
   font-weight: 400;
-  font-size: 0.8em;
+  font-size: 0.9em;
   color: var(--primaryColor);
 }
 
@@ -81,20 +81,34 @@ h6 {
 }
 
 .buttonLabel {
-  font-size: 0.9em;
-  font-weight: 200;
   margin-left: 4px;
 }
 
 .textButton {
   border-style: solid;
   border-width: 1px;
-  border-color: var(--primaryColor);
+  margin-bottom: 3px;
   border-radius: 4px;
-  
+  border-color: var(--lightAccentColor);
   color: var(--primaryColor);
   background-color: transparent;
-  margin-left: 3px;
+  padding: 5px;
+  font-size: 0.95em;
+  font-weight: 600;
+  font-size: 0.85em;
+}
+
+.iconButton {
+  border-style: none;
+  border-width: 1px;
+  
+  border-radius: 4px;
+  color: white;
+  background-color: rgb(128, 128, 128);
+  font-size: 0.95em;
+  font-weight: 600;
+  font-size: 0.85em;
+  padding: 3px;
 }
 
 body {

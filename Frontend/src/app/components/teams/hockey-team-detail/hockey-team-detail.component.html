@@ -22,25 +22,21 @@
 
         <div class="row my-2 mx-3 ">
             <div class="col-md-6">
-                <div class="" *ngIf="team.headCoach">Head Coach: {{team.headCoach}}</div>
-                <div class="" *ngIf="team.assistantCoach1">Asst Coach: {{team.assistantCoach1}}</div>
-                <div class="" *ngIf="team.assistantCoach2">Asst Coach: {{team.assistantCoach2}}</div>
-                <div class="" *ngIf="team.manager">Manager: {{team.manager}}</div>
+                <app-text-field *ngIf="team.headCoach" labelText="Head Coach">{{team.headCoach}}</app-text-field>
+                <app-text-field *ngIf="team.assistantCoach1" labelText="Assistant Coach">{{team.assistantCoach1}}</app-text-field>
+                <app-text-field *ngIf="team.assistantCoach2" labelText="Assistant Coach">{{team.assistantCoach2}}</app-text-field>
+                <app-text-field *ngIf="team.manager" labelText="Manager">{{team.manager}}</app-text-field>
                 <app-player-stats [teamId]="this.team.teamId" [displayMode]="'TeamStats'" ></app-player-stats>
                 <app-team-record [teamId]="this.team.teamId"></app-team-record>
                 <app-practice-display [teamId]="this.team.teamId"></app-practice-display>              
             </div>
             <div class="col-md">
-                <h3><div class="row justify-content-between p-0 pt-3">
-                    <div class="col-3  d-flex align-items-end mb-2">Games</div>
-                    <div class="col-5 mb-2">
-                        <button class="btn btn-md bg-white rounded-3 shadow-sm border" style="font-size:0.9em;" (click)="addGame()">
-                            <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;">
-                                <use xlink:href="assets/icons/bootstrap-icons.svg#plus-lg"/>
-                            </svg>
-                            New Game
-                        </button>
-                    </div>
+                <h3>
+                    <div class="d-flex justify-content-between p-0 pt-3 mb-2">
+                        <div>Games</div>
+                        <div class="me-3">
+                            <app-tool-button (click)="addGame()" iconHref="assets/icons/bootstrap-icons.svg#plus-lg" labelText="Add Game"></app-tool-button>
+                        </div>
                     </div>
                 </h3>
                 <div class="row d-flex flex-grow-1 p-0" style="margin-top: 10px;overflow-y: visible;">
