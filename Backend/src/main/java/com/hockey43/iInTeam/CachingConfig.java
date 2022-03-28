@@ -23,6 +23,8 @@ public class CachingConfig {
                 new ConcurrentMapCache("upcomingHockeyGames"),
                 new ConcurrentMapCache("recentHockeyGames"),
                 new ConcurrentMapCache("hockeyGamesForPlayer"),
+                new ConcurrentMapCache("getHockeyTeamSummary"),
+                new ConcurrentMapCache("getHockeyTeam"),
                 new ConcurrentMapCache("hockeyGamesForTeam")));
         return cacheManager;
 

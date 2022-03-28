@@ -1,13 +1,17 @@
-<button id=buttonCommand class="shadow" 
-        [class.textButton]="displayLabels" 
-        [class.iconButton]="!displayLabels"
-        [attr.form]="submitsFormName" 
-        [type]="submitsFormName.length > 0 ? 'submit' : 'button'"
-        (click)="click.emit($event)"
-        (mouseenter)="mouseEnter($event)"
-        (mouseleave)="mouseLeave($event)">
-    <svg class="bi" [attr.width]="iconWidth" [attr.height]="iconHeight" fill="none" *ngIf="iconHref">
-        <use [attr.xlink:href]="iconHref" />
-    </svg>
-    <span *ngIf="displayLabels" class="buttonLabel">{{labelText}}</span>
-</button>
+<div >
+    <button id=buttonCommand class="d-flex shadow" 
+            [class.textButton]="displayLabels" 
+            [class.iconButton]="!displayLabels"
+            [attr.form]="submitsFormName" 
+            [type]="submitsFormName.length > 0 ? 'submit' : 'button'"
+            (click)="click.emit($event)"
+            (mouseenter)="mouseEnter($event)"
+            (mouseleave)="mouseLeave($event)"
+            style="align-items: center; justify-content: center;"
+            >
+        <svg class="bi" [attr.width]="iconWidth" [attr.height]="iconHeight" fill="none" *ngIf="iconHref">
+            <use [attr.xlink:href]="iconHref" />
+        </svg>
+        <span *ngIf="displayLabels" class="buttonLabel">{{labelText}}</span>
+    </button>
+</div>

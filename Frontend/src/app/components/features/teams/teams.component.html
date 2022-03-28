@@ -7,20 +7,37 @@
                         <div class="">Teams</div>
                         <div class="me-3">
                             <app-tool-button data-bs-target="#addTeamModal" data-bs-toggle="modal" (click)="onAddTeamOpened()"
-                                iconHref="assets/icons/bootstrap-icons.svg#plus-lg" labelText="Add Team"></app-tool-button>
+                                iconHref="assets/icons/bootstrap-icons.svg#plus-circle-fill" labelText="Add Team"></app-tool-button>
                         </div>
                     </div>
                 </h3>
-                <div class="container p-1">
-                    <div *ngFor="let team of teamList" 
-                            class="container border-bottom p-2" 
-                            [class.bg-secondary]="team === selectedTeam"  
-                            [class.text-white]="team === selectedTeam"
-                            (click)="onSelectTeam(team)"
-                            style="cursor: pointer; color: var(--primaryColor)">
-                        {{team.season}} {{ team.name }} 
+                <div class="btn-group-sm d-flex justify-content-end mb-1"  role="group" aria-label="groupBySelection">
+                    <input type="radio" class="btn-check" name="btnRadio" id="btnGroupActive" autocomplete="off" [checked]="isGroupBySelected('active')">
+                    <label class="btn btn-outline-secondary border-0" style="font-size: 0.9em;" for="btnGroupActive" (click)="setGrouping(['active', 'ASC'])">Active</label>
+
+                    <input type="radio" class="btn-check" name="btnRadio" id="btnGroupSport" autocomplete="off" [checked]="isGroupBySelected('sport')">
+                    <label class="btn btn-outline-secondary border-0" style="font-size: 0.9em;" for="btnGroupSport" (click)="setGrouping(['sport', 'ASC'])">Sport</label>
+
+                    <input type="radio" class="btn-check" name="btnRadio" id="btnGroupSeason" autocomplete="off" [checked]="isGroupBySelected('season')">
+                    <label class="btn btn-outline-secondary border-0" style="font-size: 0.9em;" for="btnGroupSeason" (click)="setGrouping(['season', 'DESC'])">Season</label>
+                  
+                    <input type="radio" class="btn-check" name="btnRadio" id="btnGroupOrg" autocomplete="off" [checked]="isGroupBySelected('org')">
+                    <label class="btn btn-outline-secondary border-0" style="font-size: 0.9em;" for="btnGroupOrg" (click)="setGrouping(['org', 'ASC'])">Org</label>
+                  </div>
+                <div *ngFor="let group of groupedTeams">
+                    <div class="groupHeader">{{group.groupName}}</div>
+                    <div class="container p-1">
+                        <div *ngFor="let team of group.teams" 
+                                class="container border-bottom p-1" 
+                                [class.bg-secondary]="team === selectedTeam"  
+                                [class.text-white]="team === selectedTeam"
+                                (click)="onSelectTeam(team)"
+                                style="cursor: pointer; color: var(--primaryColor)">
+                            {{team.season}} {{ team.name }} 
+                        </div>
                     </div>
                 </div>
+                    
             </div>
         </div>
         <div class="col-lg-8">

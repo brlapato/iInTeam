@@ -56,6 +56,7 @@ public class TeamService {
         session.getTransaction().commit();
         session.close();
 
+
         if(teamEvents.size() > 0) {
             return teamEvents.get(0);
         } else {
