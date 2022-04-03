@@ -55,7 +55,7 @@ public class ClinicResource {
         return new ResponseEntity<ClinicSummary>(clinicSummary, HttpStatus.OK);
     }
 
-    @PreAuthorize("@authenticator.userCanAccessClinic(#principal.getName(), #teamId) && @authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
+    @PreAuthorize("@authenticator.userCanAccessClinic(#principal.getName(), #clinicId) && @authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @PutMapping("/players/{playerId}/clinics/{clinicId}")
     public ResponseEntity<ClinicSummary> updateClinic(
             Principal principal,
@@ -73,7 +73,7 @@ public class ClinicResource {
         return new ResponseEntity<ClinicSummary>(clinicSummary, HttpStatus.OK);
     }
 
-    @PreAuthorize("@authenticator.userCanAccessClinic(#principal.getName(), #teamId) && @authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
+    @PreAuthorize("@authenticator.userCanAccessClinic(#principal.getName(), #clinicId) && @authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @DeleteMapping("/players/{playerId}/clinics/{clinicId}")
     public ResponseEntity<HockeyGameSheet> deleteClinic(
             Principal principal,

@@ -1,37 +1,75 @@
-<div class="container-fluid">
-  <div class="container rounded-2 shadow bg-light p-2 pb-5">
-    <h3>
-      <div class="d-flex justify-content-between pt-3 mb-2">
-          <div class="">Camp and Clinic Sessions</div>
-          <div class="me-3">
-              <app-tool-button data-bs-target="#editClinicModal" data-bs-toggle="modal" (click)="onEditOpened(null)"
-                  iconHref="assets/icons/bootstrap-icons.svg#plus-square" labelText="Add Session"></app-tool-button>
-          </div>
-      </div>
-    </h3>
-      <div class="d-flex justify-content-center pb-2">
-        <app-pager [sourceData]="clinics" [startingItemIndex]="startingDisplayIndex" (pagedItemsChanged)="onPagedItemsChanged($event)" [pageSize]="10"></app-pager>
-      </div>
-      <div *ngFor="let clinic of displayClinics" class="container border rounded-3 mb-2" [class.completedClinic]="isClinicComplete(clinic)">
-        <div class="row">
-          <div class="col">
-            <app-clinic-list-item [clinic]="clinic"></app-clinic-list-item>
-          </div>
-          <div class="col-auto">
-              <button id=buttonEdit  class="border-0" style="background-color: transparent;" (click)="onEditOpened(clinic)" data-bs-toggle="modal" data-bs-target="#editClinicModal">
-                  <svg class="bi" width="14" height="14" fill="none">
-                      <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
-                  </svg>
-              </button>
-              <button id=buttonDelete  class="border-0" style="background-color: transparent;" (click)="deleteClinic(clinic)">
-                  <svg class="bi" width="15" height="15" fill="currentColor">
-                      <use xlink:href="assets/icons/bootstrap-icons.svg#trash"/>
-                  </svg>
-              </button>
+<div class="container-fluid px-0 px-md-3 py-2 py-md-3">
+  <div class="row">
+      <div class="col-lg-2 pb-5">
+        <div class="container rounded-2 shadow bg-light pb-5">
+            <h3>
+                <div class="d-flex justify-content-between pt-3 mb-2">
+                    <div class="">Filters</div>
+                </div>
+            </h3>
+            <div class="container border-bottom p-1" 
+                 style="cursor: pointer; color: var(--primaryColor)"
+                 (click)="clearFilter()">
+                 Show All
+              </div>
+            <h4 style="margin-top:20px">Sport/Organization</h4>
+            <div *ngFor="let sportFilter of sportsFilters">
+              <div class="groupHeader" style="cursor: pointer;" (click)="setFilter(sportFilter);">{{sportFilter.displayText}}</div>
+              <div class="container p-1">
+                  <div *ngFor="let orgFilter of sportFilter.subItems" 
+                          class="container border-bottom p-1" 
+                          style="cursor: pointer; color: var(--primaryColor)"
+                          (click)="setFilter(orgFilter);">
+                      {{orgFilter.displayText}} 
+                  </div>
+              </div>
             </div>
+            <h4 style="margin-top:5px">Coaches</h4>
+              <div *ngFor="let coachFilter of coachFilters" 
+                          class="container border-bottom p-1" 
+                          style="cursor: pointer; color: var(--primaryColor)"
+                          (click)="setFilter(coachFilter);">
+                      {{coachFilter.displayText}} 
+              </div>
         </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="container rounded-2 shadow bg-light p-2 pb-5">
+        <h3>
+          <div class="d-flex justify-content-between pt-3 mb-2">
+              <div class="">Camp and Clinic Sessions ({{currentFilter ? currentFilter.displayText : 'All'}})</div>
+              <div class="me-3">
+                  <app-tool-button data-bs-target="#editClinicModal" data-bs-toggle="modal" (click)="onEditOpened(null)"
+                      iconHref="assets/icons/bootstrap-icons.svg#plus-square" labelText="Add Session"></app-tool-button>
+              </div>
+          </div>
+        </h3>
+          <div class="d-flex justify-content-center pb-2">
+            <app-pager #clinicPager [sourceData]="filteredClinics" [startingItemIndex]="startingDisplayIndex" (pagedItemsChanged)="onPagedItemsChanged($event)" [pageSize]="10" ></app-pager>
+          </div>
+          <div *ngFor="let clinic of displayClinics" class="container border rounded-3 mb-2" [class.completedClinic]="isClinicComplete(clinic)">
+            <div class="row">
+              <div class="col">
+                <app-clinic-list-item [clinic]="clinic"></app-clinic-list-item>
+              </div>
+              <div class="col-auto">
+                  <button id=buttonEdit  class="border-0" style="background-color: transparent;" (click)="onEditOpened(clinic)" data-bs-toggle="modal" data-bs-target="#editClinicModal">
+                      <svg class="bi" width="14" height="14" fill="none">
+                          <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
+                      </svg>
+                  </button>
+                  <button id=buttonDelete  class="border-0" style="background-color: transparent;" (click)="deleteClinic(clinic)">
+                      <svg class="bi" width="15" height="15" fill="currentColor">
+                          <use xlink:href="assets/icons/bootstrap-icons.svg#trash"/>
+                      </svg>
+                  </button>
+                </div>
+            </div>
+          </div>
       </div>
+    </div>
   </div>
+  
 </div>
 
 <div class="modal fade" #editTeamModal id="editClinicModal" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1" aria-labelledby="editClinicModalLabel" aria-hidden="true">
