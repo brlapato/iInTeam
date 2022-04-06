@@ -17,15 +17,21 @@ export class ClinicsComponent implements OnInit, OnDestroy {
 
   @ViewChild('editTeamModal') editTeamModal: ModalDirective | undefined;
   @ViewChild('clinicPager', {static: false}) clinicPager: PagerComponent | undefined = undefined;
+  
 
   public clinics: Clinic[] = [];
   public filteredClinics: Clinic[] = [];
   public displayClinics: Clinic[] = [];
   public editClinic: Clinic = Clinic.getDefault();
+  public isEditing: boolean = false;
   public currentFilter: filterItem | null = null;
 
   public sportsFilters: filterItem[] = [];
   public coachFilters: filterItem[] = [];
+
+  public savingVisible: boolean = false;
+  public successVisible: boolean = false;
+  public errorVisible: boolean = false;
   
 
   startDate: Date = new Date();
@@ -73,7 +79,6 @@ export class ClinicsComponent implements OnInit, OnDestroy {
               this.buildClinicFilters(data);
               this.setStartingIndex(this.filteredClinics);
               this.dtTrigger.next();
-
             }
           );
         }
@@ -100,11 +105,12 @@ export class ClinicsComponent implements OnInit, OnDestroy {
   }
 
   public onEditClinic(clinic: Clinic) {
-    this.onEditOpened(clinic);
+    this.onEditOpened(clinic);  
   }
 
   public onEditOpened(clinic: Clinic | null) {
 
+    this.clearStatus();
     let newClinic: Clinic = Clinic.getDefault();
 
     if( clinic != null ) {
@@ -117,10 +123,18 @@ export class ClinicsComponent implements OnInit, OnDestroy {
     }
 
     this.editClinic = newClinic;
+    this.isEditing = true;
+  }
+
+  public onCancelEdit() {
+    this.isEditing = false;
+    this.editClinic = Clinic.getDefault()
+    this.clearStatus();
   }
 
   public saveClinic() {
 
+    this.setSaving();
     let startDateStr = "";
     if (this.newStartDate.length > 0) {
       startDateStr = new Date(this.newStartDate + "T00:00:00").toDateString();
@@ -137,7 +151,7 @@ export class ClinicsComponent implements OnInit, OnDestroy {
         (playerId:number | null) => {
           if (playerId) {
             this.clinicService.createClinic(playerId, this.editClinic).subscribe(
-              (data: Clinic) => { this.loadClinics(); }
+              (data: Clinic) => { this.loadClinics(); this.setSuccess();  }
             );
           }
         }
@@ -147,7 +161,7 @@ export class ClinicsComponent implements OnInit, OnDestroy {
         (playerId:number | null) => {
           if (playerId) {
             this.clinicService.updateClinic(playerId, this.editClinic.clinicId, this.editClinic).subscribe(
-              (data: Clinic) => { this.loadClinics(); }
+              (data: Clinic) => { this.loadClinics(); this.setSuccess(); }
             );
           }
         }
@@ -176,6 +190,10 @@ export class ClinicsComponent implements OnInit, OnDestroy {
 
   public isClinicComplete(clinic: Clinic) {
     return new Date(clinic.endDateTime) < new Date();
+  }
+
+  public isEditClinic(clinic: Clinic) {
+    return this.editClinic.clinicId == clinic.clinicId;
   }
 
   public buildClinicFilters(clinics: Clinic[]): void {
@@ -270,6 +288,30 @@ export class ClinicsComponent implements OnInit, OnDestroy {
       this.clinicPager.pageData();
     }
 
+  }
+
+  public setSaving(): void {
+    this.successVisible = false;
+    this.errorVisible = false;
+    this.savingVisible = true;
+  }
+
+  public setSuccess(): void {
+    this.successVisible = true;
+    this.errorVisible = false;
+    this.savingVisible = false;
+  }
+
+  public setError(): void {
+    this.successVisible = false;
+    this.errorVisible = true;
+    this.savingVisible = false;
+  }
+
+  public clearStatus(): void {
+    this.successVisible = false;
+    this.errorVisible = false;
+    this.savingVisible = false;
   }
   
   

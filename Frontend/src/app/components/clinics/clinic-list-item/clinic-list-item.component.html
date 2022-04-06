@@ -1,59 +1,77 @@
-<div class="row">
-  <div class="col-lg-7">
-      <div class="row smallFont pb-0 mb-0">
-        <div class="col col-md-6">
-          {{ clinic.startDateTime | date:'M/d/yy' }}<span style="margin-left: 10px;">{{ clinic.startDateTime | date:'h:mm a' }} - {{ clinic.endDateTime | date: 'h:mm a' }}</span>
-        </div>
-        <div class="col">
-          {{ clinic.location }} - {{clinic.locationDetail }}
-          <p style="margin-bottom: 0px;">Head Coach: {{clinic.headCoach}}</p>
-        </div>
-    </div>
-    <div class="row">
-      <div class="col-auto">
+<div class="container">
+  <div class="row">
+    <div class="col-auto" style="max-width: 25px;">
+      <ng-container *ngIf="displayExpandButton()">
         <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;top:10px" (click)="onToggleExpand()">
           <use [attr.xlink:href]="detailsVisible ? 'assets/icons/bootstrap-icons.svg#dash-square-dotted' : 'assets/icons/bootstrap-icons.svg#plus-square-dotted'"/>
         </svg>
-      </div>
-      <div class="col col-md-6 mt-0" style="font-size: 1.1em;font-weight: 700;">
-        {{ clinic.name }} <span *ngIf="clinic.nameDetail">({{ clinic.nameDetail }})</span>
+      </ng-container>
+    </div>
+    <div class="col">
+        <div class="row">
+          <div class="col-auto smallFont" style='font-style: italic;font-weight: 500;'>
+            <ng-container *ngIf="clinic.org.city">{{clinic.org.city}} </ng-container>{{clinic.org.name}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-auto mt-0" style="font-size: 1.1em;font-weight: 700;">
+            {{ clinic.name }} <span *ngIf="clinic.nameDetail">({{ clinic.nameDetail }})</span>
+          </div>
+          
+        </div>
+        <div class="row">
+          
+        </div>
+        <div class="row" *ngIf="clinic.description">
+          <div class="col smallFont d-none d-lg-block">
+            {{clinic.description}}
+          </div>
+        </div>
+        
+        <div class="row smallFont pb-0 mb-0">
+          <div class="col-auto" style="font-weight: 600;">
+            {{ clinic.startDateTime | date:'EEE MM/dd/YYYY' }}<span style="margin-left: 10px;">{{ clinic.startDateTime | date:'h:mm a' }} - {{ clinic.endDateTime | date: 'h:mm a' }}</span>
+          </div>
+          <div class="col-auto">
+            {{ clinic.location }} <ng-container *ngIf="clinic.locationDetail">- {{clinic.locationDetail}}</ng-container>
+          </div>
+          <div class="col-auto" *ngIf="clinic.headCoach">
+            Head Coach: {{clinic.headCoach}}
+          </div>
       </div>
     </div>
   </div>
-  <div class="col smallFont d-none d-lg-block">
-    <b>Description:</b>
-    <p>{{clinic.description}}</p>
-  </div>
-</div>
 
-<ng-container *ngIf="detailsVisible">
-  <hr>
-  <div class="row smallFont mb-2" *ngIf="clinic.assistantCoach1 || clinic.assistantCoach2 || clinic.assistantCoach3 || clinic.assistantCoach4">
-    <div class="col-auto">
-      <b>Assistant Coaches:</b>
+
+  <ng-container *ngIf="detailsVisible">
+    <hr>
+    <div class="row smallFont mb-2" *ngIf="clinic.assistantCoach1 || clinic.assistantCoach2 || clinic.assistantCoach3 || clinic.assistantCoach4">
+      <div class="col-auto">
+        <b>Assistant Coaches:</b>
+      </div>
+      <div class="col-auto ms-2" *ngIf="clinic.assistantCoach1">
+        <em>{{clinic.assistantCoach1}}</em>
+      </div>
+      <div class="col-auto ms-2" *ngIf="clinic.assistantCoach2">
+        <em>{{clinic.assistantCoach2}}</em>
+      </div>
+      <div class="col-auto ms-2" *ngIf="clinic.assistantCoach3">
+        <em>{{clinic.assistantCoach3}}</em>
+      </div>
+      <div class="col-auto ms-2" *ngIf="clinic.assistantCoach4">
+        <em>{{clinic.assistantCoach4}}</em>
+      </div>
     </div>
-    <div class="col-auto ms-2" *ngIf="clinic.assistantCoach1">
-      <em>{{clinic.assistantCoach1}}</em>
+    <div class="row smallFont">
+      <div class="col-md d-block d-lg-none">
+        <b>Description:</b><p>{{ clinic.description}}</p>
+      </div>
+      <div class="col-md">
+        <b>Pre-clinic Notes:</b><p>{{ clinic.preClinicNotes}}</p>
+      </div>
+      <div class="col-md">
+        <b>Post-Clinic Notes:</b><p>{{ clinic.postClinicNotes}}</p>
+      </div>
     </div>
-    <div class="col-auto ms-2" *ngIf="clinic.assistantCoach2">
-      <em>{{clinic.assistantCoach2}}</em>
-    </div>
-    <div class="col-auto ms-2" *ngIf="clinic.assistantCoach3">
-      <em>{{clinic.assistantCoach3}}</em>
-    </div>
-    <div class="col-auto ms-2" *ngIf="clinic.assistantCoach4">
-      <em>{{clinic.assistantCoach4}}</em>
-    </div>
-  </div>
-  <div class="row smallFont">
-    <div class="col-md d-block d-lg-none">
-      <b>Description:</b><p>{{ clinic.description}}</p>
-    </div>
-    <div class="col-md">
-      <b>Pre-clinic Notes:</b><p>{{ clinic.preClinicNotes}}</p>
-    </div>
-    <div class="col-md">
-      <b>Post-Clinic Notes:</b><p>{{ clinic.postClinicNotes}}</p>
-    </div>
-  </div>
-</ng-container>
+  </ng-container>
+</div>
