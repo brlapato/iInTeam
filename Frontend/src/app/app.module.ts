@@ -49,6 +49,9 @@ import { SwimTeamDetailComponent } from './components/swim/swim-team-detail/swim
 import { SwimMeetComponent } from './components/swim/swim-meet/swim-meet.component';
 import { EditButtonsComponent } from './components/ui/edit-buttons/edit-buttons.component';
 import { SwimMeetListItemComponent } from './components/swim/swim-meet-list-item/swim-meet-list-item.component';
+import { TextFieldComponent } from './components/ui/text-field/text-field.component';
+import { ToolButtonComponent } from './components/ui/tool-button/tool-button.component';
+import { StatusIconComponent } from './components/ui/status-icon/status-icon.component';
 
 
 
@@ -98,7 +101,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SwimTeamDetailComponent,
     SwimMeetComponent,
     EditButtonsComponent,
-    SwimMeetListItemComponent
+    SwimMeetListItemComponent,
+    TextFieldComponent,
+    ToolButtonComponent,
+    StatusIconComponent
   ],
   imports: [
     BrowserModule,

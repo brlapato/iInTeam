@@ -1,3 +1,17 @@
 .completedClinic {
-    background-color: lightgray;
+    background-color: rgb(240, 240, 240);
+}
+
+.unselectedClinic {
+    border-style: solid;
+    border-color: lightgray;
+    border-width: 1px;
+    border-radius: 5px;
+}
+
+.selectedClinic {
+    border-style: solid;
+    border-color: var(--lightAccentColor);
+    border-width: 2px;
+    border-radius: 5px;
 }

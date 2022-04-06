@@ -6,6 +6,7 @@ import com.hockey43.iInTeam.dataServices.IPlayerService;
 import com.hockey43.iInTeam.dataServices.hockey.HockeyGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
@@ -27,34 +28,38 @@ public class PlayerResource {
     private HockeyGameService hockeyGameService;
 
 
-
+    @PreAuthorize("@authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @GetMapping("/players/{playerId}")
-    public PlayerSummary getPlayer(@PathVariable long playerId) {
+    public PlayerSummary getPlayer(Principal principal, @PathVariable long playerId) {
         PlayerSummary summary = new PlayerSummary(this.playerService.getPlayer(playerId));
         summary.setIncludeHockey(true);
         return summary;
     }
 
+    @PreAuthorize("@authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @GetMapping(value = "/players/{playerId}/profileImage")
-    public MediaEntry getPlayerProfileImage(@PathVariable long playerId) {
+    public MediaEntry getPlayerProfileImage(Principal principal, @PathVariable long playerId) {
         MediaEntry playerImage = this.playerService.getProfileImage(playerId);
         return playerImage;
     }
 
+    @PreAuthorize("@authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @PutMapping(value = "/players/{playerId}/profileImage")
-    public ResponseEntity<MediaEntry> setPlayerProfileImage(@PathVariable long playerId, @RequestBody MediaEntry image) {
+    public ResponseEntity<MediaEntry> setPlayerProfileImage(Principal principal, @PathVariable long playerId, @RequestBody MediaEntry image) {
         this.playerService.saveProfileImage(playerId, image);
         return new ResponseEntity<MediaEntry>(image, HttpStatus.OK);
     }
 
+    @PreAuthorize("@authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @DeleteMapping(value = "/players/{playerId}/profileImage")
-    public ResponseEntity<MediaEntry> removePlayerProfileImage(@PathVariable long playerId) {
+    public ResponseEntity<MediaEntry> removePlayerProfileImage(Principal principal, @PathVariable long playerId) {
         this.playerService.removeProfileImage(playerId);
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("@authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @GetMapping(value = "/players/{playerId}/recentGames")
-    public List<TeamEventSheet> getRecentGames(@PathVariable long playerId, @RequestParam(defaultValue = "5") Integer numGames) {
+    public List<TeamEventSheet> getRecentGames(Principal principal, @PathVariable long playerId, @RequestParam(defaultValue = "5") Integer numGames) {
         List<TeamEvent> hockeyGames = this.hockeyGameService.getRecentGames(playerId, numGames);
 
         List<TeamEventSheet> gameSummaries = new ArrayList<TeamEventSheet>();
@@ -62,8 +67,9 @@ public class PlayerResource {
         return gameSummaries;
     }
 
+    @PreAuthorize("@authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @GetMapping(value = "/players/{playerId}/upcomingGames")
-    public List<TeamEventSheet> getUpcomingGames(@PathVariable long playerId, @RequestParam(defaultValue = "5") Integer numGames) {
+    public List<TeamEventSheet> getUpcomingGames(Principal principal, @PathVariable long playerId, @RequestParam(defaultValue = "5") Integer numGames) {
         List<TeamEvent> hockeyGames = this.hockeyGameService.getUpcomingGames(playerId, numGames);
 
         List<TeamEventSheet> gameSummaries = new ArrayList<TeamEventSheet>();
@@ -90,9 +96,10 @@ public class PlayerResource {
 
 
 
-
+    @PreAuthorize("@authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @PutMapping("players/{playerId}")
     public ResponseEntity<PlayerSummary> updatePlayer (
+            Principal principal,
             @PathVariable long playerId,
             @RequestBody PlayerSummary player
     ) {

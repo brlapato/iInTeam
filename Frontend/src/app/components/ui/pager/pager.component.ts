@@ -48,7 +48,7 @@ export class PagerComponent implements OnInit, OnChanges {
     this.currentPage = Math.floor(startingIndex / this.pageSize) + 1;    
   }
 
-  pageData(){
+  public pageData(){
     let pagedData: Array<any> = []
     if(this.sourceData) {
       let startIndex = (this.currentPage - 1) * this.pageSize;

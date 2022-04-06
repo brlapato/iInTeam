@@ -7,6 +7,7 @@
 :root {
   --primaryColor: rgb(4, 46, 160);
   --lightAccentColor: rgba(65, 131, 215, .6);
+  --bgLight: #f8f9fa;
   --winGradientColor: rgba(0, 255, 0, 0.1);
   --LossGradientColor: rgba(255, 0, 0, 0.1);
   --tieGradientColor: rgb(190, 188, 188, .5);
@@ -67,7 +68,7 @@ h5 {
 
 h6 {
   font-weight: 400;
-  font-size: 0.8em;
+  font-size: 0.9em;
   color: var(--primaryColor);
 }
 
@@ -81,23 +82,46 @@ h6 {
 }
 
 .buttonLabel {
-  font-size: 0.9em;
-  font-weight: 200;
   margin-left: 4px;
 }
 
 .textButton {
   border-style: solid;
   border-width: 1px;
-  border-color: var(--primaryColor);
+  margin-bottom: 3px;
   border-radius: 4px;
-  
+  border-color: var(--lightAccentColor);
   color: var(--primaryColor);
   background-color: transparent;
-  margin-left: 3px;
+  padding: 5px;
+  font-size: 0.95em;
+  font-weight: 600;
+  font-size: 0.85em;
+}
+
+.iconButton {
+  border-style: none;
+  border-width: 1px;
+  
+  border-radius: 4px;
+  color: white;
+  background-color: #adb5bd;
+  font-size: 0.95em;
+  font-weight: 600;
+  font-size: 0.85em;
+  padding: 3px;
+}
+
+.groupHeader {
+  background-color: lightgray;
+  /*background-image: linear-gradient(75deg, var(--lightAccentColor) 10%, lightgray 20%);*/
+  padding-left: 10px;
+  font-weight: 600;
+  font-size: 0.9em;
 }
 
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 0.9em;
 }
+

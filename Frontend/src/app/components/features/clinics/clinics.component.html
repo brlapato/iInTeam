@@ -1,40 +1,97 @@
-<div class="container-fluid">
-  <div class="container rounded-2 shadow bg-light p-2 pb-5">
-    <h3><div class="row justify-content-between ps-2 pt-3 pb-2">
-          <div class="col-5  d-flex align-items-end">Camp and Clinic Sessions</div>
-            <div class="col-4">
-                <button class="btn btn-md bg-white rounded-3 shadow-sm border" style="font-size:0.9em;" data-bs-toggle="modal" data-bs-target="#editClinicModal" (click)="onEditOpened(null)">
-                    <svg class="bi" width="13" height="13" fill="currentColor" style="vertical-align: middle;">
-                        <use xlink:href="assets/icons/bootstrap-icons.svg#plus-lg"/>
-                    </svg>
-                    New Session
-                </button>
+<div class="container-fluid px-0 px-md-3 py-2 py-md-3">
+  <div class="row">
+      <div class="col-lg-2 pb-5">
+        <div class="container rounded-2 shadow bg-light pb-5">
+            <h3>
+                <div class="d-flex justify-content-between pt-3 mb-2">
+                    <div class="">Filters</div>
+                </div>
+            </h3>
+            <div class="container border-bottom p-1" 
+                 style="cursor: pointer; color: var(--primaryColor)"
+                 (click)="clearFilter()">
+                 Show All
+              </div>
+            <h4 style="margin-top:20px">Sport/Organization</h4>
+            <div *ngFor="let sportFilter of sportsFilters">
+              <div class="groupHeader" style="cursor: pointer;" (click)="setFilter(sportFilter);">{{sportFilter.displayText}}</div>
+              <div class="container p-1">
+                  <div *ngFor="let orgFilter of sportFilter.subItems" 
+                          class="container border-bottom p-1" 
+                          style="cursor: pointer; color: var(--primaryColor)"
+                          (click)="setFilter(orgFilter);">
+                      {{orgFilter.displayText}} 
+                  </div>
+              </div>
             </div>
+            <h4 style="margin-top:5px">Coaches</h4>
+              <div *ngFor="let coachFilter of coachFilters" 
+                          class="container border-bottom p-1" 
+                          style="cursor: pointer; color: var(--primaryColor)"
+                          (click)="setFilter(coachFilter);">
+                      {{coachFilter.displayText}} 
+              </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="container rounded-2 shadow bg-light p-2 pb-5">
+        <h3>
+          <div class="d-flex justify-content-between pt-3 mb-2">
+              <div class="">Camp and Clinic Sessions ({{currentFilter ? currentFilter.displayText : 'All'}})</div>
+              <div class="me-3">
+                  <app-tool-button class="d-none d-lg-block" (click)="onEditOpened(null)"
+                      iconHref="assets/icons/bootstrap-icons.svg#plus-square" labelText="Add Session"></app-tool-button>
+                  <app-tool-button class="d-lg-none" data-bs-target="#editClinicModal" data-bs-toggle="modal" (click)="onEditOpened(null)"
+                      iconHref="assets/icons/bootstrap-icons.svg#plus-square" labelText="Add Session"></app-tool-button>
+              </div>
           </div>
-      </h3>
-      <div class="d-flex justify-content-center pb-2">
-        <app-pager [sourceData]="clinics" [startingItemIndex]="startingDisplayIndex" (pagedItemsChanged)="onPagedItemsChanged($event)" [pageSize]="10"></app-pager>
-      </div>
-      <div *ngFor="let clinic of displayClinics" class="container border rounded-3 mb-2" [class.completedClinic]="isClinicComplete(clinic)">
-        <div class="row">
-          <div class="col">
-            <app-clinic-list-item [clinic]="clinic"></app-clinic-list-item>
+        </h3>
+          <div class="d-flex justify-content-center pb-2">
+            <app-pager #clinicPager [sourceData]="filteredClinics" [startingItemIndex]="startingDisplayIndex" (pagedItemsChanged)="onPagedItemsChanged($event)" [pageSize]="10" ></app-pager>
           </div>
-          <div class="col-auto">
-              <button id=buttonEdit  class="border-0" style="background-color: transparent;" (click)="onEditOpened(clinic)" data-bs-toggle="modal" data-bs-target="#editClinicModal">
+          <div *ngFor="let clinic of displayClinics" class="container mb-2" [class.selectedClinic]="isEditClinic(clinic)" [class.unselectedClinic]="!isEditClinic(clinic)" [class.completedClinic]="isClinicComplete(clinic)">
+            <div class="row">
+              <div class="col">
+                <app-clinic-list-item [clinic]="clinic"></app-clinic-list-item>
+              </div>
+              <div class="col-auto">
+                <button id=buttonEdit  class="border-0 d-none d-lg-inline" style="background-color: transparent;" (click)="onEditOpened(clinic)">
                   <svg class="bi" width="14" height="14" fill="none">
                       <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
                   </svg>
-              </button>
-              <button id=buttonDelete  class="border-0" style="background-color: transparent;" (click)="deleteClinic(clinic)">
-                  <svg class="bi" width="15" height="15" fill="currentColor">
-                      <use xlink:href="assets/icons/bootstrap-icons.svg#trash"/>
-                  </svg>
-              </button>
+                </button>
+                  <button id=buttonEdit  class="border-0 d-inline d-lg-none" style="background-color: transparent;" (click)="onEditOpened(clinic)" data-bs-toggle="modal" data-bs-target="#editClinicModal">
+                      <svg class="bi" width="14" height="14" fill="none">
+                          <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
+                      </svg>
+                  </button>
+                  <button id=buttonDelete  class="border-0" style="background-color: transparent;" (click)="deleteClinic(clinic)">
+                      <svg class="bi" width="15" height="15" fill="currentColor">
+                          <use xlink:href="assets/icons/bootstrap-icons.svg#trash"/>
+                      </svg>
+                  </button>
+                </div>
             </div>
+          </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div *ngIf="isEditing" class="container rounded-2 shadow bg-light pb-5">
+        <h3>
+          <div class="d-flex justify-content-between pt-3 mb-2">
+              <div class="">Edit Clinic</div>
+          </div>
+        </h3>
+        <ng-container *ngTemplateOutlet="tmplEditClinic;context: {$implicit: 'inline'}"></ng-container>
+        <div class="d-flex justify-content-end align-items-center mt-3">
+          <button type="button" class="btn btn-secondary pe-2" (click)="onCancelEdit();">Close</button>
+          <button type="submit" form="editClinicForm" class="btn btn-primary ms-2">Save</button>
+          <app-status-icon #inlineStatusIcon id="inlineStatusIcon" class="ms-2" [savingVisible]="savingVisible" [successVisible]="successVisible" [errorVisible]="errorVisible"></app-status-icon>
         </div>
       </div>
+    </div>
   </div>
+  
 </div>
 
 <div class="modal fade" #editTeamModal id="editClinicModal" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1" aria-labelledby="editClinicModalLabel" aria-hidden="true">
@@ -45,126 +102,132 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-0">
-              <div class="container bg-white p-0">
-                  <form #editClinicForm="ngForm" id="editClinicForm" (ngSubmit)="!editClinicForm.invalid && saveClinic()">
-                    <div class="accordion" id="editAccordian">
-                      <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingOne">
-                          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
-                            Basic Information
-                          </button>
-                        </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#editAccordian">
-                          <div class="accordion-body">
-                            <div class="input-group input-group-sm">
-                              <span class="input-group-text" style="width:110px">Sport</span>
-                              <select class="form-select" name="sport" id="sport" [(ngModel)]="editClinic.sport">
-                                  <option value="Hockey">Hockey</option>
-                                  <option value="Swim">Swim</option>
-                                  <option value="Climbing">Climbing</option>
-                                  <option value="Fitness">Fitness</option>
-                                  <option value="Other">Other</option>
-                              </select>
-                            </div>
-                            <div class="input-group input-group-sm">
-                                <span class="input-group-text" style="width:110px">Name</span>
-                                <input type="text" class="form-control" name="teamName" required="required" [(ngModel)]="editClinic.name" >
-                            </div>
-                            <div class="input-group input-group-sm">
-                              <span class="input-group-text" style="width:110px">Detail</span>
-                              <input type="text" class="form-control" name="nameDetail" [(ngModel)]="editClinic.nameDetail" >
-                            </div>
-                            <div class="input-group input-group-sm">
-                              <span class="input-group-text" style="width:110px">Date</span>
-                              <input type="date" class="form-control"  name="startDate" required="required" [ngModel]="startDate | date:'yyyy-MM-dd'" (ngModelChange)="newStartDate = $event">
-                            </div>
-                            <div class="input-group input-group-sm">
-                              <span class="input-group-text">Start</span>
-                              <input type="time" class="form-control"  name="startTime" id="startTime" required="required" [ngModel]="startTime" (ngModelChange)="startTime = $event">
-                              <span class="input-group-text">End</span>
-                              <input type="time" class="form-control"  name="endTime" id="endTime" required="required" [ngModel]="endTime" (ngModelChange)="endTime = $event">
-                            </div>
-                            <div class="input-group input-group-sm">
-                              <span class="input-group-text" style="width:110px">Org Location</span>
-                              <input type="text" class="form-control" name="org" [(ngModel)]="editClinic.org.city" >
-                            </div>
-                            <div class="input-group input-group-sm">
-                              <span class="input-group-text" style="width:110px">Org Name</span>
-                              <input type="text" class="form-control" name="orgName" [(ngModel)]="editClinic.org.name" >
-                            </div>
-                            <div class="input-group input-group-sm">
-                              <span class="input-group-text" style="width:110px">Location</span>
-                              <input type="text" class="form-control" name="location" [(ngModel)]="editClinic.location" >
-                            </div>
-                            <div class="input-group input-group-sm">
-                              <span class="input-group-text" style="width:110px">Location Detail</span>
-                              <input type="text" class="form-control" name="locationDetail" [(ngModel)]="editClinic.locationDetail" >
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingTwo">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                            Coaches
-                          </button>
-                        </h2>
-                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#editAccordian">
-                          <div class="accordion-body">
-                            <div class="input-group input-group-sm">
-                              <span class="input-group-text" style="width:110px">Head Coach</span>
-                              <input type="text" class="form-control" name="headCoach" [(ngModel)]="editClinic.headCoach" >
-                            </div>
-                            <div class="input-group input-group-sm">
-                              <span class="input-group-text" style="width:110px">Assistant Coach</span>
-                              <input type="text" class="form-control" name="assistantCoach1" [(ngModel)]="editClinic.assistantCoach1" >
-                            </div>
-                            <div class="input-group input-group-sm">
-                              <span class="input-group-text" style="width:110px">Assistant Coach</span>
-                              <input type="text" class="form-control" name="assistantCoach2" [(ngModel)]="editClinic.assistantCoach2" >
-                            </div>
-                            <div class="input-group input-group-sm">
-                              <span class="input-group-text" style="width:110px">Assistant Coach</span>
-                              <input type="text" class="form-control" name="assistantCoach3" [(ngModel)]="editClinic.assistantCoach3" >
-                            </div>
-                            <div class="input-group input-group-sm">
-                              <span class="input-group-text" style="width:110px">Assistant Coach</span>
-                              <input type="text" class="form-control" name="assistantCoach4" [(ngModel)]="editClinic.assistantCoach4" >
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingThree">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                            Notes
-                          </button>
-                        </h2>
-                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#editAccordian">
-                          <div class="accordion-body">
-                            <div >
-                              <span class="input-group-text" style="font-size: 0.9em;">Description</span>
-                              <textarea class="form-control" id="description" rows="5" name="description" aria-label="description" [(ngModel)]="editClinic.description" style="font-size: 0.9em;"></textarea>
-                            </div>
-                            <div>
-                              <span class="input-group-text input-group-sm" style="font-size: 0.9em;">Pre-Clinic Notes</span>
-                              <textarea class="form-control" id="preClinicNotes" rows="5" name="preClinicNotes" aria-label="preClinicNotes" [(ngModel)]="editClinic.preClinicNotes" style="font-size: 0.9em;"></textarea>
-                            </div>
-                            <div>
-                              <span class="input-group-text input-group-sm" style="font-size: 0.9em;">Post-Clinic Notes</span>
-                              <textarea class="form-control" id="postClinicNotes" rows="5" name="postClinicNotes" aria-label="postClinicNotes" [(ngModel)]="editClinic.postClinicNotes" style="font-size: 0.9em;"></textarea>
-                            </div>
-                          </div>  
-                        </div>  
-                      </div>  
-                    </div> 
-                  </form>
-              </div>
+              <ng-container *ngTemplateOutlet="tmplEditClinic;context: {$implicit: 'modal'}"></ng-container>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" form="editClinicForm" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCancelEdit()">Close</button>
+              <button type="submit" form="editClinicForm" class="btn btn-primary" >Save</button>
+              <app-status-icon #modalStatusIcon id="modalStatusIcon" [savingVisible]="savingVisible" [successVisible]="successVisible" [errorVisible]="errorVisible"></app-status-icon>
             </div>
       </div>
   </div>
 </div>
+
+
+<ng-template #tmplEditClinic let-mode>
+  <div class="container bg-white p-0">
+    <form #editClinicForm="ngForm" id="editClinicForm" (ngSubmit)="!editClinicForm.invalid && saveClinic()">
+      <div class="accordion" id="editAccordian">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+              Basic Information
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#editAccordian">
+            <div class="accordion-body">
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" style="width:110px">Sport</span>
+                <select class="form-select" name="sport" id="sport" [(ngModel)]="editClinic.sport">
+                    <option value="Hockey">Hockey</option>
+                    <option value="Swim">Swim</option>
+                    <option value="Climbing">Climbing</option>
+                    <option value="Fitness">Fitness</option>
+                    <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="input-group input-group-sm">
+                  <span class="input-group-text" style="width:110px">Name</span>
+                  <input type="text" class="form-control" name="teamName" required="required" [(ngModel)]="editClinic.name" >
+              </div>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" style="width:110px">Detail</span>
+                <input type="text" class="form-control" name="nameDetail" [(ngModel)]="editClinic.nameDetail" >
+              </div>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" style="width:110px">Date</span>
+                <input type="date" class="form-control"  name="startDate" required="required" [ngModel]="startDate | date:'yyyy-MM-dd'" (ngModelChange)="newStartDate = $event">
+              </div>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text">Start</span>
+                <input type="time" class="form-control"  name="startTime" id="startTime" required="required" [ngModel]="startTime" (ngModelChange)="startTime = $event">
+                <span class="input-group-text">End</span>
+                <input type="time" class="form-control"  name="endTime" id="endTime" required="required" [ngModel]="endTime" (ngModelChange)="endTime = $event">
+              </div>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" style="width:110px">Org Location</span>
+                <input type="text" class="form-control" name="org" [(ngModel)]="editClinic.org.city" >
+              </div>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" style="width:110px">Org Name</span>
+                <input type="text" class="form-control" name="orgName" [(ngModel)]="editClinic.org.name" >
+              </div>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" style="width:110px">Location</span>
+                <input type="text" class="form-control" name="location" [(ngModel)]="editClinic.location" >
+              </div>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" style="width:110px">Location Detail</span>
+                <input type="text" class="form-control" name="locationDetail" [(ngModel)]="editClinic.locationDetail" >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+              Coaches
+            </button>
+          </h2>
+          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#editAccordian">
+            <div class="accordion-body">
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" style="width:120px">Head Coach</span>
+                <input type="text" class="form-control" name="headCoach" [(ngModel)]="editClinic.headCoach" >
+              </div>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" style="width:120px">Assistant Coach</span>
+                <input type="text" class="form-control" name="assistantCoach1" [(ngModel)]="editClinic.assistantCoach1" >
+              </div>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" style="width:120px">Assistant Coach</span>
+                <input type="text" class="form-control" name="assistantCoach2" [(ngModel)]="editClinic.assistantCoach2" >
+              </div>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" style="width:120px">Assistant Coach</span>
+                <input type="text" class="form-control" name="assistantCoach3" [(ngModel)]="editClinic.assistantCoach3" >
+              </div>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" style="width:120px">Assistant Coach</span>
+                <input type="text" class="form-control" name="assistantCoach4" [(ngModel)]="editClinic.assistantCoach4" >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+              Notes
+            </button>
+          </h2>
+          <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#editAccordian">
+            <div class="accordion-body">
+              <div >
+                <span class="input-group-text" style="font-size: 0.9em;">Description</span>
+                <textarea class="form-control" id="description" rows="5" name="description" aria-label="description" [(ngModel)]="editClinic.description" style="font-size: 0.9em;"></textarea>
+              </div>
+              <div>
+                <span class="input-group-text input-group-sm" style="font-size: 0.9em;">Pre-Clinic Notes</span>
+                <textarea class="form-control" id="preClinicNotes" rows="5" name="preClinicNotes" aria-label="preClinicNotes" [(ngModel)]="editClinic.preClinicNotes" style="font-size: 0.9em;"></textarea>
+              </div>
+              <div>
+                <span class="input-group-text input-group-sm" style="font-size: 0.9em;">Post-Clinic Notes</span>
+                <textarea class="form-control" id="postClinicNotes" rows="5" name="postClinicNotes" aria-label="postClinicNotes" [(ngModel)]="editClinic.postClinicNotes" style="font-size: 0.9em;"></textarea>
+              </div>
+            </div>  
+          </div>  
+        </div>  
+      </div> 
+    </form>
+  </div>
+</ng-template>
