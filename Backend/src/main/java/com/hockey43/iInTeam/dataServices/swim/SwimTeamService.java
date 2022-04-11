@@ -4,6 +4,7 @@ import com.hockey43.iInTeam.dataObjects.Org;
 import com.hockey43.iInTeam.dataObjects.TeamEvent;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeam;
+import com.hockey43.iInTeam.dataObjects.swim.SwimEvent;
 import com.hockey43.iInTeam.dataObjects.swim.SwimMeet;
 import com.hockey43.iInTeam.dataObjects.swim.SwimTeam;
 import com.hockey43.iInTeam.dataServices.OrgService;
@@ -118,5 +119,65 @@ public class SwimTeamService {
 
         session.getTransaction().commit();
         session.close();
+    }
+
+    public List<SwimEvent> getSwimEventsForMeet(long meetId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List<SwimEvent> swimEvents = session.createQuery("SELECT sm from SwimEvent se INNER JOIN se.swimMeet sm WHERE sm.meetId = :mid ORDER BY EventNumber ASC, totalDistance ASC")
+                .setParameter("mid", meetId)
+                .list();
+
+        session.getTransaction().commit();
+        session.close();
+
+        return swimEvents;
+    }
+
+    public List<SwimEvent> getSwimEventsForSwimTeam(long teamId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List<SwimEvent> swimEvents = session.createQuery("" +
+                "SELECT sm from SwimEvent se " +
+                "INNER JOIN se.swimMeet sm " +
+                "INNER JOIN sm.ownerTeam t " +
+                "WHERE t.teamId = :tid " +
+                "ORDER BY EventNumber ASC, totalDistance ASC")
+                .setParameter("tid", teamId)
+                .list();
+
+        session.getTransaction().commit();
+        session.close();
+
+        return swimEvents;
+    }
+
+    public void saveSwimEvent(SwimEvent swimEvent) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        session.saveOrUpdate(swimEvent);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void deleteSwimEvent(long swimEventId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("delete SwimEvent WHERE swimEventId = :id");
+        query.setParameter("id", swimEventId);
+        query.executeUpdate();
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public SwimEvent getNewSwimEvent(long meetId) {
+        SwimMeet targetMeet = this.getSwimMeet(meetId);
+        SwimEvent newEvent = new SwimEvent();
+        newEvent.setSwimMeet(targetMeet);
+        return newEvent;
     }
 }

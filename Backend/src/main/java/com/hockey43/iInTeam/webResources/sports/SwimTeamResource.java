@@ -5,10 +5,7 @@ import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyGameSheet;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeam;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeamSummary;
-import com.hockey43.iInTeam.dataObjects.swim.SwimMeet;
-import com.hockey43.iInTeam.dataObjects.swim.SwimMeetSheet;
-import com.hockey43.iInTeam.dataObjects.swim.SwimTeam;
-import com.hockey43.iInTeam.dataObjects.swim.SwimTeamSummary;
+import com.hockey43.iInTeam.dataObjects.swim.*;
 import com.hockey43.iInTeam.dataServices.swim.SwimTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -129,5 +126,37 @@ public class SwimTeamResource {
     ) {
         this.swimTeamService.deleteSwimMeet(meetId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PreAuthorize("@authenticator.userCanAccessTeamEvent(#principal.getName(), #meetId)")
+    @GetMapping("/players/{playerId}/SwimTeams/{teamId}/meets/{meetId}/swimEvents")
+    public List<SwimEventSummary> getSwimMeetEvents(
+            Principal principal,
+            @PathVariable long meetId
+    ) {
+        List<SwimEvent> swimEvents = this.swimTeamService.getSwimEventsForMeet(meetId);
+
+        List<SwimEventSummary> eventSummaries = new ArrayList<SwimEventSummary>();
+        swimEvents.forEach((swimEvent)->eventSummaries.add(new SwimEventSummary(swimEvent)));
+
+
+        return eventSummaries;
+    }
+
+    @PreAuthorize("@authenticator.userCanAccessTeamEvent(#principal.getName(), #meetId)")
+    @PostMapping("/players/{playerId}/SwimTeams/{teamId}/meets/{meetId}/swimEvents")
+    public ResponseEntity<SwimEventSummary> createSwimEvent(
+            Principal principal,
+            @PathVariable long meetId,
+            @RequestBody SwimEventSummary swimEventSummary
+    ) {
+        SwimEvent newEvent = this.swimTeamService.getNewSwimEvent(meetId);
+        newEvent.mergeSwimEventSummary(swimEventSummary);
+        this.swimTeamService.saveSwimEvent(newEvent);
+
+        SwimEventSummary updatedSwimEventSummary = swimEventSummary;
+        updatedSwimEventSummary.setSwimEventId(newEvent.getSwimEventId());
+
+        return new ResponseEntity<SwimEventSummary>(updatedSwimEventSummary, HttpStatus.OK);
     }
 }
