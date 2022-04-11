@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SwimMeet, SwimTeam } from 'src/app/data-objects/data-objects.module';
+import { SwimMeet, SwimTeam } from 'src/app/data-objects/swim-data-objects.module';
 import { API_URL } from 'src/environments/environment';
 
 @Injectable({

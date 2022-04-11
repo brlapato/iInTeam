@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SwimMeet } from 'src/app/data-objects/data-objects.module';
+import { SwimEvent, SwimMeet } from 'src/app/data-objects/swim-data-objects.module';
 import { SwimTeamService } from 'src/app/services/data/swim-team.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
 
@@ -17,6 +17,11 @@ export class SwimMeetComponent implements OnInit {
 
   savedSwimMeet: SwimMeet = SwimMeet.getDetault();
   editedSwimMeet: SwimMeet = SwimMeet.getDetault();
+
+  editSwimEvent: SwimEvent = SwimEvent.getDefault();
+  editSwimEventSeedTimeStr: string = "";
+  editSwimEventSplitTimeStr: string = "";
+  editSwimEventTotalTimeStr: string = "";
 
   startDate: Date = new Date();
   newStartDateStr: string = "";
@@ -143,7 +148,71 @@ export class SwimMeetComponent implements OnInit {
         }
       );
     }
+  }
+
+
+  public resetSwimEventForm(): void {
+    SwimEvent.copyTo(SwimEvent.getDefault(), this.editSwimEvent);
+    this.editSwimEventSeedTimeStr = "";
+    this.editSwimEventSplitTimeStr = "";
+    this.editSwimEventTotalTimeStr = "";
+  }
+
+  public saveSwimEvent(): void {
+    // parse time inputs and set the editSwimEvent object
+    this.editSwimEvent.seedTimeSec = this.parseTimeInput(this.editSwimEventSeedTimeStr);
+    this.editSwimEvent.splitTimeSec = this.parseTimeInput(this.editSwimEventSplitTimeStr);
+    this.editSwimEvent.totalTimeSec = this.parseTimeInput(this.editSwimEventTotalTimeStr);
     
+;
+  }
+
+  public parseTimeInput(text: string): number {
+    let parts: string[] = text.split(':');
+    if (parts.length > 1) {
+      let min = +parts[0];
+      let seconds = +parts[1];
+      return min * 60 + seconds;
+    } else {
+      return +parts[0];
+    }
+  }
+
+  public onChangeSwimEventType(changeEventArgs: any) {
+
+    if(!this.isSwimEventIM(this.editSwimEvent)) {
+      this.editSwimEvent.stroke = this.editSwimEvent.eventType;
+    }
+  }
+
+  public onChangeSwimEventRelay(changeEventArgs: any) {
+    if(!this.isSwimEventRelay(this.editSwimEvent)) {
+
+      this.editSwimEvent.relayLeg = null;
+    }
+  }
+
+  public onChangeSwimEventSplitTime(changeEventArgs: any) {
+
+    if(!this.isSwimEventRelay(this.editSwimEvent)) {
+      this.editSwimEventTotalTimeStr = this.editSwimEventSplitTimeStr;
+    }
+  }
+
+  public isSwimEventRelay(swimEvent: SwimEvent) {
+    if (swimEvent.relayNumber == null) {
+      return false;
+    } else {
+      return swimEvent.relayNumber > 1;
+    }
+  }
+
+  public isSwimEventIM(swimEvent: SwimEvent) {
+    if (swimEvent.eventType == null) {
+      return false;
+    } else {
+      return swimEvent.eventType == 'IM';
+    }
   }
 
 }
