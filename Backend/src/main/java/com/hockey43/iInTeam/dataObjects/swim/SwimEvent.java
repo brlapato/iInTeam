@@ -14,7 +14,7 @@ public class SwimEvent {
     private long swimEventId;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "SwimMeetId")
+    @JoinColumn(name = "SwimMeetId", nullable = false)
     private SwimMeet swimMeet;
 
     @Column(name="EventNumber", length = 15)
@@ -68,7 +68,6 @@ public class SwimEvent {
     private String notes;
 
     public void mergeSwimEventSummary(SwimEventSummary swimEventSummary) {
-        this.swimEventId = swimEventSummary.getSwimEventId();
         this.eventNumber = swimEventSummary.getEventNumber();
         this.heat = swimEventSummary.getHeat();
         this.legDistance = swimEventSummary.getLegDistance();

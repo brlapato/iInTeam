@@ -119,9 +119,9 @@
                     <form #addSwimEventForm="ngForm" id="addSwimEventForm" (ngSubmit)="!addSwimEventForm.invalid && saveSwimEvent()">
                         <div class="input-group input-group-sm ">
                             <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px">Event #</span>
-                            <input type="text" class="form-control" name="eventNumber" required="required" [(ngModel)]="editSwimEvent.eventNumber" >
+                            <input type="text" class="form-control" name="eventNumber" [(ngModel)]="editSwimEvent.eventNumber" >
                             <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:80px">Heat</span>
-                            <input type="text" class="form-control" name="heat" required="required" [(ngModel)]="editSwimEvent.heat" >
+                            <input type="text" class="form-control" name="heat" [(ngModel)]="editSwimEvent.heat" >
                         </div>
                         <div class="input-group input-group-sm">
                             <span class="input-group-text" style="font-size: 0.9em;width:100px">Relay</span>
@@ -200,6 +200,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetSwimEventForm();">Close</button>
                 <button type="submit" form="addSwimEventForm" class="btn btn-primary">Save</button>
+                <app-status-icon #swimEventStatus id="swimEventStatus" [statusIconSettings]="swimEventStatusIconSettings"></app-status-icon>
             </div>
         </div>
     </div>

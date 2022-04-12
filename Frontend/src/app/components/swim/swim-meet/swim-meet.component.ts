@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { SwimEvent, SwimMeet } from 'src/app/data-objects/swim-data-objects.module';
 import { SwimTeamService } from 'src/app/services/data/swim-team.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
+import { StatusIconSettings } from '../../ui/status-icon/status-icon.component';
 
 @Component({
   selector: 'app-swim-meet',
@@ -22,6 +23,8 @@ export class SwimMeetComponent implements OnInit {
   editSwimEventSeedTimeStr: string = "";
   editSwimEventSplitTimeStr: string = "";
   editSwimEventTotalTimeStr: string = "";
+
+  swimEventStatusIconSettings: StatusIconSettings = new StatusIconSettings();
 
   startDate: Date = new Date();
   newStartDateStr: string = "";
@@ -150,8 +153,11 @@ export class SwimMeetComponent implements OnInit {
     }
   }
 
+  
+
 
   public resetSwimEventForm(): void {
+    StatusIconSettings.clearStatus(this.swimEventStatusIconSettings);
     SwimEvent.copyTo(SwimEvent.getDefault(), this.editSwimEvent);
     this.editSwimEventSeedTimeStr = "";
     this.editSwimEventSplitTimeStr = "";
@@ -159,10 +165,39 @@ export class SwimMeetComponent implements OnInit {
   }
 
   public saveSwimEvent(): void {
+
+    StatusIconSettings.setSaving(this.swimEventStatusIconSettings);
+
     // parse time inputs and set the editSwimEvent object
     this.editSwimEvent.seedTimeSec = this.parseTimeInput(this.editSwimEventSeedTimeStr);
     this.editSwimEvent.splitTimeSec = this.parseTimeInput(this.editSwimEventSplitTimeStr);
     this.editSwimEvent.totalTimeSec = this.parseTimeInput(this.editSwimEventTotalTimeStr);
+
+    this.auth.playerId$.subscribe(
+      (playerId:number | null) => {
+        if (playerId) {
+          let serviceFunction: Observable<SwimEvent>;
+          if (this.editSwimEvent.swimEventId == -1) {
+            serviceFunction = this.swimTeamService.createSwimEvent(playerId, this.teamId, this.savedSwimMeet.meetId, this.editSwimEvent);
+          } else {
+            serviceFunction = this.swimTeamService.updateSwimEvent(playerId, this.teamId, this.savedSwimMeet.meetId, this.editSwimEvent);
+          }
+          serviceFunction.subscribe(
+            (data: SwimEvent) => { 
+              SwimEvent.copyTo(data, this.editSwimEvent);
+              StatusIconSettings.setSuccess(this.swimEventStatusIconSettings);
+             },
+            (error: any) => {
+              StatusIconSettings.setError(this.swimEventStatusIconSettings);
+            }
+          );
+        }
+      }
+    );
+
+    
+
+    
     
 ;
   }
@@ -214,5 +249,7 @@ export class SwimMeetComponent implements OnInit {
       return swimEvent.eventType == 'IM';
     }
   }
+
+  
 
 }
