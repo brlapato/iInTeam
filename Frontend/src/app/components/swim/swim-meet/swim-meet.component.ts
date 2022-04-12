@@ -173,6 +173,12 @@ export class SwimMeetComponent implements OnInit {
     this.editSwimEvent.splitTimeSec = this.parseTimeInput(this.editSwimEventSplitTimeStr);
     this.editSwimEvent.totalTimeSec = this.parseTimeInput(this.editSwimEventTotalTimeStr);
 
+    if (this.editSwimEvent.totalDistance != null && this.editSwimEvent.relayNumber != null) {
+      this.editSwimEvent.legDistance = this.editSwimEvent.totalDistance / this.editSwimEvent.relayNumber;
+    } else {
+      this.editSwimEvent.legDistance = null;
+    }
+
     this.auth.playerId$.subscribe(
       (playerId:number | null) => {
         if (playerId) {
