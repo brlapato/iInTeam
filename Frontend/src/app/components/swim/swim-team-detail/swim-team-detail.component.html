@@ -37,7 +37,7 @@
                 </h3>
                 <div class="row d-flex flex-grow-1 p-0" style="margin-top: 10px;overflow-y: visible;">
                     <div *ngFor="let meet of swimMeets">
-                          <app-swim-meet-list-item [meet]="meet"></app-swim-meet-list-item>
+                          <app-swim-meet-list-item [meet]="meet" (delete)="onSwimMeetDelete($event)"></app-swim-meet-list-item>
                     </div>
                 </div>
             </div>

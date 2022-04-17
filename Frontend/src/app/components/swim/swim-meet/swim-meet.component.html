@@ -28,7 +28,7 @@
                         <div>
                             Meet Info
                         </div>
-                        <div class="pb-1">
+                        <div class="mb-1">
                             <app-edit-buttons [canSwitchEditMode]="canSwitchEditMode" [isEditing]="isEditing" [isSaving]="isSaving" saveSubmitsForm="swimMeetForm" 
                                         (editClick)="editSwimMeet()" (cancelClick)="cancelSwimMeetEdit()"></app-edit-buttons>
                         </div>
@@ -85,8 +85,53 @@
                     </form>
                 </ng-container>
             </div>
-            <div class="col">
-                <h4>Events</h4>
+            <div class="col" *ngIf="savedSwimMeet.meetId > 0">
+                <h4>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            Events
+                        </div>
+                        <div class="mb-1">
+                            <app-tool-button data-bs-target="#addSwimEventModal" data-bs-toggle="modal" 
+                                iconHref="assets/icons/bootstrap-icons.svg#plus-square" labelText="Add Event"></app-tool-button>
+                        </div>
+                    </div>
+                </h4>
+                <table class="table table-hover table-sm" style="font-size: 0.9em;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Event #</th>
+                        <th scope="col">Event</th>
+                        <th scope="col">Seed Time</th>
+                        <th scope="col">Split Time</th>
+                        <th scope="col">Total Time</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                      <tr *ngFor="let swimEvent of swimEvents">
+                        <td>{{swimEvent.eventNumber}}</td>
+                        <td>{{getSwimEventDescription(swimEvent)}}</td>
+                        <td>{{formatTime(swimEvent.seedTimeSec, false)}}</td>
+                        <td>{{formatTime(swimEvent.splitTimeSec, swimEvent.disqualification)}}</td>
+                        <td>{{formatTime(swimEvent.totalTimeSec, swimEvent.disqualification)}}</td>
+                        <td>
+                            <button id=buttonEdit (click)="editSwimEvent(swimEvent)" class="border-0" style="background-color: transparent;"
+                                    data-bs-target="#addSwimEventModal" data-bs-toggle="modal"> 
+                                <svg class="bi" width="14" height="14" fill="none">
+                                    <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
+                                </svg>
+                            </button>
+                            <button id=buttonDelete (click)="deleteSwimEvent(swimEvent)" class="border-0" style="background-color: transparent;">
+                                <svg class="bi" width="15" height="15" fill="currentColor">
+                                    <use xlink:href="assets/icons/bootstrap-icons.svg#trash"/>
+                                </svg>
+                            </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
             </div>
         </div>
     </div>
@@ -94,5 +139,104 @@
 
         
                
+    </div>
+</div>
+
+<div class="modal fade" #editPracticeModal id="addSwimEventModal" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1" aria-labelledby="addSwimEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="addSwimEventModalLabel">Swim Meet Event</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="container bg-white p-1">
+                    <form #addSwimEventForm="ngForm" id="addSwimEventForm" (ngSubmit)="!addSwimEventForm.invalid && saveSwimEvent()">
+                        <div class="input-group input-group-sm ">
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px">Event #</span>
+                            <input type="text" class="form-control" name="eventNumber" [(ngModel)]="editedSwimEvent.eventNumber" >
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:80px">Heat</span>
+                            <input type="text" class="form-control" name="heat" [(ngModel)]="editedSwimEvent.heat" >
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Relay</span>
+                            <select class="form-select" id="result" name="result" [(ngModel)]="editedSwimEvent.relayNumber" (change)="onChangeSwimEventRelay($event)">
+                                <option value=""></option>
+                                <option value="1">Individual</option>
+                                <option value="2">2x</option>
+                                <option value="4">4x</option>
+                            </select>
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px">Leg</span>
+                            <input type="text" class="form-control" name="relayLeg" id="relayLeg" [disabled]="!isSwimEventRelay(editedSwimEvent)" [(ngModel)]="editedSwimEvent.relayLeg" >
+                        </div>
+                        <div class="input-group input-group-sm ">
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px">Race Distance</span>
+                            <input type="text" class="form-control" name="totalDistance" required="required" [(ngModel)]="editedSwimEvent.totalDistance" >
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px">meters</span>
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Event</span>
+                            <select class="form-select" id="eventType" name="eventType" [(ngModel)]="editedSwimEvent.eventType" (change)="onChangeSwimEventType($event)">
+                                <option value=""></option>
+                                <option value="Freestyle">Freestyle</option>
+                                <option value="Backstroke">Backstroke</option>
+                                <option value="Butterfly">Butterfly</option>
+                                <option value="Breaststroke">Breaststroke</option>
+                                <option value="IM">IM</option>
+                            </select>
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Stroke</span>
+                            <select class="form-select" id="stroke" name="stroke" [disabled]="!isSwimEventIM(editedSwimEvent)" [(ngModel)]="editedSwimEvent.stroke" >
+                                <option value=""></option>
+                                <option value="Freestyle">Freestyle</option>
+                                <option value="Backstroke">Backstroke</option>
+                                <option value="Butterfly">Butterfly</option>
+                                <option value="Breaststroke">Breaststroke</option>
+                            </select>
+                        </div>
+                        <div>
+                            
+                            <h5 style="margin-top: 5px;">Times</h5>
+                            <div style="display:inline-flex;width: 100%;">
+                                <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:33%">Seed</span>
+                                <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:33%">Split</span>
+                                <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:33%">Total</span>
+                            </div>
+                            <div style="display:inline-flex;width: 100%;">
+                                <input type="text" pattern="([0-9]+:)?[0-9]{1,2}(.[0-9]{1,})?" placeholder="#:##.###" style="width:33%" class="form-control" name="seedTimeSec" [(ngModel)]="editSwimEventSeedTimeStr">    
+                                <input type="text" pattern="([0-9]+:)?[0-9]{1,2}(.[0-9]{1,})?" placeholder="#:##.###" style="width:33%" class="form-control" name="splitTimeSec" [(ngModel)]="editSwimEventSplitTimeStr" (change)="onChangeSwimEventSplitTime($event);">
+                                <input type="text" pattern="([0-9]+:)?[0-9]{1,2}(.[0-9]{1,})?" placeholder="#:##.###" style="width:33%" class="form-control" name="totalTimeSec" [(ngModel)]="editSwimEventTotalTimeStr" [disabled]="!isSwimEventRelay(editedSwimEvent)"> 
+                            </div>
+                        </div>
+                        <div class="input-group input-group-sm mb-3 d-flex justify-content-center mt-1">
+                            <div class="form-check form-switch ms-4">
+                                <input class="form-check-input" type="checkbox" id="isDisqualification" name="isDisqualification" [(ngModel)]="editedSwimEvent.disqualification" >
+                                <label class="form-check-label" for="isOvertime">Disqualified?</label>
+                            </div>
+                            <div class="form-check form-switch ms-4">
+                                <input class="form-check-input" type="checkbox" id="isScratch" name="isScratch" [(ngModel)]="editedSwimEvent.scratch" >
+                                <label class="form-check-label" for="isScratch">Scratched?</label>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group input-group-sm ">
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px">Place</span>
+                            <input type="numeric" class="form-control" name="place" [(ngModel)]="editedSwimEvent.place">
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;width:100px">Meet Points</span>
+                            <input type="numeric" class="form-control" name="meetPoints" [(ngModel)]="editedSwimEvent.meetPoints">
+                        </div>
+                        
+                        <div>
+                            <span class="input-group-text input-group-sm" style="font-size: 0.9em;">Notes</span>
+                            <textarea class="form-control" id="notes" rows="5" name="notes" aria-label="notes" [(ngModel)]="editedSwimEvent.notes" style="font-size: 0.9em;"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetSwimEventForm(null);">Close</button>
+                <button type="submit" form="addSwimEventForm" class="btn btn-primary">Save</button>
+                <app-status-icon #swimEventStatus id="swimEventStatus" [statusIconSettings]="swimEventStatusIconSettings"></app-status-icon>
+            </div>
+        </div>
     </div>
 </div>

@@ -86,7 +86,7 @@
         <div class="d-flex justify-content-end align-items-center mt-3">
           <button type="button" class="btn btn-secondary pe-2" (click)="onCancelEdit();">Close</button>
           <button type="submit" form="editClinicForm" class="btn btn-primary ms-2">Save</button>
-          <app-status-icon #inlineStatusIcon id="inlineStatusIcon" class="ms-2" [savingVisible]="savingVisible" [successVisible]="successVisible" [errorVisible]="errorVisible"></app-status-icon>
+          <app-status-icon #inlineStatusIcon id="inlineStatusIcon" class="ms-2" [statusIconSettings]="statusIconSettings"></app-status-icon>
         </div>
       </div>
     </div>
@@ -107,7 +107,7 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCancelEdit()">Close</button>
               <button type="submit" form="editClinicForm" class="btn btn-primary" >Save</button>
-              <app-status-icon #modalStatusIcon id="modalStatusIcon" [savingVisible]="savingVisible" [successVisible]="successVisible" [errorVisible]="errorVisible"></app-status-icon>
+              <app-status-icon #modalStatusIcon id="modalStatusIcon" [statusIconSettings]="statusIconSettings"></app-status-icon>
             </div>
       </div>
   </div>

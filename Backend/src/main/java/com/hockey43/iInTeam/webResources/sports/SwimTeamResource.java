@@ -5,10 +5,7 @@ import com.hockey43.iInTeam.dataObjects.hockey.HockeyGame;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyGameSheet;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeam;
 import com.hockey43.iInTeam.dataObjects.hockey.HockeyTeamSummary;
-import com.hockey43.iInTeam.dataObjects.swim.SwimMeet;
-import com.hockey43.iInTeam.dataObjects.swim.SwimMeetSheet;
-import com.hockey43.iInTeam.dataObjects.swim.SwimTeam;
-import com.hockey43.iInTeam.dataObjects.swim.SwimTeamSummary;
+import com.hockey43.iInTeam.dataObjects.swim.*;
 import com.hockey43.iInTeam.dataServices.swim.SwimTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -120,7 +117,7 @@ public class SwimTeamResource {
         return new ResponseEntity<SwimMeetSheet>(updatedSwimMeetSheet, HttpStatus.OK);
     }
 
-    @PreAuthorize("@authenticator.userCanAccessTeamEventEvent(#principal.getName(), #meetId) && @authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
+    @PreAuthorize("@authenticator.userCanAccessTeamEvent(#principal.getName(), #meetId) && @authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
     @DeleteMapping("/players/{playerId}/SwimTeams/{teamId}/meets/{meetId}")
     public ResponseEntity<HockeyGameSheet> deleteSwimMeet(
             Principal principal,
@@ -128,6 +125,68 @@ public class SwimTeamResource {
             @PathVariable long meetId
     ) {
         this.swimTeamService.deleteSwimMeet(meetId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PreAuthorize("@authenticator.userCanAccessTeamEvent(#principal.getName(), #meetId)")
+    @GetMapping("/players/{playerId}/SwimTeams/{teamId}/meets/{meetId}/swimEvents")
+    public List<SwimEventSummary> getSwimMeetEvents(
+            Principal principal,
+            @PathVariable long meetId
+    ) {
+        List<SwimEvent> swimEvents = this.swimTeamService.getSwimEventsForMeet(meetId);
+
+        List<SwimEventSummary> eventSummaries = new ArrayList<SwimEventSummary>();
+        swimEvents.forEach((swimEvent)->eventSummaries.add(new SwimEventSummary(swimEvent)));
+
+
+        return eventSummaries;
+    }
+
+    @PreAuthorize("@authenticator.userCanAccessTeamEvent(#principal.getName(), #meetId)")
+    @PostMapping("/players/{playerId}/SwimTeams/{teamId}/meets/{meetId}/swimEvents")
+    public ResponseEntity<SwimEventSummary> createSwimEvent(
+            Principal principal,
+            @PathVariable long meetId,
+            @RequestBody SwimEventSummary swimEventSummary
+    ) {
+        SwimEvent newEvent = this.swimTeamService.getNewSwimEvent(meetId);
+        newEvent.mergeSwimEventSummary(swimEventSummary);
+        this.swimTeamService.saveSwimEvent(newEvent);
+
+        SwimEventSummary updatedSwimEventSummary = swimEventSummary;
+        updatedSwimEventSummary.setSwimEventId(newEvent.getSwimEventId());
+
+        return new ResponseEntity<SwimEventSummary>(updatedSwimEventSummary, HttpStatus.OK);
+    }
+
+    @PreAuthorize("@authenticator.userCanAccessTeamEvent(#principal.getName(), #meetId)")
+    @PutMapping("/players/{playerId}/SwimTeams/{teamId}/meets/{meetId}/swimEvents/{swimEventId}")
+    public ResponseEntity<SwimEventSummary> updateSwimEvent(
+            Principal principal,
+            @PathVariable long meetId,
+            @PathVariable long swimEventId,
+            @RequestBody SwimEventSummary swimEventSummary
+    ) {
+        SwimEvent newEvent = this.swimTeamService.getSwimEvent(swimEventId);
+        newEvent.mergeSwimEventSummary(swimEventSummary);
+        this.swimTeamService.saveSwimEvent(newEvent);
+
+        SwimEventSummary updatedSwimEventSummary = swimEventSummary;
+        updatedSwimEventSummary.setSwimEventId(newEvent.getSwimEventId());
+
+        return new ResponseEntity<SwimEventSummary>(updatedSwimEventSummary, HttpStatus.OK);
+    }
+
+    @PreAuthorize("@authenticator.userCanAccessTeamEvent(#principal.getName(), #meetId) && @authenticator.userCanAccessPlayer(#principal.getName(), #playerId)")
+    @DeleteMapping("/players/{playerId}/SwimTeams/{teamId}/meets/{meetId}/swimEvents/{swimEventId}")
+    public ResponseEntity<SwimEventSummary> deleteSwimEvent(
+            Principal principal,
+            @PathVariable long playerId,
+            @PathVariable long meetId,
+            @PathVariable long swimEventId
+    ) {
+        this.swimTeamService.deleteSwimEvent(swimEventId);
         return ResponseEntity.noContent().build();
     }
 }

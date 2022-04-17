@@ -1,9 +1,9 @@
-<svg class="bi" width="24" height="24" fill="none" style="color: green;" *ngIf="successVisible">
+<svg class="bi" width="24" height="24" fill="none" style="color: green;" *ngIf="statusIconSettings.successVisible">
     <use xlink:href="assets/icons/bootstrap-icons.svg#check-lg"/>
 </svg>
-<svg class="bi" width="28" height="28" fill="none" style="color: red;"  *ngIf="errorVisible">
+<svg class="bi" width="28" height="28" fill="none" style="color: red;"  *ngIf="statusIconSettings.errorVisible">
     <use xlink:href="assets/icons/bootstrap-icons.svg#exclamation"/>
 </svg>
-<div class="spinner-border spinner-border-sm text-primary" role="status"  *ngIf="savingVisible">
+<div class="spinner-border spinner-border-sm text-primary" role="status"  *ngIf="statusIconSettings.savingVisible">
     <span class="visually-hidden">Loading...</span>
   </div>

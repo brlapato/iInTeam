@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SwimMeet, SwimTeam } from 'src/app/data-objects/data-objects.module';
+import { SwimMeet, SwimTeam } from 'src/app/data-objects/swim-data-objects.module';
 import { SwimTeamService } from 'src/app/services/data/swim-team.service';
-import { TeamService } from 'src/app/services/data/team.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
 
 @Component({
@@ -77,6 +76,10 @@ export class SwimTeamDetailComponent implements OnInit {
     if (this.team != null) {
       this.router.navigate(['swimMeet', this.team?.teamId, -1]);
     }
+  }
+
+  onSwimMeetDelete(meet: SwimMeet) {
+    this.loadMeets();
   }
 
 }

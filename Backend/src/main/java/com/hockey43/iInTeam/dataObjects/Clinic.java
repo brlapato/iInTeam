@@ -31,7 +31,7 @@ public class Clinic implements ICalendarEventSource {
     @JoinColumn(name="PlayerId", nullable = false)
     private Player playerOwner;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "OrgId")
     private Org org;
 
