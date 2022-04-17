@@ -19,10 +19,12 @@ export class SwimMeetComponent implements OnInit {
   savedSwimMeet: SwimMeet = SwimMeet.getDetault();
   editedSwimMeet: SwimMeet = SwimMeet.getDetault();
 
-  editSwimEvent: SwimEvent = SwimEvent.getDefault();
+  editedSwimEvent: SwimEvent = SwimEvent.getDefault();
   editSwimEventSeedTimeStr: string = "";
   editSwimEventSplitTimeStr: string = "";
   editSwimEventTotalTimeStr: string = "";
+
+  swimEvents: SwimEvent[] = [];
 
   swimEventStatusIconSettings: StatusIconSettings = new StatusIconSettings();
 
@@ -75,6 +77,7 @@ export class SwimMeetComponent implements OnInit {
           }
       }
     );
+    this.loadSwimEvents(meetId);
   }
 
   public setDates(startDate: Date, endDate: Date) {
@@ -156,12 +159,29 @@ export class SwimMeetComponent implements OnInit {
   
 
 
-  public resetSwimEventForm(): void {
+  public resetSwimEventForm(targetSwimEvent: SwimEvent | null): void {
+    if (targetSwimEvent == null) {
+      targetSwimEvent = SwimEvent.getDefault();
+    }
     StatusIconSettings.clearStatus(this.swimEventStatusIconSettings);
-    SwimEvent.copyTo(SwimEvent.getDefault(), this.editSwimEvent);
-    this.editSwimEventSeedTimeStr = "";
-    this.editSwimEventSplitTimeStr = "";
-    this.editSwimEventTotalTimeStr = "";
+    SwimEvent.copyTo(targetSwimEvent, this.editedSwimEvent);
+    this.editSwimEventSeedTimeStr = this.formatTimeForEdit(targetSwimEvent.seedTimeSec);
+    this.editSwimEventSplitTimeStr = this.formatTimeForEdit(targetSwimEvent.splitTimeSec);
+    this.editSwimEventTotalTimeStr = this.formatTimeForEdit(targetSwimEvent.totalTimeSec);
+  }
+
+  public loadSwimEvents(meetId: number): void {
+    this.auth.playerId$.subscribe(
+      (playerId:number | null) => {
+        if (playerId) {
+            this.swimTeamService.getSwimEvents(playerId, this.teamId, meetId).subscribe(
+              (data: SwimEvent[]) => { 
+                  this.swimEvents = data; 
+              }
+            );
+          }
+      }
+    );
   }
 
   public saveSwimEvent(): void {
@@ -169,43 +189,60 @@ export class SwimMeetComponent implements OnInit {
     StatusIconSettings.setSaving(this.swimEventStatusIconSettings);
 
     // parse time inputs and set the editSwimEvent object
-    this.editSwimEvent.seedTimeSec = this.parseTimeInput(this.editSwimEventSeedTimeStr);
-    this.editSwimEvent.splitTimeSec = this.parseTimeInput(this.editSwimEventSplitTimeStr);
-    this.editSwimEvent.totalTimeSec = this.parseTimeInput(this.editSwimEventTotalTimeStr);
+    this.editedSwimEvent.seedTimeSec = this.parseTimeInput(this.editSwimEventSeedTimeStr);
+    this.editedSwimEvent.splitTimeSec = this.parseTimeInput(this.editSwimEventSplitTimeStr);
+    this.editedSwimEvent.totalTimeSec = this.parseTimeInput(this.editSwimEventTotalTimeStr);
 
-    if (this.editSwimEvent.totalDistance != null && this.editSwimEvent.relayNumber != null) {
-      this.editSwimEvent.legDistance = this.editSwimEvent.totalDistance / this.editSwimEvent.relayNumber;
+    if (this.editedSwimEvent.totalDistance != null && this.editedSwimEvent.relayNumber != null) {
+      this.editedSwimEvent.legDistance = this.editedSwimEvent.totalDistance / this.editedSwimEvent.relayNumber;
     } else {
-      this.editSwimEvent.legDistance = null;
+      this.editedSwimEvent.legDistance = null;
     }
 
     this.auth.playerId$.subscribe(
       (playerId:number | null) => {
         if (playerId) {
           let serviceFunction: Observable<SwimEvent>;
-          if (this.editSwimEvent.swimEventId == -1) {
-            serviceFunction = this.swimTeamService.createSwimEvent(playerId, this.teamId, this.savedSwimMeet.meetId, this.editSwimEvent);
+          if (this.editedSwimEvent.swimEventId == -1) {
+            serviceFunction = this.swimTeamService.createSwimEvent(playerId, this.teamId, this.savedSwimMeet.meetId, this.editedSwimEvent);
           } else {
-            serviceFunction = this.swimTeamService.updateSwimEvent(playerId, this.teamId, this.savedSwimMeet.meetId, this.editSwimEvent);
+            serviceFunction = this.swimTeamService.updateSwimEvent(playerId, this.teamId, this.savedSwimMeet.meetId, this.editedSwimEvent);
           }
           serviceFunction.subscribe(
             (data: SwimEvent) => { 
-              SwimEvent.copyTo(data, this.editSwimEvent);
+              SwimEvent.copyTo(data, this.editedSwimEvent);
               StatusIconSettings.setSuccess(this.swimEventStatusIconSettings);
+              this.loadSwimEvents(this.savedSwimMeet.meetId);
              },
             (error: any) => {
+              console.log('Service function error:')
+              console.log(error);
               StatusIconSettings.setError(this.swimEventStatusIconSettings);
             }
           );
         }
       }
     );
+  }
 
-    
+  public editSwimEvent(swimEvent: SwimEvent): void {
+    this.resetSwimEventForm(swimEvent);
+  }
 
-    
-    
-;
+  public deleteSwimEvent(swimEvent: SwimEvent): void {
+    if(confirm('Are you sure you want to delete this event?')) {
+      this.auth.playerId$.subscribe(
+        (playerId:number | null) => {
+          if (playerId) {
+              this.swimTeamService.deleteSwimEvent(playerId, this.teamId, this.savedSwimMeet.meetId, swimEvent).subscribe(
+                (data: any) => {
+                  this.loadSwimEvents(this.savedSwimMeet.meetId);
+                }
+              );
+            }
+        }
+      );
+    }
   }
 
   public parseTimeInput(text: string): number {
@@ -219,23 +256,39 @@ export class SwimMeetComponent implements OnInit {
     }
   }
 
+  public formatTimeForEdit(timeSec: number | null): string {
+    if (timeSec == null || timeSec == 0) {
+      return '';
+    } else {
+      let minutes: number = Math.floor(timeSec / 60);
+      let seconds: number = this.roundSeconds(timeSec - (minutes * 60));
+      
+      if (minutes > 0) {
+        return `${minutes}:${seconds}`;
+      } else {
+        return seconds.toString();
+      }
+    }
+  }
+
   public onChangeSwimEventType(changeEventArgs: any) {
 
-    if(!this.isSwimEventIM(this.editSwimEvent)) {
-      this.editSwimEvent.stroke = this.editSwimEvent.eventType;
+    if(!this.isSwimEventIM(this.editedSwimEvent)) {
+      this.editedSwimEvent.stroke = this.editedSwimEvent.eventType;
     }
   }
 
   public onChangeSwimEventRelay(changeEventArgs: any) {
-    if(!this.isSwimEventRelay(this.editSwimEvent)) {
+    if(!this.isSwimEventRelay(this.editedSwimEvent)) {
 
-      this.editSwimEvent.relayLeg = null;
+      this.editedSwimEvent.relayLeg = null;
+      this.editSwimEventTotalTimeStr = this.editSwimEventSplitTimeStr;
     }
   }
 
   public onChangeSwimEventSplitTime(changeEventArgs: any) {
 
-    if(!this.isSwimEventRelay(this.editSwimEvent)) {
+    if(!this.isSwimEventRelay(this.editedSwimEvent)) {
       this.editSwimEventTotalTimeStr = this.editSwimEventSplitTimeStr;
     }
   }
@@ -254,6 +307,35 @@ export class SwimMeetComponent implements OnInit {
     } else {
       return swimEvent.eventType == 'IM';
     }
+  }
+
+  public getSwimEventDescription(swimEvent: SwimEvent):string {
+    let relayStr: string = swimEvent.relayNumber && swimEvent.relayNumber > 1 ? `${swimEvent.relayNumber}x` : '';
+    let strokeStr: string = swimEvent.eventType == 'IM' ? `(${swimEvent.stroke})` : '';
+    let heatStr: string = swimEvent.heat.length > 0 ? ` - Heat: ${swimEvent.heat}` : '';
+    return `${relayStr}${swimEvent.totalDistance}m ${swimEvent.eventType} ${strokeStr} ${heatStr}`.trim();
+  }
+
+  public formatTime(timeSec: number | null, showDQ: boolean):string {
+    if (showDQ) {
+      return 'DQ';
+    } else if (timeSec == null || timeSec == 0) {
+      return '';
+    } else {
+      let minutes: number = Math.floor(timeSec / 60);
+      let seconds: number = this.roundSeconds(timeSec - (minutes * 60));
+      
+      if (minutes > 0) {
+        return `${minutes}:${seconds}s`;
+      } else {
+        return seconds.toString() + 's';
+      }
+    }
+    
+  }
+
+  public roundSeconds(timeSec: number): number {
+    return Math.round((timeSec + Number.EPSILON) * 1000) / 1000
   }
 
   

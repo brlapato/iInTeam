@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { SwimMeet, SwimTeam } from 'src/app/data-objects/swim-data-objects.module';
 import { SwimTeamService } from 'src/app/services/data/swim-team.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
+
 
 @Component({
   selector: 'app-swim-meet-list-item',
@@ -12,6 +13,7 @@ import { AuthenticationService } from 'src/app/services/user/authentication.serv
 export class SwimMeetListItemComponent implements OnInit {
 
   @Input() meet?: SwimMeet = undefined;
+  @Output() delete: EventEmitter<SwimMeet> = new EventEmitter<SwimMeet>();
 
   constructor(
     private router: Router,
@@ -35,7 +37,7 @@ export class SwimMeetListItemComponent implements OnInit {
           if (playerId && this.meet) {
               this.swimTeamService.deleteSwimMeet(playerId, this.meet?.teamId, this.meet).subscribe(
                 (data: any) => {
-
+                  this.delete.emit(meet);
                 }
               );
             }

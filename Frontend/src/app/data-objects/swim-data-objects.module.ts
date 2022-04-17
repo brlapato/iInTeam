@@ -125,8 +125,8 @@ export class SwimEvent {
     public seedTimeSec: number| null,
     public place: number| null,
     public meetPoints: number| null,
-    public isDisqualification: boolean,
-    public isScratch: boolean,
+    public disqualification: boolean,
+    public scratch: boolean,
     public notes: string
     
   ) { }
@@ -155,8 +155,8 @@ export class SwimEvent {
       target.seedTimeSec = source.seedTimeSec;
       target.place = source.place;
       target.meetPoints = source.meetPoints;
-      target.isDisqualification = source.isDisqualification;
-      target.isScratch = source.isScratch;
+      target.disqualification = source.disqualification;
+      target.scratch = source.scratch;
       target.notes = source.notes;
       
 

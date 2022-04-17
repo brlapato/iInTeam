@@ -37,11 +37,19 @@ export class SwimTeamService {
     return this.http.delete<SwimMeet>(`${API_URL}/players/${playerId}/SwimTeams/${teamId}/meets/${swimMeet.meetId}`);
   }
 
+  public getSwimEvents(playerId: number, teamId: number, swimMeetId: number): Observable<SwimEvent[]> {
+    return this.http.get<SwimEvent[]>(`${API_URL}/players/${playerId}/SwimTeams/${teamId}/meets/${swimMeetId}/swimEvents`);
+  }
+
   public createSwimEvent(playerId: number, teamId: number, swimMeetId: number, swimEvent: SwimEvent): Observable<SwimEvent> {
     return this.http.post<SwimEvent>(`${API_URL}/players/${playerId}/SwimTeams/${teamId}/meets/${swimMeetId}/swimEvents`, swimEvent);
   }
 
   public updateSwimEvent(playerId: number, teamId: number, swimMeetId: number, swimEvent: SwimEvent): Observable<SwimEvent> {
     return this.http.put<SwimEvent>(`${API_URL}/players/${playerId}/SwimTeams/${teamId}/meets/${swimMeetId}/swimEvents/${swimEvent.swimEventId}`, swimEvent);
+  }
+
+  public deleteSwimEvent(playerId: number, teamId: number, swimMeetId: number, swimEvent: SwimEvent) {
+    return this.http.delete<SwimEvent>(`${API_URL}/players/${playerId}/SwimTeams/${teamId}/meets/${swimMeetId}/swimEvents/${swimEvent.swimEventId}`);
   }
 }

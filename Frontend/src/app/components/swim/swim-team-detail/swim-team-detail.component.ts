@@ -78,4 +78,8 @@ export class SwimTeamDetailComponent implements OnInit {
     }
   }
 
+  onSwimMeetDelete(meet: SwimMeet) {
+    this.loadMeets();
+  }
+
 }
