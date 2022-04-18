@@ -1,0 +1,23 @@
+CREATE TABLE `SwimEvent` (
+  `SwimEventId` bigint NOT NULL AUTO_INCREMENT,
+  `Disqualification` bit(1) DEFAULT NULL,
+  `EventNumber` varchar(15) DEFAULT NULL,
+  `EventType` varchar(255) NOT NULL,
+  `Heat` varchar(15) DEFAULT NULL,
+  `LegDistance` int NOT NULL,
+  `MeetPoints` smallint DEFAULT NULL,
+  `Notes` varchar(3500) DEFAULT NULL,
+  `Place` smallint DEFAULT NULL,
+  `RelayLeg` int NOT NULL,
+  `RelayNumber` int NOT NULL,
+  `Scratch` bit(1) DEFAULT NULL,
+  `SeedTimeSec` float DEFAULT NULL,
+  `SplitTimeSec` float DEFAULT NULL,
+  `Stroke` varchar(255) NOT NULL,
+  `TotalDistance` int NOT NULL,
+  `TotalTimeSec` float DEFAULT NULL,
+  `SwimMeetId` bigint DEFAULT NULL,
+  PRIMARY KEY (`SwimEventId`),
+  KEY `SwimEvent_SwimMeetFK` (`SwimMeetId`),
+  CONSTRAINT `SwimEvent_SwimMeet` FOREIGN KEY (`SwimMeetId`) REFERENCES `SwimMeet` (`EventId`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

@@ -6,6 +6,7 @@ import { Clinic } from 'src/app/data-objects/data-objects.module';
 import { ClinicsService } from 'src/app/services/data/clinics.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
 import { PagerComponent } from '../../ui/pager/pager.component';
+import { StatusIconSettings } from '../../ui/status-icon/status-icon.component';
 
 
 @Component({
@@ -29,9 +30,7 @@ export class ClinicsComponent implements OnInit, OnDestroy {
   public sportsFilters: filterItem[] = [];
   public coachFilters: filterItem[] = [];
 
-  public savingVisible: boolean = false;
-  public successVisible: boolean = false;
-  public errorVisible: boolean = false;
+  statusIconSettings: StatusIconSettings = new StatusIconSettings();
   
 
   startDate: Date = new Date();
@@ -110,7 +109,7 @@ export class ClinicsComponent implements OnInit, OnDestroy {
 
   public onEditOpened(clinic: Clinic | null) {
 
-    this.clearStatus();
+    StatusIconSettings.clearStatus(this.statusIconSettings);
     let newClinic: Clinic = Clinic.getDefault();
 
     if( clinic != null ) {
@@ -129,12 +128,12 @@ export class ClinicsComponent implements OnInit, OnDestroy {
   public onCancelEdit() {
     this.isEditing = false;
     this.editClinic = Clinic.getDefault()
-    this.clearStatus();
+    StatusIconSettings.clearStatus(this.statusIconSettings);
   }
 
   public saveClinic() {
 
-    this.setSaving();
+    StatusIconSettings.setSaving(this.statusIconSettings);
     let startDateStr = "";
     if (this.newStartDate.length > 0) {
       startDateStr = new Date(this.newStartDate + "T00:00:00").toDateString();
@@ -151,7 +150,7 @@ export class ClinicsComponent implements OnInit, OnDestroy {
         (playerId:number | null) => {
           if (playerId) {
             this.clinicService.createClinic(playerId, this.editClinic).subscribe(
-              (data: Clinic) => { this.loadClinics(); this.setSuccess();  }
+              (data: Clinic) => { this.loadClinics(); StatusIconSettings.setSuccess(this.statusIconSettings);  }
             );
           }
         }
@@ -161,7 +160,7 @@ export class ClinicsComponent implements OnInit, OnDestroy {
         (playerId:number | null) => {
           if (playerId) {
             this.clinicService.updateClinic(playerId, this.editClinic.clinicId, this.editClinic).subscribe(
-              (data: Clinic) => { this.loadClinics(); this.setSuccess(); }
+              (data: Clinic) => { this.loadClinics(); StatusIconSettings.setSuccess(this.statusIconSettings); }
             );
           }
         }
@@ -290,30 +289,7 @@ export class ClinicsComponent implements OnInit, OnDestroy {
 
   }
 
-  public setSaving(): void {
-    this.successVisible = false;
-    this.errorVisible = false;
-    this.savingVisible = true;
-  }
 
-  public setSuccess(): void {
-    this.successVisible = true;
-    this.errorVisible = false;
-    this.savingVisible = false;
-  }
-
-  public setError(): void {
-    this.successVisible = false;
-    this.errorVisible = true;
-    this.savingVisible = false;
-  }
-
-  public clearStatus(): void {
-    this.successVisible = false;
-    this.errorVisible = false;
-    this.savingVisible = false;
-  }
-  
   
 }
 
