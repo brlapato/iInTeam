@@ -137,9 +137,10 @@ public class HockeyTeamResource {
             Principal principal,
             @PathVariable long playerId,
             @PathVariable long teamId,
+            @PathVariable long gameId,
             @RequestBody HockeyGameSheet gameSheet
     ) {
-        HockeyGame targetGame = this.hockeyTeamService.getHockeyGame(teamId, gameSheet.getGameId());
+        HockeyGame targetGame = this.hockeyTeamService.getHockeyGame(teamId, gameId);
 
         // Merge sheet with game
         targetGame.mergeHockeyGameSheet(gameSheet);
