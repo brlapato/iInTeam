@@ -56,29 +56,29 @@
                 <div class="container bg-white p-1">
                     <form #editPracticeForm="ngForm" id="editPracticeForm" (ngSubmit)="!editPracticeForm.invalid && savePractice()">
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text" style="width:110px">Description</span>
+                            <span class="input-group-text" style="font-size: 0.9em;width:110px">Description</span>
                             <input type="text" class="form-control" name="eventName" [(ngModel)]="editPractice.eventName" >
                         </div>
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text" style="width:110px">Date</span>
+                            <span class="input-group-text" style="font-size: 0.9em;width:110px">Date</span>
                             <input type="date" class="form-control"  name="startDate" required="required" [ngModel]="startDate | date:'yyyy-MM-dd'" (ngModelChange)="newStartDate = $event">
                         </div>
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text">Start</span>
+                            <span class="input-group-text" style="font-size: 0.9em;">Start</span>
                             <input type="time" class="form-control"  name="startTime" id="startTime" required="required" [ngModel]="startTime" (ngModelChange)="startTime = $event">
-                            <span class="input-group-text">End</span>
+                            <span class="input-group-text" style="font-size: 0.9em;">End</span>
                             <input type="time" class="form-control"  name="endTime" id="endTime" required="required" [ngModel]="endTime" (ngModelChange)="endTime = $event">
                         </div>
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text" style="width:110px">Location</span>
+                            <span class="input-group-text" style="font-size: 0.9em;width:110px">Location</span>
                             <input type="text" class="form-control" name="location" [(ngModel)]="editPractice.eventLocation" >
                         </div>
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text" style="width:110px">Location Detail</span>
+                            <span class="input-group-text" style="font-size: 0.9em;width:110px" >Location Detail</span>
                             <input type="text" class="form-control" name="locationDetail" [(ngModel)]="editPractice.eventLocationDetail" >
                         </div>
                         <div>
-                            <span class="input-group-text input-group-sm">Practice Notes</span>
+                            <span class="input-group-text" style="font-size: 0.9em;">Practice Notes</span>
                             <textarea class="form-control" id="postClinicNotes" rows="5" name="postClinicNotes" aria-label="postClinicNotes" [(ngModel)]="editPractice.notes"></textarea>
                         </div>
                     </form>

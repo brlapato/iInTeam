@@ -1,10 +1,10 @@
-   <button id=buttonBack  class="border-0 d-none d-lg-inline" style="background-color: transparent;" (click)="previousPage()" [disabled]="isFirstPage">
+   <button id=buttonBack  class="border-0 d-inline" style="background-color: transparent;" (click)="previousPage()" [disabled]="isFirstPage">
     <svg class="bi" width="20" height="20" fill="none" [style]="isFirstPage ? 'color:lightGray' : 'color:var(--lightAccentColor)'">
         <use xlink:href="assets/icons/bootstrap-icons.svg#caret-left-square"/>
     </svg>
   </button>
   <span class="smallLabel" style="padding-left: 7px;padding-right: 7px;" *ngIf="showItemCount">{{firstIndex}}-{{lastIndex}} of {{itemCount}}</span>
-  <button id=buttonNext  class="border-0 d-none d-lg-inline" style="background-color: transparent;" (click)="nextPage()" [disabled]="isLastPage">
+  <button id=buttonNext  class="border-0 d-inline" style="background-color: transparent;" (click)="nextPage()" [disabled]="isLastPage">
     <svg class="bi" width="20" height="20" fill="none" [style]="isLastPage ? 'color:lightGray' : 'color:var(--lightAccentColor)'">
         <use xlink:href="assets/icons/bootstrap-icons.svg#caret-right-square"/>
     </svg>
