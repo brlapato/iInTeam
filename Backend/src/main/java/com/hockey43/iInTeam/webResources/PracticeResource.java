@@ -81,6 +81,7 @@ public class PracticeResource {
     @DeleteMapping("/players/{playerId}/teams/{teamId}/practices/{practiceId}")
     public ResponseEntity<PracticeSummary> deletePractice(
             Principal principal,
+            @PathVariable long playerId,
             @PathVariable long teamId,
             @PathVariable long practiceId
     ) {
