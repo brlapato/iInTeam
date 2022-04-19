@@ -56,32 +56,32 @@
               <div class="modal-body">
                 <div class="container bg-white rounded-3 pb-5">
                     <form #newTeamForm="ngForm" id="newTeamForm" (ngSubmit)="!newTeamForm.invalid && createTeam()">
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Sport</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Sport</span>
                             <select class="form-select" name="gameType" id="gameType" [(ngModel)]="newTeam.sport">
                                 <option value="Hockey">Hockey</option>
                                 <option value="Swim">Swim</option>
                                 <option value="Baseball">Baseball</option>
                             </select>
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Team Name</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Team Name</span>
                             <input type="text" class="form-control" name="teamName" required="required" [(ngModel)]="newTeam.name" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Org Location</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Org Location</span>
                             <input type="text" class="form-control" name="orgCity" [(ngModel)]="newTeam.org.city" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Org Nickname</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Org Nickname</span>
                             <input type="text" class="form-control" name="orgName" required="true" [(ngModel)]="newTeam.org.name" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Season</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Season</span>
                             <input type="text" class="form-control" name="season" [(ngModel)]="newTeam.season" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Start Date</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Start Date</span>
                             <input type="date" class="form-control"  name="startDate" required="required" [ngModel]="newTeam.startDate | date:'yyyy-MM-dd'" (ngModelChange)="newStartDateStr = $event">
                         </div>
                     </form>
