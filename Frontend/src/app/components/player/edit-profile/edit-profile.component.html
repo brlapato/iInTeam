@@ -25,28 +25,28 @@
                 <div class="col-md" style="max-width: 400px;">
                     <h4>General</h4>
                     <div class="input-group input-group-sm">
-                        <span class="input-group-text" style="width:100px">First Name</span>
+                        <span class="input-group-text" style="font-size: 0.9em;width:100px">First Name</span>
                         <input type="text" class="form-control" name="firstName" required="true" [(ngModel)]="player.firstName" >
                     </div>
                     <div class="input-group input-group-sm">
-                        <span class="input-group-text" style="width:100px">Last Name</span>
+                        <span class="input-group-text" style="font-size: 0.9em;width:100px">Last Name</span>
                         <input type="text" class="form-control" name="lastName" required="true" [(ngModel)]="player.lastName" >
                     </div>
                     <div class="input-group input-group-sm">
-                        <span class="input-group-text" style="width:100px">Nickname</span>
+                        <span class="input-group-text" style="font-size: 0.9em;width:100px">Nickname</span>
                         <input type="text" class="form-control" name="nickName" [(ngModel)]="player.nickName" >
                     </div>
                     <div class="input-group input-group-sm">
-                        <span class="input-group-text" style="width:100px">Height</span>
+                        <span class="input-group-text" style="font-size: 0.9em;width:100px">Height</span>
                         <input type="number" class="form-control" name="heightFeet" style="text-align:right;max-width: 75px;" [(ngModel)]="player.heightFeet" >
-                        <span class="input-group-text" style="width:25px">'</span>
+                        <span class="input-group-text" style="font-size: 0.9em;width:25px">'</span>
                         <input type="number" class="form-control" name="heightInches" style="text-align:right;max-width: 75px;" [(ngModel)]="player.heightInches" >
-                        <span class="input-group-text" style="width:25px">"</span>
+                        <span class="input-group-text" style="font-size: 0.9em;width:25px">"</span>
                     </div>
                     <div class="input-group input-group-sm">
-                        <span class="input-group-text" style="width:100px">Weight</span>
+                        <span class="input-group-text" style="font-size: 0.9em;width:100px">Weight</span>
                         <input type="number" class="form-control" name="weight" style="text-align:right;max-width: 75px;" [(ngModel)]="player.weight" >
-                        <span class="input-group-text" style="width:65px">lbs.</span>
+                        <span class="input-group-text" style="font-size: 0.9em;width:65px">lbs.</span>
                     </div>
                 </div>
                 <div class="col-md" style="max-width: 500px;">
@@ -55,11 +55,11 @@
                         <h5 style="margin-top: 10px;"><input type="checkbox" [(ngModel)]="player.includeHockey" style="margin-right: 10px;">Hockey</h5>
                         <ng-container *ngIf="player.includeHockey && player.hockeyAttributes">
                             <div class="input-group input-group-sm">
-                                <span class="input-group-text" style="width:100px">Position</span>
+                                <span class="input-group-text" style="font-size: 0.9em;width:100px">Position</span>
                                 <input type="text" class="form-control" name="hockeyPosition"  [(ngModel)]="player.hockeyAttributes.position" >
                             </div>
                             <div class="input-group input-group-sm">
-                                <span class="input-group-text" style="width:100px">Shoots</span>
+                                <span class="input-group-text" style="font-size: 0.9em;width:100px">Shoots</span>
                                 <input type="text" class="form-control" name="hockeyShot"  [(ngModel)]="player.hockeyAttributes.shot" >
                             </div>
                         </ng-container>
@@ -67,29 +67,29 @@
                     <ng-container >
                         <h5 style="margin-top: 10px;"><input type="checkbox" style="margin-right: 10px;">Swimming</h5>
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text" style="width:100px">Strokes</span>
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Strokes</span>
                             <input type="text" class="form-control" name="swimEvents" >
                         </div>
                     </ng-container>
                     <ng-container >
                         <h5 style="margin-top: 10px;"><input type="checkbox" style="margin-right: 10px;">Climbing</h5>
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text" style="width:100px">Rating</span>
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Rating</span>
                             <input type="text" class="form-control" name="swimEvents" >
                         </div>
                     </ng-container>
                     <ng-container >
                         <h5 style="margin-top: 10px;"><input type="checkbox" style="margin-right: 10px;"> Baseball</h5>
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text" style="width:100px">Bats</span>
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Bats</span>
                             <input type="text" class="form-control" name="swimEvents" >
                         </div>
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text" style="width:100px">Throws</span>
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Throws</span>
                             <input type="text" class="form-control" name="swimEvents" >
                         </div>
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text" style="width:100px">Position</span>
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Position</span>
                             <input type="text" class="form-control" name="swimEvents" >
                         </div>
                     </ng-container>

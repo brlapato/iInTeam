@@ -60,59 +60,60 @@
               <div class="modal-body">
                 <div class="container bg-white rounded-3 pb-5">
                     <form #hockeyTeamForm="ngForm" id="hockeyTeamForm" (ngSubmit)="!hockeyTeamForm.invalid && saveTeam()">
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Name</span>
+                        <div class="input-group input-group-sm">
+                            
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Name</span>
                             <input type="text" class="form-control" name="teamName" required="required" [(ngModel)]="editTeam.name" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Season</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Season</span>
                             <input type="text" class="form-control" name="season" required="required" [(ngModel)]="editTeam.season" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Org Location</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Org Location</span>
                             <input type="text" class="form-control" name="org" [(ngModel)]="editTeam.org.city" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Org Nickname</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Org Nickname</span>
                             <input type="text" class="form-control" name="mascot" required="required" [(ngModel)]="editTeam.org.name" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Player #</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Player #</span>
                             <input type="text" class="form-control" name="playerNumber" [(ngModel)]="editTeam.playerNumber" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Position</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Position</span>
                             <input type="text" class="form-control" name="position" [(ngModel)]="editTeam.regularPosition" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Age</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Age</span>
                             <input type="text" class="form-control" name="age" [(ngModel)]="editTeam.ageClass" >
                         </div>
-                        <div class="input-group input-group-sm input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Level</span>
+                        <div class="input-group input-group-sm input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Level</span>
                             <input type="text" class="form-control" name="level" [(ngModel)]="editTeam.level" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Head Coach</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Head Coach</span>
                             <input type="text" class="form-control" name="headCoach" [(ngModel)]="editTeam.headCoach" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Asst Coach</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Asst Coach</span>
                             <input type="text" class="form-control" name="asstCoach1" [(ngModel)]="editTeam.assistantCoach1" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Asst Coach</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Asst Coach</span>
                             <input type="text" class="form-control" name="asstCoach2" [(ngModel)]="editTeam.assistantCoach2" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Manager</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Manager</span>
                             <input type="text" class="form-control" name="Manager" [(ngModel)]="editTeam.manager" >
                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" style="width:100px">Start Date</span>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="font-size: 0.9em;width:100px">Start Date</span>
                             <input type="date" class="form-control"  name="startDate" required="required" [ngModel]="editTeam.startDate | date:'yyyy-MM-dd'" (ngModelChange)="newStartDateStr = $event">
                         </div>
-                        <div class="input-group input-group-sm mb-3">
+                        <div class="input-group input-group-sm mt-2">
                             <div class="form-check form-switch ms-4">
                                 <label class="form-check-label" for="isActive">Active</label>
                                 <input class="form-check-input" type="checkbox" id="isActive" name="isActive" [(ngModel)]="editTeam.active" >
