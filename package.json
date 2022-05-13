@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@iplab/ngx-file-upload": "^3.3.3"
+    "@iplab/ngx-file-upload": "^3.3.3",
+    "node-forge": "^1.3.1"
   }
 }

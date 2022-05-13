@@ -150,7 +150,10 @@ export class ClinicsComponent implements OnInit, OnDestroy {
         (playerId:number | null) => {
           if (playerId) {
             this.clinicService.createClinic(playerId, this.editClinic).subscribe(
-              (data: Clinic) => { this.loadClinics(); StatusIconSettings.setSuccess(this.statusIconSettings);  }
+              (data: Clinic) => { 
+                this.loadClinics(); 
+                this.editClinic.clinicId = data.clinicId;
+                StatusIconSettings.setSuccess(this.statusIconSettings);  }
             );
           }
         }
