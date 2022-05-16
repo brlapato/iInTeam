@@ -38,6 +38,13 @@
   padding:2px
 }
 
+h1 {
+  font-weight: 700;
+  font-size: 1.4em;
+  color: var(--primaryColor);
+  border-bottom: 2px solid var(--primaryColor);
+}
+
 h2 {
   font-weight: 700;
   font-size: 1.3em;
@@ -124,4 +131,25 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 0.9em;
 }
+
+/* not active */
+.nav-pills .pill-gray .nav-link:not(.active) {
+  background-color: white;
+  color: var(--primaryColor);
+  margin-left: 20px;
+  font-size: 0.9em;
+}
+
+
+
+
+/* active (faded) */
+.nav-pills .pill-gray .nav-link {
+  background-color: gray;
+  color: white;
+  margin-left: 20px;
+  font-size: 0.9em;
+}
+
+
 
