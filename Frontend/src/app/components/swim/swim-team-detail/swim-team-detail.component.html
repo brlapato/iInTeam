@@ -1,19 +1,14 @@
-<div *ngIf="this.team" class="container h-100 rounded-3 bg-white" style="padding: 15px">
+<div *ngIf="this.team" class="container h-100 rounded-3 bg-white p-0">
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>{{team.name}} 
-                    <button id=buttonEdit class="border-0" style="background-color: transparent;"  data-bs-toggle="modal" data-bs-target="#editTeamModal" (click)="onEditOpened()">
+                <h4>{{team.homePool}} | {{team.hometown}}
+                    <button id=buttonEdit class="border-0" style="background-color: transparent;margin-bottom: 2px;"  data-bs-toggle="modal" data-bs-target="#editTeamModal" (click)="onEditOpened()">
                         <svg class="bi" width="14" height="14" fill="none">
                             <use xlink:href="assets/icons/bootstrap-icons.svg#pencil"/>
                         </svg>
                     </button>
-                </h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h4>{{team.homePool}} | {{team.hometown}} | {{team.season}}</h4>
+                </h4>
             </div>
         </div>
     </div>
